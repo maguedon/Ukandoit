@@ -1,11 +1,22 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
 parameters:
-#    parameter_name: value
+
+    # Constantes de configuration pour l'utilisation de l'API Withings
+    BASE_URL: https://oauth.withings.com/account/
+    URLWSAPI: http://wbsapi.withings.net/
+    CALLBACK_URL: http://localhost:8080/ukandoit/withings/ #http://www.ukandoit.fr/withings/callback [à changer avec l'url de notre site]
+    OAUTH_CONSUMER_KEY: 31ec099bddfee6fb7b16d5bc502e8b5bcbbddf0de39346316427f8f25fd
+    OAUTH_CONSUMER_SECRET: 0d50d732c6655ee07d727ffbc336751d8b3b7c298e32167d945589692e5e9b16
+    LOG_BASE_PATH: /var/log/withings
+
+    # Constantes de configuration pour l'utilisation de l'API Withings
+
 
 services:
+
     app.withings:
-        class: AppBundle\Services\Withings\Withings
+        class: AppBundle\Services\Devices\Withings\Withings
 
     app.jawbone:
-        class: AppBundle\Services\Devices\Jawbone\Jawbone
+            class: AppBundle\Services\Devices\Jawbone\Jawbone
