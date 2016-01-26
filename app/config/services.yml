@@ -4,11 +4,8 @@ parameters:
 #    parameter_name: value
 
 services:
-    withings.oauth:
-        class: AppBundle\Services\Withings\OAuth
+    app.withings:
+        class: AppBundle\Services\Withings\Withings
 
-    withings.log:
-        class: AppBundle\Services\Withings\Log
-
-    withings.wbsapi:
-        class: AppBundle\Services\Withings\WBSApi
+    app.jawbone:
+        class: AppBundle\Services\Devices\Jawbone\Jawbone

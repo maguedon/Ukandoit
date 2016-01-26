@@ -30,9 +30,30 @@ class PossessedDevice
     /**
      * @var string
      *
-     * @ORM\Column(name="token", type="string", length=255)
+     * @ORM\Column(name="access_token_jawbone", type="string", length=255)
      */
-    private $token;
+    private $accessTokenJawbone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="user_id_withings", type="string", length=255)
+     */
+    private $userIdWithings;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="access_token_key_withings", type="string", length=255)
+     */
+    private $accessTokenKeyWithings;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="access_token_secret_withings", type="string", length=255)
+     */
+    private $accessTokenSecretWithings;
 
     /**
      * @var string
@@ -152,5 +173,101 @@ class PossessedDevice
     public function getDeviceType()
     {
         return $this->deviceType;
+    }
+
+    /**
+     * Set accessTokenJawbone
+     *
+     * @param string $accessTokenJawbone
+     *
+     * @return PossessedDevice
+     */
+    public function setAccessTokenJawbone($accessTokenJawbone)
+    {
+        $this->accessTokenJawbone = $accessTokenJawbone;
+
+        return $this;
+    }
+
+    /**
+     * Get accessTokenJawbone
+     *
+     * @return string
+     */
+    public function getAccessTokenJawbone()
+    {
+        return $this->accessTokenJawbone;
+    }
+
+    /**
+     * Set userIdWithings
+     *
+     * @param string $userIdWithings
+     *
+     * @return PossessedDevice
+     */
+    public function setUserIdWithings($userIdWithings)
+    {
+        $this->userIdWithings = $userIdWithings;
+
+        return $this;
+    }
+
+    /**
+     * Get userIdWithings
+     *
+     * @return string
+     */
+    public function getUserIdWithings()
+    {
+        return $this->userIdWithings;
+    }
+
+    /**
+     * Set accessTokenKeyWithings
+     *
+     * @param string $accessTokenKeyWithings
+     *
+     * @return PossessedDevice
+     */
+    public function setAccessTokenKeyWithings($accessTokenKeyWithings)
+    {
+        $this->accessTokenKeyWithings = $accessTokenKeyWithings;
+
+        return $this;
+    }
+
+    /**
+     * Get accessTokenKeyWithings
+     *
+     * @return string
+     */
+    public function getAccessTokenKeyWithings()
+    {
+        return $this->accessTokenKeyWithings;
+    }
+
+    /**
+     * Set accessTokenSecretWithings
+     *
+     * @param string $accessTokenSecretWithings
+     *
+     * @return PossessedDevice
+     */
+    public function setAccessTokenSecretWithings($accessTokenSecretWithings)
+    {
+        $this->accessTokenSecretWithings = $accessTokenSecretWithings;
+
+        return $this;
+    }
+
+    /**
+     * Get accessTokenSecretWithings
+     *
+     * @return string
+     */
+    public function getAccessTokenSecretWithings()
+    {
+        return $this->accessTokenSecretWithings;
     }
 }
