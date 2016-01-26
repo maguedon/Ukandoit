@@ -4,6 +4,11 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    withings.oauth:
+        class: AppBundle\Services\Withings\OAuth
+
+    withings.log:
+        class: AppBundle\Services\Withings\Log
+
+    withings.wbsapi:
+        class: AppBundle\Services\Withings\WBSApi
