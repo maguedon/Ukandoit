@@ -10,29 +10,21 @@ class Jawbone{
 	private $scopes;
 	private $scope;
 
-	function __construct(){
-		$this->client_id      = '7E2uPrNbR3I';
-		$this->client_secret  = '8f662520d8d2619c7855691053571c24bc82f4c1';
-		$this->redirect_uri   = 'http://localhost:443/web/app_dev.php/jawbone/token';
+	function __construct($client_id, $client_secret, $redirect_uri){
+		$this->client_id      = $client_id;
+		$this->client_secret  = $client_secret;
+		$this->redirect_uri   = $redirect_uri;
 
-		$this->scopes[] = "basic_read";
-		$this->scopes[] = "extended_read";
-		$this->scopes[] = "location_read";
-		$this->scopes[] = "friends_read";
-		$this->scopes[] = "mood_read";
-		$this->scopes[] = "mood_write";
-		$this->scopes[] = "move_read";
-		$this->scopes[] = "move_write";
-		$this->scopes[] = "sleep_read";
-		$this->scopes[] = "sleep_write";
-		$this->scopes[] = "meal_read";
-		$this->scopes[] = "meal_write";
-		$this->scopes[] = "weight_read";
-		$this->scopes[] = "weight_write";
-		$this->scopes[] = "cardiac_read";
-		$this->scopes[] = "cardiac_write";
-		$this->scopes[] = "generic_event_read";
-		$this->scopes[] = "generic_event_write";
+  app.jawbone.scopes: ["basic_read", "extended_read", "location_read", "friends_read", "mood_read", "mood_write", "move_read", "move_write", "sleep_read";
+        $this->scopes[] = "sleep_write";
+        $this->scopes[] = "meal_read";
+        $this->scopes[] = "meal_write";
+        $this->scopes[] = "weight_read";
+        $this->scopes[] = "weight_write";
+        $this->scopes[] = "cardiac_read";
+        $this->scopes[] = "cardiac_write";
+        $this->scopes[] = "generic_event_read";
+        $this->scopes[] = "generic_event_write";
 
 		$this->scope = implode(' ', $this->scopes);
 	}

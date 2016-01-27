@@ -10,7 +10,14 @@ parameters:
     OAUTH_CONSUMER_SECRET: 0d50d732c6655ee07d727ffbc336751d8b3b7c298e32167d945589692e5e9b16
     LOG_BASE_PATH: /var/log/withings
 
-    # Constantes de configuration pour l'utilisation de l'API Withings
+    # Constantes de configuration pour l'utilisation de l'API Jawbone
+
+    app.jawbone.client_id: '7E2uPrNbR3I'
+    app.jawbone.client_secret: '8f662520d8d2619c7855691053571c24bc82f4c1'
+    app.jawbone.redirect_uri: 'http://localhost:443/web/app_dev.php/jawbone/token'
+
+      
+
 
 
 services:
@@ -19,4 +26,7 @@ services:
         class: AppBundle\Services\Devices\Withings\Withings
 
     app.jawbone:
-            class: AppBundle\Services\Devices\Jawbone\Jawbone
+        class: AppBundle\Services\Devices\Jawbone\Jawbone
+        arguments: ['%app.jawbone.client_id%', '%app.jawbone.client_secret%', '%app.jawbone.redirect_uri%']
+
+
