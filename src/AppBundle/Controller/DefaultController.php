@@ -9,6 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
+     * @Route("/", name="homepage")
+     */
+    public function indexAction(){
+        return $this->render('AppBundle:Default:index.html.twig');
+    }
+    /**
      * @Route("/withings", name="withings")
      */
     public function withingsAction(){
