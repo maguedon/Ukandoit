@@ -5,6 +5,17 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% stylesheets 'bundles/AppBundle/css/*'
+        'bundles/AppBundle/materialize/css/materialize.min.css'        
+         %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
+            {% javascripts 'bundles/AppBundle/js/*'
+            'bundles/AppBundle/materialize/js/materialize.min.js'
+            %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+
     </head>
     <body>
         {% include 'include/_menu.html.twig' %}
