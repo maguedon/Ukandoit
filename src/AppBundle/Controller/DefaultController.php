@@ -9,11 +9,21 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/withings", name="withings")
      */
-    public function indexAction()
-    {
-        // replace this example code with whatever you need
-        return $this->render('AppBundle:Default:index.html.twig');
+    public function withingsAction(){
+        $withings = $this->get("app.withings");
+        var_dump($withings);
+        $withings->getRequestToken();
+    }
+
+    /**
+     * @Route("/withings/token", name="token")
+     */
+    public function getWithingsTokenAction(){
+        $withings = $this->get("app.withings");
+        $json = $withings->getAccessToken();
+        var_dump($json);
+        return $this->render('AppBundle:Default:withings.html.twig');
     }
 }

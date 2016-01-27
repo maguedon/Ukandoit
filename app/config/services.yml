@@ -3,15 +3,13 @@
 parameters:
 
     # Constantes de configuration pour l'utilisation de l'API Withings
-    BASE_URL: https://oauth.withings.com/account/
-    URLWSAPI: http://wbsapi.withings.net/
-    CALLBACK_URL: http://localhost:8080/ukandoit/withings/ #http://www.ukandoit.fr/withings/callback [à changer avec l'url de notre site]
-    OAUTH_CONSUMER_KEY: 31ec099bddfee6fb7b16d5bc502e8b5bcbbddf0de39346316427f8f25fd
-    OAUTH_CONSUMER_SECRET: 0d50d732c6655ee07d727ffbc336751d8b3b7c298e32167d945589692e5e9b16
-    LOG_BASE_PATH: /var/log/withings
+    app.withings.base_url: https://oauth.withings.com/account/
+    app.withings.wbsapi: http://wbsapi.withings.net/
+    app.withings.callback_url: http://localhost:8080/ukandoit/withings/ #http://www.ukandoit.fr/withings/callback [à changer avec l'url de notre site]
+    app.withings.consumer_key: 31ec099bddfee6fb7b16d5bc502e8b5bcbbddf0de39346316427f8f25fd
+    app.withings.consumer_secret: 0d50d732c6655ee07d727ffbc336751d8b3b7c298e32167d945589692e5e9b16
 
     # Constantes de configuration pour l'utilisation de l'API Jawbone
-
     app.jawbone.client_id: '7E2uPrNbR3I'
     app.jawbone.client_secret: '8f662520d8d2619c7855691053571c24bc82f4c1'
     app.jawbone.redirect_uri: 'http://localhost:443/web/app_dev.php/jawbone/token'
@@ -37,9 +35,12 @@ parameters:
         - "generic_event_write"
 
 services:
+    fos_user.doctrine_registry:
+            alias: doctrine
 
     app.withings:
-        class: AppBundle\Services\Devices\Withings\Withings
+        class: AppBundle\Services\Devices\Withings\WBSApi
+        arguments: ['%app.withings.consumer_key%', '%app.withings.consumer_secret%', '%app.withings.callback_url%', '%app.withings.base_url%', '%app.withings.wbsapi%']
 
     app.jawbone:
         class: AppBundle\Services\Devices\Jawbone\Jawbone
