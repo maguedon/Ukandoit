@@ -31,10 +31,29 @@ class DefaultController extends Controller
     /**
      * @Route("/jawbone/token", name="token")
      */
-    public function getTokenAction(){
+    public function getJawboneTokenAction(){
         $jawbone = $this->get("app.jawbone");
         $json = $jawbone->getToken();
         var_dump($json);
         return $this->render('AppBundle:Default:jawbone.html.twig');
+    }
+
+    /**
+     * @Route("/withings", name="withings")
+     */
+    public function withingsAction(){
+        $withings = $this->get("app.withings");
+        var_dump($withings);
+        $withings->getRequestToken();
+    }
+
+    /**
+     * @Route("/withings/token", name="token")
+     */
+    public function getWithingsTokenAction(){
+        $withings = $this->get("app.withings");
+        $json = $withings->getAccessToken();
+        var_dump($json);
+        return $this->render('AppBundle:Default:withings.html.twig');
     }
 }
