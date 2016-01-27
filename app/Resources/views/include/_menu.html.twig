@@ -1,0 +1,14 @@
+<ul>
+	{% if app.user %}
+		<li>
+			Se déconnecter
+		</li>
+		<li>
+			<a href="{{ path('new_object') }}">Ajouter un objet connecté</a>
+		</li>
+	{% else %}
+		<li>
+			<a href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
+		</li>
+	{% endif %}
+</ul>

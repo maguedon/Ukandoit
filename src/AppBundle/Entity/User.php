@@ -26,28 +26,28 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="firstname", type="string", length=255)
+     * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
      */
     private $firstname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lastname", type="string", length=255)
+     * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
      */
     private $lastname;
 
     /**
      * @var blob
      *
-     * @ORM\Column(name="avatar", type="blob")
+     * @ORM\Column(name="avatar", type="blob", nullable=true)
      */
     private $avatar;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="nbPoints", type="integer")
+     * @ORM\Column(name="nbPoints", type="integer", nullable=true)
      */
     private $nbPoints;
 

@@ -10,21 +10,12 @@ class Jawbone{
 	private $scopes;
 	private $scope;
 
-	function __construct($client_id, $client_secret, $redirect_uri){
+	function __construct($client_id, $client_secret, $redirect_uri, $scopes){
 		$this->client_id      = $client_id;
 		$this->client_secret  = $client_secret;
 		$this->redirect_uri   = $redirect_uri;
 
-  app.jawbone.scopes: ["basic_read", "extended_read", "location_read", "friends_read", "mood_read", "mood_write", "move_read", "move_write", "sleep_read";
-        $this->scopes[] = "sleep_write";
-        $this->scopes[] = "meal_read";
-        $this->scopes[] = "meal_write";
-        $this->scopes[] = "weight_read";
-        $this->scopes[] = "weight_write";
-        $this->scopes[] = "cardiac_read";
-        $this->scopes[] = "cardiac_write";
-        $this->scopes[] = "generic_event_read";
-        $this->scopes[] = "generic_event_write";
+		$this->scopes = $scopes;
 
 		$this->scope = implode(' ', $this->scopes);
 	}
