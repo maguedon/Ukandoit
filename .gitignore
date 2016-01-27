@@ -10,3 +10,6 @@
 /vendor/
 /bin/
 /composer.phar
+app/SymfonyRequirements.php
+app/check.php
+web/config.php
