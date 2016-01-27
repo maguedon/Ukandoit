@@ -6,8 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Form\PossessedDeviceType;
+use AppBundle\Entity\DeviceType as DeviceType;
 
-class NewPossessedDeviceType extends PossessedDeviceType;
+class NewPossessedDeviceType extends PossessedDeviceType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -24,7 +25,8 @@ class NewPossessedDeviceType extends PossessedDeviceType;
             ->remove('accessTokenSecretWithings')
             ->remove('url')
             ->remove('user')
-            ->add('deviceType')
-        ;
+            ->add('deviceType', 'entity', array(
+                'class' => 'AppBundle:DeviceType')
+            );
     }
 }
