@@ -26,7 +26,11 @@ class NewPossessedDeviceType extends PossessedDeviceType
             ->remove('url')
             ->remove('user')
             ->add('deviceType', 'entity', array(
-                'class' => 'AppBundle:DeviceType')
-            );
+                'class' => 'AppBundle:DeviceType',
+                'label' => "Objet connecté : "))
+            ->add('submit', 'submit', array(
+                'label' => 'Ajouter'
+                ))
+            ;
     }
 }
