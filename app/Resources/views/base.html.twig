@@ -5,21 +5,25 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        {% stylesheets  filter='cssrewrite' 'bundles/AppBundle/css/*'
+        {% stylesheets  filter='cssrewrite' 
         'bundles/AppBundle/materialize/css/materialize.min.css'
+        'bundles/AppBundle/css/*'
          %}
             <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
         {% endstylesheets %}
-            {% javascripts 'bundles/AppBundle/js/*'
+        {% javascripts
+            'bundles/AppBundle/js/*'
             'bundles/AppBundle/materialize/js/materialize.min.js'
-            %}
-                <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
+        %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
 
     </head>
     <body>
         {% include 'include/_header.html.twig' %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+        {% include 'include/_footer.html.twig' %}
+
     </body>
 </html>
