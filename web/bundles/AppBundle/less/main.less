@@ -1,6 +1,29 @@
-@import "_theme.less";
 @import "_header.less";
+@import "_footer.less";
+@import "_mixins.less";
+@import "_theme.less";
+
+
+
+html {
+	position: relative;
+	min-height: 100%;
+}
 
 body {
 	background-color: @layout;
+	font-weight: 400;
+	font-size: 1.5em;
+	margin-bottom: 150px;
+	
+	a {
+		color: @white;
+		&:hover {
+			color: @rouge_mat;
+			text-decoration: none;
+
+		}
+	}
+
 }
+
