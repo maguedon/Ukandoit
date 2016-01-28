@@ -24,17 +24,15 @@ class DefaultController extends Controller
      */
     public function withingsAction(){
         $withings = $this->get("app.withings");
-        var_dump($withings);
-        $withings->getRequestToken();
+        $url = $withings->connection();
+        var_dump($url);
     }
 
     /**
      * @Route("/withings/token", name="token")
      */
     public function getWithingsTokenAction(){
-        $withings = $this->get("app.withings");
-        $json = $withings->getAccessToken();
-        var_dump($json);
+
         return $this->render('AppBundle:Default:withings.html.twig');
     }
 
@@ -51,7 +49,9 @@ class DefaultController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             if(strpos($possessedDevice->getDeviceType()->getName(), "Withings")){
-
+                $withings = $this->get("app.withings");
+/*                $url = $withings->connection();
+                return $this->redirect($url);*/
             }
             // Jawbone
             else{
