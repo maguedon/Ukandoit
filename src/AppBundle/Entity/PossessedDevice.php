@@ -30,35 +30,35 @@ class PossessedDevice
     /**
      * @var string
      *
-     * @ORM\Column(name="access_token_jawbone", type="string", length=255)
+     * @ORM\Column(name="access_token_jawbone", type="string", length=255, nullable=true)
      */
     private $accessTokenJawbone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="user_id_withings", type="string", length=255)
+     * @ORM\Column(name="user_id_withings", type="string", length=255, nullable=true)
      */
     private $userIdWithings;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="access_token_key_withings", type="string", length=255)
+     * @ORM\Column(name="access_token_key_withings", type="string", length=255, nullable=true)
      */
     private $accessTokenKeyWithings;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="access_token_secret_withings", type="string", length=255)
+     * @ORM\Column(name="access_token_secret_withings", type="string", length=255, nullable=true)
      */
     private $accessTokenSecretWithings;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="string", length=255, unique=true)
+     * @ORM\Column(name="url", type="string", length=255, unique=true, nullable=true)
      */
     private $url;
 
@@ -67,6 +67,23 @@ class PossessedDevice
      * @ORM\JoinColumn(name="deviceType_id", referencedColumnName="id")
      */
     private $deviceType;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation_date", type="datetime")
+     */
+    private $creationDate;
+
+
+    function __construct(){
+        $this->creationDate = new \DateTime();
+        $this->accessTokenJawbone = null;
+        $this->userIdWithings = null;
+        $this->accessTokenKeyWithings = null;
+        $this->accessTokenSecretWithings = null;
+        $this->url = null;
+    }
 
 
     /**
@@ -269,5 +286,28 @@ class PossessedDevice
     public function getAccessTokenSecretWithings()
     {
         return $this->accessTokenSecretWithings;
+    }
+
+    /**
+     * Set creationDate
+     *
+     * @param \DateTime $creationDate
+     * @return PossessedDevice
+     */
+    public function setCreationDate(\DateTime $creationDate)
+    {
+        $this->creationDate = $creationDate;
+
+        return $this;
+    }
+
+    /**
+     * Get creationDate
+     *
+     * @return \DateTime 
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
     }
 }

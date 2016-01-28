@@ -2,4 +2,10 @@
 
 {% block body %}
 	<h1>Défis connectés</h1>
+	<h2>Objets connectés</h2>
+	<ul>
+	{% for possessedDevice in possessedDevices %}
+		<li>{{ possessedDevice.deviceType }}</li>
+	{% endfor %}
+</ul>
 {% endblock %}

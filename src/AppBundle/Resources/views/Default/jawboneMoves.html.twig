@@ -1,0 +1,25 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+	<h1>Défis connectés</h1>
+	<h2>Déplacements par heures</h2>
+	<table>
+		<tr>
+			<td>Distance</td>
+			<td>Temps d'activité</td>
+			<td>Calories</td>
+			<td>Temps d'inactivité</td>
+			<td>Nombre de pas</td>
+		</tr>
+		{% for hour in hourly_totals %}
+			<tr>
+				<td>{{ hour.distance }}</td>
+				<td>{{ hour.active_time }}</td>
+				<td>{{ hour.calories }}</td>
+				<td>{{ hour.inactive_time }}</td>
+				<td>{{ hour.steps }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+
+{% endblock %}

@@ -314,4 +314,9 @@ class User extends BaseUser
     {
         return $this->challengesAccepted;
     }
+
+    public function getLastPossessedDevice(){
+        $numberOfPossessedDevices = count($this->possessedDevices);
+        return $this->possessedDevices[$numberOfPossessedDevices-1];
+    }
 }

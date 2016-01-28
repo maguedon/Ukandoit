@@ -12,7 +12,11 @@ class DefaultController extends Controller
      * @Route("/", name="homepage")
      */
     public function indexAction(){
-        return $this->render('AppBundle:Default:index.html.twig');
+        $current_user = $current_user = $this->container->get('security.context')->getToken()->getUser();
+        $possessedDevices = $current_user->getPossessedDevices();
+        return $this->render('AppBundle:Default:index.html.twig', array(
+            'possessedDevices' => $possessedDevices
+            ));
     }
 
 
@@ -34,4 +38,22 @@ class DefaultController extends Controller
         var_dump($json);
         return $this->render('AppBundle:Default:withings.html.twig');
     }
+
+    /**
+     * @Route("/jawbone/moves", name="moves")
+     */
+    public function jawboneMovesAction(){
+        $current_user = $current_user = $this->container->get('security.context')->getToken()->getUser();
+        $possessedDevice = $current_user->getLastPossessedDevice();
+
+        $jawbone = $this->get("app.jawbone");
+        $json = $jawbone->getMoves($possessedDevice->getAccessTokenJawbone());
+
+        $hourly_totals = $json['items'][0]['details']['hourly_totals'];
+
+        return $this->render('AppBundle:Default:jawboneMoves.html.twig', array(
+            'hourly_totals' => $hourly_totals
+            ));
+    }
 }
+

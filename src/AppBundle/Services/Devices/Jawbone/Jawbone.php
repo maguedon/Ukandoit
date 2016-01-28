@@ -24,8 +24,7 @@ class Jawbone{
 	 * Connect to the Jawbone account of the user 
 	 * and ask permissions to get his information
 	 */
-	function connexion(){
-		echo "connexion";
+	function connection(){
 		$param = array(
 			'response_type' => 'code',
 			'client_id' => $this->client_id,
@@ -96,8 +95,8 @@ class Jawbone{
 				)
 			);
 
-		$start_time = new DateTime("2016-01-23 13:00:00");
-		$end_time = new DateTime("2016-01-23 17:00:00");
+		$start_time = new \DateTime("2016-01-23 13:00:00");
+		$end_time = new \DateTime("2016-01-23 17:00:00");
 
 		$param = array(
 			'start_time' => $start_time->getTimestamp(),
@@ -111,5 +110,35 @@ class Jawbone{
 		$response = file_get_contents($url, false, $context);
 		$activities = json_decode($response, true);
 		return $activities['data'];
+	}
+
+	/**
+	* Get moves
+	*/
+	function getMoves($access_token){
+		$url = "https://jawbone.com/nudge/api/v.1.0/users/@me/moves?";
+
+		$opts = array(
+			'http'=>array(
+				'method'=>"GET",
+				'header'=>"Authorization: Bearer {$access_token}\r\n"
+				)
+			);
+
+		$start_time = new \DateTime("2016-01-23 00:00:00");
+		$end_time = new \DateTime("2016-01-23 23:59:59");
+
+		$param = array(
+			'start_time' => $start_time->getTimestamp(),
+			'end_time' => $end_time->getTimestamp()
+			);
+
+		$url = $url . http_build_query($param);
+
+		$context = stream_context_create($opts);
+
+		$response = file_get_contents($url, false, $context);
+		$moves = json_decode($response, true);
+		return $moves['data'];
 	}
 }
