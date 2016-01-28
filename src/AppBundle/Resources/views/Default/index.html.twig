@@ -7,7 +7,14 @@
 	<ul>
 		{% if app.user %}
 			{% for possessedDevice in app.user.possessedDevices %}
-				<li>{{ possessedDevice.deviceType }}</li>
+				<li>
+					{% if "Jawbone UP 24" == possessedDevice.deviceType %}
+						<a href="{{ path('jawbone_moves', {id: possessedDevice.id}) }}">
+					{% else %}
+						<a href="{{ path('withings_moves', {id: possessedDevice.id}) }}">
+					{% endif %}
+					{{ possessedDevice.deviceType }}</a>
+				</li>
 			{% endfor %}
 		{% endif %}
 	</ul>
