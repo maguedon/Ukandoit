@@ -65,8 +65,15 @@ body {
   color: #282828 !important;
 }
 .tabs .indicator {
-  background-color: #f6b2b5;
+  background-color: #282828 !important;
   bottom: 10px !important;
+}
+.logInButton a {
+  color: #f5f5f5 !important;
+  background-color: #df4a50;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
 }
 body {
   background-color: #f5f5f5;
