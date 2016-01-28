@@ -8,8 +8,7 @@ body
 .header
 {
   width: 100%;
-  //height : 50px;
-  height: auto; 
+  height: auto;
   background-color: white;
   z-index: 11;
 }
@@ -71,9 +70,23 @@ body
 .logInButton a
 {
   color: @gris_clair !important;
-  background-color: @rouge_mat;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  border-radius: 20px;
+}
 
+.logInButton
+{
+  background-image: url("../img/btn-rouge.png");
+  background-repeat: no-repeat;
+  background-size: 100px;
+  background-position: center;
+  opacity: 0.75;
+  line-height: 48px;
+  letter-spacing: 0.8px;
+}
+
+.tabs .tab {
+  text-transform: lowercase !important;
+}
+
+.tabs .tab a:first-letter {
+    text-transform: uppercase;
 }
