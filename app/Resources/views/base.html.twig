@@ -6,7 +6,7 @@
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         {% stylesheets 'bundles/AppBundle/css/*'
-        'bundles/AppBundle/materialize/css/materialize.min.css'        
+        'bundles/AppBundle/materialize/css/materialize.min.css'
          %}
             <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
         {% endstylesheets %}
@@ -18,7 +18,7 @@
 
     </head>
     <body>
-        {% include 'include/_menu.html.twig' %}
+        {% include 'include/_header.html.twig' %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
