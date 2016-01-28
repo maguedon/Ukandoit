@@ -12,4 +12,4 @@
 app/SymfonyRequirements.php
 app/check.php
 web/config.php
-web/bundles/AppBundle/css/main.css
+web/bundles/AppBundle/css/*
