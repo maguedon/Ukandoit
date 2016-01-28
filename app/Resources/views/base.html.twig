@@ -5,10 +5,12 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
         {% stylesheets  filter='cssrewrite' 
         'bundles/AppBundle/materialize/css/materialize.min.css'
         'bundles/AppBundle/css/*'
          %}
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
             <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
         {% endstylesheets %}
         {% javascripts

@@ -3,12 +3,58 @@
 {% block body %}
 <div class="container sommaire">
 	<div class="row titre_page">
-	<div class="bloc_rouge"></div>
+		<div class="bloc_rouge"></div>
 		<div class="bloc_titre">
 			<h1>Accueil</h1>
 		</div>
 		
 	</div>
-</div>
+	<section class="defis">
+		<div class="row">
+			
+			<div class="col s2 offset-s3">
+				<a href="#" class="round_tab">
+					<i class="large material-icons">query_builder</i>				
+				</a>
+			</div>
+			<div class="col s2">
+				<a href="#" class="round_tab active">
+					<i class="large material-icons">star</i>				
+				</a>
+			</div>
+			<div class="col s2">
+				<a href="#" class="round_tab">
+					<i class="large material-icons">done</i>				
+				</a>
+			</div>
 
-{% endblock %}
+		</div>
+
+		<div class="row">	
+			<div class="s12 bloc_defi">	
+				<div class="col s2">
+					<div class="badge_user">
+						<a class="pull-left" href="#">
+							<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+						</a>
+					</div>
+				</div>
+				<div class="col s5">
+					<h2>Objectif 30 kilomètres !</h2>
+					<span>	Je vous défie de courir au moins 30km cette semaine !</span>
+				</div>
+				<div class="col s3">
+					<p>Du 1er Janv. 2016</p>
+					<p>Au 15 Janv. 2016</p></div>
+					<div class="col s2">1503 part.	</div>
+				</div>
+			</div>
+		</section>
+		<section class="sommaire">
+			<div class="row">
+
+			</div>
+		</section>
+	</div>
+
+	{% endblock %}

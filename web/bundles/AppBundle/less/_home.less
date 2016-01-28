@@ -1,0 +1,48 @@
+.sommaire {
+	.defis {
+		.round_tab {
+			border-radius: 100px;
+			background-color: @white;
+			width: 100px;
+			height: 100px;
+			color: @gris_fonce;
+			&:hover, &.active {
+				color: @rouge_vif;
+			}
+			.material_shadow();
+			.align-vertical();
+			i {
+				margin: auto;
+			}
+		}
+
+		.bloc_defi {
+			background-color: @white;
+			height: 115px;
+
+			.material_shadow();
+			.align-vertical();
+
+			h2 {
+				font-size: 	1.3em;
+				margin-top: 0;	
+			}
+			.badge_user {
+				.dp
+				{
+					border:5px solid #eee;
+					transition: all 0.2s ease-in-out;
+					width: 85px;	
+					height: 85px;	
+					&:hover {
+						border:2px solid #eee;
+						transform:rotate(360deg);
+						-ms-transform:rotate(360deg);  
+						-webkit-transform:rotate(360deg);  
+						/*-webkit-font-smoothing:antialiased;*/
+					}					
+				}
+			}
+		}
+	}
+}
