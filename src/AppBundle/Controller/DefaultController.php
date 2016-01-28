@@ -13,9 +13,8 @@ class DefaultController extends Controller
      */
     public function indexAction(){
         $current_user = $current_user = $this->container->get('security.context')->getToken()->getUser();
-        $possessedDevices = $current_user->getPossessedDevices();
         return $this->render('AppBundle:Default:index.html.twig', array(
-            'possessedDevices' => $possessedDevices
+            'current_user' => $current_user
             ));
     }
 

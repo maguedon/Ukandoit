@@ -1,11 +1,14 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-	<h1>Défis connectés</h1>
-	<h2>Objets connectés</h2>
+	{% if app.user %}
+		<h2>Objets connectés</h2>
+	{% endif %}
 	<ul>
-	{% for possessedDevice in possessedDevices %}
-		<li>{{ possessedDevice.deviceType }}</li>
-	{% endfor %}
-</ul>
+		{% if app.user %}
+			{% for possessedDevice in app.user.possessedDevices %}
+				<li>{{ possessedDevice.deviceType }}</li>
+			{% endfor %}
+		{% endif %}
+	</ul>
 {% endblock %}

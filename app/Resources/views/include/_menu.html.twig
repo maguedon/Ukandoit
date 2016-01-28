@@ -1,20 +1,25 @@
-<ul>
-	{% if app.user %}
-		<li>
-			<a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
-		</li>
-		<li>
-			<a href="{{ path('new_object') }}">Ajouter un objet connecté</a> 
-		</li>
-		<li>
-			<a href="{{ path('moves') }}">Données de mouvements</a> 
-		</li>
-		{% else %}
-		<li>
-			<a href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
-		</li>
-		<li>
-			<a href="{{ path('fos_user_security_login') }}">Se connecter</a>
-		</li>
-	{% endif %}
-</ul>
+<nav>
+	<div class="nav-wrapper">
+		<a href="{{ path('homepage') }}" class="brand-logo">Défis connectés</a>
+		<ul id="nav-mobile" class="right hide-on-med-and-down">
+			{% if app.user %}
+				<li>
+					<a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
+				</li>
+				<li>
+					<a href="{{ path('new_object') }}">Ajouter un objet connecté</a> 
+				</li>
+				<li>
+					<a href="{{ path('moves') }}">Données de mouvements</a> 
+				</li>
+			{% else %}
+				<li>
+					<a href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
+				</li>
+				<li>
+					<a href="{{ path('fos_user_security_login') }}">Se connecter</a>
+				</li>
+			{% endif %}
+		</ul>
+	</div>
+</nav>

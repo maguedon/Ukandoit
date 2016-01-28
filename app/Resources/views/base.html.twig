@@ -4,11 +4,23 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+
+        {% stylesheets 'bundles/AppBundle/materialize/css/materialize.min.css' %}
+             <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}    
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
         {% include 'include/_menu.html.twig' %}
         {% block body %}{% endblock %}
+
+        {% javascripts
+            'bundles/AppBundle/js/jquery-2.2.0.min.js'
+            'bundles/AppBundle/materialize/js/*'            
+            %}
+            
+            {% endjavascripts %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
