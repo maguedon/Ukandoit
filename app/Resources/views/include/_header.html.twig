@@ -4,12 +4,17 @@
 			<div class="col s12">
 				<ul class="tabs">
 					<li class="tab col m2"><a href="{{ path('homepage') }}">Accueil</a></li>
-					<li class="tab col m2"><a href="#">Les Défis</a></li>
-					<li class="tab col m2"><a href="#">A Propos</a></li>
-					<li class="tab col m2"><a href="#">Contact</a></li>
+					<li class="tab col m2"><a href="{{ path('challenges') }}">Les Défis</a></li>
+					<li class="tab col m2"><a href="{{ path('about') }}">A Propos</a></li>
+					<li class="tab col m2"><a href="{{ path('contact') }}">Contact</a></li>
 					<li class="tab col m2 disabled"><a href="#"></a></li>
-					<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
-					<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+					{% if app.user %}
+						<li class="tab col m2"><a href="{{ path('fos_user_profile_show') }}">Mon profil</a></li>
+						<li class="tab col m2"><a href="{{ path('fos_user_profile_edit') }}">Mon compte</a></li>
+					{% else %}
+						<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+						<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+					{% endif %}
 				</ul>
 			</div>
 		</div>

@@ -9,6 +9,21 @@
 				<li>
 					<a href="{{ path('new_object') }}">Ajouter un objet connecté</a> 
 				</li>
+				<li>
+					<a href="{{ path('fos_user_profile_show') }}">Mon profil</a>
+				</li>
+				<li>
+					<a href="{{ path('fos_user_profile_edit') }}">Mon compte</a>
+				</li>
+				<li>
+					<a href="{{ path('challenges') }}">Les Défis</a>
+				</li>
+				<li>
+					<a href="{{ path('about') }}">A Propos</a>
+				</li>
+				<li>
+					<a href="{{ path('contact') }}">Contact</a>
+				</li>
 			{% else %}
 				<li>
 					<a href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
