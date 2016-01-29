@@ -11,35 +11,28 @@ body
   height: auto;
   background-color: white;
   z-index: 11;
-  //Test
-  position: relative;
 }
 .underHeader
 {
-  position: absolute; //use to be absolute
+  position: relative;
   margin:auto;
   width: 800px;
   height : 150px;
-  top: -35px  ; // use to be -85px
+  top: -85px  ;
   background-color: white;
   -webkit-border-radius: e("950px / 180px");
   -moz-border-radius: e("950px / 180px");
   border-radius: e("950px / 180px");
   z-index: 10;
-  //Test
-  left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .imgHeader {
-  position: absolute; //use to be absolute
+  position: relative;
   width: 100%;
-  min-height: 1073px;
+  min-height: 95vh;
   margin-top: -150px;
   background-image: url("../img/accueil.jpg");
-  background-size: 1920px 1080px;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   z-index: 5;
@@ -95,11 +88,4 @@ body
 
 .tabs .tab a:first-letter {
     text-transform: uppercase;
-}
-
-
-.header_img {
-  img {
-    width: 100%;
-  }
 }
