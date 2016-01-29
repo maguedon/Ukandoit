@@ -14,6 +14,12 @@ class DefaultController extends Controller
     public function indexAction(){
         return $this->render('AppBundle:Default:index.html.twig');
     }
+      /**
+     * @Route("/apropos", name="apropos")
+     */
+    public function aproposAction(){
+        return $this->render('AppBundle:Default:apropos.html.twig');
+    }
     /**
      * @Route("/withings", name="withings")
      */
