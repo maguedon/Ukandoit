@@ -14,6 +14,7 @@ body
   //Test
   position: relative;
 }
+
 .underHeader
 {
   position: absolute; //use to be absolute
@@ -28,22 +29,36 @@ body
   z-index: 10;
   //Test
   left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.imgHeader {
-  position: absolute; //use to be absolute
-  width: 100%;
-  min-height: 1073px;
-  margin-top: -150px;
-  background-image: url("../img/accueil.jpg");
-  background-size: 1920px 1080px;
-  background-repeat: no-repeat;
-  background-position: center;
-  z-index: 5;
+.parallax-container {
+  height: 700px;
 }
+
+.parallax img {
+  left: 49.99%;
+}
+
+.header_img {
+  img {
+    width: 100%;
+  }
+}
+
+// .imgHeader {
+//   position: absolute; //use to be absolute
+//   width: 100%;
+//   min-height: 1073px;
+//   margin-top: -150px;
+//   background-image: url("../img/accueil.jpg");
+//   background-size: 1920px 1080px;
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   z-index: 5;
+// }
 
 .logo img
 {
@@ -97,9 +112,3 @@ body
     text-transform: uppercase;
 }
 
-
-.header_img {
-  img {
-    width: 100%;
-  }
-}
