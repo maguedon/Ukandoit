@@ -1,5 +1,8 @@
 $(document).ready(function(){
 	$('.parallax').parallax();
+
+	//Permet d'afficher les balises select
+	$('select').material_select();
 });
 
 $(window).load(function()
