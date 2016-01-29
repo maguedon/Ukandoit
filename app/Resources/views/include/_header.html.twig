@@ -4,21 +4,26 @@
 			<div class="col s12">
 				<ul class="tabs">
 					<li class="tab col m2"><a href="{{ path('homepage') }}">Accueil</a></li>
-					<li class="tab col m2"><a href="#">Les Défis</a></li>
-					<li class="tab col m2"><a href="#">A Propos</a></li>
-					<li class="tab col m2"><a href="#">Contact</a></li>
+					<li class="tab col m2"><a href="{{ path('challenges') }}">Les Défis</a></li>
+					<li class="tab col m2"><a href="{{ path('about') }}">A Propos</a></li>
+					<li class="tab col m2"><a href="{{ path('contact') }}">Contact</a></li>
 					<li class="tab col m2 disabled"><a href="#"></a></li>
-					<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
-					<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+					{% if app.user %}
+						<li class="tab col m2"><a href="{{ path('fos_user_profile_show') }}">Mon profil</a></li>
+						<li class="tab col m2"><a href="{{ path('fos_user_profile_edit') }}">Mon compte</a></li>
+					{% else %}
+						<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+						<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+					{% endif %}
 					{% if app.request.attributes.get('_route') == "homepage" %}
 					    <div class="indicator accueil"></div>
-					{% elseif app.request.attributes.get('_route') == "defis" %}
+					{% elseif app.request.attributes.get('_route') == "challenges" %}
 					    <div class="indicator lesdefis"></div>
-					{% elseif app.request.attributes.get('_route') == "apropos" %}
+					{% elseif app.request.attributes.get('_route') == "about" %}
 						<div class="indicator apropos"></div>
 					{% elseif app.request.attributes.get('_route') == "contact" %}
 						<div class="indicator contact"></div>
-					{% elseif app.request.attributes.get('_route') == "contact" %}
+					{% elseif app.request.attributes.get('_route') == "fos_user_registration_register" %}
 					    <div class="indicator sinscrire"></div>
 					{% endif %}
 				</ul>
@@ -60,9 +65,11 @@
 		<p>Défiez la communauté afin de progresser sur le podium de Ukando'it en remportant les challenges proposés par les utilisateurs.</p>
 		<p><span>Inscription Gratuite</span><br>
 			<i class="small material-icons">play_for_work</i>
-			<div id="inscription-button">
-				<span>S'inscrire</span>
-			</div>
+			<a href="{{ path('fos_user_registration_register') }}">
+				<div id="inscription-button">
+					<span>S'inscrire</span>
+				</div>
+			</a>
 		</p>
 	</div>
 </div>
