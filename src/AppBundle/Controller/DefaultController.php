@@ -19,10 +19,24 @@ class DefaultController extends Controller
             ));
     }
       /**
-     * @Route("/apropos", name="apropos")
+     * @Route("/apropos", name="about")
      */
-    public function aproposAction(){
-        return $this->render('AppBundle:Default:apropos.html.twig');
+    public function aboutAction(){
+        return $this->render('AppBundle:Default:about.html.twig');
+    }
+
+    /**
+     * @Route("/contact", name="contact")
+     */
+    public function contactAction(){
+        return $this->render('AppBundle:Default:contact.html.twig');
+    }
+
+    /**
+     * @Route("/mentions-legales", name="legals")
+     */
+    public function legalsAction(){
+        return $this->render('AppBundle:Default:legals.html.twig');
     }
 
     /**
@@ -85,7 +99,7 @@ class DefaultController extends Controller
             }
         }
 
-        return $this->render("UserBundle:Default:addObject.html.twig", array(
+        return $this->render("AppBundle:Default:addObject.html.twig", array(
             'form' => $form->createView()
             ));
     }
@@ -141,10 +155,10 @@ class DefaultController extends Controller
     // A deplacer dans le bundle user ?
 
    /**
-     * @Route("/defis", name="defis")
+     * @Route("/defis", name="challenges")
      */
-    public function defisAction(){
-        return $this->render('AppBundle:Default:defis.html.twig');
+    public function challengesAction(){
+        return $this->render('AppBundle:Default:challenges.html.twig');
     }
 }
 
