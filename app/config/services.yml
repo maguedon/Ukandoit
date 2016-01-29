@@ -5,7 +5,7 @@ parameters:
     # Constantes de configuration pour l'utilisation de l'API Withings
     app.withings.base_url: https://oauth.withings.com/account/
     app.withings.wbsapi: http://wbsapi.withings.net/
-    app.withings.callback_url: http://localhost:8000/withings/token #http://www.ukandoit.fr/withings/callback [à changer avec l'url de notre site]
+    app.withings.callback_url: http://localhost:8000/withings #http://www.ukandoit.fr/withings/callback [à changer avec l'url de notre site]
     app.withings.consumer_key: 31ec099bddfee6fb7b16d5bc502e8b5bcbbddf0de39346316427f8f25fd
     app.withings.consumer_secret: 0d50d732c6655ee07d727ffbc336751d8b3b7c298e32167d945589692e5e9b16
 

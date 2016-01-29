@@ -24,15 +24,8 @@ class DefaultController extends Controller
      */
     public function withingsAction(){
         $withings = $this->get("app.withings");
-        $url = $withings->connection();
-        var_dump($url);
-    }
-
-    /**
-     * @Route("/withings/token", name="token")
-     */
-    public function getWithingsTokenAction(){
-
+        $withings->connection();
+        return $this->redirectToRoute("homepage");
         return $this->render('AppBundle:Default:withings.html.twig');
     }
 
@@ -46,18 +39,28 @@ class DefaultController extends Controller
         $current_user = $this->container->get('security.context')->getToken()->getUser();
 
         $form->handleRequest($request);
+        $possessedDevice->setUser($current_user);
 
         if ($form->isSubmitted() && $form->isValid()) {
             if(strpos($possessedDevice->getDeviceType()->getName(), "Withings")){
                 $withings = $this->get("app.withings");
-/*                $url = $withings->connection();
-                return $this->redirect($url);*/
+                $withings->connection();
+
+               // $possessedDevice->setUser($current_user);
+                $possessedDevice->setAccessTokenKeyWithings($withings->getAccessTokenKey());
+                $possessedDevice->setAccessTokenSecretWithings($withings->getAccessTokenSecret());
+                $possessedDevice->setUserIdWithings($withings->getUserID());
+
+                $em = $this->get('doctrine')->getManager();
+                $em->persist($possessedDevice);
+                $em->flush();
+
             }
             // Jawbone
             else{
                 $em = $this->get('doctrine')->getManager();
 
-                $possessedDevice->setUser($current_user);
+                //$possessedDevice->setUser($current_user);
 
                 $em->persist($possessedDevice);
                 $em->flush();
@@ -111,8 +114,8 @@ class DefaultController extends Controller
     public function withingsMovesAction($id){
         $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);;
 
-        $jawbone = $this->get("app.jawbone");
-        $json = $jawbone->getMoves($possessedDevice->getAccessTokenJawbone());
+        $jawbone = $this->get("app.withings");
+        $json = $jawbone->getMoves($possessedDevice->getAccessTokenWithings());
 
         $hourly_totals = $json['items'][0]['details']['hourly_totals'];
 
