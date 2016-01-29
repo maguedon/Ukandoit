@@ -33,7 +33,6 @@ services:
 
     app.withings:
         class: AppBundle\Services\Devices\Withings\Withings
-        arguments: ['%app.withings.consumer_key%', '%app.withings.consumer_secret%', '%app.withings.callback_url%']
 
     app.jawbone:
         class: AppBundle\Services\Devices\Jawbone\Jawbone
