@@ -42,7 +42,7 @@ class DefaultController extends Controller
         $possessedDevice->setUser($current_user);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if(strpos($possessedDevice->getDeviceType()->getName(), "Withings")){
+            if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
                 $withings = $this->get("app.withings");
                 $withings->connection();
 
