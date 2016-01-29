@@ -3,13 +3,13 @@
 		<div class="row">
 			<div class="col s12">
 				<ul class="tabs">
-					<li class="tab col m2"><a href="#">Accueil</a></li>
+					<li class="tab col m2"><a href="{{ path('homepage') }}">Accueil</a></li>
 					<li class="tab col m2"><a href="#">Les Défis</a></li>
 					<li class="tab col m2"><a href="#">A Propos</a></li>
 					<li class="tab col m2"><a href="#">Contact</a></li>
 					<li class="tab col m2 disabled"><a href="#"></a></li>
-					<li class="tab col m2"><a href="#">S'inscrire</a></li>
-					<li class="col m2 logInButton"><a href="#">Connexion</a></li>
+					<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+					<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
 				</ul>
 			</div>
 		</div>
