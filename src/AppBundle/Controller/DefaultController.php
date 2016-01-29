@@ -18,7 +18,12 @@ class DefaultController extends Controller
         return $this->render('AppBundle:Default:index.html.twig', array(
             ));
     }
-
+      /**
+     * @Route("/apropos", name="apropos")
+     */
+    public function aproposAction(){
+        return $this->render('AppBundle:Default:apropos.html.twig');
+    }
 
     /**
      * @Route("/withings", name="withings")
@@ -131,6 +136,15 @@ class DefaultController extends Controller
         return $this->render('AppBundle:Default:withingsMoves.html.twig', array(
             'hourly_totals' => $hourly_totals
             ));
+    }
+
+    // A deplacer dans le bundle user ?
+
+   /**
+     * @Route("/defis", name="defis")
+     */
+    public function defisAction(){
+        return $this->render('AppBundle:Default:defis.html.twig');
     }
 }
 

@@ -1,0 +1,23 @@
+footer {
+	background-color: @gris_fonce;
+	height: 70px;
+	margin-top: 15px;
+	font-weight: 300;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	color: @white;
+	text-align: center;
+	.align-vertical();
+	.row {.align-vertical();}
+	.row, .container, .col {
+		padding-bottom: 0 !important;
+		margin-bottom: 0 !important;
+		.logos_sociaux img {
+			max-height: 30px;
+			padding: 0 5px;
+			vertical-align: middle;
+		}
+	}
+
+}

@@ -1,0 +1,43 @@
+.apropos {
+	.presentation {
+		text-align: justify;
+		font-variant: small-caps;
+		font-size: 1.1em;
+		a {
+			color: @rouge_vif;
+		}
+		h2 {text-align: left;}
+	}
+
+	.team_avatars {
+		.badge_user {
+			position: relative;
+			.dp {
+				width: 25%;
+				height: 25%;
+			} 
+		} 
+
+		font-variant: small-caps;
+		font-weight: 600;
+		font-size: 1.1em;
+		span {
+			padding: 0 10px;
+		}
+		.col_right , .col_right .team_name {
+			margin-left:auto;
+			margin-right:0;
+			&:img {
+				margin-left: 0;
+			}
+		}
+
+		.under_text {
+			height: 6px;
+			width: 70px;
+			position: relative;
+			border-bottom: 0.15em solid #f51c40;
+			margin: auto;
+		}
+	}	
+}

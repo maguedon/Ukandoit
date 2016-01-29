@@ -1,0 +1,44 @@
+.home {
+	.defis {
+		.round_tab {
+			border-radius: 100px;
+			background-color: @white;
+			width: 100px;
+			height: 100px;
+			color: @gris_fonce;
+			margin: auto;
+			&:hover, &.active {
+				color: @rouge_vif;
+			}
+			.material_shadow();
+			.align-vertical();
+			i {
+				margin: auto;
+			}
+		}
+
+		.bloc_defi {
+			background-color: @white;
+			height: 115px;
+
+			.material_shadow();
+			.align-vertical();
+
+			h2 {
+				font-size: 	1.3em;
+				margin-top: 0;
+			}
+
+			.go_defi {
+				display: block;
+				text-align: center;
+				margin: auto;
+				img {
+					height: 80px;
+					display: block;
+					margin: auto;
+				}
+			}
+		}
+	}
+}

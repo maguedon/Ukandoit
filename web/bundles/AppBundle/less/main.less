@@ -1,0 +1,93 @@
+@import "_animate.less";
+
+//Include
+@import "_header.less";
+@import "_footer.less";
+
+//Pages
+@import "_home.less";
+@import "_apropos.less";
+
+//Theme
+@import "_responsive.less";
+@import "_mixins.less";
+@import "_theme.less";
+
+
+
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	background-color: @layout;
+	font-weight: 400;
+	margin-bottom: 150px;
+
+	a {
+		color: @white;
+		&:hover {
+			color: @rouge_mat;
+			text-decoration: none;
+		}
+	}
+
+}
+
+
+// Eléments généraux
+.titre_page {
+	position: relative;
+	padding-bottom: 80px;
+	.bloc_titre {
+		background-color: @gris_fonce;
+		width: 270px;
+		height: 50px;
+		margin: auto;
+		position: absolute;
+		z-index: 1;
+		top: 0px;
+		text-align: center;
+		left: 0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
+		.align-vertical();
+		h1 {
+			color: @white;
+			text-align: center;
+			font-size: 1.5em;
+			margin: auto;
+		}
+	}
+	.bloc_rouge {
+		height: 20px;
+		width: 290px;
+		margin: auto;
+		position: relative;
+		z-index: 0;
+		top: 15px;
+		background-color: @rouge_vif;
+	}
+}
+
+.badge_user {
+	.align-vertical();
+
+	.dp
+	{
+		border:5px solid #eee;
+		transition: all 0.2s ease-in-out;
+		width: 85px;
+		height: 85px;
+		&:hover {
+			border:2px solid #eee;
+			transform:rotate(360deg);
+			-ms-transform:rotate(360deg);
+			-webkit-transform:rotate(360deg);
+			/*-webkit-font-smoothing:antialiased;*/
+		}
+	}
+}
+

@@ -1,0 +1,189 @@
+body
+{
+  background-color: @layout;
+}
+
+/* ------- HEADER -------- */
+
+.header
+{
+  width: 100%;
+  background-color: white;
+  z-index: 11;
+  height: 50px;
+  position: fixed;
+}
+
+.underHeader
+{
+  position: absolute; //use to be absolute
+  margin:auto;
+  width: 800px;
+  height : 150px;
+  top: -35px  ; // use to be -85px
+  background-color: white;
+  -webkit-border-radius: e("950px / 180px");
+  -moz-border-radius: e("950px / 180px");
+  border-radius: e("950px / 180px");
+  z-index: 10;
+  //Test
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.parallax-container {
+  height: 700px;
+}
+
+.parallax img {
+  left: 49.99%;
+  top: -32%;
+}
+
+.header_img {
+  img {
+    width: 100%;
+  }
+}
+
+.logo img
+{
+  width: 230px ;
+  position: relative;
+  top : 98px;
+  left: 270px;
+  
+}
+
+.menu
+{
+  position: relative;
+  margin: auto;
+  width: 700px;
+  height : 50px;
+  z-index: 15;
+  border-bottom: 1px solid @rouge_vif;
+}
+
+.menu a
+{
+  color: @gris_fonce !important;
+}
+
+.tabs .indicator {
+  background-color: @gris_fonce !important;
+  bottom: 10px !important;
+  height: 1px;
+}
+
+.logInButton a
+{
+  color: @gris_clair !important;
+}
+
+.logInButton
+{
+  background-image: url("../img/btn-rouge.png");
+  background-repeat: no-repeat;
+  background-size: 100px;
+  background-position: center;
+  opacity: 0.75;
+  line-height: 48px;
+  letter-spacing: 0.8px;
+}
+
+.tabs .tab {
+  text-transform: lowercase !important;
+}
+
+.tabs .tab a:first-letter {
+    text-transform: uppercase;
+}
+
+.blockHeader
+{
+  width : 250px;
+  height: 400px;
+  margin-top: 180px;
+  margin-left: 25%;
+  background-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 -5px 3px #4e4e4e;
+  text-align: center;
+  color: @gris_fonce;
+}
+
+.blockHeader span
+{
+  font-weight: bold;
+}
+
+#inscription-button
+{
+  font-weight: bold;
+  height: 36px;
+  background-image: url("../img/cadre.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#inscription-button span
+{
+  line-height:36px;
+}
+
+.overlay-boxify {
+    opacity: 0;
+    transition: opacity 0.5s ease 0s, visibility 0s ease 0.5s;
+    visibility: hidden;
+}
+.overlay {
+    background: rgba(52, 82, 113, 0.95) none repeat scroll 0 0;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.overlay nav {
+    font-size: 54px;
+    height: 30%;
+    position: relative;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.overlay ul {
+    display: inline-block;
+    list-style: outside none none;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+}
+
+.overlay-boxify nav ul li {
+    opacity: 0;
+    transform: translate3d(0px, -80px, 0px);
+    transition: transform 0.5s ease 0s, opacity 0.5s ease 0s;
+}
+.overlay ul li {
+    display: block;
+    float: left;
+    margin-right: 20px;
+}
+
+.overlay ul li a {
+    background-color: #345271;
+    border: 2px solid #fff;
+    border-radius: 3px;
+    color: #fff;
+    display: block;
+    font-size: 15px;
+    font-weight: 400;
+    min-width: 190px;
+    padding: 50px 0;
+    text-transform: uppercase;
+    transition: all 300ms ease-in-out 0s;
+}
