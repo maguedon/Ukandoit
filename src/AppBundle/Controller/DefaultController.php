@@ -65,7 +65,7 @@ class DefaultController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
-                $possessedDevice->setDeviceType($form)
+                $possessedDevice->setDeviceType($form);
                 $withings = $this->get("app.withings");
                 $withings->connection();
                 $this->redirectToRoute('withings');
