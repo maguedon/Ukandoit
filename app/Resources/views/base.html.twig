@@ -4,6 +4,11 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Ukando'it{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+
+        {#% stylesheets 'bundles/AppBundle/materialize/css/materialize.min.css' %}
+             <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %#}    
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
         {% stylesheets  filter='cssrewrite' 
@@ -24,6 +29,13 @@
     <body>
         {% include 'include/_header.html.twig' %}
         {% block body %}{% endblock %}
+
+        {% javascripts
+            'bundles/AppBundle/js/jquery-2.2.0.min.js'
+            'bundles/AppBundle/materialize/js/*'            
+            %}
+              <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
         {% block javascripts %}{% endblock %}
         {% include 'include/_footer.html.twig' %}
 

@@ -1,0 +1,35 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+	{% block fos_user_content %}
+	{% if error %}
+	    <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+	{% endif %}
+
+	<div class="row">
+		<div class="col offset-m4 m4">
+			<form action="{{ path("fos_user_security_check") }}" method="post">
+			    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+				<div class="input-field">
+				    <input type="text" class="validate" id="username" name="_username" value="{{ last_username }}" required="required" />
+				    <label class="active" for="username">Login</label>
+				</div>
+
+				<div class="input-field">
+				    <input type="password" class="validate" id="password" name="_password" required="required" />
+				    <label class="active" for="password">Mot de passe</label>
+				</div>
+
+				<p>
+				    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+				    <label for="remember_me">Se souvenir de moi</label>
+			    </p>
+
+			    <button class="btn waves-effect waves-light" type="submit" id="_submit" name="_submit">Se connecter</button>
+			</form>
+		</div>
+	</div>
+	{% endblock fos_user_content %}
+
+{% endblock %}

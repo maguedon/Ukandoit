@@ -4,7 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use FOS\UserBundle\Model\User as BaseUser;
+use FOS\UserBundle\Entity\User as BaseUser;
 
 /**
  * User
@@ -313,5 +313,10 @@ class User extends BaseUser
     public function getChallengesAccepted()
     {
         return $this->challengesAccepted;
+    }
+
+    public function getLastPossessedDevice(){
+        $nbPossessedDevices = count($this->possessedDevices);
+        return $this->possessedDevices[$nbPossessedDevices - 1];
     }
 }

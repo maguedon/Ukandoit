@@ -13,3 +13,4 @@ app/SymfonyRequirements.php
 app/check.php
 web/config.php
 web/bundles/AppBundle/css/*
+composer.lock
