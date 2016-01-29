@@ -1,0 +1,19 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+<div class="container home">
+	<section class="titre_page">
+		<div class="row">
+			<div class="bloc_rouge"></div>
+			<div class="bloc_titre">
+				<h1>Les défis</h1>
+			</div>
+		</div>
+	</section>
+	<section class="defis">
+		<div class="row">
+			  {% include 'include/_defis.html.twig' %}
+		</div>
+	</section>
+
+</div>
+{% endblock %}
