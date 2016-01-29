@@ -9,24 +9,36 @@
 					<li class="tab col m2"><a href="{{ path('contact') }}">Contact</a></li>
 					<li class="tab col m2 disabled"><a href="#"></a></li>
 					{% if app.user %}
-						<li class="tab col m2"><a href="{{ path('fos_user_profile_show') }}">Mon profil</a></li>
-						<li class="tab col m2"><a href="{{ path('fos_user_profile_edit') }}">Mon compte</a></li>
+					<li class="tab col m2"><a href="{{ path('fos_user_profile_show') }}">Mon profil</a></li>
+					<li class="tab col m2"><a href="{{ path('fos_user_profile_edit') }}">Mon compte</a></li>
 					{% else %}
-						<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
-						<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+					<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+					<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
 					{% endif %}
 					{% if app.request.attributes.get('_route') == "homepage" %}
-					    <div class="indicator accueil"></div>
+					<div class="indicator accueil"></div>
 					{% elseif app.request.attributes.get('_route') == "challenges" %}
-					    <div class="indicator lesdefis"></div>
+					<div class="indicator lesdefis"></div>
 					{% elseif app.request.attributes.get('_route') == "about" %}
-						<div class="indicator apropos"></div>
+					<div class="indicator apropos"></div>
 					{% elseif app.request.attributes.get('_route') == "contact" %}
-						<div class="indicator contact"></div>
+					<div class="indicator contact"></div>
 					{% elseif app.request.attributes.get('_route') == "fos_user_registration_register" %}
-					    <div class="indicator sinscrire"></div>
+					<div class="indicator sinscrire"></div>
 					{% endif %}
 				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="responsive-menu">
+		<div class="row">
+			<div class="col s6">
+				<div class="responsive-logo">
+					<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/logo_definitif.svg')}}"/>
+				</div>
+			</div>
+			<div class="col s6">
+				HAMBURGER
 			</div>
 		</div>
 	</div>
