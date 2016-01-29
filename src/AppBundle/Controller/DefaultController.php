@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\DeviceType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,8 +26,24 @@ class DefaultController extends Controller
     public function withingsAction(){
         $withings = $this->get("app.withings");
         $withings->connection();
-        return $this->redirectToRoute("homepage");
-        return $this->render('AppBundle:Default:withings.html.twig');
+
+        $em = $this->get('doctrine')->getManager();
+
+        $possessedDevice = new PossessedDevice();
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        $possessedDevice->setUser($current_user);
+
+        $possessedDevice->setAccessTokenKeyWithings($withings->getAccessTokenKey());
+        $possessedDevice->setAccessTokenSecretWithings($withings->getAccessTokenSecret());
+        $possessedDevice->setUserIdWithings($withings->getUserID());
+
+        $withingsDevice = $em->getRepository('AppBundle\Entity\PossessedDevice')->find(1); // Withings DeviceType Object
+        $possessedDevice->setDeviceType($withingsDevice);
+
+
+        $em->persist($possessedDevice);
+        $em->flush();
+        return $this->redirectToRoute('homepage');
     }
 
         /**
@@ -43,18 +60,10 @@ class DefaultController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
+                $possessedDevice->setDeviceType($form)
                 $withings = $this->get("app.withings");
                 $withings->connection();
-
-               // $possessedDevice->setUser($current_user);
-                $possessedDevice->setAccessTokenKeyWithings($withings->getAccessTokenKey());
-                $possessedDevice->setAccessTokenSecretWithings($withings->getAccessTokenSecret());
-                $possessedDevice->setUserIdWithings($withings->getUserID());
-
-                $em = $this->get('doctrine')->getManager();
-                $em->persist($possessedDevice);
-                $em->flush();
-
+                $this->redirectToRoute('withings');
             }
             // Jawbone
             else{

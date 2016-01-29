@@ -81,7 +81,7 @@ class Withings
 
     public function getAccessTokenSecret()
     {
-        $this->access_token_secret;
+        return $this->access_token_secret;
     }
 
     public function getUserID()

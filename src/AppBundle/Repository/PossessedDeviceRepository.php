@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class PossessedDeviceRepository extends \Doctrine\ORM\EntityRepository
 {
+/*    public function getDevice($id)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder('d');
+        $qb->select('*')
+           ->from('deviceType')
+           ->where('d.id = :id')
+            ->setParameter('id', $id);
+        return $qb->getQuery()->getResult();
+    }*/
 }
