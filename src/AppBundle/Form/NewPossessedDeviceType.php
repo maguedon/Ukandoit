@@ -29,7 +29,6 @@ class NewPossessedDeviceType extends PossessedDeviceType
                 'class' => 'AppBundle:DeviceType',
                 'label' => "Objet connecté : ",
                 'attr' => array(
-                    'class' => ""
                     )
                 ))
             ->add('submit', 'submit', array(
