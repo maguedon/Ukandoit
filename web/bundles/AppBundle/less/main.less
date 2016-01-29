@@ -96,8 +96,11 @@ body {
 // Inscription
 
 .btn_centre {
-	margin: 0;
+	input {
+	margin: auto;
 }
+}
+
 
 .bande_rouge {
 	height: 50px;
@@ -110,3 +113,30 @@ body {
 }
 
 .bande_rouge  + .card-panel{margin-top: 0;}
+
+
+.input-field {
+	label {
+		color: @rouge_vif;
+	}
+	input[type=text] {
+		&:focus+label {
+			color: @rouge_vif;
+		}
+		&:focus {
+			border-bottom: 1px solid @rouge_vif;
+			box-shadow: 0 1px 0 0 @rouge_vif;
+		}
+	}
+	input[type=text].valid {
+		border-bottom: 1px solid @rouge_vif;
+		box-shadow: 0 1px 0 0 @rouge_vif;
+	}
+	input[type=text].invalid {
+		border-bottom: 1px solid @rouge_vif;
+		box-shadow: 0 1px 0 0 @rouge_vif;
+	}
+	.prefix.active {
+		color: @rouge_vif;
+	}
+}

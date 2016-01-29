@@ -1,11 +1,11 @@
 <section class="titre_page">
-		<div class="row">
-			<div class="bloc_rouge"></div>
-			<div class="bloc_titre">
-				<h1>Accueil</h1>
-			</div>
+	<div class="row">
+		<div class="bloc_rouge"></div>
+		<div class="bloc_titre">
+			<h1>Accueil</h1>
 		</div>
-	</section>
+	</div>
+</section>
 
 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
   {# {{ form_widget(form) }}
@@ -20,11 +20,11 @@
     		<div class="bande_rouge">Formulaire d'inscription</div>
 
     		<div class="card-panel">	
-    			<div class="input-field form-group col s6">
+    			<div class="input-field form-group col s12 m6">
     				<input id="last_name" type="text" class="validate">
     				<label for="last_name">Prénom</label>
     			</div>
-    			<div class="input-field form-group col s6">
+    			<div class="input-field form-group col s12 m6">
     				<input id="last_name" type="text" class="validate">
     				<label for="last_name">Nom</label>
     			</div>		
@@ -37,10 +37,20 @@
     				</div>
     			</div>
     			<div class="input-field col s12 m6 form-group">
-    				<input class="with-gap" name="group3" type="radio" id="test5" checked />
-    				<label for="test5">Femme</label>
-    				<input class="with-gap" name="group3" type="radio" id="test5" checked />
-    				<label for="test5">Homme</label>
+
+
+    				<form action="#">
+
+    				<input class="with-gap" name="group_gender" type="radio" id="woman" />
+    						<label for="woman">Femme</label>
+
+    						<input class="with-gap" name="group_gender" type="radio" id="man" />
+    						<label for="man">Homme</label>
+
+
+    				</form>
+
+
     			</div>
     			<div class="col s12">
     				<div class="form-group">
@@ -61,6 +71,23 @@
     					{{ form_errors(form.plainPassword.second) }}
     				</div>
     			</div>   
+
+    	
+    			<div class="col s12">
+    				
+    				<form action="#">
+    					<div class="file-field input-field">
+    						<div class="btn">
+    							<span>File</span>
+    							<input type="file">
+    						</div>
+    						<div class="file-path-wrapper">
+    							<input class="file-path validate" type="text">
+    						</div>
+    					</div>
+    				</form>
+
+    			</div>
     			
     			{{ form_rest(form) }}
     			<div class="form-group">
