@@ -6,6 +6,7 @@
 			width: 100px;
 			height: 100px;
 			color: @gris_fonce;
+			margin: auto;
 			&:hover, &.active {
 				color: @rouge_vif;
 			}
@@ -28,6 +29,8 @@
 				margin-top: 0;	
 			}
 			.badge_user {
+				.align-vertical();
+
 				.dp
 				{
 					border:5px solid #eee;
@@ -41,6 +44,16 @@
 						-webkit-transform:rotate(360deg);  
 						/*-webkit-font-smoothing:antialiased;*/
 					}					
+				}
+			}
+			.go_defi {
+				display: block;
+				text-align: center;
+				margin: auto;
+				img {
+					height: 80px;
+					display: block;
+					margin: auto;
 				}
 			}
 		}
