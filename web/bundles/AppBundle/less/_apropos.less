@@ -1,8 +1,33 @@
-.presentation {
-	text-align: justify;
-	font-variant: small-caps;
-	font-size: 1.1em;
-	a {
-		color: @rouge_vif;
+.apropos {
+	.presentation {
+		text-align: justify;
+		font-variant: small-caps;
+		font-size: 1.1em;
+		a {
+			color: @rouge_vif;
+		}
 	}
+
+	.team_avatars {
+		.badge_user .dp {
+			width: 25%;
+			height: 25%;
+		} 
+		font-variant: small-caps;
+		font-weight: 600;
+		font-size: 1.1em;
+		span {
+			padding: 0 10px;
+		}
+		.col_right , .col_right span {
+			margin-left:auto;
+			margin-right:0;
+			&:img {
+				margin-left: 0;
+			}
+		}
+		.col_left .dp {
+		}
+	}
+
 }
