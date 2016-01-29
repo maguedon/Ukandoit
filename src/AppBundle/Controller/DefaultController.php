@@ -38,4 +38,13 @@ class DefaultController extends Controller
         var_dump($json);
         return $this->render('AppBundle:Default:withings.html.twig');
     }
+
+    // A deplacer dans le bundle user ?
+
+   /**
+     * @Route("/defis", name="defis")
+     */
+    public function defisAction(){
+        return $this->render('AppBundle:Default:defis.html.twig');
+    }
 }
