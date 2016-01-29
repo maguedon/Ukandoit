@@ -1301,9 +1301,11 @@ $(document).ready(function(){
     }
   };
 
-  $(document).ready(function(){
-    $('ul.tabs').tabs();
-  });
+  //REMOVE PROBLEME
+
+  // $(document).ready(function(){
+  //   $('ul.tabs').tabs();
+  // });
 }( jQuery ));
 ;(function ($) {
     $.fn.tooltip = function (options) {

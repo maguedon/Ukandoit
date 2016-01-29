@@ -15,6 +15,17 @@
 						<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
 						<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
 					{% endif %}
+					{% if app.request.attributes.get('_route') == "homepage" %}
+					    <div class="indicator accueil"></div>
+					{% elseif app.request.attributes.get('_route') == "challenges" %}
+					    <div class="indicator lesdefis"></div>
+					{% elseif app.request.attributes.get('_route') == "about" %}
+						<div class="indicator apropos"></div>
+					{% elseif app.request.attributes.get('_route') == "contact" %}
+						<div class="indicator contact"></div>
+					{% elseif app.request.attributes.get('_route') == "fos_user_registration_register" %}
+					    <div class="indicator sinscrire"></div>
+					{% endif %}
 				</ul>
 			</div>
 		</div>
