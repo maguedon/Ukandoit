@@ -10,6 +10,17 @@
 					<li class="tab col m2 disabled"><a href="#"></a></li>
 					<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
 					<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+					{% if app.request.attributes.get('_route') == "homepage" %}
+					    <div class="indicator accueil"></div>
+					{% elseif app.request.attributes.get('_route') == "defis" %}
+					    <div class="indicator lesdefis"></div>
+					{% elseif app.request.attributes.get('_route') == "apropos" %}
+						<div class="indicator apropos"></div>
+					{% elseif app.request.attributes.get('_route') == "contact" %}
+						<div class="indicator contact"></div>
+					{% elseif app.request.attributes.get('_route') == "contact" %}
+					    <div class="indicator sinscrire"></div>
+					{% endif %}
 				</ul>
 			</div>
 		</div>

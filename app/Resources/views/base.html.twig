@@ -7,7 +7,7 @@
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
-        {% stylesheets  filter='cssrewrite' 
+        {% stylesheets  filter='cssrewrite'
         'bundles/AppBundle/materialize/css/materialize.min.css'
         'bundles/AppBundle/css/*'
          %}
@@ -16,7 +16,7 @@
         {% endstylesheets %}
         {% javascripts
             'bundles/AppBundle/js/*'
-            'bundles/AppBundle/materialize/js/materialize.min.js'
+            'bundles/AppBundle/materialize/js/materialize.js'
         %}
             <script src="{{ asset_url }}"></script>
         {% endjavascripts %}

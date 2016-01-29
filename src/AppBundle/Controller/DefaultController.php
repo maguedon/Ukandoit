@@ -16,13 +16,16 @@ class DefaultController extends Controller
      */
     public function indexAction(){
         return $this->render('AppBundle:Default:index.html.twig', array(
+            "url"=>"accueil"
             ));
     }
       /**
      * @Route("/apropos", name="apropos")
      */
     public function aproposAction(){
-        return $this->render('AppBundle:Default:apropos.html.twig');
+        return $this->render('AppBundle:Default:apropos.html.twig', array(
+            "url"=>"apropos"
+            ));
     }
 
     /**
@@ -144,7 +147,9 @@ class DefaultController extends Controller
      * @Route("/defis", name="defis")
      */
     public function defisAction(){
-        return $this->render('AppBundle:Default:defis.html.twig');
+        return $this->render('AppBundle:Default:defis.html.twig', array(
+            "url"=>"lesdefis"
+            ));
     }
 }
 
