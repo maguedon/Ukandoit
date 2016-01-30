@@ -5,7 +5,7 @@
 				<ul class="tabs">
 					<li class="tab col m2"><a href="{{ path('homepage') }}">Accueil</a></li>
 					<li class="tab col m2"><a href="{{ path('challenges') }}">Les Défis</a></li>
-					<li class="tab col m2"><a href="{{ path('about') }}">A Propos</a></li>
+					<li class="tab col m2"><a href="{{ path('about') }}">À Propos</a></li>
 					<li class="tab col m2"><a href="{{ path('contact') }}">Contact</a></li>
 					<li class="tab col m2 disabled"><a href="#"></a></li>
 					{% if app.user %}
@@ -32,35 +32,20 @@
 	</div>
 	<div class="responsive-menu">
 		<div class="row">
-			<div class="col s6">
+			<div class="col s6 left-align">
 				<div class="responsive-logo">
 					<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/logo_definitif.svg')}}"/>
 				</div>
 			</div>
-			<div class="col s6">
-				HAMBURGER
-			</div>
+            <div class="col m6 s6 l6 right-align navicon">
+                <p>MENU</p>
+                <a id="trigger-overlay" class="nav-toggle" href="#">
+                <span></span>
+                </a>
+            </div>
 		</div>
 	</div>
-	<div class="overlay overlay-boxify">
-		<nav>
-			<ul>
-				<li><a href="#quisuisje"><i class="fa fa-question"></i>Qui suis-je ?</a></li>
-				<li><a href="#LEBTSSIO"><i class="fa fa-desktop"></i>LP DAWIN ?</a></li>
-			</ul>
-			<ul>
-				<li><a href="#maformation"><i class="fa fa-graduation-cap"></i>Formation</a></li>
-				<li><a href="#mestages"><i class="fa fa-users"></i>Expérience</a></li>
-			</ul>
-			<ul>
-				<li><a href="#maveille"><i class="fa fa-search"></i>IUT de Bordeaux</a></li>
-				<li><a href="#messituations"><i class="fa fa-folder"></i>Mes réalisations</a></li>
-			</ul>
-			<ul>
-				<li><a href="#download"><i class="fa fa-download"></i>Mon CV</a></li>
-			</ul>
-		</nav>
-	</div>
+
 	<div class="underHeader">
 		<div class="logo">
 			<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/logo_definitif.svg')}}"/>
@@ -71,7 +56,7 @@
 	<div class="parallax">
 		<img src="{{asset('bundles/AppBundle/img/accueil.jpg')}}"/>
 	</div>
-	<div class="blockHeader">
+	<div class="blockHeader hoverable">
 		<br>
 		<p><i class="medium material-icons">language</i></p>
 		<p>Défiez la communauté afin de progresser sur le podium de Ukando'it en remportant les challenges proposés par les utilisateurs.</p>
@@ -84,4 +69,18 @@
 			</a>
 		</p>
 	</div>
+
+</div>
+
+<div class="overlay overlay-boxify">
+	<nav class="no-materialize">
+		<ul class="no-materialize">
+			<li><a href="{{ path('homepage') }}"><i class="material-icons">store</i>Accueil</a></li>
+			<li><a href="{{ path('challenges') }}"><i class="material-icons">star</i>Les Défis</a></li>
+		</ul>
+		<ul>
+			<li><a href="{{ path('about') }}"><i class="material-icons">info_outline</i>À Propos</a></li>
+			<li><a href="{{ path('contact') }}"><i class="material-icons">contacts</i>Contact</a></li>
+		</ul>
+	</nav>
 </div>
