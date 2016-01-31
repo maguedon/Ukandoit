@@ -1,35 +1,81 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-	{% block fos_user_content %}
-	{% if error %}
-	    <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
-	{% endif %}
+{% block fos_user_content %}
+{% if error %}
+<div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+{% endif %}
 
+<section class="titre_page">
 	<div class="row">
-		<div class="col offset-m4 m4">
-			<form action="{{ path("fos_user_security_check") }}" method="post">
-			    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+		<div class="bloc_rouge"></div>
+		<div class="bloc_titre">
+			<h1>Se connecter</h1>
+		</div>
+	</div>
+</section>
 
-				<div class="input-field">
-				    <input type="text" class="validate" id="username" name="_username" value="{{ last_username }}" required="required" />
-				    <label class="active" for="username">Login</label>
+<div class="container">
+	<div class="row">
+
+
+		<div class="bande_rouge">Formulaire de connexion</div>
+
+		<div class="card-panel">	
+			<form action="{{ path("fos_user_security_check") }}" method="post">
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+				<div class="input-field form-group col s12">
+					<input type="text" class="validate" id="username" name="_username" value="{{ last_username }}" required="required" />
+					<label class="active" for="username">Login</label>
+
+				</div>
+
+
+				<div class="input-field form-group col s12">
+					<input type="password" class="validate" id="password" name="_password" required="required" />
+					<label class="active" for="password">Mot de passe</label>
+				</div>
+				<p>
+					<input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+					<label for="remember_me">Se souvenir de moi</label>
+				</p>
+				<div class="form-group">
+					<div class="btn_centre">    	
+						<button class="btn btn-primary btn-block btn-lg" type="submit" id="_submit" name="_submit">Se connecter</button>
+						<!-- btn waves-effect waves-light -->
+					</div>
+				</div>
+
+
+
+			{#	<div class="input-field">
+					<input type="text" class="validate" id="username" name="_username" value="{{ last_username }}" required="required" />
+					
+					<label class="active" for="username">Login</label>
 				</div>
 
 				<div class="input-field">
-				    <input type="password" class="validate" id="password" name="_password" required="required" />
-				    <label class="active" for="password">Mot de passe</label>
+					<input type="password" class="validate" id="password" name="_password" required="required" />
+					<label class="active" for="password">Mot de passe</label>
 				</div>
 
 				<p>
-				    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-				    <label for="remember_me">Se souvenir de moi</label>
-			    </p>
+					<input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+					<label for="remember_me">Se souvenir de moi</label>
+				</p>
 
-			    <button class="btn waves-effect waves-light" type="submit" id="_submit" name="_submit">Se connecter</button>
-			</form>
-		</div>
+				#}
+				
+			</div>
+
+
+		</form>
 	</div>
-	{% endblock fos_user_content %}
+
+
+</div>
+{% endblock fos_user_content %}
 
 {% endblock %}
+
