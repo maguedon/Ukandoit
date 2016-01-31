@@ -9,22 +9,22 @@
 					<li class="tab col m2"><a href="{{ path('contact') }}">Contact</a></li>
 					<li class="tab col m2 disabled"><a href="#"></a></li>
 					{% if app.user %}
-					<li class="tab col m2"><a href="{{ path('fos_user_profile_show') }}">Mon profil</a></li>
-					<li class="tab col m2"><a href="{{ path('fos_user_profile_edit') }}">Mon compte</a></li>
-					{% else %}
-					<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
-					<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+						<li class="tab col m2"><a href="{{ path('fos_user_profile_show') }}">Mon profil</a></li>
+						<li class="tab col m2"><a href="{{ path('fos_user_security_logout') }}">Se Déconnecter</a></li>
+						{% else %}
+						<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+						<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
 					{% endif %}
 					{% if app.request.attributes.get('_route') == "homepage" %}
-					<div class="indicator accueil"></div>
-					{% elseif app.request.attributes.get('_route') == "challenges" %}
-					<div class="indicator lesdefis"></div>
-					{% elseif app.request.attributes.get('_route') == "about" %}
-					<div class="indicator apropos"></div>
-					{% elseif app.request.attributes.get('_route') == "contact" %}
-					<div class="indicator contact"></div>
-					{% elseif app.request.attributes.get('_route') == "fos_user_registration_register" %}
-					<div class="indicator sinscrire"></div>
+						<div class="indicator accueil"></div>
+						{% elseif app.request.attributes.get('_route') == "challenges" %}
+						<div class="indicator lesdefis"></div>
+						{% elseif app.request.attributes.get('_route') == "about" %}
+						<div class="indicator apropos"></div>
+						{% elseif app.request.attributes.get('_route') == "contact" %}
+						<div class="indicator contact"></div>
+						{% elseif app.request.attributes.get('_route') == "fos_user_registration_register" %}
+						<div class="indicator sinscrire"></div>
 					{% endif %}
 				</ul>
 			</div>
@@ -37,12 +37,12 @@
 					<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/logo_definitif.svg')}}"/>
 				</div>
 			</div>
-            <div class="col m6 s6 l6 right-align navicon">
-                <p>MENU</p>
-                <a id="trigger-overlay" class="nav-toggle" href="#">
-                <span></span>
-                </a>
-            </div>
+			<div class="col m6 s6 l6 right-align navicon">
+				<p>MENU</p>
+				<a id="trigger-overlay" class="nav-toggle" href="#">
+					<span></span>
+				</a>
+			</div>
 		</div>
 	</div>
 
@@ -81,6 +81,15 @@
 		<ul class="no-materialize">
 			<li><a href="{{ path('about') }}"><i class="material-icons">info_outline</i>À Propos</a></li>
 			<li><a href="{{ path('contact') }}"><i class="material-icons">contacts</i>Contact</a></li>
+		</ul>
+		<ul class="no-materialize">
+			{% if app.user %}
+				<li><a href="{{ path('fos_user_profile_show') }}"><i class="material-icons">perm_identity</i>Mon profil</a></li>
+				<li><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons">input</i>Se Déconnecter</a></li>
+				{% else %}
+				<li><a href="{{ path('fos_user_registration_register') }}"><i class="material-icons">web</i>S'inscrire</a></li>
+				<li><a href="{{ path('fos_user_security_login') }}"><i class="material-icons">open_in_new</i>Connexion</a></li>
+			{% endif %}
 		</ul>
 	</nav>
 </div>
