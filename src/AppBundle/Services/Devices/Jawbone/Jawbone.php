@@ -138,6 +138,7 @@ class Jawbone{
 		$context = stream_context_create($opts);
 
 		$response = file_get_contents($url, false, $context);
+
 		$moves = json_decode($response, true);
 		return $moves['data'];
 	}

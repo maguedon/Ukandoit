@@ -46,6 +46,8 @@
 </div>
 
 	{% if app.user %}
+		{% set image = vich_uploader_asset(app.user.avatar, 'imageFile') %}
+		<img src="{{ asset(image) }}">
 		<h2>Objets connectés</h2>
 	{% endif %}
 	<ul>

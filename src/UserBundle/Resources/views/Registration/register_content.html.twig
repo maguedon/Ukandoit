@@ -21,22 +21,19 @@
 
             <div class="card-panel">    
                 <div class="input-field form-group col s12 m6">
-                    <input id="last_name" type="text" class="validate">
-                    <label for="last_name">Prénom</label>
+                    {{ form_widget(form.firstname, { 'attr': {'class': 'form-control', 'placeholder': "Prénom"|trans } }) }}
+                    {{ form_errors(form.firstname) }}
                 </div>
                 <div class="input-field form-group col s12 m6">
-                    <input id="last_name" type="text" class="validate">
-                    <label for="last_name">Nom</label>
+                    {{ form_widget(form.lastname, { 'attr': {'class': 'form-control', 'placeholder': "Nom"|trans } }) }}
+                    {{ form_errors(form.lastname) }}
                 </div>      
 
-                <div class="col s12 m6">    
-                    <div class="form-group">  
-
-                        {{ form_widget(form.username, { 'attr': {'class': 'form-control', 'placeholder': "Pseudo"|trans } }) }}
-                        {{ form_errors(form.username) }}
-                    </div>
+               <div class="input-field form-group col s12 m6"> 
+                    {{ form_widget(form.username, { 'attr': {'class': 'form-control', 'placeholder': "Pseudo"|trans } }) }}
+                    {{ form_errors(form.username) }}
                 </div>
-                <div class="input-field col s12 m6 form-group">
+                <!-- <div class="input-field col s12 m6 form-group">
 
 
                     <form action="#">
@@ -51,12 +48,10 @@
                     </form>
 
 
-                </div>
-                <div class="col s12">
-                    <div class="form-group">
-                        {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'Email'|trans } }) }}
-                        {{ form_errors(form.email) }}
-                    </div>
+                </div> -->
+                <div class="input-field form-group col s12 m6"> 
+                    {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'Email'|trans } }) }}
+                    {{ form_errors(form.email) }}
                 </div>   
 
                 <div class="col s12 m6">
@@ -73,20 +68,14 @@
                 </div>   
 
         
-                <div class="col s12">
-                    
-                    <form action="#">
-                        <div class="file-field input-field">
-                            <div class="btn">
-                                <span>File</span>
-                                <input type="file">
-                            </div>
-                            <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text">
-                            </div>
+                 <div class="col s12">
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>File</span>
+                            {{ form_widget(form.avatar, { 'attr': {'class': 'file-path validate' } }) }}
+                            {{ form_errors(form.avatar) }}
                         </div>
-                    </form>
-
+                    </div>
                 </div>
                 
                 {{ form_rest(form) }}

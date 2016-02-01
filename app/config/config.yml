@@ -80,4 +80,14 @@ fos_user:
         form:
             type: app_user_registration
 
+vich_uploader:
+    db_driver: orm # or mongodb or propel or phpcr
 
+    mappings:
+        product_image:
+            uri_prefix:         /images/avatars
+            upload_destination: %kernel.root_dir%/../web/images/avatars
+
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true

@@ -13,6 +13,7 @@ namespace UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Form\NewImageType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -20,7 +21,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder->add('firstname')
                 ->add('lastname')
-                ->add('avatar')
+                ->add('avatar', NewImageType::class)
 
                 ->add('username', null, array('label' => 'Pseudo', 'translation_domain' => 'FOSUserBundle'))
                 ->add('email', 'email', array('label' => 'Email', 'translation_domain' => 'FOSUserBundle'))
@@ -31,9 +32,6 @@ class RegistrationFormType extends AbstractType
                             'second_options' => array('label' => 'Confirmation'),
                             'invalid_message' => 'fos_user.password.mismatch',
                      ))
-                ->add('submit', 'submit', array(
-                    'label' => 'enregistrer'
-                    ))
                 ;
     }
 

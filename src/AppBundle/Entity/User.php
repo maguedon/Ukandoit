@@ -38,9 +38,8 @@ class User extends BaseUser
     private $lastname;
 
     /**
-     * @var blob
-     *
-     * @ORM\Column(name="avatar", type="blob", nullable=true)
+     * @ORM\OneToOne(targetEntity="Image", cascade={"remove", "persist"})
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $avatar;
 
