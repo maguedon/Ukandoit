@@ -10,6 +10,7 @@
 	</div>
 </section>
 
+
 <div class="container">
 	<div class="row">
 		<div class="col s12">
@@ -19,45 +20,51 @@
 	<div class="row">
 		<div class="col s12 l6">
 			<div class="col s12">
-				<form action="">
+			{{ form_start(form, { 'attr': {'id': 'contact'} }) }}
+
+			
 					<div class="input-field form-group col s12">
-						<input type="text" class="validate" id="username" name="_username" required="required" />
+						{{ form_widget(form.name) }}
 						<label class="active" for="username">Nom</label>
 
 					</div>
 					<div class="input-field form-group col s12">
-						<input type="email" class="validate" id="email" name="_email" required="required" />
+						{{ form_widget(form.email) }}
 						<label class="active" for="username">Email</label>
 
 					</div>
 					<div class="input-field form-group col s12">
-						<input type="text" class="validate" id="sujet" name="_sujet" required="required" />
+						{{ form_widget(form.subject) }}
 						<label class="active" for="username">Sujet</label>
 
 					</div>
 					<div class="input-field form-group col s12">
-						<textarea id="textarea1" class="materialize-textarea"></textarea>
+						
+						{{ form_widget(form.message, { 'attr': {'class': 'materialize-textarea'} }) }}
+
 						<label for="textarea1">Contenu</label>
 
 					</div>
 
-				</form>
+				
+
 				<div class="form-group">
 					<div class="btn_centre">   
 						<div class="col s12 g-recaptcha" data-sitekey="6LcJBBcTAAAAAKQIlh3sCogXUGMUb7D_yQEN63C-"></div>
 
-						<button class="btn btn-primary btn-block btn-lg" type="submit" id="_submit" name="_submit">Envoyer</button>
+
+						<button class="btn btn-primary btn-block btn-lg" type="submit" id="form_send" name="form[send]">Envoyer</button>
+
 						<!-- btn waves-effect waves-light -->
 					</div>
 				</div>
-
 			</div>
 		</div>
 		<div class="col s12 l6 map">
-		<div class="map-responsive">
-			<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"src="https://maps.google.com/maps?hl=en&q=15 rue Naudet  Gradignan, France&ie=UTF8&t=m&z=12&iwloc=B&output=embed"><div><small><a href="http://embedgooglemaps.com">
-				embed google map
-			</a></small></div><div><small><a href="http://googlemapsgenerator.com">googlemapsgenerator.com</a></small></div></iframe>
+			<div class="map-responsive">
+				<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"src="https://maps.google.com/maps?hl=en&q=15 rue Naudet  Gradignan, France&ie=UTF8&t=m&z=12&iwloc=B&output=embed"><div><small><a href="http://embedgooglemaps.com">
+					embed google map
+				</a></small></div><div><small><a href="http://googlemapsgenerator.com">googlemapsgenerator.com</a></small></div></iframe>
 			</div>
 		</div>
 	</div>
