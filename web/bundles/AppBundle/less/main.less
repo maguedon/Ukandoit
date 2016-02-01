@@ -9,7 +9,7 @@
 @import "_apropos.less";
 
 //Theme
-@import "_responsive.less";
+
 @import "_mixins.less";
 @import "_theme.less";
 
@@ -99,8 +99,8 @@ body {
 
 .btn_centre {
 	input, button {
-	margin: auto;
-}
+		margin: auto;
+	}
 }
 
 
@@ -138,7 +138,7 @@ body {
 		border-bottom: 1px solid @rouge_vif;
 		box-shadow: 0 1px 0 0 @rouge_vif;
 	}
-    input[type=password].valid {
+	input[type=password].valid {
 		border-bottom: 1px solid @rouge_vif;
 		box-shadow: 0 1px 0 0 @rouge_vif;
 	}
@@ -147,3 +147,30 @@ body {
 	}
 }
 
+.map {	
+		padding: 20px !important;
+	
+	.map-responsive{
+		overflow:hidden;
+		padding-bottom:56.25%;
+		position:relative;
+		height:0px;
+		iframe{
+			left:0;
+			top:0;
+			height:100%;
+			width:100%;
+			position:absolute;
+		}
+	}
+}
+
+.g-recaptcha > div > div {
+	margin: 10px auto !important;
+	text-align: center;
+	width: auto;
+	height: auto;
+}
+
+// responsive
+@import "_responsive.less";
