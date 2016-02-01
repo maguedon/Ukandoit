@@ -21,14 +21,18 @@
         {% include 'include/_rond.html.twig' %}
         {#{% include 'include/_menu.html.twig' %}#}
         {% block body %}{% endblock %}
-        {% block javascripts %}
-            {% javascripts
+
+             {% javascripts
             'bundles/AppBundle/js/*'
             'bundles/AppBundle/materialize/js/materialize.js'
             %}
-            <script src='https://www.google.com/recaptcha/api.js'></script>
-            <script src="{{ asset_url }}"></script>
+                <script src='https://www.google.com/recaptcha/api.js'></script>
+                <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
+
+    
+        {% block javascripts %}
+           
         {% endblock %}
         {% include 'include/_footer.html.twig' %}
 

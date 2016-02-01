@@ -2,9 +2,23 @@
 
 {% block body %}
 {% block fos_user_content %}
-{% if error %}
+{# {% if error %}
 <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
 {% endif %}
+#}
+
+{% block javascripts %}
+	{% if error %}
+	<script type="text/javascript">
+		$( document ).ready(function() {
+			toastr.error("Votre identifiant et votre mot de passe ne correspondent pas.");
+		});
+	</script>
+	{% endif %}
+{% endblock %} 
+
+
+
 
 <section class="titre_page">
 	<div class="row">
@@ -14,6 +28,8 @@
 		</div>
 	</div>
 </section>
+
+
 
 <div class="container">
 	<div class="row">
