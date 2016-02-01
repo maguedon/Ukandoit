@@ -8,7 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\NewPossessedDeviceType;
 use AppBundle\Entity\PossessedDevice;
-
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class DefaultController extends Controller
 {
     /**
@@ -29,8 +32,46 @@ class DefaultController extends Controller
     /**
      * @Route("/contact", name="contact")
      */
-    public function contactAction(){
-        return $this->render('AppBundle:Default:contact.html.twig');
+    public function contactAction(Request $request){
+
+
+    $defaultData = array('message' => 'Type your message here');
+    $form = $this->createFormBuilder($defaultData)
+        ->add('name', TextType::class)
+        ->add('email', EmailType::class)
+        ->add('subject', TextType::class)
+        ->add('message', TextareaType::class)
+        ->add('send', SubmitType::class)
+        ->getForm();
+
+    $form->handleRequest($request);
+
+    if ($form->isValid()) {
+        // data is an array with "name", "email", and "message" keys
+        $data = $form->getData();
+
+
+        $message = \Swift_Message::newInstance()
+        ->setSubject($data['subject'])
+        ->setFrom($data['email'])
+        ->setBody("Vous avez reçu un message de " .$data['name'] . " avec l'adresse : " . $data['name'] .  "\ncontenu de message : \n"  . $data['message']);
+        $this->get('mailer')->send($message);
+
+      //  $this->get('session')->setFlash('blogger-notice', 'Your contact enquiry was successfully sent. Thank you!');
+
+        // Redirect - This is important to prevent users re-posting
+        // the form if they refresh the page
+       
+        return $this->render('AppBundle:Default:contact.html.twig', array(
+           "form"=>$form->createView()
+            ));
+
+    }
+
+
+        return $this->render('AppBundle:Default:contact.html.twig', array(
+           "form"=>$form->createView()
+            ));
     }
 
     /**

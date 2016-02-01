@@ -11,7 +11,11 @@
 	</section>
 	<section class="defis">
 		<div class="row">
-			  {% include 'include/_defis.html.twig' %}
+			{% for i in 0..10 %}
+			
+				{% include 'include/_defisCard.html.twig' %}
+		
+			{% endfor %}
 		</div>
 	</section>
 

@@ -1,39 +1,171 @@
 /* Desktop */
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+	.map {
+		margin-top: 20px !important;
+		border-left: 1px solid #888686;
+		.map-responsive {
+			height: 400px;
+		}
+	}
+	.user_level {
+		text-align: center;
+	}
+	.firstrank{
+		width: 21% !important;
+	}
+	.secondrank{
+		margin-left: 23% !important;
+	}
+}
+
+/* Tweak Podium */
+@media (min-width: 993px) and (max-width: 1305px){
+	.firstrank
+	{
+		width: 35% !important;
+	}
+
+	.secondrank
+	{
+		margin-left: 15% !important;
+	}
+}
+
+/* Tweak Podium */
+@media (min-width: 1306px) and (max-width: 1645px){
+	.firstrank
+	{
+		width: 25% !important;
+	}
+
+	.secondrank
+	{
+		margin-left: 22% !important;
+	}
+}
+
 
 /* Tablette */
 @media (max-width: 992px) {
+
+	h1
+	{
+		font-size: 1.5em !important;
+	}
 }
 
 /* Fin Header */
 @media (max-width: 800px) {
-.underHeader
-{
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
-}
-.underHeader{
-	display: none;
-}
+	.underHeader
+	{
+		display: none !important;
+	}
 
-.menu{
-	display: none;
-}
-.responsive-menu{
-	display: block;
+	.underHeader, .menu{
+		display: none;
+	}
+
+	.responsive-menu{
+		display: block;
+	}
+
+	.blockHeader {
+		margin-left: auto;
+		margin-right: auto;
 	}
 }
 
 /* Smartphone */
 @media (max-width: 600px) {
+.firstrank img, .secondrank img, .thirdrank img {
+	width : 70%;
+}
 
-
+.podium{
+  margin-top: -70px;
+}
 }
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
 
+	.responsive-logo img
+	{
+		width: 170px;
+	}
 
+	.responsive-menu
+	{
+		margin-top: 10px;
+	}
+
+	.navicon {
+		margin-top: 3px !important;
+	}
 
 }
+
+/* End of responsive menu working */
+@media (max-width: 400px) {
+	.overlay ul li a {
+		font-size: 14px !important;
+		min-width: 120px !important;
+		padding: 20px 0 !important;
+	}
+
+	.home .defis .round_tab {
+		height: 70px;
+		width: 70px;
+	}
+
+	.round_tab i.large {
+		font-size: 3rem;
+	}
+
+	.bloc_rouge {
+		width: 200px !important;
+		top: 10px !important;
+	}
+
+	.bloc_titre {
+		width: 180px !important;
+		height: 40px !important;
+	}
+
+	.titre_page {
+		padding-bottom: 40px !important;
+	}
+
+	.bloc_defis .s5 span  {
+		display: none;
+	}
+
+	.home .defis .bloc_defi .go_defi img {
+		height : 60px;
+	}
+
+	footer .row .logos_sociaux img, footer .container .logos_sociaux img, footer .col .logos_sociaux img {
+		max-height: 20px;
+	}
+
+	footer{
+		font-size: 10px;
+	}
+
+	.home .defis .bloc_defi .go_defi img {
+		height : 60px;
+	}
+
+	.firstrank img, .secondrank img, .thirdrank img {
+		width : 70%;
+	}
+
+	.thirdrank
+	{
+	  margin-top: 70px;
+	}
+
+	.podium{
+		margin-top: -50px;
+	}
+	}

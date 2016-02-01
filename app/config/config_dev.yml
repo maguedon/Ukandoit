@@ -31,8 +31,11 @@ monolog:
         #    type:   chromephp
         #    level:  info
 
-#swiftmailer:
-#    delivery_address: me@example.com
+swiftmailer:
+    delivery_address: contact.ukandoit@gmail.com
+    transport: gmail
+    username:  contact.ukandoit@gmail.com
+    password:  ukandoitcontact
 
 assetic:
     use_controller: true

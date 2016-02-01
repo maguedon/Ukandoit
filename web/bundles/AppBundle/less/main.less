@@ -1,4 +1,5 @@
 @import "_animate.less";
+@import "_toastr.less";
 
 //Include
 @import "_header.less";
@@ -9,10 +10,12 @@
 @import "_apropos.less";
 
 //Theme
-@import "_responsive.less";
+
 @import "_mixins.less";
 @import "_theme.less";
 
+//Overlay Menu
+@import "_overlay.less";
 
 
 html {
@@ -93,12 +96,12 @@ body {
 
 
 
-// Inscription
+// Forms
 
 .btn_centre {
-	input {
-	margin: auto;
-}
+	input, button {
+		margin: auto;
+	}
 }
 
 
@@ -136,7 +139,94 @@ body {
 		border-bottom: 1px solid @rouge_vif;
 		box-shadow: 0 1px 0 0 @rouge_vif;
 	}
+	input[type=password].valid {
+		border-bottom: 1px solid @rouge_vif;
+		box-shadow: 0 1px 0 0 @rouge_vif;
+	}
 	.prefix.active {
 		color: @rouge_vif;
 	}
 }
+
+.map {	
+	padding: 20px !important;
+
+	.map-responsive{
+		overflow:hidden;
+		padding-bottom:56.25%;
+		position:relative;
+		height:0px;
+		iframe{
+			left:0;
+			top:0;
+			height:100%;
+			width:100%;
+			position:absolute;
+		}
+	}
+}
+
+.g-recaptcha > div > div {
+	margin: 10px auto !important;
+	text-align: center;
+	width: auto;
+	height: auto;
+}
+
+.member_avatar {
+	.badge_user {
+		position: relative;
+		.dp {
+			width: 25%;
+			height: 25%;
+		} 
+	} 
+
+	font-variant: small-caps;
+	font-weight: 600;
+	font-size: 1.1em;
+	span {
+		padding: 0 10px;
+	}
+	.col_right , .col_right .member_name {
+		margin-left:auto;
+		margin-right:0;
+		&:img {
+			margin-left: 0;
+		}
+	}
+
+	.under_text {
+		height: 6px;
+		width: 70px;
+		position: relative;
+		border-bottom: 0.15em solid #f51c40;
+		margin: auto;
+	}
+}
+
+.rouge {
+	color: @rouge_vif;
+	display: inline-block;
+}
+
+.defi {
+	h2 {
+		font-size: 1.3em !important;
+		font-variant: small-caps;
+	}
+	.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating),.card .card-action img {
+		color: @rouge_vif;
+		text-align: center !important;
+		margin: auto !important;
+	}
+	.badge_user {
+		text-align: center;
+		display: block;
+	}
+}
+
+
+
+// responsive
+@import "_responsive.less";
