@@ -9,22 +9,30 @@
 					<li class="tab col m2"><a href="{{ path('contact') }}">Contact</a></li>
 					<li class="tab col m2 disabled"><a href="#"></a></li>
 					{% if app.user %}
-						<li class="tab col m2"><a href="{{ path('fos_user_profile_show') }}">Mon profil</a></li>
-						<li class="tab col m2"><a href="{{ path('fos_user_security_logout') }}">Se Déconnecter</a></li>
-						{% else %}
-						<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
-						<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+					<li class="tab col m2 select_menu_tab">
+						<select id="menu_select">
+						<option value="" disabled selected>Profil</option>
+							<option value="1">Profil</option>
+							<option value="2">Compte</option>
+							<option value="3">Objets</option>
+						</select>
+					</li>
+					<li class="tab col m1 avatar_menu"><img class="menu_logo dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg"></li>
+					<li class="tab col m1 logOutButton"><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons">input</i></a></li>
+					{% else %}
+					<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+					<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
 					{% endif %}
 					{% if app.request.attributes.get('_route') == "homepage" %}
-						<div class="indicator accueil"></div>
-						{% elseif app.request.attributes.get('_route') == "challenges" %}
-						<div class="indicator lesdefis"></div>
-						{% elseif app.request.attributes.get('_route') == "about" %}
-						<div class="indicator apropos"></div>
-						{% elseif app.request.attributes.get('_route') == "contact" %}
-						<div class="indicator contact"></div>
-						{% elseif app.request.attributes.get('_route') == "fos_user_registration_register" %}
-						<div class="indicator sinscrire"></div>
+					<div class="indicator accueil"></div>
+					{% elseif app.request.attributes.get('_route') == "challenges" %}
+					<div class="indicator lesdefis"></div>
+					{% elseif app.request.attributes.get('_route') == "about" %}
+					<div class="indicator apropos"></div>
+					{% elseif app.request.attributes.get('_route') == "contact" %}
+					<div class="indicator contact"></div>
+					{% elseif app.request.attributes.get('_route') == "fos_user_registration_register" %}
+					<div class="indicator sinscrire"></div>
 					{% endif %}
 				</ul>
 			</div>
@@ -56,20 +64,20 @@
 		<img src="{{asset('bundles/AppBundle/img/accueil_running.jpg')}}"/>
 	</div>
 	<div class="blockHeader hoverable">
-	<div class="container">
-		<br>
-		<i class="medium material-icons hide-on-med-and-up">language</i>
-		<p><h1>Les objets connectés se rencontrent pour des défis sportifs</h1></p>
-		<p><h2 class="hide-on-small-only">Défiez la communauté afin de progresser sur le podium de Ukando'it en remportant les challenges proposés par les utilisateurs.</h2></p>
-		<p><span>Inscription Gratuite</span><br>
-			<i class="medium material-icons">play_for_work</i>
-			<a href="{{ path('fos_user_registration_register') }}">
-				<div id="inscription-button">
-					<span>S'inscrire</span>
-				</div>
-			</a>
-		</p>
-	</div>
+		<div class="container">
+			<br>
+			<i class="medium material-icons hide-on-med-and-up">language</i>
+			<p><h1>Les objets connectés se rencontrent pour des défis sportifs</h1></p>
+			<p><h2 class="hide-on-small-only">Défiez la communauté afin de progresser sur le podium de Ukando'it en remportant les challenges proposés par les utilisateurs.</h2></p>
+			<p><span>Inscription Gratuite</span><br>
+				<i class="medium material-icons">play_for_work</i>
+				<a href="{{ path('fos_user_registration_register') }}">
+					<div id="inscription-button">
+						<span>S'inscrire</span>
+					</div>
+				</a>
+			</p>
+		</div>
 	</div>
 
 </div>
@@ -86,11 +94,11 @@
 		</ul>
 		<ul class="no-materialize">
 			{% if app.user %}
-				<li><a href="{{ path('fos_user_profile_show') }}"><i class="material-icons">perm_identity</i>Mon profil</a></li>
-				<li><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons">input</i>Se Déconnecter</a></li>
-				{% else %}
-				<li><a href="{{ path('fos_user_registration_register') }}"><i class="material-icons">web</i>S'inscrire</a></li>
-				<li><a href="{{ path('fos_user_security_login') }}"><i class="material-icons">open_in_new</i>Connexion</a></li>
+			<li><a href="{{ path('fos_user_profile_show') }}"><i class="material-icons">perm_identity</i>Mon profil</a></li>
+			<li><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons">input</i>Se Déconnecter</a></li>
+			{% else %}
+			<li><a href="{{ path('fos_user_registration_register') }}"><i class="material-icons">web</i>S'inscrire</a></li>
+			<li><a href="{{ path('fos_user_security_login') }}"><i class="material-icons">open_in_new</i>Connexion</a></li>
 			{% endif %}
 		</ul>
 	</nav>
