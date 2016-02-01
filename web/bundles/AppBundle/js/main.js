@@ -1,7 +1,6 @@
 $(document).ready(function(){
 	$('.parallax').parallax();
 
-<<<<<<< HEAD
 
 	    // toastr options
 
