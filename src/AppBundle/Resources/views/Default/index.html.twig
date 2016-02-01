@@ -1,6 +1,12 @@
 {% extends "::base.html.twig" %}
 {% block body %}
 
+{% for message in app.session.flashBag.get('message') %}
+    <div class="flash-notice"> {{ message }} </div>
+{% endfor %}
+
+
+
 <div class="container home">
 	<section class="titre_page">
 		<div class="row">
@@ -70,9 +76,8 @@
 		</div>
 	</section>
 </div>
-{% endblock %}
 
-{#	{% if app.user %}
+	{% if app.user %}
 		<h2>Objets connectés</h2>
 	{% endif %}
 	<ul>
@@ -90,4 +95,4 @@
 		{% endif %}
 	</ul>
 {% endblock %}
-#}
+

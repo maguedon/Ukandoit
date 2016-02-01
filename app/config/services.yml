@@ -37,3 +37,13 @@ services:
     app.jawbone:
         class: AppBundle\Services\Devices\Jawbone\Jawbone
         arguments: ['%app.jawbone.client_id%', '%app.jawbone.client_secret%', '%app.jawbone.redirect_uri%', '%app.jawbone.scopes%']
+
+    app.form.registration:
+        class: UserBundle\Form\RegistrationFormType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+
+    app.form.profile:
+        class: UserBundle\Form\ProfileFormType
+        tags:
+            - { name: form.type, alias: app_user_profile }

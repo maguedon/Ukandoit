@@ -82,28 +82,24 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/withings", name="withings")
+     * @Route("/withings/", name="withings")
      */
     public function withingsAction(){
         $withings = $this->get("app.withings");
         $withings->connection();
 
-        $em = $this->get('doctrine')->getManager();
-
-        $possessedDevice = new PossessedDevice();
         $current_user = $this->container->get('security.context')->getToken()->getUser();
-        $possessedDevice->setUser($current_user);
+        $current_user->getLastPossessedDevice();
 
+        $possessedDevice = $current_user->getLastPossessedDevice();
         $possessedDevice->setAccessTokenKeyWithings($withings->getAccessTokenKey());
         $possessedDevice->setAccessTokenSecretWithings($withings->getAccessTokenSecret());
         $possessedDevice->setUserIdWithings($withings->getUserID());
 
-        $withingsDevice = $em->getRepository('AppBundle\Entity\PossessedDevice')->find(1); // Withings DeviceType Object
-        $possessedDevice->setDeviceType($withingsDevice);
-
-
+        $em = $this->get('doctrine')->getManager();
         $em->persist($possessedDevice);
         $em->flush();
+
         return $this->redirectToRoute('homepage');
     }
 
@@ -121,10 +117,11 @@ class DefaultController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
-                $possessedDevice->setDeviceType($form);
-                $withings = $this->get("app.withings");
-                $withings->connection();
-                $this->redirectToRoute('withings');
+                $em = $this->get('doctrine')->getManager();
+                $em->persist($possessedDevice);
+                $em->flush();
+
+                return $this->redirectToRoute('withings');
             }
             // Jawbone
             else{
@@ -166,7 +163,7 @@ class DefaultController extends Controller
      * @Route("/jawbone/{id}/moves", name="jawbone_moves")
      */
     public function jawboneMovesAction($id){
-        $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);;
+        $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);
 
         $jawbone = $this->get("app.jawbone");
         $json = $jawbone->getMoves($possessedDevice->getAccessTokenJawbone());
@@ -182,7 +179,7 @@ class DefaultController extends Controller
      * @Route("/withings/{id}/moves", name="withings_moves")
      */
     public function withingsMovesAction($id){
-        $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);;
+        $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);
 
         $jawbone = $this->get("app.withings");
         $json = $jawbone->getMoves($possessedDevice->getAccessTokenWithings());

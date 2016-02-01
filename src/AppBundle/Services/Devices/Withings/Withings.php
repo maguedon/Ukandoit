@@ -91,6 +91,7 @@ class Withings
 
 
     public function connection(){
+
         $this->withings->setCallbackURL( $this->callback_url );
         $this->withings->setCredentials( $this->consumer_key, $this->consumer_secret ); // these variables come from database
 

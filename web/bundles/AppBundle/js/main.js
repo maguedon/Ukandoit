@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	$('.parallax').parallax();
 
+<<<<<<< HEAD
 
 	    // toastr options
 
@@ -22,6 +23,10 @@ $(document).ready(function(){
     	"hideMethod": "fadeOut"
     }
 */
+
+	//Permet d'afficher les balises select
+	$('select').material_select();
+
 });
 
 $(window).load(function()
