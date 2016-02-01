@@ -108,7 +108,7 @@ body
   margin-top: 180px;
   margin-left: 25%;
   background-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 -5px 3px #4e4e4e;
+  box-shadow: 0 0px 5px #4e4e4e;
   text-align: center;
   color: @gris_fonce;
 }
@@ -174,3 +174,41 @@ body
     box-shadow: none;
     line-height: normal;
 }
+
+/* --------- ROND --------- */
+
+.underlineTopCircle {
+    border-bottom: 2px solid black;
+    margin: 5px auto 20px;
+    width: 160px;
+}
+
+.topCircle.underlined {
+    margin-top: -45px;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.topCircle {
+    border-radius: 65px 65px 65px 65px;
+    box-shadow: 0px -6px 4px -3px rgba(0, 0, 0, 1);
+    height: 65px;
+    margin: -25px auto auto;
+    text-align: center;
+    width: 65px;
+    background-color: @layout;
+}
+
+.topCircle.arrow > img {
+    height: 25px;
+    margin-top: 17px;
+    width: 40px;
+}
+.topCircle > img {
+    height: 50px;
+    width: 50px;
+}
+
+
