@@ -38,7 +38,10 @@
 			</div>
 		</div>
 		<div class="row">
-			  {% include 'include/_defis.html.twig' %}
+			{% for i in 0..5 %}
+				{% include 'include/_defis.html.twig' %}
+			{% endfor %}
+
 		</div>
 	</section>
 	<section class="classement center-align">
