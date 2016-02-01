@@ -88,3 +88,7 @@ $('.select_menu_tab').mouseleave(function(){
     $(".select_menu_tab ul").removeClass('active');
     $(".select_menu_tab input").removeClass('active');
 });
+
+$(document).ready(function(){
+    $('.tooltipped').tooltip({delay: 50});
+  });

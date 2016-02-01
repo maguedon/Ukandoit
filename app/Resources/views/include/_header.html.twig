@@ -17,8 +17,8 @@
 							<option value="3">Objets</option>
 						</select>
 					</li>
-					<li class="tab col m1 avatar_menu"><img class="menu_logo dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg"></li>
-					<li class="tab col m1 logOutButton"><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons">input</i></a></li>
+					<li class="tab col m1 avatar_menu"><img data-position="bottom" data-delay="50" data-tooltip="Benoit - Niv.42" class="tooltipped menu_logo dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg"></li>
+					<li class="tab col m1 logOutButton"><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Se Déconnecter">input</i></a></li>
 					{% else %}
 					<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
 					<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
