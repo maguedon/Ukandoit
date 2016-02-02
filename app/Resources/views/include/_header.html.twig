@@ -7,32 +7,38 @@
 					<li class="tab col m2"><a href="{{ path('challenges') }}">Les Défis</a></li>
 					<li class="tab col m2"><a href="{{ path('about') }}">À Propos</a></li>
 					<li class="tab col m2"><a href="{{ path('contact') }}">Contact</a></li>
-					<li class="tab col m2 disabled"><a href="#"></a></li>
+					<li class="tab col m1 disabled"><a href="#"></a></li>
 					{% if app.user %}
-					<li class="tab col m2 select_menu_tab">
-						<select id="menu_select">
-						<option value="" disabled selected>Profil</option>
-							<option value="1">Profil</option>
-							<option value="2">Compte</option>
-							<option value="3">Objets</option>
-						</select>
-					</li>
-					<li class="tab col m1 avatar_menu"><img data-position="bottom" data-delay="50" data-tooltip="Benoit - Niv.42" class="tooltipped menu_logo dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg"></li>
-					<li class="tab col m1 logOutButton"><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Se Déconnecter">input</i></a></li>
+						<ul id="dropdown1" class="dropdown-content">
+							<li><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
+							<li><a href="{{ path('fos_user_profile_edit') }}">Compte</a></li>
+							<li><a href="{{ path('objects') }}">Objets</a></li>
+						</ul>
+						<li><a class="tab col m3 dropdown-button" href="#!" data-activates="dropdown1">{{ app.user.username }}<i class="material-icons right">play_for_work</i></a></li>
+
+						<li class="tab col m1 avatar_menu">
+							{% if app.user.avatar != null %}
+								{% set image = vich_uploader_asset(app.user.avatar, 'imageFile') %}
+								<img data-position="bottom" data-delay="50" data-tooltip="{{ app.user.username }} - Niv.42" class="tooltipped menu_logo dp circle" src="{{ asset(image) }}">
+							{% else %}
+								<img data-position="bottom" data-delay="50" data-tooltip="{{ app.user.username }} - Niv.42" class="tooltipped menu_logo dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+							{% endif %}
+						</li>
+						<li class="tab col m1 logOutButton"><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Se Déconnecter">input</i></a></li>
 					{% else %}
-					<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
-					<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
-					{% endif %}
-					{% if app.request.attributes.get('_route') == "homepage" %}
-					<div class="indicator accueil"></div>
-					{% elseif app.request.attributes.get('_route') == "challenges" %}
-					<div class="indicator lesdefis"></div>
-					{% elseif app.request.attributes.get('_route') == "about" %}
-					<div class="indicator apropos"></div>
-					{% elseif app.request.attributes.get('_route') == "contact" %}
-					<div class="indicator contact"></div>
-					{% elseif app.request.attributes.get('_route') == "fos_user_registration_register" %}
-					<div class="indicator sinscrire"></div>
+						<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+						<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+						{% endif %}
+						{% if app.request.attributes.get('_route') == "homepage" %}
+						<div class="indicator accueil"></div>
+						{% elseif app.request.attributes.get('_route') == "challenges" %}
+						<div class="indicator lesdefis"></div>
+						{% elseif app.request.attributes.get('_route') == "about" %}
+						<div class="indicator apropos"></div>
+						{% elseif app.request.attributes.get('_route') == "contact" %}
+						<div class="indicator contact"></div>
+						{% elseif app.request.attributes.get('_route') == "fos_user_registration_register" %}
+						<div class="indicator sinscrire"></div>
 					{% endif %}
 				</ul>
 			</div>

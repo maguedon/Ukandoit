@@ -21,7 +21,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder->add('firstname')
                 ->add('lastname')
-                ->add('avatar', NewImageType::class)
+                ->add('avatar', NewImageType::class, array('required' => false))
 
                 ->add('username', null, array('label' => 'Pseudo', 'translation_domain' => 'FOSUserBundle'))
                 ->add('email', 'email', array('label' => 'Email', 'translation_domain' => 'FOSUserBundle'))

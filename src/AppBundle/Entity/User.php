@@ -39,7 +39,7 @@ class User extends BaseUser
 
     /**
      * @ORM\OneToOne(targetEntity="Image", cascade={"remove", "persist"})
-     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true)
      */
     private $avatar;
 
@@ -318,4 +318,6 @@ class User extends BaseUser
         $nbPossessedDevices = count($this->possessedDevices);
         return $this->possessedDevices[$nbPossessedDevices - 1];
     }
+
+    
 }

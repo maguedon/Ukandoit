@@ -20,10 +20,14 @@ $(document).ready(function(){
     	"showMethod": "fadeIn",
     	"hideMethod": "fadeOut"
     }
-*/
+    */
 
 	//Permet d'afficher les balises select
 	$('select').material_select();
+
+    //Activation dropdown menu
+    $(".dropdown-button").dropdown();
+
 
 });
 
@@ -69,7 +73,7 @@ $(".overlay").click(function() {
 
 $(document).ready(function() {
     $('#menu_select').material_select();
-  });
+});
 
 $('.select_menu_tab').mouseenter(function(){
     $(".select_menu_tab").css("height", "200");
@@ -94,4 +98,4 @@ $('.select_menu_tab').mouseleave(function(){
 
 $(document).ready(function(){
     $('.tooltipped').tooltip({delay: 50});
-  });
+});

@@ -103,10 +103,10 @@ class DefaultController extends Controller
         return $this->redirectToRoute('homepage');
     }
 
-        /**
-     * @Route("/object/new", name="new_object")
+    /**
+     * @Route("/objects", name="objects")
      */
-    public function addObject(Request $request){
+    public function objectsAction(Request $request){
         $possessedDevice = new PossessedDevice();
         $form = $this->createForm(NewPossessedDeviceType::class, $possessedDevice);
 
@@ -127,8 +127,6 @@ class DefaultController extends Controller
             else{
                 $em = $this->get('doctrine')->getManager();
 
-                //$possessedDevice->setUser($current_user);
-
                 $em->persist($possessedDevice);
                 $em->flush();
 
@@ -137,8 +135,7 @@ class DefaultController extends Controller
                 return $this->redirect($url);
             }
         }
-
-        return $this->render("AppBundle:Default:addObject.html.twig", array(
+        return $this->render("AppBundle:Default:objects.html.twig", array(
             'form' => $form->createView()
             ));
     }
@@ -156,7 +153,7 @@ class DefaultController extends Controller
         $em = $this->get('doctrine')->getManager();
         $em->flush();
 
-        return $this->redirectToRoute("homepage");
+        return $this->redirectToRoute("objects");
     }
 
     /**

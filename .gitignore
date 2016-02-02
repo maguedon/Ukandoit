@@ -16,3 +16,7 @@ web/bundles/AppBundle/css/*
 composer.lock
 .phpintel/
 /.idea/*
+web/bundles/framework/*
+web/bundles/framework
+.*~
+web/images/*
