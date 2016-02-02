@@ -45,7 +45,7 @@ class Challenge
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="challengesCreated")
-     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $creator;
 
@@ -63,6 +63,7 @@ class Challenge
 
     public function __construct() {
         $this->challengers = new ArrayCollection();
+        $this->creationDate = new \DateTime();
     }
 
 
