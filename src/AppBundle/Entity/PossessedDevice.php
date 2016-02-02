@@ -30,6 +30,13 @@ class PossessedDevice
     /**
      * @var string
      *
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="access_token_jawbone", type="string", length=255, nullable=true)
      */
     private $accessTokenJawbone;
@@ -54,13 +61,6 @@ class PossessedDevice
      * @ORM\Column(name="access_token_secret_withings", type="string", length=255, nullable=true)
      */
     private $accessTokenSecretWithings;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="url", type="string", length=255, unique=true, nullable=true)
-     */
-    private $url;
 
     /**
      * @ORM\ManyToOne(targetEntity="DeviceType")
@@ -118,30 +118,6 @@ class PossessedDevice
     public function getToken()
     {
         return $this->token;
-    }
-
-    /**
-     * Set url
-     *
-     * @param string $url
-     *
-     * @return PossessedDevice
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
     }
 
     /**
@@ -309,5 +285,28 @@ class PossessedDevice
     public function getCreationDate()
     {
         return $this->creationDate;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return PossessedDevice
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

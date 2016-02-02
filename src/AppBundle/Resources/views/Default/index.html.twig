@@ -73,23 +73,5 @@
 		</div>
 	</section>
 </div>
-
-	{% if app.user %}
-		<h2>Objets connectés</h2>
-	{% endif %}
-	<ul>
-		{% if app.user %}
-			{% for possessedDevice in app.user.possessedDevices %}
-				<li>
-					{% if "Jawbone UP 24" == possessedDevice.deviceType %}
-						<a href="{{ path('jawbone_moves', {id: possessedDevice.id}) }}">
-					{% else %}
-						<a href="{{ path('withings_moves', {id: possessedDevice.id}) }}">
-					{% endif %}
-					{{ possessedDevice.deviceType }}</a>
-				</li>
-			{% endfor %}
-		{% endif %}
-	</ul>
 {% endblock %}
 
