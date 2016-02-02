@@ -14,19 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class DefaultController extends Controller
 {
- /**
-     * @Route("/header", name="header")
-     */
-    public function headerAction(){
-        $current_user = $this->container->get('security.context')->getToken()->getUser();
-        if($current_user != "anon.")
-            $level = $this->getLevel($current_user)->getNumLevel();
-        else
-            $level = null;
-        return $this->render('include/_header.html.twig', array(
-            "level" => $level
-            ));
-    }
 
     /**
      * @Route("/", name="homepage")
@@ -211,27 +198,6 @@ class DefaultController extends Controller
      */
    public function challengesAction(){
         return $this->render('AppBundle:Default:challenges.html.twig');
-    }
-
-    public function getLevel($current_user){
-        $em = $this->get('doctrine')->getManager();
-        $levels = $em->getRepository('AppBundle:Level')->findAll();
-
-        $levelFinal = null;
-
-        foreach($levels as $level){
-            if($current_user->getNbPoints() == $level->getNbPoints()){
-                $levelFinal = $level;
-                break;
-            }
-            if($current_user->getNbPoints() < $level->getNbPoints()){
-                $levelFinal = $previousLevel;
-                break;
-            }
-            $previousLevel = $level;
-        }
-
-        return $levelFinal;
     }
 }
 

@@ -18,9 +18,9 @@
 						<li class="tab col m1 avatar_menu">
 							{% if app.user.avatar != null %}
 								{% set image = vich_uploader_asset(app.user.avatar, 'imageFile') %}
-								<img data-position="bottom" data-delay="50" data-tooltip="{{ app.user.username }} - Niv.{{ level }}" class="tooltipped menu_logo dp circle" src="{{ asset(image) }}">
+								<img data-position="bottom" data-delay="50" data-tooltip="{{ app.user.username }} - Niv.{{ app.user.level }}" class="tooltipped menu_logo dp circle" src="{{ asset(image) }}">
 							{% else %}
-								<img data-position="bottom" data-delay="50" data-tooltip="{{ app.user.username }} - Niv.{{ level }}" class="tooltipped menu_logo dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+								<img data-position="bottom" data-delay="50" data-tooltip="{{ app.user.username }} - Niv.{{ app.user.level }}" class="tooltipped menu_logo dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
 							{% endif %}
 						</li>
 						<li class="tab col m1 logOutButton"><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Se Déconnecter">input</i></a></li>

@@ -28,23 +28,11 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 	{
 		$withings_activite_pop = new DeviceType();
 		$withings_activite_pop->setName("Withings Activité Pop");
+		$manager->persist($withings_activite_pop);
 
 		$jawbone_up_24 = new DeviceType();
 		$jawbone_up_24->setName("Jawbone UP 24");
-
-		$admin = new User();
-		$admin->setUsername("admin");
-		$admin->setNbPoints(234);
-
-		$encoder = $this->container
-			->get('security.encoder_factory')
-			->getEncoder($admin)
-			;
-		$admin->setPassword($encoder->encodePassword('admin', $admin->getSalt()));
-		
-		$admin->setEmail("contact.ukandoit@gmail.com");
-		$admin->setEnabled(true);
-		$admin->setSuperAdmin(true);
+		$manager->persist($jawbone_up_24);
 
 		$level0 = new Level();
 		$level0->setNumLevel(0);
@@ -66,15 +54,30 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 		$level4->setNumLevel(4);
 		$level4->setNbPoints(400);
 
-		$manager->persist($withings_activite_pop);
-		$manager->persist($jawbone_up_24);
-		$manager->persist($admin);
-
 		$manager->persist($level0);
 		$manager->persist($level1);
 		$manager->persist($level2);
 		$manager->persist($level3);
 		$manager->persist($level4);
+
+		$manager->flush();
+
+		$levels = $manager->getRepository('AppBundle:Level')->findAll();
+		$admin = new User($levels);
+		$admin->setUsername("admin");
+		$admin->setNbPoints(234);
+
+		$encoder = $this->container
+			->get('security.encoder_factory')
+			->getEncoder($admin)
+			;
+		$admin->setPassword($encoder->encodePassword('admin', $admin->getSalt()));
+		
+		$admin->setEmail("contact.ukandoit@gmail.com");
+		$admin->setEnabled(true);
+		$admin->setSuperAdmin(true);
+
+		$manager->persist($admin);
 
 		$manager->flush();
 	}
