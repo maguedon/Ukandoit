@@ -191,15 +191,19 @@ class DefaultController extends Controller
      */
     public function withingsMovesAction($id){
         $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);
+        //$current_user = $this->container->get('security.context')->getToken()->getUser();
 
-        $jawbone = $this->get("app.withings");
-        $json = $jawbone->getMoves($possessedDevice->getAccessTokenWithings());
+        $withings = $this->get("app.withings");
+        $withings->authenticate($possessedDevice);
+        $acitivity = $withings->getActivities($withings->getUserID() , "2016-01-19", "2016-01-25");
+        var_dump($acitivity);
+        $intra = $withings->getIntradayActivities($withings->getUserID() , "2016-02-01 8:00:00", "2016-02-01 18:00:00");
+        var_dump($intra);
+        //$hourly_totals = $json['items'][0]['details']['hourly_totals'];
 
-        $hourly_totals = $json['items'][0]['details']['hourly_totals'];
-
-        return $this->render('AppBundle:Default:withingsMoves.html.twig', array(
+        return $this->render('AppBundle:Default:withingsMoves.html.twig'/*, array(
             'hourly_totals' => $hourly_totals
-            ));
+            )*/);
     }
 
     // A deplacer dans le bundle user ?

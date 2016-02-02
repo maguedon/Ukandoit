@@ -7,6 +7,9 @@ class Withings
     private $consumer_secret;
     private $callback_url;
     private $withings;
+    private $token;
+    private $adapter;
+    private $user;
 
     function __construct($consumer_key = null, $consumer_secret = null, $callback_url = null, $access_token_key = null, $access_token_secret = null, $user_id = null)
     {
@@ -17,6 +20,10 @@ class Withings
         $this->access_token_key = $access_token_key;
         $this->access_token_secret = $access_token_secret;
         $this->user_id = $user_id;
+        $this->token = new \OAuth\OAuth1\Token\StdOAuth1Token();
+        $this->adapter = new \OAuth\Common\Storage\Session();
+        $this->user = new \Withings\UserGateway;
+
     }
 
     public function setConsumerKey($consumer_key)
@@ -94,9 +101,7 @@ class Withings
 
         $this->withings->setCallbackURL( $this->callback_url );
         $this->withings->setCredentials( $this->consumer_key, $this->consumer_secret ); // these variables come from database
-
-        $adapter = new \OAuth\Common\Storage\Session();
-        $this->withings->setStorageAdapter($adapter);
+        $this->withings->setStorageAdapter($this->adapter);
 
         $auth_gateway = $this->withings->getAuthenticationGateway();
 
@@ -116,28 +121,33 @@ class Withings
         }
     }
 
+    public function authenticate($possessedDevice){
+        $this->withings->setCallbackURL( $this->callback_url);
+        $this->withings->setCredentials( $this->consumer_key , $this->consumer_secret ); // these variables come from database
+        $this->withings->setUserID($possessedDevice->getUserIdWithings());
 
-    public function withingsGetProfile()
-    {
-        $factory = new \Withings\ApiGatewayFactory;
-        $factory->setCallbackURL( $this->callback_url);
-        $factory->setCredentials( $this->consumer_key , $this->consumer_secret ); // these variables come from database
+        $this->access_token_key = $possessedDevice->getAccessTokenKeyWithings();
+        $this->access_token_secret = $possessedDevice->getAccessTokenSecretWithings();
+        $this->user_id = $possessedDevice->getUserIdWithings();
+        $this->withings->setStorageAdapter($this->adapter);
 
-        $this->token->setAccessToken($this->access_token_key); // user credentials;
-        $this->token->setAccessTokenSecret($this->access_token_secret); // user credentials
-
-        $auth_gateway = $factory->getAuthenticationGateway();
-        $auth_gateway->authenticateUser($this->access_token_key, $this->access_token_secret);
-
+        $this->token->setRequestToken($possessedDevice->getAccessTokenKeyWithings()); // user credentials
+        $this->token->setRequestTokenSecret($possessedDevice->getAccessTokenSecretWithings()); // user credentials
+        $this->token->setAccessToken($possessedDevice->getAccessTokenKeyWithings()); // Your user entity must have a WithingsToken column
+        $this->token->setAccessTokenSecret($possessedDevice->getAccessTokenSecretWithings()); // Your user entity must have a WithingsTokenSecret column
         $adapter = new \OAuth\Common\Storage\Memory();
         $adapter->storeAccessToken('Withings', $this->token);
+        $this->withings->setStorageAdapter($adapter);
+    }
 
-        $factory->setStorageAdapter($adapter);
+    public function getActivities($userid, $startdate, $enddate = null)
+    {
+        return $this->withings->getUserGateway()->getActivities($userid, $startdate, $enddate);
+    }
 
-        $UserGateway        =   $factory->getUserGateway();
-        $profile            =   $UserGateway->getProfile( $this->user_id ); // user withings id
-
-        return $profile;
+    public function getIntradayActivities($userid, $startdate, $enddate)
+    {
+        return $this->withings->getUserGateway()->getIntradayActivities($userid, $startdate, $enddate);
     }
 
 }
