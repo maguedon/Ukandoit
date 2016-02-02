@@ -53,7 +53,7 @@ class DefaultController extends Controller
         $message = \Swift_Message::newInstance()
         ->setSubject($data['subject'])
         ->setFrom($data['email'])
-        ->setBody("Vous avez reçu un message de " .$data['name'] . " avec l'adresse : " . $data['name'] .  "\ncontenu de message : \n"  . $data['message']);
+        ->setBody("Vous avez reçu un message de " .$data['name'] . " avec l'adresse : " . $data['email'] .  "\ncontenu de message : \n"  . $data['message']);
         $this->get('mailer')->send($message);
 
       //  $this->get('session')->setFlash('blogger-notice', 'Your contact enquiry was successfully sent. Thank you!');
