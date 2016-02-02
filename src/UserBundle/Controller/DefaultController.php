@@ -17,7 +17,7 @@ class DefaultController extends Controller
 		$user = $this->container->get('security.context')->getToken()->getUser();
 		$userManager = $this->container->get('fos_user.user_manager');
 		$userManager->deleteUser($user);
-		$this->get('session')->getFlashBag()->add('message', $user->getUsername() . 'Votre compte a été supprimé');
+		$this->get('session')->getFlashBag()->add('message', $user->getUsername() . ' : Votre compte a été supprimé');
 		return $this->redirect($this->generateUrl('homepage'));
 
 	}

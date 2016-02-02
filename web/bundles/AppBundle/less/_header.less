@@ -1,208 +1,197 @@
-body
-{
-  background-color: @layout;
+body {
+   background-color: @layout;
 }
 
-h1
-{
-  font-size: 2em !important;
-  font-weight: bold;
+h1 {
+   font-size: 2em !important;
+   font-weight: bold;
 }
 
-h2
-{
-  font-size: 1.2em !important;
+h2 {
+   font-size: 1.2em !important;
 }
 
 /* ------- HEADER -------- */
 
-.header
-{
-  width: 100%;
-  background-color: @white;
-  z-index: 11;
-  height: 50px;
-  position: fixed;
+.header {
+   width: 100%;
+   background-color: @white;
+   z-index: 11;
+   height: 50px;
+   position: fixed;
 }
 
-.underHeader
-{
-  position: absolute; //use to be absolute
-  margin:auto;
-  width: 800px;
-  height : 150px;
-  top: -35px  ; // use to be -85px
-  background-color: @white;
-  -webkit-border-radius: e("950px / 180px");
-  -moz-border-radius: e("950px / 180px");
-  border-radius: e("950px / 180px");
-  z-index: 10;
-  //Test
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
+.underHeader {
+position: absolute; //use to be absolute
+margin:auto;
+width: 800px;
+height : 150px;
+top: -35px  ; // use to be -85px
+background-color: @white;
+-webkit-border-radius: e("950px / 180px");
+-moz-border-radius: e("950px / 180px");
+border-radius: e("950px / 180px");
+z-index: 10;
+//Test
+left: 0;
+right: 0;
+margin-left: auto;
+margin-right: auto;
 }
 
 .parallax-container {
-  height: 700px;
+   height: 700px;
 }
 
 .parallax img {
-  left: 49.99%;
-  top: -50%;
+   left: 49.99%;
+   top: -50%;
 }
 
 .header_img {
-  img {
-    width: 100%;
-  }
+   img {
+      width: 100%;
+   }
 }
 
-.logo img
-{
-  width: 230px ;
-  position: relative;
-  top : 98px;
-  left: 270px;
+.logo img {
+   width: 230px ;
+   position: relative;
+   top : 98px;
+   left: 270px;
 }
 
-.menu
-{
-  position: relative;
-  margin: auto;
-  width: 700px;
-  height : 50px;
-  z-index: 15;
-  border-bottom: 1px solid @rouge_vif;
+.menu {
+   position: relative;
+   margin: auto;
+   width: 700px;
+   height : 50px;
+   z-index: 15;
+   border-bottom: 1px solid @rouge_vif;
+   a
+   {
+      color: @gris_fonce !important;
+   }
 }
 
-.menu a
-{
-  color: @gris_fonce !important;
-}
+
 
 .tabs .indicator {
-  background-color: @gris_fonce !important;
-  bottom: 10px !important;
-  height: 1px;
+   background-color: @gris_fonce !important;
+   bottom: 10px !important;
+   height: 1px;
 }
 
-.logInButton a
-{
-  color: @gris_clair !important;
-}
+.logInButton {
+   background-repeat: no-repeat;
+   background-color: @rouge_vif;
+   border-radius: 100px;
+   line-height: 29px;
+   margin: 9px;
+   letter-spacing: .8px;
+   a
+   {
+      color: @gris_clair !important;
+   }
 
-.logInButton
-{
-  background-image: url("../img/btn-rouge.png");
-  background-repeat: no-repeat;
-  background-size: 100px;
-  background-position: center;
-  opacity: 0.75;
-  line-height: 48px;
-  letter-spacing: 0.8px;
 }
 
 .tabs .tab {
-  text-transform: lowercase !important;
+   text-transform: lowercase !important;
+   a:first-letter {
+      text-transform: uppercase;
+   }
 }
 
-.tabs .tab a:first-letter {
-    text-transform: uppercase;
+
+.blockHeader {
+   width : 50%;
+   height: 400px;
+   margin-top: 180px;
+   margin-right: auto;
+   margin-left: auto;
+   background-color: rgba(255, 255, 255, 0.6);
+   box-shadow: 0 0px 5px #4e4e4e;
+   text-align: center;
+   color: @gris_fonce;
+   font-family: 'montserratregular';
+   span
+   {
+      font-weight: bold;
+      color: @black;
+   }
 }
 
-.blockHeader
-{
-  width : 50%;
-  height: 400px;
-  margin-top: 180px;
-  margin-right: auto;
-  margin-left: auto;
-  background-color: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 0px 5px #4e4e4e;
-  text-align: center;
-  color: @gris_fonce;
-  font-family: 'montserratregular';
+#inscription-button {
+   margin-top: -15px;
+   border-radius: 100px;
+   line-height: 29px;
+   margin: 9px;
+   border: solid 2px;
+   border-color: black;
+   width: 110px;
+   margin: auto;
+   &:hover  {
+      color: @layout;
+      background-size: 150px;
+   }
+   span {
+      line-height:36px;
+   }
+
+}
+.indicator {
+
+   &.accueil{
+      right: 599px;
+      left: 14px;
+   }
+
+   &.lesdefis{
+      right: 499px;
+      left: 98px;
+   }
+
+   &.apropos{
+      right: 408px;
+      left: 189px;
+   }
+
+   &.contact{
+      right: 320px;
+      left: 287px;
+   }
+
+   &.sinscrire{
+      right: 114px;
+      left: 479px;
+   }
 }
 
-.blockHeader span
-{
-  font-weight: bold;
-  color: @black;
-}
-
-#inscription-button
-{
-  font-weight: bold;
-  height: 36px;
-  background-image: url("../img/cadre.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  margin-top: -15px;
-}
-
-#inscription-button:hover
-{
-  color: @layout;
-  background-size: 150px;
-}
-
-#inscription-button span
-{
-  line-height:36px;
-}
-
-.indicator.accueil{
-   right: 599px;
-   left: 17px;
-}
-
-.indicator.lesdefis{
-   right: 499px;
-   left: 104px;
-}
-
-.indicator.apropos{
-   right: 404px;
-   left: 198px;
-}
-
-.indicator.contact{
-   right: 311px;
-   left: 298px;
-}
-
-.indicator.sinscrire{
-   right: 114px;
-   left: 479px;
-}
 
 .menu_logo{
-  width : 50px;
+   width : 50px;
 }
 
-.logOutButton
-{
-  min-width: 0px !important;
+.logOutButton {
+   min-width: 0px !important;
+   i {
+      margin-top: 12px;
+   }
 }
 
-.logOutButton i
-{
-  margin-top: 12px;
-}
 
 .tabs {
-    overflow-x: visible;
-    overflow-y: visible;
+   overflow-x: visible;
+   overflow-y: visible;
 }
 
 .dropdown-content li > a, .dropdown-content li > span {
-    padding: 10px !important;
+   padding: 10px !important;
 }
 
 span.caret {
-    top: 0px !important;
+   top: 0px !important;
 }
 
 .select_menu_tab input{
@@ -211,71 +200,65 @@ span.caret {
 
 /* --------- RESPONSIVE MENU --------- */
 
-.responsive-menu
-{
-  display: none;
-  margin-top: 5px;
+.responsive-menu {
+   display: none;
+   margin-top: 5px;
 }
 
-.responsive-logo img
-{
-  width: 230px;
+.responsive-logo img {
+   width: 230px;
 }
 
-.no-materialize
-{
-    box-shadow: none;
-    line-height: normal;
+.no-materialize {
+   box-shadow: none;
+   line-height: normal;
 }
 
 /* --------- ROND --------- */
 
 .underlineTopCircle {
-    border-bottom: 2px solid black;
-    margin: 5px auto 20px;
-    width: 160px;
-}
-
-.topCircle.underlined {
-    margin-top: -45px;
+   border-bottom: 2px solid black;
+   margin: 5px auto 20px;
+   width: 160px;
 }
 
 .bg-white {
-    background-color: white;
+   background-color: white;
 }
 
 .topCircle {
-    border-radius: 65px 65px 65px 65px;
-    box-shadow: 0px -6px 4px -3px rgba(0, 0, 0, 1);
-    height: 65px;
-    margin: -25px auto auto;
-    text-align: center;
-    width: 65px;
-    background-color: @layout;
+   border-radius: 65px 65px 65px 65px;
+   box-shadow: 0px -6px 4px -3px rgba(0, 0, 0, 1);
+   height: 65px;
+   margin: -25px auto auto;
+   text-align: center;
+   width: 65px;
+   background-color: @layout;
+   &.underlined {
+      margin-top: -45px;
+   }
+   &.arrow > img {
+      height: 25px;
+      margin-top: 17px;
+      width: 40px;
+   }
 }
 
-.topCircle.arrow > img {
-    height: 25px;
-    margin-top: 17px;
-    width: 40px;
-}
 .topCircle > img {
-    height: 50px;
-    width: 50px;
+   height: 50px;
+   width: 50px;
 }
 
-.secondrank
-{
-  margin-top: 54px;
+.secondrank {
+   margin-top: 54px;
 }
 
-.thirdrank
-{
-  margin-top: 95px;
+.thirdrank {
+   margin-top: 95px;
 }
 
 .podium{
-  margin-top: -90px;
+   margin-top: -90px;
 }
 
 

@@ -1,7 +1,7 @@
+//Initialisation du parallax
 $(document).ready(function(){
 	$('.parallax').parallax();
 
-<<<<<<< HEAD
 
 	    // toastr options
 
@@ -22,13 +22,14 @@ $(document).ready(function(){
     	"showMethod": "fadeIn",
     	"hideMethod": "fadeOut"
     }
-*/
+    */
 
 	//Permet d'afficher les balises select
 	$('select').material_select();
 
 });
 
+//Remonte le underHeader si chargement en milieu de page
 $(window).load(function()
 {
 	if(document.body.scrollTop!==0 || document.documentElement.scrollTop!==0){
@@ -69,10 +70,12 @@ $(".overlay").click(function() {
     $(".overlay-boxify").toggleClass("open");
 });
 
+//Activation du DropDown du menu
 $(document).ready(function() {
     $('#menu_select').material_select();
-  });
+});
 
+//DropDown du menu automatique
 $('.select_menu_tab').mouseenter(function(){
     $(".select_menu_tab").css("height", "200");
 
@@ -94,6 +97,24 @@ $('.select_menu_tab').mouseleave(function(){
     $(".select_menu_tab input").removeClass('active');
 });
 
+//ToolTipe Avatar dans menu et bouton deconnection
 $(document).ready(function(){
     $('.tooltipped').tooltip({delay: 50});
-  });
+});
+
+//Animation des bouton sociaux
+$('.fb_logo').mouseenter(function(){
+    $(this).addClass('animated pulse infinite');
+});
+
+$('.fb_logo').mouseleave(function(){
+    $(this).removeClass('animated pulse infinite');
+});
+
+$('.tw_logo').mouseenter(function(){
+    $(this).addClass('animated pulse infinite');
+});
+
+$('.tw_logo').mouseleave(function(){
+    $(this).removeClass('animated pulse infinite');
+});

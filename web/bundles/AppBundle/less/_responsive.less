@@ -77,13 +77,13 @@
 
 /* Smartphone */
 @media (max-width: 600px) {
-.firstrank img, .secondrank img, .thirdrank img {
-	width : 70%;
-}
+	.firstrank img, .secondrank img, .thirdrank img {
+		width : 70%;
+	}
 
-.podium{
-  margin-top: -70px;
-}
+	.podium{
+		margin-top: -70px;
+	}
 }
 
 /* Landscape phones and down */
@@ -116,6 +116,18 @@
 	.home .defis .round_tab {
 		height: 70px;
 		width: 70px;
+	}
+
+	.home .defis .round_tab:hover{
+		border-radius: 80px;
+		width: 80px;
+		height: 80px;
+	}
+
+	.home .defis .round_tab.active{
+		border-radius: 80px;
+		width: 80px;
+		height: 80px;
 	}
 
 	.round_tab i.large {
@@ -162,10 +174,26 @@
 
 	.thirdrank
 	{
-	  margin-top: 70px;
+		margin-top: 70px;
 	}
 
 	.podium{
 		margin-top: -50px;
 	}
+}
+
+/* Smartphone */
+@media (max-width: 325px) {
+	.navicon p{
+		display: none;
 	}
+
+	.blockHeader .container .hide-on-med-and-up{
+		display: none;
+	}
+
+	.overlay nav
+	{
+		top: 32%;
+	}
+}

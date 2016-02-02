@@ -1,7 +1,10 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
+<div class="container">
 	{% block fos_user_content %}
+		{% include "UserBundle:Profile:collection.html.twig" %}
 		{% include "UserBundle:Profile:edit_content.html.twig" %}
 	{% endblock fos_user_content %}
+</div>
 {% endblock %}
