@@ -209,7 +209,7 @@ class DefaultController extends Controller
    /**
      * @Route("/defis", name="challenges")
      */
-   public function challengesAction(){
+    public function challengesAction(){
         return $this->render('AppBundle:Default:challenges.html.twig');
     }
 
