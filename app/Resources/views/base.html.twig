@@ -20,9 +20,9 @@
 
     </head>
     <body>
-        {% include 'include/_header.html.twig' %}
+        {{ render(controller('AppBundle:Default:header')) }}
+
         {% include 'include/_rond.html.twig' %}
-        {#{% include 'include/_menu.html.twig' %}#}
         {% block body %}{% endblock %}
 
              {% javascripts
