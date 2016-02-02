@@ -11,7 +11,7 @@
 					{% if app.user %}
 					<li class="tab col m2 select_menu_tab">
 						<select id="menu_select">
-						<option value="" disabled selected>Profil</option>
+							<option value="" disabled selected>Profil</option>
 							<option value="1"><a href="{{ path('fos_user_profile_show') }}">Profil</a></option>
 							<option value="2">Compte</option>
 							<option value="3">Objets</option>
@@ -67,16 +67,16 @@
 		<div class="container">
 			<br>
 			<i class="medium material-icons hide-on-med-and-up">language</i>
-			<p><h1>Les objets connectés se rencontrent pour des défis sportifs</h1></p>
-			<p><h2 class="hide-on-small-only">Défiez la communauté afin de progresser sur le podium de Ukando'it en remportant les challenges proposés par les utilisateurs.</h2></p>
-			<p><span>Inscription Gratuite</span><br>
-				<i class="medium material-icons">play_for_work</i>
-				<a href="{{ path('fos_user_registration_register') }}">
-					<div id="inscription-button">
-						<span>S'inscrire</span>
-					</div>
-				</a>
-			</p>
+			<h1>Les objets connectés se rencontrent pour des défis sportifs</h1>
+			<h2 class="hide-on-small-only">Défiez la communauté afin de progresser sur le podium de Ukando'it en remportant les challenges proposés par les utilisateurs.</h2>
+			<span>Inscription Gratuite</span><br>
+			<i class="medium material-icons">play_for_work</i>
+			<a href="{{ path('fos_user_registration_register') }}">
+				<div id="inscription-button">
+					<span>S'inscrire</span>
+				</div>
+			</a>
+			
 		</div>
 	</div>
 
