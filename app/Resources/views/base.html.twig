@@ -6,32 +6,45 @@
     <title>{% block title %}Ukando'it{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
 
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
-        {% stylesheets  filter='cssrewrite'
-        'bundles/AppBundle/materialize/css/materialize.min.css'
-        'bundles/AppBundle/css/*'
-        %}
+    {% stylesheets  filter='cssrewrite'
+    'bundles/AppBundle/materialize/css/materialize.min.css'
+    'bundles/AppBundle/css/*'
+    %}
 
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-        {% endstylesheets %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
 
-    </head>
-    <body>
-        {% include 'include/_header.html.twig' %}
-        {% include 'include/_rond.html.twig' %}
-        {#{% include 'include/_menu.html.twig' %}#}
-        {% block body %}{% endblock %}
-        {% include 'include/_footer.html.twig' %}
-        {% block javascripts %}
-             {% javascripts
-            'bundles/AppBundle/js/*'
-            'bundles/AppBundle/materialize/js/materialize.js'
-            %}
-                <script src='https://www.google.com/recaptcha/api.js'></script>
-                <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-        {% endblock %}
-        </body>
-        </html>
+</head>
+<body>
+    {% include 'include/_header.html.twig' %}
+    {% include 'include/_rond.html.twig' %}
+    {#{% include 'include/_menu.html.twig' %}#}
+    {% block body %}{% endblock %}
+    {% include 'include/_footer.html.twig' %}
+    {% block javascripts %}
+    {% javascripts
+    'bundles/AppBundle/js/*'
+    'bundles/AppBundle/materialize/js/materialize.js'
+    %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% endblock %}
+    {% for message in app.session.flashBag.get('message') %}
+     {# <div class="flash-notice"> {{ message }} </div> #}
+    <div data-id="{{ message }}" class="flashbag_message"> </div>
+
+      <script type="text/javascript">
+        $( document ).ready(function() {
+        var id = $('.flashbag_message').data('id');
+            toastr.success(id);
+        });
+
+    </script>
+    {% endfor %}
+</body>
+</html>
+
