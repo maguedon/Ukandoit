@@ -2,7 +2,6 @@
 $(document).ready(function(){
 	$('.parallax').parallax();
 
-
 	    // toastr options
 
 /*    toastr.options = {
@@ -26,6 +25,10 @@ $(document).ready(function(){
 
 	//Permet d'afficher les balises select
 	$('select').material_select();
+
+    //Activation dropdown menu
+    $(".dropdown-button").dropdown();
+
 
 });
 

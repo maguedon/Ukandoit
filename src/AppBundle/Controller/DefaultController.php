@@ -14,6 +14,20 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class DefaultController extends Controller
 {
+ /**
+     * @Route("/header", name="header")
+     */
+    public function headerAction(){
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user != "anon.")
+            $level = $this->getLevel($current_user)->getNumLevel();
+        else
+            $level = null;
+        return $this->render('include/_header.html.twig', array(
+            "level" => $level
+            ));
+    }
+
     /**
      * @Route("/", name="homepage")
      */
@@ -25,7 +39,7 @@ class DefaultController extends Controller
       /**
      * @Route("/apropos", name="about")
      */
-    public function aboutAction(){
+      public function aboutAction(){
         return $this->render('AppBundle:Default:about.html.twig');
     }
 
@@ -34,8 +48,8 @@ class DefaultController extends Controller
      */
     public function contactAction(Request $request){
 
+        $form = $this->createFormBuilder()
 
-    $form = $this->createFormBuilder()
         ->add('name', TextType::class)
         ->add('email', EmailType::class)
         ->add('subject', TextType::class)
@@ -43,12 +57,11 @@ class DefaultController extends Controller
         ->add('send', SubmitType::class)
         ->getForm();
 
-    $form->handleRequest($request);
+        $form->handleRequest($request);
 
-    if ($form->isValid()) {
+        if ($form->isValid()) {
         // data is an array with "name", "email", and "message" keys
-        $data = $form->getData();
-
+            $data = $form->getData();
 
         $message = \Swift_Message::newInstance()
         ->setSubject($data['subject'])
@@ -56,21 +69,22 @@ class DefaultController extends Controller
         ->setBody("Vous avez reçu un message de " .$data['name'] . " avec l'adresse : " . $data['email'] .  "\ncontenu de message : \n"  . $data['message']);
         $this->get('mailer')->send($message);
 
+
       //  $this->get('session')->setFlash('blogger-notice', 'Your contact enquiry was successfully sent. Thank you!');
 
         // Redirect - This is important to prevent users re-posting
         // the form if they refresh the page
-       
+
+            return $this->render('AppBundle:Default:contact.html.twig', array(
+             "form"=>$form->createView()
+             ));
+
+        }
+
+
         return $this->render('AppBundle:Default:contact.html.twig', array(
-           "form"=>$form->createView()
-            ));
-
-    }
-
-
-        return $this->render('AppBundle:Default:contact.html.twig', array(
-           "form"=>$form->createView()
-            ));
+         "form"=>$form->createView()
+         ));
     }
 
     /**
@@ -102,10 +116,10 @@ class DefaultController extends Controller
         return $this->redirectToRoute('homepage');
     }
 
-        /**
-     * @Route("/object/new", name="new_object")
+    /**
+     * @Route("/objects", name="objects")
      */
-    public function addObject(Request $request){
+    public function objectsAction(Request $request){
         $possessedDevice = new PossessedDevice();
         $form = $this->createForm(NewPossessedDeviceType::class, $possessedDevice);
 
@@ -115,29 +129,22 @@ class DefaultController extends Controller
         $possessedDevice->setUser($current_user);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
-                $em = $this->get('doctrine')->getManager();
-                $em->persist($possessedDevice);
-                $em->flush();
+            // Enregistrement de l'objet
+            $em = $this->get('doctrine')->getManager();
+            $em->persist($possessedDevice);
+            $em->flush();
 
+            if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
                 return $this->redirectToRoute('withings');
             }
             // Jawbone
             else{
-                $em = $this->get('doctrine')->getManager();
-
-                //$possessedDevice->setUser($current_user);
-
-                $em->persist($possessedDevice);
-                $em->flush();
-
                 $jawbone = $this->get("app.jawbone");
                 $url = $jawbone->connection();
                 return $this->redirect($url);
             }
         }
-
-        return $this->render("AppBundle:Default:addObject.html.twig", array(
+        return $this->render("AppBundle:Default:objects.html.twig", array(
             'form' => $form->createView()
             ));
     }
@@ -155,7 +162,7 @@ class DefaultController extends Controller
         $em = $this->get('doctrine')->getManager();
         $em->flush();
 
-        return $this->redirectToRoute("homepage");
+        return $this->redirectToRoute("objects");
     }
 
     /**
@@ -167,7 +174,10 @@ class DefaultController extends Controller
         $jawbone = $this->get("app.jawbone");
         $json = $jawbone->getMoves($possessedDevice->getAccessTokenJawbone());
 
-        $hourly_totals = $json['items'][0]['details']['hourly_totals'];
+        if (count($json['items']) != 0)
+            $hourly_totals = $json['items'][0]['details']['hourly_totals'];
+        else
+            $hourly_totals = $json['items'];
 
         return $this->render('AppBundle:Default:jawboneMoves.html.twig', array(
             'hourly_totals' => $hourly_totals
@@ -179,15 +189,19 @@ class DefaultController extends Controller
      */
     public function withingsMovesAction($id){
         $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);
+        //$current_user = $this->container->get('security.context')->getToken()->getUser();
 
-        $jawbone = $this->get("app.withings");
-        $json = $jawbone->getMoves($possessedDevice->getAccessTokenWithings());
+        $withings = $this->get("app.withings");
+        $withings->authenticate($possessedDevice);
+        $acitivity = $withings->getActivities($withings->getUserID() , "2016-01-19", "2016-01-25");
+        var_dump($acitivity);
+        $intra = $withings->getIntradayActivities($withings->getUserID() , "2016-02-01 8:00:00", "2016-02-01 18:00:00");
+        var_dump($intra);
+        //$hourly_totals = $json['items'][0]['details']['hourly_totals'];
 
-        $hourly_totals = $json['items'][0]['details']['hourly_totals'];
-
-        return $this->render('AppBundle:Default:withingsMoves.html.twig', array(
+        return $this->render('AppBundle:Default:withingsMoves.html.twig'/*, array(
             'hourly_totals' => $hourly_totals
-            ));
+            )*/);
     }
 
     // A deplacer dans le bundle user ?
@@ -195,8 +209,29 @@ class DefaultController extends Controller
    /**
      * @Route("/defis", name="challenges")
      */
-    public function challengesAction(){
+   public function challengesAction(){
         return $this->render('AppBundle:Default:challenges.html.twig');
+    }
+
+    public function getLevel($current_user){
+        $em = $this->get('doctrine')->getManager();
+        $levels = $em->getRepository('AppBundle:Level')->findAll();
+
+        $levelFinal = null;
+
+        foreach($levels as $level){
+            if($current_user->getNbPoints() == $level->getNbPoints()){
+                $levelFinal = $level;
+                break;
+            }
+            if($current_user->getNbPoints() < $level->getNbPoints()){
+                $levelFinal = $previousLevel;
+                break;
+            }
+            $previousLevel = $level;
+        }
+
+        return $levelFinal;
     }
 }
 

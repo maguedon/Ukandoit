@@ -1,24 +1,36 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-	<h2>Déplacements par heures</h2>
-	<table>
-		<tr>
-			<th>Distance</th>
-			<th>Temps d'activité</th>
-			<th>Calories</th>
-			<th>Temps d'inactivité</th>
-			<th>Nombre de pas</th>
-		</tr>
-		{% for hour in hourly_totals %}
-			<tr>
-				<td>{{ hour.distance }}m</td>
-				<td>{{ hour.active_time }}s</td>
-				<td>{{ hour.calories }}</td>
-				<td>{{ hour.inactive_time }}s</td>
-				<td>{{ hour.steps }}</td>
-			</tr>
-		{% endfor %}
-	</table>
-
+<div class="container moves">
+	<div class="row titre_page">
+		<div class="bloc_rouge"></div>
+		<div class="bloc_titre">
+			<h1>Déplacements</h1>
+		</div>
+	</div>
+	<section class="moves">
+		{% if hourly_totals|length != 0 %}
+			<table>
+				<tr>
+					<th>Distance</th>
+					<th>Temps d'activité</th>
+					<th>Calories</th>
+					<th>Temps d'inactivité</th>
+					<th>Nombre de pas</th>
+				</tr>
+				{% for hour in hourly_totals %}
+					<tr>
+						<td>{{ hour.distance }}m</td>
+						<td>{{ hour.active_time }}s</td>
+						<td>{{ hour.calories }}</td>
+						<td>{{ hour.inactive_time }}s</td>
+						<td>{{ hour.steps }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% else %}
+			<p>Vous n'avez pas d'activité ou d'objet enregistré !</p>
+		{% endif %}
+	</section>
+</div>
 {% endblock %}

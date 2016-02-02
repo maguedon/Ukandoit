@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\DeviceType;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Level;
 
 class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 {
@@ -33,6 +34,7 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 
 		$admin = new User();
 		$admin->setUsername("admin");
+		$admin->setNbPoints(234);
 
 		$encoder = $this->container
 			->get('security.encoder_factory')
@@ -44,9 +46,36 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 		$admin->setEnabled(true);
 		$admin->setSuperAdmin(true);
 
+		$level0 = new Level();
+		$level0->setNumLevel(0);
+		$level0->setNbPoints(0);
+
+		$level1 = new Level();
+		$level1->setNumLevel(1);
+		$level1->setNbPoints(100);
+
+		$level2 = new Level();
+		$level2->setNumLevel(2);
+		$level2->setNbPoints(200);
+
+		$level3 = new Level();
+		$level3->setNumLevel(3);
+		$level3->setNbPoints(300);
+
+		$level4 = new Level();
+		$level4->setNumLevel(4);
+		$level4->setNbPoints(400);
+
 		$manager->persist($withings_activite_pop);
 		$manager->persist($jawbone_up_24);
 		$manager->persist($admin);
+
+		$manager->persist($level0);
+		$manager->persist($level1);
+		$manager->persist($level2);
+		$manager->persist($level3);
+		$manager->persist($level4);
+
 		$manager->flush();
 	}
 }

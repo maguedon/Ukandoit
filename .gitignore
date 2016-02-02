@@ -17,3 +17,8 @@ composer.lock
 .phpintel/
 /.idea/*
 web/images/
+web/images/*
+web/bundles/framework/*
+web/bundles/framework
+.*~
+
