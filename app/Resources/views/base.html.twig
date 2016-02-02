@@ -27,7 +27,7 @@
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
     {% block javascripts %}
-       
+
     {% endblock %}
 {% for message in app.session.flashBag.get('message') %}
     <div data-id="{{ message }}" class="flashbag_message"> </div>
