@@ -1,11 +1,32 @@
-<div class="fos_user_user_show">
-	{% if user.avatar != null %}
-		{% set image = vich_uploader_asset(user.avatar, 'imageFile') %}
-		<img src="{{ asset(image) }}">
-	{% endif %}
-
-	<p>{{ 'Prénom'|trans({}, 'FOSUserBundle') }}: {{ user.firstname }}</p>
-    <p>{{ 'Nom'|trans({}, 'FOSUserBundle') }}: {{ user.lastname }}</p>
-    <p>{{ 'Login'|trans({}, 'FOSUserBundle') }}: {{ user.username }}</p>
-    <p>{{ 'Email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
+<div class="container">
+	<section class="titre_page">
+		<div class="row">
+			<div class="bloc_rouge"></div>
+			<div class="bloc_titre">
+				<h1>Mon Profil</h1>
+			</div>
+		</div>
+	</section>
+	<section class="menu_profil">
+		<div class="row">
+			<div class="collection">
+				<a href="#!" class="collection-item">Alvin</a>
+				<a href="#!" class="collection-item active">Alvin</a>
+				<a href="#!" class="collection-item">Alvin</a>
+				<a href="#!" class="collection-item">Alvin</a>
+			</div>
+		</div>
+	</section>
+	<section class="content_profil">
+		<div class="row">
+			{% if user.avatar != null %}
+			{% set image = vich_uploader_asset(user.avatar, 'imageFile') %}
+			<img src="{{ asset(image) }}">
+			{% endif %}
+			<p>{{ 'Prénom'|trans({}, 'FOSUserBundle') }}: {{ user.firstname }}</p>
+			<p>{{ 'Nom'|trans({}, 'FOSUserBundle') }}: {{ user.lastname }}</p>
+			<p>{{ 'Login'|trans({}, 'FOSUserBundle') }}: {{ user.username }}</p>
+			<p>{{ 'Email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
+		</div>
+	</section>
 </div>
