@@ -130,20 +130,16 @@ class DefaultController extends Controller
         $possessedDevice->setUser($current_user);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
-                $em = $this->get('doctrine')->getManager();
-                $em->persist($possessedDevice);
-                $em->flush();
+            // Enregistrement de l'objet
+            $em = $this->get('doctrine')->getManager();
+            $em->persist($possessedDevice);
+            $em->flush();
 
+            if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
                 return $this->redirectToRoute('withings');
             }
             // Jawbone
             else{
-                $em = $this->get('doctrine')->getManager();
-
-                $em->persist($possessedDevice);
-                $em->flush();
-
                 $jawbone = $this->get("app.jawbone");
                 $url = $jawbone->connection();
                 return $this->redirect($url);
@@ -179,7 +175,10 @@ class DefaultController extends Controller
         $jawbone = $this->get("app.jawbone");
         $json = $jawbone->getMoves($possessedDevice->getAccessTokenJawbone());
 
-        $hourly_totals = $json['items'][0]['details']['hourly_totals'];
+        if (count($json['items']) != 0)
+            $hourly_totals = $json['items'][0]['details']['hourly_totals'];
+        else
+            $hourly_totals = $json['items'];
 
         return $this->render('AppBundle:Default:jawboneMoves.html.twig', array(
             'hourly_totals' => $hourly_totals
