@@ -31,6 +31,9 @@ services:
     fos_user.doctrine_registry:
             alias: doctrine
 
+    app.ukandoit:
+            class: AppBundle\Services\Ukandoit\ukandoit
+
     app.withings:
         class: AppBundle\Services\Devices\Withings\Withings
 
