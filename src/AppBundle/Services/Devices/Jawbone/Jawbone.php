@@ -10,10 +10,10 @@ class Jawbone{
 	private $scopes;
 	private $scope;
 
-	function __construct($client_id, $client_secret, $scopes, $router, $baseURl){
+	function __construct($client_id, $client_secret, $scopes, $router){
 		$this->client_id      = $client_id;
 		$this->client_secret  = $client_secret;
-		$this->redirect_uri   = $baseURl . $router->generate('jawbone_token');
+		$this->redirect_uri   = (empty($_SERVER['HTTPS'])?'http':'https') . "://" . $_SERVER['HTTP_HOST'] . $router->generate('jawbone_token');
 
 		$this->scopes = $scopes;
 

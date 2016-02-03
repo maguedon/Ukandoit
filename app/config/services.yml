@@ -38,7 +38,7 @@ services:
 
     app.jawbone:
         class: AppBundle\Services\Devices\Jawbone\Jawbone
-        arguments: ['%app.jawbone.client_id%', '%app.jawbone.client_secret%', '%app.jawbone.scopes%', @router, "@=service('request').getBaseUrl()"]
+        arguments: ['%app.jawbone.client_id%', '%app.jawbone.client_secret%', '%app.jawbone.scopes%', @router]
 
     app.form.registration:
         class: UserBundle\Form\RegistrationFormType
