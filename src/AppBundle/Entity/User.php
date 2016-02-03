@@ -85,13 +85,11 @@ class User extends BaseUser
     private $challengesAccepted;
 
 
-    public function __construct($levels) {
+    public function __construct() {
         parent::__construct();
         $this->possessedDevices = new ArrayCollection();
         $this->challengesCreated = new ArrayCollection();
         $this->challengesAccepted = new ArrayCollection();
-
-        $this->levels = $levels;
 
         $this->nbPoints = 0;
         $this->level = 0;

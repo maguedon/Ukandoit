@@ -65,7 +65,8 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 		$manager->flush();
 
 		$levels = $manager->getRepository('AppBundle:Level')->findAll();
-		$admin = new User($levels);
+		$admin = new User();
+		$admin->setLevels($levels);
 		$admin->setUsername("admin");
 		$admin->setNbPoints(234);
 
@@ -80,7 +81,8 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 		$admin->setSuperAdmin(true);
 		$manager->persist($admin);
 
-		$test = new User($levels);
+		$test = new User();
+		$test->setLevels($levels);
 		$test->setUsername("test");
 		$test->setNbPoints(234);
 
