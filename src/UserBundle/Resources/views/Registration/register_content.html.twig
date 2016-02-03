@@ -9,6 +9,7 @@
 
 </section>
 
+
 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
 
     <div class="container registation" id="fos_user_registration_form">
@@ -21,36 +22,48 @@
                 <div class="input-field form-group col s12 m6">
                     {{ form_widget(form.firstname, { 'attr': {'class': 'form-control' } }) }}
                     <label for="last_name">Prénom</label>
+                    {#
                     {{ form_errors(form.firstname) }}
+                    #}
                 </div>
                 <div class="input-field form-group col s12 m6">
                     {{ form_widget(form.lastname, { 'attr': {'class': 'form-control' } }) }}
                     <label for="last_name">Nom</label>
+                    {#
                     {{ form_errors(form.lastname) }}
+                    #}
                 </div>
 
                 <div class="input-field form-group col s12 m6">
                     {{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
                     <label for="last_name">Pseudo</label>
+                    {#
                     {{ form_errors(form.username) }}
+                    #}
                 </div>
 
                 <div class="input-field form-group col s12 m6">
                     {{ form_widget(form.email, { 'attr': {'class': 'form-control' } }) }}
                     <label for="last_name">Mail</label>
+                    {#
                     {{ form_errors(form.email) }}
+                    #}
                 </div>
 
                 <div class="col s12 m6">
                     <div class="form-group">
                         {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'|trans } }) }}
+                        {#
                         {{ form_errors(form.plainPassword.first) }}
+                        #}
                     </div>
                 </div>
                 <div class="col s12 m6">
                     <div class="form-group">
                         {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'|trans } }) }}
+                        {#
                         {{ form_errors(form.plainPassword.second) }}
+                        #}
                     </div>
                 </div>
 
@@ -80,3 +93,5 @@
 
     </div>
 </form>
+
+
