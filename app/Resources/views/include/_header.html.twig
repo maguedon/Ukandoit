@@ -21,7 +21,7 @@
 								{% set image = vich_uploader_asset(app.user.avatar, 'imageFile') %}
 								<img data-position="bottom" data-delay="50" data-tooltip="{{ app.user.username }} - Niv.{{ app.user.level }}" class="tooltipped menu_logo dp circle" src="{{ asset(image) }}">
 							{% else %}
-								<img data-position="bottom" data-delay="50" data-tooltip="{{ app.user.username }} - Niv.{{ app.user.level }}" class="tooltipped menu_logo dp circle" src="{{asset('bundles/AppBundle/img/sans_avatar.jpg')}}"  alt="photo de profil de {{ user.username }}">
+								<img data-position="bottom" data-delay="50" data-tooltip="{{ app.user.username }} - Niv.{{ app.user.level }}" class="tooltipped menu_logo dp circle" src="{{asset('bundles/AppBundle/img/sans_avatar.jpg')}}"  alt="photo de profil de {{ app.user.username }}">
 							{% endif %}
 						</li>
 						<li class="tab col m1 logOutButton"><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Se Déconnecter">input</i></a></li>
