@@ -203,7 +203,13 @@ class DefaultController extends Controller
      */
     public function challengesAction(){
         $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
+        
+        $userManager = $this->container->get('fos_user.user_manager');
 
+        foreach ($challenges as $value) {
+            $user = $userManager->findUserByUsername($value->getCreator());
+            $levelUser = $user->getLevel();
+        }
         return $this->render('AppBundle:Default:challenges.html.twig', array(
             "challenges" => $challenges
         ));

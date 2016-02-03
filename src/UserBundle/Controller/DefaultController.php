@@ -26,9 +26,7 @@ class DefaultController extends Controller
      * @Route("/{name}", name="user_other")
      */
 	public function showOtherAction($name){
-		//$user = $this->container->get('security.context')->getToken()->getUserById($id);
-		$userManager = $this->container->get('fos_user.user_manager');
-		$user = $userManager->findUserByUsername($name);
+		
 
 		return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show_other.html.twig', array(
             'user' => $user
