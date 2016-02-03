@@ -23,7 +23,7 @@ class DefaultController extends Controller
 	}
 
 	/**
-     * @Route("/profile/{name}", name="user_other")
+     * @Route("/{name}", name="user_other")
      */
 	public function showOtherAction($name){
 		//$user = $this->container->get('security.context')->getToken()->getUserById($id);
