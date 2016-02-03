@@ -46,21 +46,18 @@
 
 					</div>
 
-			{{ form_end(form, { 'attr': {'class': 'btn'} }) }}
 				
-
 				<div class="form-group">
 					<div class="btn_centre">   
 						<div class="col s12 g-recaptcha" data-sitekey="6LcJBBcTAAAAAKQIlh3sCogXUGMUb7D_yQEN63C-"></div>
 
+						<button class="btn btn-primary btn-block" type="submit" id="form_send" name="form[send]">Envoyer</button>
 
-						<button class="btn btn-primary btn-block btn-lg" type="submit" id="form_send" name="form[send]">Envoyer</button>
 
 						<!-- btn waves-effect waves-light -->
 					</div>
 				</div>
-			{{ form_end(form, {'render_rest': false}) }}
-
+			{{ form_widget(form._token) }}
 			</div>
 		</div>
 		
