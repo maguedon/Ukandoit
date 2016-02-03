@@ -5,7 +5,6 @@
         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
         <title>{% block title %}Ukando'it{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        
         <link rel="icon" type="image/x-icon" href="{{ asset('bundles/AppBundle/img/icon_ukandoit.ico') }}" />
         {% stylesheets  filter='cssrewrite'
         'bundles/AppBundle/materialize/css/materialize.min.css'
@@ -20,7 +19,7 @@
     {% include 'include/_rond.html.twig' %}
     {% block body %}{% endblock %}
     {% include 'include/_footer.html.twig' %}
-     {% javascripts
+        {% javascripts
         'bundles/AppBundle/js/*'
         'bundles/AppBundle/materialize/js/materialize.js'
         %}
