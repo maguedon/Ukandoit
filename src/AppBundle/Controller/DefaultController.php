@@ -109,7 +109,7 @@ class DefaultController extends Controller
 
 
       //  $this->get('session')->setFlash('blogger-notice', 'Your contact enquiry was successfully sent. Thank you!');
-
+            $this->setFlash('message', 'Votre mail a bien été envoyé.');
         // Redirect - This is important to prevent users re-posting
         // the form if they refresh the page
 
@@ -301,6 +301,15 @@ class DefaultController extends Controller
         return $this->render('AppBundle:Default:challenges.html.twig', array(
             "challenges" => $challenges
         ));
+    }
+     protected function setFlash($action, $value)
+    {
+        $this->container->get('session')->getFlashBag()->set($action, $value);
+    }
+
+    protected function getEngine()
+    {
+        return $this->container->getParameter('fos_user.template.engine');
     }
 }
 
