@@ -7,16 +7,7 @@
 {% endif %}
 #}
 
-{% block javascripts %}
-	{% if error %}
-	<script type="text/javascript">
-		$( document ).ready(function() {
-			toastr.error("Votre identifiant et votre mot de passe ne correspondent pas.");
-		});
-	</script>
-	{% endif %}
 
-{% endblock %} 
 
 
 
@@ -95,3 +86,13 @@
 
 {% endblock %}
 
+{% block javascripts %}
+	{% if error %}
+	<script type="text/javascript">
+		$( document ).ready(function() {
+			toastr.error("Votre identifiant et votre mot de passe ne correspondent pas.");
+		});
+	</script>
+	{% endif %}
+
+{% endblock %} 
