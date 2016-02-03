@@ -87,9 +87,11 @@ class DefaultController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isValid() && $_POST['g-recaptcha-response']!="") {
         // data is an array with "name", "email", and "message" keys
             $data = $form->getData();
+
+        
 
         $message = \Swift_Message::newInstance()
         ->setSubject($data['subject'] . " Mail envoyé depuis Ukando'it")
