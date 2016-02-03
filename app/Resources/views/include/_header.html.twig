@@ -13,6 +13,7 @@
 							<li><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
 							<li><a href="{{ path('fos_user_profile_edit') }}">Compte</a></li>
 							<li><a href="{{ path('objects') }}">Objets</a></li>
+							<li class="defiez" ><a href="{{ path('objects') }}">Défier !</a></li>
 						</ul>
 						<li><a class="tab col m3 dropdown-button" href="#!" data-activates="dropdown1">{{ app.user.username }}<i class="material-icons right">play_for_work</i></a></li>
 						<li class="tab col m1 avatar_menu">
@@ -64,10 +65,18 @@
 		</div>
 	</div>
 </div>
-<div class="parallax-container">
-	<div class="parallax">
+{% if app.request.attributes.get('_route') == "homepage" %}
+<div class="parallax-container large">
+<div class="parallax">
 		<img src="{{asset('bundles/AppBundle/img/accueil_running.jpg')}}"/>
 	</div>
+{% else %}
+<div class="parallax-container">
+<div class="parallax small">
+		<img src="{{asset('bundles/AppBundle/img/accueil_running.jpg')}}"/>
+	</div>
+{% endif %}
+	{% if app.request.attributes.get('_route') == "homepage" %}
 	<div class="blockHeader hoverable">
 		<div class="container">
 			<br>
@@ -93,6 +102,7 @@
 			{% endif %}
 		</div>
 	</div>
+	{% endif %}
 </div>
 <div class="overlay overlay-boxify">
 	<nav class="no-materialize">

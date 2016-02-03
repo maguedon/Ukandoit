@@ -82,33 +82,6 @@ $(".overlay").click(function() {
     $(".overlay-boxify").toggleClass("open");
 });
 
-//Activation du DropDown du menu
-$(document).ready(function() {
-    $('#menu_select').material_select();
-});
-
-//DropDown du menu automatique
-$('.select_menu_tab').mouseenter(function(){
-    $(".select_menu_tab").css("height", "200");
-
-    $(".select_menu_tab ul").css("display", "block");
-    $(".select_menu_tab ul").css("width", "92px");
-    $(".select_menu_tab ul").css("position", "absolute");
-    $(".select_menu_tab ul").css("top", "0px");
-    $(".select_menu_tab ul").css("left", "0px");
-    $(".select_menu_tab ul").css("opacity", "1");
-    $(".select_menu_tab ul").addClass('active');
-    $(".select_menu_tab input").addClass('active');
-});
-
-$('.select_menu_tab').mouseleave(function(){
-    $(".select_menu_tab").css("height", "48px");
-
-    $(".select_menu_tab ul").css("display", "none");
-    $(".select_menu_tab ul").removeClass('active');
-    $(".select_menu_tab input").removeClass('active');
-});
-
 //ToolTipe Avatar dans menu et bouton deconnection
 $(document).ready(function(){
     $('.tooltipped').tooltip({delay: 50});
