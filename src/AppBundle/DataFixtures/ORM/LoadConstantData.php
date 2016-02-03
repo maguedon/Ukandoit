@@ -61,9 +61,7 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 		$coucou->setPassword($encoder->encodePassword('coucou', $coucou->getSalt()));
 		
 		$coucou->setEmail("coucou.ukandoit@gmail.com");
-		$coucou->setEnabled(true);
-
-		
+		$coucou->setEnabled(true);	
 
 
 		$level0 = new Level();
@@ -101,13 +99,31 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 		$activity = new Activity();
 		$activity->setName("marche");
 
-		$challenge = new Challenge();
-		$challenge->setCreator($coucou);
-		$challenge->setTitle("Challenge de la mort qui tue");
-		$challenge->setActivity($activity);
+		$defis1 = new Challenge();
+		$defis1->setCreator($coucou);
+		$defis1->setTitle("Objectif 10 kilomètres !");
+		$defis1->setActivity($activity);
+
+		$defis2 = new Challenge();
+		$defis2->setCreator($admin);
+		$defis2->setTitle("Objectif 20 kilomètres !");
+		$defis2->setActivity($activity);
+
+		$defis3 = new Challenge();
+		$defis3->setCreator($coucou);
+		$defis3->setTitle("Objectif 30 kilomètres !");
+		$defis3->setActivity($activity);
+
+		$defis4 = new Challenge();
+		$defis4->setCreator($admin);
+		$defis4->setTitle("Objectif 40 kilomètres !");
+		$defis4->setActivity($activity);
 
 		$manager->persist($activity);
-		$manager->persist($challenge);
+		$manager->persist($defis1);
+		$manager->persist($defis2);
+		$manager->persist($defis3);
+		$manager->persist($defis4);
 
 
 		$manager->flush();
