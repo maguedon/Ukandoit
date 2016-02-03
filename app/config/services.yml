@@ -31,7 +31,7 @@ services:
             alias: doctrine
 
     app.ukandoit:
-            class: AppBundle\Services\Ukandoit\ukandoit
+            class: AppBundle\Services\Ukandoit\Ukandoit
 
     app.withings:
         class: AppBundle\Services\Devices\Withings\Withings
