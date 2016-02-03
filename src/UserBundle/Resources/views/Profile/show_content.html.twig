@@ -7,6 +7,8 @@
 			{% if user.avatar != null %}
 			{% set image = vich_uploader_asset(user.avatar, 'imageFile') %}
 			<img class="dashboard_avatar" src="{{ asset(image) }}">
+			{% else %}
+				<img class="dashboard_avatar" src="{{asset('bundles/AppBundle/img/sans_avatar.jpg')}}"  alt="photo de profil de {{ user.username }}">
 			{% endif %}
 		</div>
 		<div class="col s12 m4">
@@ -22,7 +24,7 @@
 			<div class="xp_bar"><div class="xp_progress" style="width : 70%;"></div></div>
 		</div>
 		<div class="col s1 show_level">
-			Niv. 42
+			Niv. 42ertger
 		</div>
 		<div class="col s12 dashboard_pseudo">
 			{{ user.nbPoints }} / 1000 pts
