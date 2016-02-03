@@ -92,8 +92,9 @@ class DefaultController extends Controller
             $data = $form->getData();
 
         $message = \Swift_Message::newInstance()
-        ->setSubject($data['subject'])
+        ->setSubject($data['subject'] . " Mail envoyé depuis Ukando'it")
         ->setFrom($data['email'])
+        ->setTo('contact.ukandoit@gmail.com')
         ->setBody("Vous avez reçu un message de " .$data['name'] . " avec l'adresse : " . $data['email'] .  "\ncontenu de message : \n"  . $data['message']);
         $this->get('mailer')->send($message);
 
