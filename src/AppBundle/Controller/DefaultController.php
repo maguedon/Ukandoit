@@ -197,7 +197,12 @@ class DefaultController extends Controller
      * @Route("/defis", name="challenges")
      */
     public function challengesAction(){
-        return $this->render('AppBundle:Default:challenges.html.twig');
+        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
+
+        //var_dump($challenges);
+        return $this->render('AppBundle:Default:challenges.html.twig', array(
+            "challenges" => $challenges
+        ));
     }
 }
 

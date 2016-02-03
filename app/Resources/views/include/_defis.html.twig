@@ -1,7 +1,8 @@
+{% for challenge in challenges %}
 <div class="col s12 m6 l4 defi ">
 	<div class="card blue-grey white hoverable">
 		<div class="bande_rouge">
-			<h2 class="card-title">Objectif 30 kilomètres !</h2>
+			<h2 class="card-title">{{ challenge.title }}</h2>
 		</div>
 		<div class="card-content">
 			<div class="row">
@@ -11,7 +12,7 @@
 							<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
 						</a>
 						<div class="member_name">
-							<span>Benoit - Niv. 32</span>
+							<span>{{ challenge.creator }} - Niv. 32</span>
 							<div class="under_text"></div>
 						</div>
 					</div>
@@ -20,7 +21,7 @@
 			</div>
 			<p>Je vous défie de courir au moins 30km cette semaine !</p>
 			<p> <div class="rouge">Distance</div> minimum : 30km</p>
-			<p>	<div class="rouge">Durée</div> : Du 1er Janv. 2016 au 15 Janv. 2016</p>
+			<p>	<div class="rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
 			<p>	<div class="rouge">Nombre de participants</div> : 1503 parts. </p>
 			<p>	<div class="rouge">Nombres de points </div> à gagner : 50 exp.</p>
 		</div>
@@ -31,3 +32,7 @@
 		</div>
 	</div>
 </div>
+
+    
+{% endfor %}
+
