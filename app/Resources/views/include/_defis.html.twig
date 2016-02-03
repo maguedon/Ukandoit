@@ -15,7 +15,7 @@
 
 							{% endimage %}
 							{% else %}
-							<img class="media-object dp circle" src="{{ asset('uploads/documents/'~challenge.creator.avatar.path) }}g">
+							<img class="media-object dp circle" src="{{ asset('images/avatars/'~challenge.creator.avatar.path) }}g">
 
 							{% endif %}
 						</a>
@@ -40,5 +40,7 @@
 		</div>
 	</div>
 </div>
+
+
 {% endfor %}
 

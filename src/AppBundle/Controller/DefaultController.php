@@ -23,7 +23,7 @@ class DefaultController extends Controller
 
        
         return $this->render('AppBundle:Default:index.html.twig', array(
-            "url"=>"accueil",
+            "url"=>"accueil",  
             "challenges" => $challenges
 
             ));
