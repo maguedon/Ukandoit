@@ -33,21 +33,28 @@ class DefaultController extends Controller
     /**
      * @Route("/add_defis", name="add_defis")
      */
-      public function addDefisAction(){
+      public function addDefisAction(Request $request){
 
         $challenge = new Challenge();
         $form = $this->createForm(NewChallengeType::class, $challenge);
 
-        // $current_user = $this->container->get('security.context')->getToken()->getUser();
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
 
-        // $form->handleRequest($request);
+        $form->handleRequest($request);
         // $challenge->setUser($current_user);
 
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     // Enregistrement de l'objet
-        //     $em = $this->get('doctrine')->getManager();
-        //     $em->persist($challenge);
-        //     $em->flush();
+        if ($form->isSubmitted()) {
+
+            var_dump($challenge);
+            echo "sfkjdfkgjdfpkgdpfg";
+
+            $challenge->setUser($current_user);
+            $challenge->setCreationDate(date("Y-m-d H:i:s"));
+
+            // Enregistrement de l'objet
+            $em = $this->get('doctrine')->getManager();
+            $em->persist($challenge);
+            $em->flush();
 
         //     if($challenge->getDeviceType()->getName() == "Withings Activité Pop"){
         //         return $this->redirectToRoute('withings');
@@ -58,7 +65,7 @@ class DefaultController extends Controller
         //         $url = $jawbone->connection();
         //         return $this->redirect($url);
         //     }
-        // }
+        }
         return $this->render("AppBundle:Default:add_defis.html.twig", array(
             'form' => $form->createView()
             ));
@@ -89,7 +96,7 @@ class DefaultController extends Controller
 
         if ($form->isValid()) {
         // data is an array with "name", "email", and "message" keys
-            $data = $form->getData();
+        $data = $form->getData();
 
         $message = \Swift_Message::newInstance()
         ->setSubject($data['subject'])
