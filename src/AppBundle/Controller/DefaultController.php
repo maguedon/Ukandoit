@@ -19,8 +19,13 @@ class DefaultController extends Controller
      * @Route("/", name="homepage")
      */
     public function indexAction(){
+         $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
+
+       
         return $this->render('AppBundle:Default:index.html.twig', array(
-            "url"=>"accueil"
+            "url"=>"accueil",
+            "challenges" => $challenges
+
             ));
     }
       /**
