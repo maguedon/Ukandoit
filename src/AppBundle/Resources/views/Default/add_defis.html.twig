@@ -14,17 +14,21 @@
 					<div class="card-panel">
 						<div class="input-field form-group col s12">
 							{{ form_widget(form.title, { 'attr': {'class': 'form-control' } }) }}
+							{{ form_errors(form.title) }}
 							<label for="title">Titre du défis</label>
 						</div>
 						<div class="input-field form-group col s12">
 							{{ form_widget(form.endDate, { 'attr': {'class': 'form-control' } }) }}
+							{{ form_errors(form.endDate) }}
 							<label for="endDate">Date de fin</label>
 						</div>
 						<div class="input-field form-group col s12">
 							{{ form_widget(form.activity, { 'attr': {'class': 'form-control'} }) }}
+							{{ form_errors(form.activity) }}
 							<label for="activity">Activité correspondante</label>
 						</div>
 						{{ form_rest(form) }}
+						{{ form_errors(form) }}
 						<div class="form-group">
 							<div class="btn_centre">
 								<input type="submit" value="{{ "Kanudo'it ?" |trans({}, 'FOSUserBundle') }} "class="btn btn-primary btn-block btn-lg" tabindex="7" title="s'inscrire">
