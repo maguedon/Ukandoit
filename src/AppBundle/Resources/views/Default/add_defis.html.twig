@@ -1,0 +1,39 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+	<div class="container apropos">
+		<div class="row titre_page">
+			<div class="bloc_rouge"></div>
+			<div class="bloc_titre">
+				<h1>Lancer un défi</h1>
+			</div>
+		</div>
+		{{ dump(form)}}
+		<form action="{{ path('add_defis') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+			<div class="container" id="">
+				<div class="row">
+					<div class="bande_rouge">Ajouter un défi</div>
+					<div class="card-panel">
+						<div class="input-field form-group col s12">
+							{{ form_widget(form.title, { 'attr': {'class': 'form-control' } }) }}
+							<label for="title">Titre du défis</label>
+						</div>
+						<div class="input-field form-group col s12">
+							{{ form_widget(form.endDate, { 'attr': {'class': 'form-control' } }) }}
+							<label for="endDate">Date de fin</label>
+						</div>
+						<div class="input-field form-group col s12">
+							{{ form_widget(form.activity, { 'attr': {'class': 'form-control'} }) }}
+							<label for="activity">Activité correspondante</label>
+						</div>
+						{{ form_rest(form) }}
+						<div class="form-group">
+							<div class="btn_centre">
+								<input type="submit" value="{{ 'Inscription' |trans({}, 'FOSUserBundle') }} "class="btn btn-primary btn-block btn-lg" tabindex="7" title="s'inscrire">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+{% endblock %}

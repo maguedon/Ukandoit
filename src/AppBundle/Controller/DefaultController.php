@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\NewPossessedDeviceType;
+use AppBundle\Form\NewChallengeType;
+use AppBundle\Entity\Challenge;
 use AppBundle\Entity\PossessedDevice;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -21,14 +23,48 @@ class DefaultController extends Controller
     public function indexAction(){
          $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
 
-       
         return $this->render('AppBundle:Default:index.html.twig', array(
-            "url"=>"accueil",  
+            "url"=>"accueil",
             "challenges" => $challenges
 
             ));
     }
-      /**
+
+    /**
+     * @Route("/add_defis", name="add_defis")
+     */
+      public function addDefisAction(){
+
+        $challenge = new Challenge();
+        $form = $this->createForm(NewChallengeType::class, $challenge);
+
+        // $current_user = $this->container->get('security.context')->getToken()->getUser();
+
+        // $form->handleRequest($request);
+        // $challenge->setUser($current_user);
+
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     // Enregistrement de l'objet
+        //     $em = $this->get('doctrine')->getManager();
+        //     $em->persist($challenge);
+        //     $em->flush();
+
+        //     if($challenge->getDeviceType()->getName() == "Withings Activité Pop"){
+        //         return $this->redirectToRoute('withings');
+        //     }
+        //     // Jawbone
+        //     else{
+        //         $jawbone = $this->get("app.jawbone");
+        //         $url = $jawbone->connection();
+        //         return $this->redirect($url);
+        //     }
+        // }
+        return $this->render("AppBundle:Default:add_defis.html.twig", array(
+            'form' => $form->createView()
+            ));
+    }
+
+    /**
      * @Route("/apropos", name="about")
      */
       public function aboutAction(){
