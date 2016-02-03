@@ -8,8 +8,16 @@
 			<div class="row">
 				<div class="col s12 member_avatar">
 					<div class="badge_user">
-						<a data-tooltip="{{ app.user.username }} - Niv.{{ level }}" class="tooltipped" href="{{ path('user_other', {'name': 'snafu'}) }}">
-							<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+						<a data-tooltip="{{ challenge.creator }}" class="tooltipped" href="{{ path('user_other', {'name': 'snafu'}) }}">
+							{% if challenge.creator.avatar == null %}
+							{% image 'bundles/AppBundle/img/sans_avatar.jpg' %}
+							<img class="media-object dp circle" src="{{ asset_url }}"  alt="photo de profil de {{ challenge.creator }}">
+
+							{% endimage %}
+							{% else %}
+							<img class="media-object dp circle" src="{{ asset('uploads/documents/'~challenge.creator.avatar.path) }}g">
+
+							{% endif %}
 						</a>
 						<div class="member_name">
 							<span>{{ challenge.creator }} - Niv. 32</span>
@@ -33,6 +41,6 @@
 	</div>
 </div>
 
-    
+
 {% endfor %}
 

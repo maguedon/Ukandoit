@@ -199,7 +199,6 @@ class DefaultController extends Controller
     public function challengesAction(){
         $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
 
-        //var_dump($challenges);
         return $this->render('AppBundle:Default:challenges.html.twig', array(
             "challenges" => $challenges
         ));
