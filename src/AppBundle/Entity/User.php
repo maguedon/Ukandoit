@@ -46,9 +46,21 @@ class User extends BaseUser
     /**
      * @var integer
      *
-     * @ORM\Column(name="nbPoints", type="integer", nullable=true)
+     * @ORM\Column(name="nbPoints", type="integer")
      */
     private $nbPoints;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="level", type="integer")
+     */
+    private $level;
+
+    /**
+     * @var collection 
+     */
+    private $levels;
 
      /**
      * @ORM\OneToMany(targetEntity="PossessedDevice", mappedBy="user")
@@ -73,13 +85,16 @@ class User extends BaseUser
     private $challengesAccepted;
 
 
-    public function __construct() {
+    public function __construct($levels) {
         parent::__construct();
         $this->possessedDevices = new ArrayCollection();
         $this->challengesCreated = new ArrayCollection();
         $this->challengesAccepted = new ArrayCollection();
 
+        $this->levels = $levels;
+
         $this->nbPoints = 0;
+        $this->level = 0;
     }
 
 
@@ -176,6 +191,8 @@ class User extends BaseUser
     public function setNbPoints($nbPoints)
     {
         $this->nbPoints = $nbPoints;
+
+        $this->setLevel();
 
         return $this;
     }
@@ -319,5 +336,27 @@ class User extends BaseUser
     public function getLastPossessedDevice(){
         $nbPossessedDevices = count($this->possessedDevices);
         return $this->possessedDevices[$nbPossessedDevices - 1];
+    }
+
+    public function setLevel(){
+        foreach($this->levels as $level){
+            if($this->getNbPoints() == $level->getNbPoints()){
+                $this->level = $level->getNumLevel();
+                break;
+            }
+            if($this->getNbPoints() < $level->getNbPoints()){
+                $this->level  = $previousLevel->getNumLevel();
+                break;
+            }
+            $previousLevel = $level;
+        }
+    }
+
+    public function getLevel(){
+        return $this->level;
+    }
+
+    public function setLevels($levels){
+        $this->levels = $levels;
     }
 }

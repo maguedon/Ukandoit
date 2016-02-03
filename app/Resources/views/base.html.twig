@@ -15,7 +15,7 @@
     {% endstylesheets %}
 </head>
 <body>
-    {{ render(controller('AppBundle:Default:header')) }}
+    {% include 'include/_header.html.twig' %}
     {% include 'include/_rond.html.twig' %}
     {% block body %}{% endblock %}
     {% include 'include/_footer.html.twig' %}

@@ -30,23 +30,11 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 	{
 		$withings_activite_pop = new DeviceType();
 		$withings_activite_pop->setName("Withings Activité Pop");
+		$manager->persist($withings_activite_pop);
 
 		$jawbone_up_24 = new DeviceType();
 		$jawbone_up_24->setName("Jawbone UP 24");
-
-		$admin = new User();
-		$admin->setUsername("admin");
-		$admin->setNbPoints(234);
-
-		$encoder = $this->container
-			->get('security.encoder_factory')
-			->getEncoder($admin)
-			;
-		$admin->setPassword($encoder->encodePassword('admin', $admin->getSalt()));
-		
-		$admin->setEmail("contact.ukandoit@gmail.com");
-		$admin->setEnabled(true);
-		$admin->setSuperAdmin(true);
+		$manager->persist($jawbone_up_24);
 
 
 		$coucou = new User();
@@ -125,6 +113,57 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 		$manager->persist($defis3);
 		$manager->persist($defis4);
 
+
+		$manager->flush();
+
+		$levels = $manager->getRepository('AppBundle:Level')->findAll();
+		$admin = new User($levels);
+		$admin->setUsername("admin");
+		$admin->setNbPoints(234);
+
+		$encoder = $this->container
+			->get('security.encoder_factory')
+			->getEncoder($admin)
+			;
+		$admin->setPassword($encoder->encodePassword('admin', $admin->getSalt()));
+		
+		$admin->setEmail("contact.ukandoit@gmail.com");
+		$admin->setEnabled(true);
+		$admin->setSuperAdmin(true);
+		$manager->persist($admin);
+
+		$test = new User($levels);
+		$test->setUsername("test");
+		$test->setNbPoints(234);
+
+		$encoder = $this->container
+			->get('security.encoder_factory')
+			->getEncoder($test)
+			;
+		$test->setPassword($encoder->encodePassword('test', $test->getSalt()));
+		
+		$test->setEmail("test.ukandoit@gmail.com");
+		$test->setEnabled(true);
+		$test->setSuperAdmin(true);
+		$manager->persist($test);
+
+		$activity = new Activity();
+		$activity->setName("course");
+		$manager->persist($activity);
+
+		$challenge = new Challenge();
+		$challenge->setTitle("challenge");
+		$challenge->setEndDate(new \DateTime("2016-02-10"));
+		$challenge->setCreator($test);
+		$challenge->setActivity($activity);
+		$manager->persist($challenge);
+
+		$challenge2 = new Challenge();
+		$challenge2->setTitle("challenge2");
+		$challenge2->setEndDate(new \DateTime("2016-02-15"));
+		$challenge2->setCreator($admin);
+		$challenge2->setActivity($activity);
+		$manager->persist($challenge2);
 
 		$manager->flush();
 	}
