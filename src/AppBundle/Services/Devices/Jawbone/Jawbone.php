@@ -10,10 +10,10 @@ class Jawbone{
 	private $scopes;
 	private $scope;
 
-	function __construct($client_id, $client_secret, $scopes, $router, $baseURl){
+	function __construct($client_id, $client_secret, $scopes, $router){
 		$this->client_id      = $client_id;
 		$this->client_secret  = $client_secret;
-		$this->redirect_uri   = $baseURl . $router->generate('jawbone_token');
+		$this->redirect_uri   = (empty($_SERVER['HTTPS'])?'http':'https') . "://" . $_SERVER['HTTP_HOST'] . $router->generate('jawbone_token');
 
 		$this->scopes = $scopes;
 
@@ -110,6 +110,38 @@ class Jawbone{
 		$response = file_get_contents($url, false, $context);
 		$activities = json_decode($response, true);
 		return $activities['data'];
+	}
+
+	/**
+	 * Get moves
+	 */
+	function getTotalMoves($access_token, $start_time, $end_time){
+		$url = "https://jawbone.com/nudge/api/v.1.0/users/@me/moves?";
+
+		$opts = array(
+			'http'=>array(
+				'method'=>"GET",
+				'header'=>"Authorization: Bearer {$access_token}\r\n"
+			)
+		);
+
+		$start_time = strtotime($start_time);
+		$end_time = strtotime($end_time);
+
+		$param = array(
+			'start_time' => $start_time->getTimestamp(),
+			'end_time' => $end_time->getTimestamp()
+		);
+
+		$url = $url . http_build_query($param);
+
+		$context = stream_context_create($opts);
+
+		$response = file_get_contents($url, false, $context);
+
+		$moves = json_decode($response, true);
+
+		return $moves['data'];
 	}
 
 	/**

@@ -1,23 +1,29 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-	<h2>Déplacements par heures</h2>
+{#	<pre>
+		{{ dump(activities) }}
+	</pre>#}
+	<h2>Informations du 01 Fevrier 2016 a aujourd'hui</h2>
 	<table>
 		<tr>
-			<th>Distance</th>
-			<th>Temps d'activité</th>
-			<th>Calories</th>
-			<th>Temps d'inactivité</th>
+			<th>Date</th>
 			<th>Nombre de pas</th>
+			<th>Calories</th>
+			<th>Durée de faible activité</th>
+			<th>Durée d'activité modérée </th>
+			<th>Durée de forte activité</th>
 		</tr>
-		{% for hour in hourly_totals %}
-			<tr>
-				<td>{{ hour.distance }}m</td>
-				<td>{{ hour.active_time }}s</td>
-				<td>{{ hour.calories }}</td>
-				<td>{{ hour.inactive_time }}s</td>
-				<td>{{ hour.steps }}</td>
-			</tr>
+
+		{% for act in activities %}
+				<tr>
+					<td>{{ act.date }}</td>
+					<td>{{ act.steps }}</td>
+					<td>{{ act.calories }}</td>
+					<td>{{ act.soft }}</td>
+					<td>{{ act.moderate }}</td>
+					<td>{{ act.intense }}</td>
+				</tr>
 		{% endfor %}
 	</table>
 

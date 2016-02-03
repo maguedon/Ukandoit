@@ -15,7 +15,8 @@ class Withings
     {
         $this->consumer_key = "31ec099bddfee6fb7b16d5bc502e8b5bcbbddf0de39346316427f8f25fd";
         $this->consumer_secret = "0d50d732c6655ee07d727ffbc336751d8b3b7c298e32167d945589692e5e9b16";
-        $this->callback_url = "http://localhost:8000/withings";
+        //$this->callback_url = "http://localhost:8000/withings";
+        $this->callback_url = "http://localhost:443/web/app_dev.php/withings/token";
         $this->withings = new \Withings\ApiGatewayFactory;
         $this->access_token_key = $access_token_key;
         $this->access_token_secret = $access_token_secret;
@@ -104,20 +105,25 @@ class Withings
         $this->withings->setStorageAdapter($this->adapter);
 
         $auth_gateway = $this->withings->getAuthenticationGateway();
+        $auth_gateway->initiateLogin();
+    }
+
+    public function getToken(){
+        $this->withings->setCallbackURL( $this->callback_url );
+        $this->withings->setCredentials( $this->consumer_key, $this->consumer_secret ); // these variables come from database
+        $this->withings->setStorageAdapter($this->adapter);
+
+        $auth_gateway = $this->withings->getAuthenticationGateway();
 
         if (isset($_GET['oauth_token']) && isset($_GET['oauth_verifier'])) {
             $auth_gateway->authenticateUser($_GET['oauth_token'], $_GET['oauth_verifier']);
 
             $storage = $this->withings->getStorageAdapter();
-            $token   = $storage->retrieveAccessToken('Withings');
+            $token = $storage->retrieveAccessToken('Withings');
 
             $this->setAccessTokenKey($token->getRequestToken()); // Your user entity must have a WithingsToken column
             $this->setAccessTokenSecret($token->getRequestTokenSecret()); // Your user entity must have a WithingsTokenSecret column
             $this->setUserID($_GET['userid']); // Your user entity must have a WithingsUserId column
-
-        }else
-        {
-            $auth_gateway->initiateLogin();
         }
     }
 

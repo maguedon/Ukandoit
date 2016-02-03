@@ -90,8 +90,6 @@ class User extends BaseUser
         $this->possessedDevices = new ArrayCollection();
         $this->challengesCreated = new ArrayCollection();
         $this->challengesAccepted = new ArrayCollection();
-
-
         $this->nbPoints = 0;
         $this->level = 0;
     }

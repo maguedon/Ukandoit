@@ -125,26 +125,60 @@ class DefaultController extends Controller
         return $this->render('AppBundle:Default:legals.html.twig');
     }
 
+//    /**
+//     * @Route("/withings/", name="withings")
+//     */
+//    public function withingsAction(){
+//        $em = $this->get('doctrine')->getManager();
+//        $withings = $this->get("app.withings");
+//        $withings->connection();
+//        var_dump($withings->getAccessTokenKey());
+//        var_dump($withings->getAccessTokenSecret());
+//        var_dump($withings->getUserID());
+//
+//        $current_user = $this->container->get('security.context')->getToken()->getUser();
+//
+//        $possessedDevice = $current_user->getLastPossessedDevice();
+//        $possessedDevice->setAccessTokenKeyWithings($withings->getAccessTokenKey());
+//        $possessedDevice->setAccessTokenSecretWithings($withings->getAccessTokenSecret());
+//        $possessedDevice->setUserIdWithings($withings->getUserID());
+//
+//        if ($withings->getAccessTokenKey() == null || $withings->getAccessTokenSecret() == null || $withings->getUserID() == null){
+//            $em->remove($possessedDevice);
+//            $em->flush();
+//        }
+//        else{
+//          //  $em = $this->get('doctrine')->getManager();
+//            $em->persist($possessedDevice);
+//            $em->flush();
+//        }
+//
+//       // return $this->redirectToRoute('objects');
+//    }
+
     /**
-     * @Route("/withings/", name="withings")
+     * @Route("/withings/token", name="withings_token")
      */
-    public function withingsAction(){
-        $withings = $this->get("app.withings");
-        $withings->connection();
-
+    public function getWithingsTokenAction(){
         $current_user = $this->container->get('security.context')->getToken()->getUser();
-        $current_user->getLastPossessedDevice();
-
         $possessedDevice = $current_user->getLastPossessedDevice();
-        $possessedDevice->setAccessTokenKeyWithings($withings->getAccessTokenKey());
-        $possessedDevice->setAccessTokenSecretWithings($withings->getAccessTokenSecret());
-        $possessedDevice->setUserIdWithings($withings->getUserID());
-
         $em = $this->get('doctrine')->getManager();
-        $em->persist($possessedDevice);
-        $em->flush();
 
-        return $this->redirectToRoute('homepage');
+        $withings = $this->get("app.withings");
+        $withings->getToken();
+
+        if ($withings->getAccessTokenKey() == null || $withings->getAccessTokenSecret() == null || $withings->getUserID() == null){
+            $em->remove($possessedDevice);
+            $em->flush();
+        }
+        else{
+            $possessedDevice->setAccessTokenKeyWithings($withings->getAccessTokenKey());
+            $possessedDevice->setAccessTokenSecretWithings($withings->getAccessTokenSecret());
+            $possessedDevice->setUserIdWithings($withings->getUserID());
+            $em->persist($possessedDevice);
+            $em->flush();
+        }
+        return $this->redirectToRoute('objects');
     }
 
     /**
@@ -166,7 +200,9 @@ class DefaultController extends Controller
             $em->flush();
 
             if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
-                return $this->redirectToRoute('withings');
+                $withings = $this->get("app.withings");
+                $withings->connection();
+                //return $this->redirectToRoute('withings_token');
             }
             // Jawbone
             else{
@@ -184,13 +220,20 @@ class DefaultController extends Controller
      * @Route("/jawbone/token", name="jawbone_token")
      */
     public function getJawboneTokenAction(){
-        $jawbone = $this->get("app.jawbone");
-        $json = $jawbone->getToken();
-
         $current_user = $this->container->get('security.context')->getToken()->getUser();
-        $current_user->getLastPossessedDevice()->setAccessTokenJawbone($json["access_token"]);
+        $jawbone = $this->get("app.jawbone");
+
+        if ($jawbone->getToken()){
+            $json = $jawbone->getToken();
+
+            $current_user->getLastPossessedDevice()->setAccessTokenJawbone($json["access_token"]);
+            $em = $this->get('doctrine')->getManager();
+            $em->flush();
+            return $this->redirectToRoute("objects");
+        }
 
         $em = $this->get('doctrine')->getManager();
+        $em->remove($current_user->getLastPossessedDevice());
         $em->flush();
 
         return $this->redirectToRoute("objects");
@@ -211,7 +254,8 @@ class DefaultController extends Controller
             $hourly_totals = $json['items'];
 
         return $this->render('AppBundle:Default:jawboneMoves.html.twig', array(
-            'hourly_totals' => $hourly_totals
+            'hourly_totals' => $hourly_totals,
+            'json' => $json
             ));
     }
 
@@ -220,19 +264,17 @@ class DefaultController extends Controller
      */
     public function withingsMovesAction($id){
         $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);
-        //$current_user = $this->container->get('security.context')->getToken()->getUser();
 
         $withings = $this->get("app.withings");
         $withings->authenticate($possessedDevice);
-        $acitivity = $withings->getActivities($withings->getUserID() , "2016-01-19", "2016-01-25");
-        var_dump($acitivity);
-        $intra = $withings->getIntradayActivities($withings->getUserID() , "2016-02-01 8:00:00", "2016-02-01 18:00:00");
-        var_dump($intra);
-        //$hourly_totals = $json['items'][0]['details']['hourly_totals'];
 
-        return $this->render('AppBundle:Default:withingsMoves.html.twig'/*, array(
-            'hourly_totals' => $hourly_totals
-            )*/);
+        $json = $withings->getActivities($withings->getUserID() , "2016-02-01"); //,"2016-01-25"
+       // $intra = $withings->getIntradayActivities($withings->getUserID() , "2016-02-01 8:00:00", "2016-02-01 18:00:00");
+       // var_dump($intra);
+
+       return $this->render('AppBundle:Default:withingsMoves.html.twig', array(
+            'activities' => $json["body"]["activities"]
+            ));
     }
 
     // A deplacer dans le bundle user ?

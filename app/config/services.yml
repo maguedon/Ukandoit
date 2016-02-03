@@ -31,14 +31,14 @@ services:
             alias: doctrine
 
     app.ukandoit:
-            class: AppBundle\Services\Ukandoit\ukandoit
+            class: AppBundle\Services\Ukandoit\Ukandoit
 
     app.withings:
         class: AppBundle\Services\Devices\Withings\Withings
 
     app.jawbone:
         class: AppBundle\Services\Devices\Jawbone\Jawbone
-        arguments: ['%app.jawbone.client_id%', '%app.jawbone.client_secret%', '%app.jawbone.scopes%', @router, "@=service('request').getBaseUrl()"]
+        arguments: ['%app.jawbone.client_id%', '%app.jawbone.client_secret%', '%app.jawbone.scopes%', @router]
 
     app.form.registration:
         class: UserBundle\Form\RegistrationFormType
@@ -49,3 +49,9 @@ services:
         class: UserBundle\Form\ProfileFormType
         tags:
             - { name: form.type, alias: app_user_profile }
+
+    app.form.handler.registration:
+        class: UserBundle\Form\Handler\RegistrationFormHandler
+        arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer",  "@fos_user.util.token_generator.default"]
+        scope: request
+        public: false
