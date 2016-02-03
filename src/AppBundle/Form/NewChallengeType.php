@@ -21,6 +21,11 @@ class NewChallengeType extends ChallengeType
             ->remove('creationDate', 'datetime')
             ->remove('creator')
             ->remove('challengers')
+            ->add('endDate', 'date', array(
+                'widget' => 'single_text',
+                'input' => 'datetime',
+                'format' => 'dd/MM/yyyy',
+                'attr' => array('class' => 'date')))
             ->add('activity', 'entity', array(
                 'class' => 'AppBundle:Activity',
                 'property' => 'name'));

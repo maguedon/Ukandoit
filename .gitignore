@@ -12,7 +12,7 @@
 app/SymfonyRequirements.php
 app/check.php
 web/config.php
-web/bundles/AppBundle/css/*
+web/bundles/AppBundle/css/main.css
 composer.lock
 .phpintel/
 /.idea/*

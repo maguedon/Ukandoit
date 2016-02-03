@@ -7,7 +7,6 @@
 				<h1>Lancer un défi</h1>
 			</div>
 		</div>
-		{{ dump(form)}}
 		<form action="{{ path('add_defis') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
 			<div class="container" id="">
 				<div class="row">
@@ -28,7 +27,7 @@
 						{{ form_rest(form) }}
 						<div class="form-group">
 							<div class="btn_centre">
-								<input type="submit" value="{{ 'Inscription' |trans({}, 'FOSUserBundle') }} "class="btn btn-primary btn-block btn-lg" tabindex="7" title="s'inscrire">
+								<input type="submit" value="{{ "Kanudo'it ?" |trans({}, 'FOSUserBundle') }} "class="btn btn-primary btn-block btn-lg" tabindex="7" title="s'inscrire">
 							</div>
 						</div>
 					</div>
