@@ -18,13 +18,17 @@
 			<h1>{{ user.username }}</h1>
 		</div>
 		<div class="col s1 show_level">
-			Niv. 41
+			{{ user.level }}
 		</div>
 		<div class="col s10">
-			<div class="xp_bar"><div class="xp_progress" style="width : 70%;"></div></div>
+			{% set pourcent = user.nbPoints %}
+			{% set pourcent = (pourcent / 1000)*100 %}
+			<div class="xp_bar"><div class="xp_progress" style="width : {{ pourcent }}%;"></div></div>
 		</div>
 		<div class="col s1 show_level">
-			Niv. 42
+			{% set level1 = user.level %}
+			{% set level1 = level1 + 1 %}
+			{{ level1 }}
 		</div>
 		<div class="col s12 dashboard_pseudo">
 			{{ user.nbPoints }} / 1000 pts
