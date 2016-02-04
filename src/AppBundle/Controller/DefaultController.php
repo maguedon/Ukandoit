@@ -50,16 +50,6 @@ class DefaultController extends Controller
             $em = $this->get('doctrine')->getManager();
             $em->persist($challenge);
             $em->flush();
-
-            //     if($challenge->getDeviceType()->getName() == "Withings Activité Pop"){
-            //         return $this->redirectToRoute('withings');
-            //     }
-            //     // Jawbone
-            //     else{
-            //         $jawbone = $this->get("app.jawbone");
-            //         $url = $jawbone->connection();
-            //         return $this->redirect($url);
-            //     }
         }
 
         return $this->render("AppBundle:Default:add_defis.html.twig", array(
