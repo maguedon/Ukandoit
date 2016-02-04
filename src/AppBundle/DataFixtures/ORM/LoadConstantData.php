@@ -10,6 +10,8 @@ use AppBundle\Entity\User;
 use AppBundle\Entity\Level;
 use AppBundle\Entity\Activity;
 use AppBundle\Entity\Challenge;
+use AppBundle\Entity\Image;
+use Symfony\Component\HttpFoundation\File\File;
 
 class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 {
@@ -99,6 +101,13 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $jeremy->setEmail("Jérémy.ukandoit@gmail.com");
         $jeremy->setEnabled(true);
         $jeremy->setSuperAdmin(true);
+        $image = new Image();
+        $file = new File('web/images/avatars/Jeremy_Vincent.jpg');
+        $image->setImageFile($file);
+        $image->setImageName('Jeremy_Vincent.jpg');
+        $jeremy->setAvatar($image);
+
+
         $manager->persist($jeremy);
 
 
@@ -116,6 +125,12 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $juliette->setEmail("Juliette.ukandoit@gmail.com");
         $juliette->setEnabled(true);
         $juliette->setSuperAdmin(true);
+        $image = new Image();
+        $file = new File('web/images/avatars/Juliette_Riviere.jpg');
+        $image->setImageFile($file);
+        $image->setImageName('Juliette_Riviere.jpg');
+        $juliette->setAvatar($image);
+
         $manager->persist($juliette);
 
 
@@ -133,6 +148,12 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 
         $mathilde->setEmail("Mathilde.ukandoit@gmail.com");
         $mathilde->setEnabled(true);  
+
+        $image = new Image();
+        $file = new File('web/images/avatars/Mathilde_Guedon.jpg');
+        $image->setImageFile($file);
+        $image->setImageName('Mathilde_Guedon.jpg');
+        $mathilde->setAvatar($image);
 
         $manager->persist($mathilde);
 
