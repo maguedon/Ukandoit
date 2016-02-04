@@ -49,10 +49,10 @@ class Challenge
      */
     private $creator;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="challengesAccepted")
+     /**
+     * @ORM\OneToMany(targetEntity="User_Challenge", mappedBy="challenge")
      */
-    private $challengers;
+     private $userChallenges;
 
     /**
      * @ORM\ManyToOne(targetEntity="Activity", inversedBy="challenges")
@@ -229,5 +229,38 @@ class Challenge
     public function getActivity()
     {
         return $this->activity;
+    }
+
+    /**
+     * Add userChallenges
+     *
+     * @param \AppBundle\Entity\User_Challenge $userChallenges
+     * @return Challenge
+     */
+    public function addUserChallenge(\AppBundle\Entity\User_Challenge $userChallenges)
+    {
+        $this->userChallenges[] = $userChallenges;
+
+        return $this;
+    }
+
+    /**
+     * Remove userChallenges
+     *
+     * @param \AppBundle\Entity\User_Challenge $userChallenges
+     */
+    public function removeUserChallenge(\AppBundle\Entity\User_Challenge $userChallenges)
+    {
+        $this->userChallenges->removeElement($userChallenges);
+    }
+
+    /**
+     * Get userChallenges
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUserChallenges()
+    {
+        return $this->userChallenges;
     }
 }

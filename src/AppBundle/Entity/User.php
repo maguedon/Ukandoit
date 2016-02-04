@@ -79,8 +79,7 @@ class User extends BaseUser
     private $challengesCreated;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Challenge", inversedBy="challengers")
-     * @ORM\JoinTable(name="user_challenge")
+     * @ORM\OneToMany(targetEntity="User_Challenge", mappedBy="challenger")
      */
     private $challengesAccepted;
 
