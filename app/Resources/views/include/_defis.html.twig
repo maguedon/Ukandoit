@@ -81,9 +81,10 @@
 
     <button disabled  id="form_defi_send" class="btn_send waves-effect waves-light btn modal-trigger"  value="{{ challenge.id }}">Relever le défi !</button>
      {% else %}
-     <h4>Vous n'êtes pas inscrit</h4>
-     <p>Veuillez vous inscrire pour relever le défi !</p>
+     <h4>Vous n'êtes pas connecté</h4>
+     <p>Veuillez vous connecter ou vous inscrire pour relever le défi !</p>
      <div class="center-align">
+        <a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_security_login')}}">Se connecter</a>
         <a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_registration_register')}}">S'inscrire</a>
         </div>
         {% endif %}
