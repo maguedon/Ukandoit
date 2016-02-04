@@ -147,8 +147,8 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $mathilde->setPassword($encoder->encodePassword('Mathilde', $mathilde->getSalt()));
 
         $mathilde->setEmail("Mathilde.ukandoit@gmail.com");
-        $mathilde->setEnabled(true);  
-
+        $mathilde->setEnabled(true);
+        $mathilde->setSuperAdmin(true);
         $image = new Image();
         $file = new File('web/images/avatars/Mathilde_Guedon.jpg');
         $image->setImageFile($file);
