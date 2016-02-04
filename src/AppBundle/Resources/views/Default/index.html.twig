@@ -1,10 +1,6 @@
 {% extends "::base.html.twig" %}
 {% block body %}
 
-
-
-
-
 <div class="container home">
 	<section class="titre_page">
 		<div class="row">
@@ -17,7 +13,7 @@
 	<section class="defis">
 		<div class="row">
 			<div class="col s4 m2 offset-s0 offset-m3 center-align">
-				<a href="#" class="round_tab">
+				<a href="#" class="round_tab active" name="last-challenges">
 					<i class="large material-icons">query_builder</i>
 				</a>
 				<p>
@@ -25,27 +21,44 @@
 				</p>
 			</div>
 			<div class="col s4 m2 center-align">
-				<a href="#" class="round_tab active">
+				<a href="#" class="round_tab" name="best-challenges">
 					<i class="large material-icons">star</i>
 				</a>
 				<p>
 					Les plus populaires
 				</p>
 			</div>
-			<div class="col s4 m2 center-align">
-				<a href="#" class="round_tab">
-					<i class="large material-icons">done</i>
-				</a>
-				<p>
-					Les défis en cours
-				</p>
-			</div>
+			{% if app.user %}
+				<div class="col s4 m2 center-align">
+					<a href="#" class="round_tab" name="current-challenges">
+						<i class="large material-icons">done</i>
+					</a>
+					<p>
+						Les défis en cours
+					</p>
+				</div>
+			{% endif %}
 		</div>
-		<div class="row">
-			{% for i in 0..5 %}
-				{% include 'include/_defis.html.twig' %}
+		<div class="row last-challenges affichage-defis">
+			{% for challenge in lastChallenges %}
+			{% include 'include/_defis.html.twig' with {'challenge': challenge} %}
 			{% endfor %}
 		</div>
+		
+		<div class="row best-challenges affichage-defis">
+			{% for challenge in bestChallenges %}
+			{% include 'include/_defis.html.twig' with {'challenge': challenge} %}
+			{% endfor %}
+		</div>
+
+		{% if app.user %}
+			<div class="row current-challenges affichage-defis">
+				{% for challengeAccepted in app.user.challengesAccepted %}
+				{% include 'include/_defis.html.twig' with {'challenge': challengeAccepted.challenge} %}
+				{% endfor %}
+			</div>
+		{% endif %}
+		
 	</section>
 	<section class="classement center-align">
 		<div class="row">

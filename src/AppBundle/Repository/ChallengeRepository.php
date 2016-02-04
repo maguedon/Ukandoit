@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
+
 /**
  * ChallengeRepository
  *
@@ -10,4 +12,21 @@ namespace AppBundle\Repository;
  */
 class ChallengeRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findByBests(){
+
+		$sql = "Select DISTINCT challenge.id From challenge " .
+				"INNER JOIN user_challenge ON challenge.id = user_challenge.challenge_id " .
+				"ORDER bY (Select count(*) from user_challenge " .
+				"where user_challenge.challenge_id = challenge.id) DESC " .
+				"LIMIT 9";
+
+		$stmt = $this->getEntityManager()
+		->getConnection()
+		->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+
+		return $result;
+	}
+
 }
