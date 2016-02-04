@@ -64,7 +64,6 @@ class Challenge
     public function __construct() {
         $this->challengers = new ArrayCollection();
         $this->creationDate = new \DateTime();
-        $this->endDate = new \DateTime();
     }
 
 
