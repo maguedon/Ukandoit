@@ -36,12 +36,28 @@
 			<p>	<div class="rouge">Nombres de points </div> à gagner : 50 exp.</p>
 		</div>
 
-		<div class="card-action" id="1">
+		<div data-target="modal1"  class="card-action modal_defis" id="1">
 			<a  href="#">Ikando'it !</a>
 		</div>
 	</div>
 </div>
-
+  <!-- Modal Trigger -->
+<!--   <button data-target="modal1" class="btn modal-trigger">Modal</button> -->
+          
 
 {% endfor %}
 
+
+<!-- Modal Trigger -->
+<!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal bottom-sheet">
+	<div class="modal-content">
+		<h4>Liste de vos appareils</h4>
+		<p>Choisissez l'appareil avec lequel vous souhaitez réaliser le défis.</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Relever le défi !</a>
+	</div>
+</div>

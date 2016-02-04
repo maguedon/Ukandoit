@@ -38,7 +38,9 @@ $(document).ready(function(){
         event.preventDefault();
     });
 
-
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal_defis').leanModal();
+          
 });
 
 //Remonte le underHeader si chargement en milieu de page

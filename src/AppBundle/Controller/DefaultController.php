@@ -302,6 +302,33 @@ class DefaultController extends Controller
             "challenges" => $challenges
         ));
     }
+
+    /**
+     * @Route("/defis/{challenge}/{device}/accepted", name="accepted")
+     */
+    public function challengesAcceptedAction($challenge, $device){
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge);
+        $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($device);
+        
+
+        $challenge->addChallenger($current_user);
+        $current_user->addChallengesAccepted($challenge);
+        // AJOUTER OBJECT !!!!
+
+
+        $em = $this->get('doctrine')->getManager();
+        $em->persist($challenge);
+        $em->persist($current_user);
+        //$em->persist($device);
+        $em->flush();
+        return $this->redirectToRoute("defis");
+
+
+        return $this->render('AppBundle:Default:challenges.html.twig', array(
+            "challenge" => $challenge
+        ));
+    }
      protected function setFlash($action, $value)
     {
         $this->container->get('session')->getFlashBag()->set($action, $value);
@@ -311,5 +338,9 @@ class DefaultController extends Controller
     {
         return $this->container->getParameter('fos_user.template.engine');
     }
+
+
+
+
 }
 
