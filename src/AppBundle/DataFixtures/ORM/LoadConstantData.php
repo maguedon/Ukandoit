@@ -88,7 +88,7 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $jeremy = new User();
         $jeremy->setLevels($levels);
         $jeremy->setUsername("Jérémy");
-        $jeremy->setNbPoints(234);
+        $jeremy->setNbPoints(134);
 
         $encoder = $this->container
         ->get('security.encoder_factory')
@@ -122,7 +122,7 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $mathilde = new User();
         $mathilde->setLevels($levels);
         $mathilde->setUsername("Mathilde");
-        $mathilde->setNbPoints(666);
+        $mathilde->setNbPoints(334);
 
 
         $encoder = $this->container
@@ -140,7 +140,7 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $stephane = new User();
         $stephane->setLevels($levels);
         $stephane->setUsername("Stéphane");
-        $stephane->setNbPoints(234);
+        $stephane->setNbPoints(400);
 
         $encoder = $this->container
         ->get('security.encoder_factory')
@@ -168,13 +168,13 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 
         $defis2 = new Challenge();
         $defis2->setEndDate(new \DateTime(2016-04-05));
-        $defis2->setCreator($admin);
+        $defis2->setCreator($juliette);
         $defis2->setTitle("Objectif 20 kilomètres !");
         $defis2->setActivity($activity);
 
         $defis3 = new Challenge();
         $defis3->setEndDate(new \DateTime(2016-03-22));
-        $defis3->setCreator($mathilde);
+        $defis3->setCreator($jeremy);
         $defis3->setTitle("Objectif 30 kilomètres !");
         $defis3->setActivity($activity);
 
@@ -184,10 +184,17 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $defis4->setTitle("Objectif 40 kilomètres !");
         $defis4->setActivity($activity);
 
+        $defis5 = new Challenge();
+        $defis5->setEndDate(new \DateTime(2016-02-23));
+        $defis5->setCreator($stephane);
+        $defis5->setTitle("Objectif 50 kilomètres !");
+        $defis5->setActivity($activity);
+
         $manager->persist($defis1);
         $manager->persist($defis2);
         $manager->persist($defis3);
         $manager->persist($defis4);
+        $manager->persist($defis5);
 
 
         $manager->flush();
