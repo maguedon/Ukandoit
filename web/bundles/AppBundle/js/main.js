@@ -51,11 +51,11 @@ $(document).ready(function(){
     //Activation dropdown menu
     $(".dropdown-button").dropdown();
 
-    $(".card-action").click(function() {
+   /* $(".card-action").click(function() {
         var id_defi = $(this).attr('id');
 
         toastr.success("Vous avez relevé le défi " +   id_defi );
-    });
+    });*/
     $('.card-action a').click(function(event){
         event.preventDefault();
     });
