@@ -20,5 +20,5 @@ web/images/
 web/images/*
 web/bundles/framework/*
 web/bundles/framework
-.*~
+/src/AppBundle/Entity/*.*~
 
