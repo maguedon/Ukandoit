@@ -36,36 +36,22 @@ class DefaultController extends Controller
       public function addDefisAction(Request $request){
 
         $challenge = new Challenge();
+
         $form = $this->createForm(NewChallengeType::class, $challenge);
+        $form->handleRequest($request);
 
         $current_user = $this->container->get('security.context')->getToken()->getUser();
 
-        $form->handleRequest($request);
-        // $challenge->setUser($current_user);
+        if ($form->isSubmitted() && $form->isValid()) {
 
-        if ($form->isSubmitted()) {
-
-            var_dump($challenge);
-            echo "sfkjdfkgjdfpkgdpfg";
-
-            $challenge->setUser($current_user);
-            $challenge->setCreationDate(date("Y-m-d H:i:s"));
+            $challenge->setCreator($current_user);
 
             // Enregistrement de l'objet
             $em = $this->get('doctrine')->getManager();
             $em->persist($challenge);
             $em->flush();
-
-        //     if($challenge->getDeviceType()->getName() == "Withings Activité Pop"){
-        //         return $this->redirectToRoute('withings');
-        //     }
-        //     // Jawbone
-        //     else{
-        //         $jawbone = $this->get("app.jawbone");
-        //         $url = $jawbone->connection();
-        //         return $this->redirect($url);
-        //     }
         }
+
         return $this->render("AppBundle:Default:add_defis.html.twig", array(
             'form' => $form->createView()
             ));
