@@ -63,21 +63,46 @@
 	<section class="classement center-align">
 		<div class="row">
 			<div class="col s4 m3 l2 offset-m1 offset-l3 right-align secondrank">
-				<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+				{% if bestChallengers[1].avatar != null %}
+					{% set image = vich_uploader_asset(bestChallengers[1].avatar, 'imageFile') %}
+					<img class="media-object dp circle" src="{{ asset(image) }}">
+				{% else %}
+					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+				{% endif %}
+				
 				<p>
-					Benoit - Niv. 42
+					{{ bestChallengers[1].username }} - Niv. {{ bestChallengers[1].level }}
+				</p>
+				<p>
+					{{ bestChallengers[1].nbPoints }} points
 				</p>
 			</div>
 			<div class="col s4 m4 l2 firstrank">
-				<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+				{% if bestChallengers[0].avatar != null %}
+					{% set image = vich_uploader_asset(bestChallengers[0].avatar, 'imageFile') %}
+					<img class="media-object dp circle" src="{{ asset(image) }}">
+				{% else %}
+					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+				{% endif %}
 				<p>
-					Benoit - Niv. 42
+					{{ bestChallengers[0].username }} - Niv. {{ bestChallengers[0].level }}
+				</p>
+				<p>
+					{{ bestChallengers[0].nbPoints }} points
 				</p>
 			</div>
 			<div class="col s4 m3 l2 left-align thirdrank">
-				<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+				{% if bestChallengers[2].avatar != null %}
+					{% set image = vich_uploader_asset(bestChallengers[2].avatar, 'imageFile') %}
+					<img class="media-object dp circle" src="{{ asset(image) }}">
+				{% else %}
+					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+				{% endif %}
 				<p>
-					Benoit - Niv. 42
+					{{ bestChallengers[2].username }} - Niv. {{ bestChallengers[2].level }}
+				</p>
+				<p>
+					{{ bestChallengers[2].nbPoints }} points
 				</p>
 			</div>
 			<div class="col s12">

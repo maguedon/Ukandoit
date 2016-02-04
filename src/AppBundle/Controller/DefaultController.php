@@ -23,10 +23,12 @@ class DefaultController extends Controller
         $challengesService = $this->get('app.challenges');
         $lastChallenges = $challengesService->getLastChallenges();
         $bestChallenges = $challengesService->getBestChallenges();
+        $bestChallengers = $em->getRepository('AppBundle:User')->findBests();
         return $this->render('AppBundle:Default:index.html.twig', array(
             "url"=>"accueil",
             "lastChallenges" => $lastChallenges,
-            "bestChallenges" => $bestChallenges
+            "bestChallenges" => $bestChallenges,
+            "bestChallengers" => $bestChallengers
             ));
     }
       /**
