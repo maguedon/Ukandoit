@@ -46,13 +46,14 @@
 
 
 
-
 <!-- Modal Trigger -->
 <!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal bottom-sheet">
 	<div class="modal-content">
+{% if app.user %}
+
 		<h4>Liste de vos appareils</h4>
 		<p>Choisissez l'appareil avec lequel vous souhaitez réaliser le défis.</p>
 
@@ -72,13 +73,21 @@
         {% else %}
        	 <p>Vous n'avez aucun objet pour le moment !</p>
         {% endif %}
-        
+       
     </div>
 
     <div class="modal-footer">
     
 
     <button disabled  id="form_defi_send" class="btn_send waves-effect waves-light btn modal-trigger"  value="{{ challenge.id }}">Relever le défi !</button>
+     {% else %}
+     <h4>Vous n'êtes pas inscrit</h4>
+     <p>Veuillez vous inscrire pour relever le défi !</p>
+     <div class="center-align">
+        <a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_registration_register')}}">S'inscrire</a>
+        </div>
+        {% endif %}
+        
     </div>
 </div>
 
