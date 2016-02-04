@@ -63,6 +63,13 @@ class PossessedDevice
     private $accessTokenSecretWithings;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="access_token_google", type="string", length=255, nullable=true)
+     */
+    private $accessTokenGoogle;
+
+    /**
      * @ORM\ManyToOne(targetEntity="DeviceType")
      * @ORM\JoinColumn(name="deviceType_id", referencedColumnName="id")
      */
@@ -308,5 +315,28 @@ class PossessedDevice
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set accessTokenGoogle
+     *
+     * @param string $accessTokenGoogle
+     * @return PossessedDevice
+     */
+    public function setAccessTokenGoogle($accessTokenGoogle)
+    {
+        $this->accessTokenGoogle = $accessTokenGoogle;
+
+        return $this;
+    }
+
+    /**
+     * Get accessTokenGoogle
+     *
+     * @return string 
+     */
+    public function getAccessTokenGoogle()
+    {
+        return $this->accessTokenGoogle;
     }
 }
