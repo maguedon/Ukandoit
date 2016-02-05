@@ -63,6 +63,20 @@ class PossessedDevice
     private $accessTokenSecretWithings;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="access_token_google", type="string", length=255, nullable=true)
+     */
+    private $accessTokenGoogle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="refresh_token_google", type="string", length=255, nullable=true)
+     */
+    private $refreshTokenGoogle;
+
+    /**
      * @ORM\ManyToOne(targetEntity="DeviceType")
      * @ORM\JoinColumn(name="deviceType_id", referencedColumnName="id")
      */
@@ -83,6 +97,8 @@ class PossessedDevice
         $this->accessTokenKeyWithings = null;
         $this->accessTokenSecretWithings = null;
         $this->url = null;
+        $this->accessTokenGoogle = null;
+        $this->refreshTokenGoogle = null;
     }
 
 
@@ -308,5 +324,51 @@ class PossessedDevice
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set accessTokenGoogle
+     *
+     * @param string $accessTokenGoogle
+     * @return PossessedDevice
+     */
+    public function setAccessTokenGoogle($accessTokenGoogle)
+    {
+        $this->accessTokenGoogle = $accessTokenGoogle;
+
+        return $this;
+    }
+
+    /**
+     * Get accessTokenGoogle
+     *
+     * @return string 
+     */
+    public function getAccessTokenGoogle()
+    {
+        return $this->accessTokenGoogle;
+    }
+
+    /**
+     * Set refreshTokenGoogle
+     *
+     * @param string $refreshTokenGoogle
+     * @return PossessedDevice
+     */
+    public function setRefreshTokenGoogle($refreshTokenGoogle)
+    {
+        $this->refreshTokenGoogle = $refreshTokenGoogle;
+
+        return $this;
+    }
+
+    /**
+     * Get refreshTokenGoogle
+     *
+     * @return string 
+     */
+    public function getRefreshTokenGoogle()
+    {
+        return $this->refreshTokenGoogle;
     }
 }

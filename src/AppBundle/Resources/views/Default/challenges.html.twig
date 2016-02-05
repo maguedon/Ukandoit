@@ -11,7 +11,9 @@
 	</section>
 	<section class="defis">
 		<div class="row">
-			{% include 'include/_defis.html.twig' %}
+			{% for challenge in challenges %}
+				{% include 'include/_defis.html.twig' with {'challenge': challenge} %}
+			{% endfor %}
 		</div>
 	</section>
 </div>

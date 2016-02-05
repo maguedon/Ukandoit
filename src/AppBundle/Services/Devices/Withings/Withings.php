@@ -34,7 +34,7 @@ class Withings
 
     public function setConsumerSecret($consumer_secret)
     {
-       $this->consumer_secre = $consumer_secret;
+       $this->consumer_secret = $consumer_secret;
     }
 
     public function setCallbackUrl($callback_url)
@@ -149,6 +149,7 @@ class Withings
     public function getActivities($userid, $startdate, $enddate = null)
     {
         return $this->withings->getUserGateway()->getActivities($userid, $startdate, $enddate);
+
     }
 
     public function getIntradayActivities($userid, $startdate, $enddate)
