@@ -41,6 +41,8 @@
 
 {% if app.request.attributes.get('_route') == "challenges" %}
 
+<!-- AJAX SCROLL INFINI -->
+
 <script type="text/javascript">
 $(document).ready(function(){ // Quand le document est complètement chargé
 
@@ -95,6 +97,30 @@ $(document).ready(function(){ // Quand le document est complètement chargé
             });
         }
     });
+});
+
+</script>
+
+{% elseif app.request.attributes.get('_route') == "add_defis" %}
+
+<!-- AJAX CHARGEMENT ADD DEFIS  -->
+
+<script type="text/javascript">
+
+$(".modal-trigger-ajax").click(function(){
+
+    $.ajax({
+        url: "{{ path('addDefisAjax')}}",
+        type: 'get',
+
+        //Succès de la requête
+        success: function(data) {
+            $('.modal-content').html(data);
+            $('#getDataChallenge').openModal();
+        }
+    });
+
+
 });
 
 </script>

@@ -24,8 +24,7 @@ class DefaultController extends Controller
      * @Route("/", name="homepage")
      */
     public function indexAction(){
-
-  $em = $this->get('doctrine')->getManager();
+        $em = $this->get('doctrine')->getManager();
         $challengesService = $this->get('app.challenges');
         $lastChallenges = $challengesService->getLastChallenges();
         $bestChallenges = $challengesService->getBestChallenges();
@@ -110,7 +109,6 @@ class DefaultController extends Controller
              ));
 
         }
-
 
         return $this->render('AppBundle:Default:contact.html.twig', array(
          "form"=>$form->createView()
@@ -394,5 +392,24 @@ class DefaultController extends Controller
         return $this->container->getParameter('fos_user.template.engine');
     }
 
-}
 
+
+// ------------ CONTROLLER AJAX CHARGEMENT INFOS CREATION DEFIS -------------- //
+
+    /**
+     * @Route("/adddefisajaxdonttouch", name="addDefisAjax")
+     */
+    public function getAjaxAddDefisAction()
+    {
+        $request = $this->container->get('request');
+
+        if($request->isXmlHttpRequest())
+        {
+            $data = "";
+
+            return $this->render('AppBundle:Ajax:ajax_add_defis.html.twig', array(
+                "data" => $data
+                ));
+        }
+    }
+}
