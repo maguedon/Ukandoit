@@ -108,15 +108,15 @@ class DefaultController extends Controller
         // the form if they refresh the page
 
             return $this->render('AppBundle:Default:contact.html.twig', array(
-             "form"=>$form->createView()
-             ));
+               "form"=>$form->createView()
+               ));
 
         }
 
 
         return $this->render('AppBundle:Default:contact.html.twig', array(
-         "form"=>$form->createView()
-         ));
+           "form"=>$form->createView()
+           ));
     }
 
     /**
@@ -153,50 +153,6 @@ class DefaultController extends Controller
             $em->flush();
         }
         return $this->redirectToRoute('objects');
-    }
-
-    /**
-     * @Route("/objects", name="objects")
-     */
-    public function objectsAction(Request $request){
-        // Si on n'est pas connecté on redirige vers login
-        $current_user = $this->container->get('security.context')->getToken()->getUser();
-        if($current_user == "anon.")
-            return $this->redirectToRoute('fos_user_security_login');
-
-        $possessedDevice = new PossessedDevice();
-        $form = $this->createForm(NewPossessedDeviceType::class, $possessedDevice);
-
-        $form->handleRequest($request);
-        $possessedDevice->setUser($current_user);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Enregistrement de l'objet
-            $em = $this->get('doctrine')->getManager();
-            $em->persist($possessedDevice);
-            $em->flush();
-
-            if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
-                $withings = $this->get("app.withings");
-                $withings->connection();
-                //return $this->redirectToRoute('withings_token');
-            }
-            // Jawbone
-            elseif ($possessedDevice->getDeviceType()->getName() == "Jawbone UP 24"){
-                $jawbone = $this->get("app.jawbone");
-                $url = $jawbone->connection();
-                return $this->redirect($url);
-            }
-            elseif ($possessedDevice->getDeviceType()->getName() == "Google Fitness"){
-                $google = $this->get("app.googlefit");
-                $url = $google->connection();
-                return $this->redirect($url);
-            }
-
-        }
-        return $this->render("AppBundle:Default:objects.html.twig", array(
-            'form' => $form->createView()
-            ));
     }
 
     /**
@@ -416,6 +372,8 @@ class DefaultController extends Controller
             "challenge" => $challenge
             ));*/
     }
+
+
     protected function setFlash($action, $value)
     {
         $this->container->get('session')->getFlashBag()->set($action, $value);

@@ -4,8 +4,8 @@
 			<div class="stat_defis hoverable left-align">Défis gagnés : 12<br/>Défis perdus : 2</div>
 		</div>
 		<div class="col s12 m4">
-			{% if user.avatar != null %}
-			{% set image = vich_uploader_asset(user.avatar, 'imageFile') %}
+			{% if app.user.avatar != null %}
+			{% set image = vich_uploader_asset(app.user.avatar, 'imageFile') %}
 			<img class="dashboard_avatar" src="{{ asset(image) }}">
 			{% else %}
 				<img class="dashboard_avatar" src="{{asset('bundles/AppBundle/img/sans_avatar.jpg')}}"  alt="photo de profil de {{ user.username }}">
@@ -15,31 +15,31 @@
 			<div class="inscription_date"></div>
 		</div>
 		<div class="col s12 dashboard_pseudo">
-			<h1>{{ user.username }}</h1>
+			<h1>{{ app.user.username }}</h1>
 		</div>
 		<div class="col s1 show_level">
-			{{ user.level }}
+			{{ app.user.level }}
 		</div>
 		<div class="col s10">
-			{% set pourcent = user.nbPoints %}
+			{% set pourcent = app.user.nbPoints %}
 			{% set pourcent = (pourcent / 1000)*100 %}
 			<div class="xp_bar"><div class="xp_progress" style="width : {{ pourcent }}%;"></div></div>
 		</div>
 		<div class="col s1 show_level">
-			{% set level1 = user.level %}
+			{% set level1 = app.user.level %}
 			{% set level1 = level1 + 1 %}
 			{{ level1 }}
 		</div>
 		<div class="col s12 dashboard_pseudo">
-			{{ user.nbPoints }} / 1000 pts
+			{{ app.user.nbPoints }} / 1000 pts
 		</div>
 	</div>
 	<div class="row">
 		<div class="col s12">
-			<p>{{ 'Prénom'|trans({}, 'FOSUserBundle') }}: {{ user.firstname }}</p>
-			<p>{{ 'Nom'|trans({}, 'FOSUserBundle') }}: {{ user.lastname }}</p>
-			<p>{{ 'Login'|trans({}, 'FOSUserBundle') }}: {{ user.username }}</p>
-			<p>{{ 'Email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
+			<p>{{ 'Prénom'|trans({}, 'FOSUserBundle') }}: {{ app.user.firstname }}</p>
+			<p>{{ 'Nom'|trans({}, 'FOSUserBundle') }}: {{ app.user.lastname }}</p>
+			<p>{{ 'Login'|trans({}, 'FOSUserBundle') }}: {{ app.user.username }}</p>
+			<p>{{ 'Email'|trans({}, 'FOSUserBundle') }}: {{ app.user.email }}</p>
 		</div>
 	</div>
 </div>

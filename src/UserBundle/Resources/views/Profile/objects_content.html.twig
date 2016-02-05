@@ -1,21 +1,4 @@
-{% extends "::base.html.twig" %}
-
-{% block body %}
-{% for message in app.session.flashBag.get('message') %}
-    <div class="flash-notice"> {{ message }} </div>
-{% endfor %}
-
-
-
-<div class="container home">
-    <section class="titre_page">
-        <div class="row">
-            <div class="bloc_rouge"></div>
-            <div class="bloc_titre">
-                <h1>Vos objets</h1>
-            </div>
-        </div>
-    </section>
+<section class="objects">
     <section> 
         {% if app.user.possessedDevices|length != 0 %}
             <div class="collection">
@@ -36,18 +19,16 @@
         <div class="row">
             {{ form_start(form) }}
             {{ form_errors(form.deviceType) }}
-             <div class="col m3">
+            <div class="col m3">
                 <h2>Ajouter un objet :</h2>
-             </div>
-             <div class="input-field col m3">
+            </div>
+            <div class="input-field col m3">
                {{ form_widget(form.deviceType) }}
-             </div>
-             <div class="input-field col m4">
+           </div>
+           <div class="input-field col m4">
                {{ form_widget(form.submit, {"attr": {"class": "waves-effect waves-light btn"}}) }}
-             </div>
-            {{ form_end(form) }}
-        </div>
-    </section>
-</div>
-
-{% endblock %}
+           </div>
+           {{ form_end(form) }}
+       </div>
+   </section>
+</section>

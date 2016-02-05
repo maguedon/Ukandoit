@@ -32,7 +32,8 @@ class ProfileFormType extends AbstractType
         $builder
             ->add('firstname', 'text', array('label' => 'Prénom'))
             ->add('lastname', 'text', array('label' => 'Nom'))
-            ->add('avatar', NewImageType::class)
+            ->add('avatar', NewImageType::class, array(
+                'required' => false))
 
             ->add('email', 'email', array('label' => 'Email'))
             

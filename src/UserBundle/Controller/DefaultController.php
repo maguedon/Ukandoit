@@ -4,14 +4,14 @@ namespace UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\PossessedDevice;
+use AppBundle\Form\NewPossessedDeviceType;
 
-/**
- * @Route("/user", name="user")
- */
 class DefaultController extends Controller
 {
 	/**
-     * @Route("/delete", name="user_delete")
+     * @Route("/user/delete", name="user_delete")
      */
 	public function deleteUserAction(){
 		// Si on n'est pas connecté on redirige vers login
@@ -26,8 +26,64 @@ class DefaultController extends Controller
 
 	}
 
+
+       /**
+     * @Route("/user/challenges", name="my_challenges")
+     */
+    public function myChallengesAction(){
+        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
+        return $this->render('UserBundle:Profile:my_challenges.html.twig', array(
+            "challenges" => $challenges
+            ));
+    }
+
+    /**
+     * @Route("/user/objects", name="objects")
+     */
+    public function objectsAction(Request $request){
+        // Si on n'est pas connecté on redirige vers login
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
+
+        $possessedDevice = new PossessedDevice();
+        $form = $this->createForm(NewPossessedDeviceType::class, $possessedDevice);
+
+        $form->handleRequest($request);
+        $possessedDevice->setUser($current_user);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Enregistrement de l'objet
+            $em = $this->get('doctrine')->getManager();
+            $em->persist($possessedDevice);
+            $em->flush();
+
+            if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
+                $withings = $this->get("app.withings");
+                $withings->connection();
+                //return $this->redirectToRoute('withings_token');
+            }
+            // Jawbone
+            elseif ($possessedDevice->getDeviceType()->getName() == "Jawbone UP 24"){
+                $jawbone = $this->get("app.jawbone");
+                $url = $jawbone->connection();
+                return $this->redirect($url);
+            }
+            elseif ($possessedDevice->getDeviceType()->getName() == "Google Fitness"){
+                $google = $this->get("app.googlefit");
+                $url = $google->connection();
+                return $this->redirect($url);
+            }
+
+        }
+        return $this->render("UserBundle:Profile:objects.html.twig", array(
+            'form' => $form->createView()
+            ));
+        
+    }
+
 	/**
-     * @Route("/{name}", name="user_other")
+     * @Route("/user/{name}", name="user_other")
      */
 	public function showOtherAction($name){
 		$userManager = $this->container->get('fos_user.user_manager');
@@ -38,4 +94,5 @@ class DefaultController extends Controller
         ));
 
 	}
+
 }
