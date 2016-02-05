@@ -217,10 +217,12 @@ class DefaultController extends Controller
     public function googleMovesAction($id){
         // Si on n'est pas connecté on redirige vers login
         $current_user = $this->container->get('security.context')->getToken()->getUser();
+        $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);
         if($current_user == "anon.")
             return $this->redirectToRoute('fos_user_security_login');
+        if($possessedDevice == null)
+            return $this->redirectToRoute('objects'); //possessedDevice ID n'existe pas !
 
-        $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);
         $google = $this->get("app.googlefit");
         $updated = $google->authenticate($possessedDevice);
         if ($updated == true){
@@ -241,21 +243,26 @@ class DefaultController extends Controller
     public function jawboneMovesAction($id){
         // Si on n'est pas connecté on redirige vers login
         $current_user = $this->container->get('security.context')->getToken()->getUser();
-        if($current_user == "anon.")
-            return $this->redirectToRoute('fos_user_security_login');
-
         $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);
 
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
+        if($possessedDevice == null)
+            return $this->redirectToRoute('objects'); //possessedDevice ID n'existe pas !
+
         $jawbone = $this->get("app.jawbone");
-        $json = $jawbone->getMoves($possessedDevice->getAccessTokenJawbone());
+        $json = $jawbone->getMoves($possessedDevice->getAccessTokenJawbone(), "2016-01-21 00:00:00");
 
         if (count($json['items']) != 0)
             $hourly_totals = $json['items'][0]['details']['hourly_totals'];
         else
             $hourly_totals = $json['items'];
 
+        $standart = $jawbone->standardizeJSON($json);
+
         return $this->render('AppBundle:Default:jawboneMoves.html.twig', array(
             'hourly_totals' => $hourly_totals,
+            'standart' => $standart,
             'json' => $json
             ));
     }
@@ -266,15 +273,16 @@ class DefaultController extends Controller
     public function withingsMovesAction($id){
         // Si on n'est pas connecté on redirige vers login
         $current_user = $this->container->get('security.context')->getToken()->getUser();
+        $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);
         if($current_user == "anon.")
             return $this->redirectToRoute('fos_user_security_login');
-
-        $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);
+        if($possessedDevice == null)
+            return $this->redirectToRoute('objects');
 
         $withings = $this->get("app.withings");
         $withings->authenticate($possessedDevice);
 
-        $json = $withings->getActivities($withings->getUserID() , "2016-02-01"); //,"2016-01-25"
+        $json = $withings->getActivities($withings->getUserID() , "2016-01-29", "2016-02-05"); //,"2016-01-25"
        // $intra = $withings->getIntradayActivities($withings->getUserID() , "2016-02-01 8:00:00", "2016-02-01 18:00:00");
        // var_dump($intra);
 
