@@ -79,8 +79,6 @@ margin-right: auto;
    }
 }
 
-
-
 .tabs .indicator {
    background-color: @gris_fonce !important;
    bottom: 10px !important;
@@ -148,31 +146,59 @@ margin-right: auto;
 .indicator {
 
    &.accueil{
-      right: 599px;
+      right: 595px;
       left: 14px;
    }
 
    &.lesdefis{
-      right: 499px;
-      left: 98px;
+      right: 496px;
+      left: 104px;
    }
 
    &.apropos{
-      right: 408px;
-      left: 189px;
+      right: 400px;
+      left: 200px;
    }
 
    &.contact{
-      right: 320px;
-      left: 287px;
+      right: 308px;
+      left: 301px;
    }
 
    &.sinscrire{
-      right: 114px;
-      left: 479px;
+      right: 124px;
+      left: 469px;
    }
 }
 
+.indicator-connected {
+
+   background-color: #282828;
+   position: absolute;
+   bottom: 10px;
+   height: 1px;
+   will-change: left, right;
+
+   &.accueil{
+      right: 595px;
+      left: 14px;
+   }
+
+   &.lesdefis{
+      right: 492px;
+      left: 107px;
+   }
+
+   &.apropos{
+      right: 396px;
+      left: 203px;
+   }
+
+   &.contact{
+      right: 302px;
+      left: 306px;
+   }
+}
 
 .menu_logo{
    width : 50px;
@@ -185,7 +211,6 @@ margin-right: auto;
       margin-top: 12px;
    }
 }
-
 
 .tabs {
    overflow-x: visible;

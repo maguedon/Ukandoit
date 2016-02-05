@@ -30,15 +30,35 @@
 						<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
 					{% endif %}
 					{% if app.request.attributes.get('_route') == "homepage" %}
-						<div class="indicator accueil"></div>
+						{% if app.user %}
+							<div class="indicator-connected accueil"></div>
+						{% else %}
+							<div class="indicator accueil"></div>
+						{% endif %}
 					{% elseif app.request.attributes.get('_route') == "challenges" %}
-						<div class="indicator lesdefis"></div>
+						{% if app.user %}
+							<div class="indicator-connected lesdefis"></div>
+						{% else %}
+							<div class="indicator lesdefis"></div>
+						{% endif %}
 					{% elseif app.request.attributes.get('_route') == "about" %}
-						<div class="indicator apropos"></div>
+						{% if app.user %}
+							<div class="indicator-connected apropos"></div>
+						{% else %}
+							<div class="indicator apropos"></div>
+						{% endif %}
 					{% elseif app.request.attributes.get('_route') == "contact" %}
-						<div class="indicator contact"></div>
+						{% if app.user %}
+							<div class="indicator-connected contact"></div>
+						{% else %}
+							<div class="indicator contact"></div>
+						{% endif %}
 					{% elseif app.request.attributes.get('_route') == "fos_user_registration_register" %}
-						<div class="indicator sinscrire"></div>
+						{% if app.user %}
+							<div class="indicator-connected sinscrire"></div>
+						{% else %}
+							<div class="indicator sinscrire"></div>
+						{% endif %}
 					{% endif %}
 				</ul>
 			</div>

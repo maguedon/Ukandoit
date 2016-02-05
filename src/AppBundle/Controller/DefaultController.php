@@ -314,7 +314,7 @@ class DefaultController extends Controller
 
         foreach ($challenges as $value) {
             $user = $userManager->findUserByUsername($value->getCreator());
-            $levelUser = $user->getLevel();
+            //$levelUser = $user->getLevel();
         }
         return $this->render('AppBundle:Default:challenges.html.twig', array(
             "challenges" => $challenges,
