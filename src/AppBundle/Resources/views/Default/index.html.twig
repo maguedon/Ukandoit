@@ -28,16 +28,21 @@
 					Les plus populaires
 				</p>
 			</div>
-			{% if app.user %}
 			<div class="col s4 m2 center-align">
+				{% if app.user %}
 				<a href="#" class="round_tab" name="current-challenges">
 					<i class="large material-icons">done</i>
 				</a>
+				{% else %}
+				<a href="{{ path('fos_user_security_login') }}" class="round_tab" name="current-challenges">
+					<i class="large material-icons">done</i>
+				</a>
+
+				{% endif %}
 				<p>
 					Les défis en cours
 				</p>
 			</div>
-			{% endif %}
 		</div>
 
 		<div class="row last-challenges affichage-defis">
@@ -60,6 +65,10 @@
 		</div>
 		{% endif %}
 
+		<<<<<<< HEAD
+		=======
+		
+		>>>>>>> origin/dev
 	</section>
 	<section class="classement center-align">
 		<div class="row">
