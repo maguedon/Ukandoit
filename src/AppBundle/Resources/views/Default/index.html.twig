@@ -29,14 +29,14 @@
 				</p>
 			</div>
 			{% if app.user %}
-				<div class="col s4 m2 center-align">
-					<a href="#" class="round_tab" name="current-challenges">
-						<i class="large material-icons">done</i>
-					</a>
-					<p>
-						Les défis en cours
-					</p>
-				</div>
+			<div class="col s4 m2 center-align">
+				<a href="#" class="round_tab" name="current-challenges">
+					<i class="large material-icons">done</i>
+				</a>
+				<p>
+					Les défis en cours
+				</p>
+			</div>
 			{% endif %}
 		</div>
 
@@ -45,7 +45,7 @@
 			{% include 'include/_defis.html.twig' with {'challenge': challenge} %}
 			{% endfor %}
 		</div>
-		
+
 		<div class="row best-challenges affichage-defis">
 			{% for challenge in bestChallenges %}
 			{% include 'include/_defis.html.twig' with {'challenge': challenge} %}
@@ -53,24 +53,24 @@
 		</div>
 
 		{% if app.user %}
-			<div class="row current-challenges affichage-defis">
-				{% for challengeAccepted in app.user.challengesAccepted %}
-				{% include 'include/_defis.html.twig' with {'challenge': challengeAccepted.challenge} %}
-				{% endfor %}
-			</div>
+		<div class="row current-challenges affichage-defis">
+			{% for challengeAccepted in app.user.challengesAccepted %}
+			{% include 'include/_defis.html.twig' with {'challenge': challengeAccepted.challenge} %}
+			{% endfor %}
+		</div>
 		{% endif %}
-		
+
 	</section>
 	<section class="classement center-align">
 		<div class="row">
-			<div class="col s4 m3 l2 offset-m1 offset-l3 right-align secondrank">
+			<div class="col s4 secondrank">
 				{% if bestChallengers[1].avatar != null %}
-					{% set image = vich_uploader_asset(bestChallengers[1].avatar, 'imageFile') %}
-					<img class="media-object dp circle" src="{{ asset(image) }}">
+				{% set image = vich_uploader_asset(bestChallengers[1].avatar, 'imageFile') %}
+				<img class="media-object dp circle" src="{{ asset(image) }}">
 				{% else %}
-					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+				<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
 				{% endif %}
-				
+
 				<p>
 					{{ bestChallengers[1].username }} - Niv. {{ bestChallengers[1].level }}
 				</p>
@@ -78,12 +78,12 @@
 					{{ bestChallengers[1].nbPoints }} points
 				</p>
 			</div>
-			<div class="col s4 m4 l2 firstrank">
+			<div class="col s4 firstrank">
 				{% if bestChallengers[0].avatar != null %}
-					{% set image = vich_uploader_asset(bestChallengers[0].avatar, 'imageFile') %}
-					<img class="media-object dp circle" src="{{ asset(image) }}">
+				{% set image = vich_uploader_asset(bestChallengers[0].avatar, 'imageFile') %}
+				<img class="media-object dp circle" src="{{ asset(image) }}">
 				{% else %}
-					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+				<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
 				{% endif %}
 				<p>
 					{{ bestChallengers[0].username }} - Niv. {{ bestChallengers[0].level }}
@@ -92,12 +92,12 @@
 					{{ bestChallengers[0].nbPoints }} points
 				</p>
 			</div>
-			<div class="col s4 m3 l2 left-align thirdrank">
+			<div class="col s4 thirdrank">
 				{% if bestChallengers[2].avatar != null %}
-					{% set image = vich_uploader_asset(bestChallengers[2].avatar, 'imageFile') %}
-					<img class="media-object dp circle" src="{{ asset(image) }}">
+				{% set image = vich_uploader_asset(bestChallengers[2].avatar, 'imageFile') %}
+				<img class="media-object dp circle" src="{{ asset(image) }}">
 				{% else %}
-					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+				<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
 				{% endif %}
 				<p>
 					{{ bestChallengers[2].username }} - Niv. {{ bestChallengers[2].level }}
@@ -105,9 +105,6 @@
 				<p>
 					{{ bestChallengers[2].nbPoints }} points
 				</p>
-			</div>
-			<div class="col s12">
-				<img class="podium responsive-img" src="{{asset('bundles/AppBundle/img/classement.png')}}"/>
 			</div>
 		</div>
 	</section>
