@@ -1,8 +1,33 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-	{% block fos_user_content %}
-		{% include "UserBundle:Registration:register_content.html.twig" %}
-	{% endblock fos_user_content %}
+{% block fos_user_content %}
+{% include "UserBundle:Registration:register_content.html.twig" %}
+{% endblock fos_user_content %}
 
 {% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+	$( document ).ready(function() {
+		{% if form_errors(form.email) and form_errors(form.username)%}
+
+		toastr.error("Ce Mail et ce Pseudo sont déjà utilisés");
+
+		{% elseif form_errors(form.username)  %}
+
+		toastr.error("Ce pseudo est déjà utilisé");
+		{% elseif form_errors(form.email)   %}
+
+		toastr.error("Cet Email est déjà utilisé");
+
+		{% endif %}
+
+
+
+
+
+	});
+</script>
+
+{% endblock %} 

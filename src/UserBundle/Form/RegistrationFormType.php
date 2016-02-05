@@ -31,8 +31,7 @@ class RegistrationFormType extends AbstractType
                             'first_options' => array('label' => 'Mot de passe'),
                             'second_options' => array('label' => 'Confirmation'),
                             'invalid_message' => 'fos_user.password.mismatch',
-                     ))
-                ;
+                     ));
     }
 
     public function getParent()

@@ -82,6 +82,7 @@ fos_user:
     registration:
         form:
             type: app_user_registration
+            handler: app.form.handler.registration
         confirmation:
             from_email:
                 address:        contact.ukandoit@gmail.com

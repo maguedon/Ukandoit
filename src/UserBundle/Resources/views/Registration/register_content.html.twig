@@ -9,51 +9,65 @@
 
 </section>
 
+
 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
 
     <div class="container registation" id="fos_user_registration_form">
 
         <div class="row">
 
+            <div class="bande_rouge">
+                <div class="col s12">Formulaire d'inscription</div>
+            </div>
 
-            <div class="bande_rouge">Formulaire d'inscription</div>
-
-            <div class="card-panel">    
+            <div class="card-panel">
                 <div class="input-field form-group col s12 m6">
                     {{ form_widget(form.firstname, { 'attr': {'class': 'form-control' } }) }}
                     <label for="last_name">Prénom</label>
+                    {#
                     {{ form_errors(form.firstname) }}
+                    #}
                 </div>
                 <div class="input-field form-group col s12 m6">
                     {{ form_widget(form.lastname, { 'attr': {'class': 'form-control' } }) }}
                     <label for="last_name">Nom</label>
+                    {#
                     {{ form_errors(form.lastname) }}
-                </div>      
+                    #}
+                </div>
 
-                <div class="input-field form-group col s12 m6"> 
+                <div class="input-field form-group col s12 m6">
                     {{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
                     <label for="last_name">Pseudo</label>
+                    {#
                     {{ form_errors(form.username) }}
+                    #}
                 </div>
-              
-                <div class="input-field form-group col s12 m6"> 
+
+                <div class="input-field form-group col s12 m6">
                     {{ form_widget(form.email, { 'attr': {'class': 'form-control' } }) }}
                     <label for="last_name">Mail</label>
+                    {#
                     {{ form_errors(form.email) }}
-                </div>   
+                    #}
+                </div>
 
                 <div class="col s12 m6">
                     <div class="form-group">
                         {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'|trans } }) }}
+                        {#
                         {{ form_errors(form.plainPassword.first) }}
+                        #}
                     </div>
-                </div>  
+                </div>
                 <div class="col s12 m6">
                     <div class="form-group">
                         {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'|trans } }) }}
+                        {#
                         {{ form_errors(form.plainPassword.second) }}
+                        #}
                     </div>
-                </div>   
+                </div>
 
 
                 <div class="col s12">
@@ -68,10 +82,12 @@
                         </div>
                     </div>
                 </div>
-                
+
                 {{ form_rest(form) }}
                 <div class="form-group">
-                    <div class="btn_centre">        
+                    <div class="btn_centre">
+                        <div class="col s12 g-recaptcha" data-sitekey="6LcJBBcTAAAAAKQIlh3sCogXUGMUb7D_yQEN63C-"></div>
+
                         <input type="submit" value="{{ 'Inscription' |trans({}, 'FOSUserBundle') }} "class="btn btn-primary btn-block btn-lg" tabindex="7" title="s'inscrire">
                     </div>
                 </div>
@@ -81,3 +97,5 @@
 
     </div>
 </form>
+
+

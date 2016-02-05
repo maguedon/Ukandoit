@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 {
-	/**
+    /**
      * @var ContainerInterface
      */
     private $container;
@@ -27,11 +27,10 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
     {
         $this->container = $container;
     }
-
-	public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $withings_activite_pop = new DeviceType();
-        $withings_activite_pop->setName("Withings Activité Pop");
+        $withings_activite_pop->setName("Withings ActivitÃƒÂ© Pop");
         $manager->persist($withings_activite_pop);
 
         $jawbone_up_24 = new DeviceType();
@@ -67,7 +66,6 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $manager->flush();
 
         $levels = $manager->getRepository('AppBundle:Level')->findAll();
-
         $admin = new User();
         $admin->setUsername("admin");
         $admin->setNbPoints(234, $levels);
@@ -91,8 +89,8 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $image->setImageFile($file);
         $image->setImageName('Jeremy_Vincent.jpg');
         $jeremy->setAvatar($image);
-
         $manager->persist($jeremy);
+
 
         $juliette = new User();
         $juliette->setUsername("Juliette");
@@ -107,7 +105,6 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $image->setImageFile($file);
         $image->setImageName('Juliette_Riviere.jpg');
         $juliette->setAvatar($image);
-
         $manager->persist($juliette);
 
 
@@ -124,7 +121,6 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $image->setImageFile($file);
         $image->setImageName('Mathilde_Guedon.jpg');
         $mathilde->setAvatar($image);
-
         $manager->persist($mathilde);
 
 
@@ -132,45 +128,42 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $stephane->setUsername("Stéphane");
         $stephane->setNbPoints(400, $levels);
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($stephane);
-        $stephane->setPassword($encoder->encodePassword('Stéphane', $stephane->getSalt()));
+        $stephane->setPassword($encoder->encodePassword('StÃƒÂ©phane', $stephane->getSalt()));
         $stephane->setEmail("Stéphane.ukandoit@gmail.com");
         $stephane->setEnabled(true);
         $stephane->setSuperAdmin(true);
-
         $manager->persist($stephane);
-
 
         $activity = new Activity();
         $activity->setName("course");
         $manager->persist($activity);
 
-
         $defis1 = new Challenge();
-        $defis1->setEndDate(new \DateTime(2016-03-04));
+        $defis1->setEndDate(new \DateTime("2016-03-04"));
         $defis1->setCreator($mathilde);
         $defis1->setTitle("Objectif 10 kilomètres !");
         $defis1->setActivity($activity);
 
         $defis2 = new Challenge();
-        $defis2->setEndDate(new \DateTime(2016-04-05));
+        $defis2->setEndDate(new \DateTime("2016-04-05"));
         $defis2->setCreator($juliette);
         $defis2->setTitle("Objectif 20 kilomètres !");
         $defis2->setActivity($activity);
 
         $defis3 = new Challenge();
-        $defis3->setEndDate(new \DateTime(2016-03-22));
+        $defis3->setEndDate(new \DateTime("2016-03-22"));
         $defis3->setCreator($jeremy);
         $defis3->setTitle("Objectif 30 kilomètres !");
         $defis3->setActivity($activity);
 
         $defis4 = new Challenge();
-        $defis4->setEndDate(new \DateTime(2016-05-19));
+        $defis4->setEndDate(new \DateTime("2016-05-19"));
         $defis4->setCreator($admin);
         $defis4->setTitle("Objectif 40 kilomètres !");
         $defis4->setActivity($activity);
 
         $defis5 = new Challenge();
-        $defis5->setEndDate(new \DateTime(2016-02-23));
+        $defis5->setEndDate(new \DateTime("2016-02-23"));
         $defis5->setCreator($stephane);
         $defis5->setTitle("Objectif 50 kilomètres !");
         $defis5->setActivity($activity);

@@ -28,17 +28,22 @@
 					Les plus populaires
 				</p>
 			</div>
+			<div class="col s4 m2 center-align">
 			{% if app.user %}
-				<div class="col s4 m2 center-align">
-					<a href="#" class="round_tab" name="current-challenges">
-						<i class="large material-icons">done</i>
-					</a>
-					<p>
-						Les défis en cours
-					</p>
-				</div>
+				<a href="#" class="round_tab" name="current-challenges">
+					<i class="large material-icons">done</i>
+				</a>
+			{% else %}
+				<a href="{{ path('fos_user_security_login') }}" class="round_tab" name="current-challenges">
+					<i class="large material-icons">done</i>
+				</a>
 			{% endif %}
+				<p>
+					Les défis en cours
+				</p>
+			</div>
 		</div>
+
 		<div class="row last-challenges affichage-defis">
 			{% for challenge in lastChallenges %}
 			{% include 'include/_defis.html.twig' with {'challenge': challenge} %}
@@ -58,6 +63,7 @@
 				{% endfor %}
 			</div>
 		{% endif %}
+
 		
 	</section>
 	<section class="classement center-align">

@@ -1,5 +1,27 @@
 //Initialisation du parallax
 $(document).ready(function(){
+
+
+    EnableSubmit = function(val)
+    {
+        var sbmt =  document.getElementById("form_defi_send");
+        $(sbmt).removeAttr("disabled");
+    }        
+    $("#form_defi_send").on("click",function() {
+
+     var defi_id = $("#form_defi_send").attr("value");
+     var objet_id=$('input[name=object_form]:checked', '#form_defi').val();
+     var url = window.location.protocol + "//" + window.location.host + "/ukandoit/web/app_dev.php";  
+   // remplacer par window.location.protocol + "//" + window.location.host + "/" en prod)
+    location.href = url+'/defis/'+defi_id+'/'+objet_id+'/accepted';
+
+
+  /* $.post("challenges", {var_value: objet_id}, function(data){
+        alert("data sent and received: "+data);
+    });*/
+});
+
+
 	$('.parallax').parallax();
 
 	    // toastr options
@@ -29,6 +51,18 @@ $(document).ready(function(){
     //Activation dropdown menu
     $(".dropdown-button").dropdown();
 
+   /* $(".card-action").click(function() {
+        var id_defi = $(this).attr('id');
+
+        toastr.success("Vous avez relevé le défi " +   id_defi );
+    });*/
+    $('.card-action a').click(function(event){
+        event.preventDefault();
+    });
+
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal_defis').leanModal();
+          
     $(".home .best-challenges").hide();
     
     if($(".home").has(".current-challenges")){
@@ -85,33 +119,6 @@ $(".overlay").click(function() {
     $(".overlay-boxify").toggleClass("open");
 });
 
-//Activation du DropDown du menu
-$(document).ready(function() {
-    $('#menu_select').material_select();
-});
-
-//DropDown du menu automatique
-$('.select_menu_tab').mouseenter(function(){
-    $(".select_menu_tab").css("height", "200");
-
-    $(".select_menu_tab ul").css("display", "block");
-    $(".select_menu_tab ul").css("width", "92px");
-    $(".select_menu_tab ul").css("position", "absolute");
-    $(".select_menu_tab ul").css("top", "0px");
-    $(".select_menu_tab ul").css("left", "0px");
-    $(".select_menu_tab ul").css("opacity", "1");
-    $(".select_menu_tab ul").addClass('active');
-    $(".select_menu_tab input").addClass('active');
-});
-
-$('.select_menu_tab').mouseleave(function(){
-    $(".select_menu_tab").css("height", "48px");
-
-    $(".select_menu_tab ul").css("display", "none");
-    $(".select_menu_tab ul").removeClass('active');
-    $(".select_menu_tab input").removeClass('active');
-});
-
 //ToolTipe Avatar dans menu et bouton deconnection
 $(document).ready(function(){
     $('.tooltipped').tooltip({delay: 50});
@@ -133,3 +140,47 @@ $('.tw_logo').mouseenter(function(){
 $('.tw_logo').mouseleave(function(){
     $(this).removeClass('animated pulse infinite');
 });
+
+/* French initialisation for the jQuery UI date picker plugin. */
+/* Written by Keith Wood (kbwood{at}iinet.com.au),
+              Stéphane Nahmani (sholby@sholby.net),
+              Stéphane Raimbault <stephane.raimbault@gmail.com> */
+(function( factory ) {
+    if ( typeof define === "function" && define.amd ) {
+
+        // AMD. Register as an anonymous module.
+        define([ "../jquery.ui.datepicker" ], factory );
+    } else {
+
+        // Browser globals
+        factory( jQuery.datepicker );
+    }
+}(function( datepicker ) {
+    datepicker.regional['fr'] = {
+        closeText: 'Fermer',
+        prevText: 'Précédent',
+        nextText: 'Suivant',
+        currentText: 'Aujourd\'hui',
+        monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+            'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin',
+            'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+        dayNames: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
+        dayNamesShort: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
+        dayNamesMin: ['D','L','M','M','J','V','S'],
+        weekHeader: 'Sem.',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''};
+    datepicker.setDefaults(datepicker.regional['fr']);
+
+    return datepicker.regional['fr'];
+
+}));
+
+$("#new_challenge_endDate").datepicker({
+    dateFormat: 'dd/mm/yy',
+    firstDay:1
+}).attr("readonly","readonly");

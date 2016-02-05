@@ -2,8 +2,8 @@ body {
    background-color: @layout;
 }
 
-h1 {
-   font-size: 2em !important;
+.blockHeader h1 {
+   font-size: 2em ;
    font-weight: bold;
 }
 
@@ -39,13 +39,18 @@ margin-left: auto;
 margin-right: auto;
 }
 
-.parallax-container {
+.parallax-container.large {
    height: 700px;
 }
 
 .parallax img {
    left: 49.99%;
    top: -50%;
+}
+
+.parallax.small img {
+   left: 49.99%;
+   top: -110%;
 }
 
 .header_img {
@@ -171,6 +176,7 @@ margin-right: auto;
 
 .menu_logo{
    width : 50px;
+   height: 48px;
 }
 
 .logOutButton {
@@ -259,6 +265,12 @@ span.caret {
 
 .podium{
    margin-top: -90px;
+}
+
+
+.defiez a{
+   color: @rouge_mat !important;
+   font-weight: bold;
 }
 
 

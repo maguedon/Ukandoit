@@ -110,7 +110,6 @@ body {
 	height: 50px;
 	background-color: @rouge_vif;
 	color: @white;
-	padding-left: 25px;
 	.align-vertical();
 
 	
@@ -118,6 +117,9 @@ body {
 
 .bande_rouge  + .card-panel{margin-top: 0;}
 
+.card-title {
+	margin: auto;
+}
 
 .input-field {
 	label {
@@ -227,7 +229,20 @@ body {
 	}
 }
 
+.mentions_legales a
+{
+	color: @black;
+	font-weight: bold;
+	text-decoration: underline;
+}
 
+.loadmore{
+	display: none;
+}
+
+.btn:hover {
+	color: white !important;
+}
 
 // responsive
 @import "_responsive.less";

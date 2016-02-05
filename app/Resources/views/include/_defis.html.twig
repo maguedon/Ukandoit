@@ -1,41 +1,94 @@
 <div class="col s12 m6 l4 defi ">
-
-	<div class="card blue-grey white hoverable">
+	<div id="{{ challenge.id }}" class="card blue-grey white hoverable">
 		<div class="bande_rouge">
 			<h2 class="card-title">{{ challenge.title }}</h2>
 		</div>
-
 		<div class="card-content">
-			<div class="row">	
+			<div class="row">
 				<div class="col s12 member_avatar">
 					<div class="badge_user">
-						{% if challenge.creator.avatar != null %}
+						<a data-tooltip="{{ challenge.creator }}" class="tooltipped" href="{{ path('user_other', {'name': challenge.creator }) }}">
+
+							{% if challenge.creator.avatar == null %}
+
+							{% image 'bundles/AppBundle/img/sans_avatar.jpg' %}
+							<img class="media-object dp circle" src="{{ asset_url }}"  alt="photo de profil de {{ challenge.creator }}">
+
+							{% endimage %}
+							{% else %}
+
 							{% set image = vich_uploader_asset(challenge.creator.avatar, 'imageFile') %}
 							<img class="media-object dp circle" src="{{ asset(image) }}">
-						{% else %}
-							<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
-						{% endif %}
+
+							{% endif %}
+						</a>
 						<div class="member_name">
-						<span>{{ challenge.creator.username }} - Niv. {{ challenge.creator.level }}</span>
-						<div class="under_text"></div>					
+							<span>{{ challenge.creator }} - Niv. {{ challenge.creator.level }}</span>
+							<div class="under_text"></div>
+						</div>
 					</div>
-
-					</div>
-
 				</div>
-				
 			</div>
 			<p>Je vous défie de courir au moins 30km cette semaine !</p>
-
 			<p> <div class="rouge">Distance</div> minimum : 30km</p>
-			<p>	<div class="rouge">Durée</div> : Du 1er Janv. 2016 au 15 Janv. 2016</p>
+			<p>	<div class="rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
 			<p>	<div class="rouge">Nombre de participants</div> : 1503 parts. </p>
 			<p>	<div class="rouge">Nombres de points </div> à gagner : 50 exp.</p>
 		</div>
-		<div class="card-action">
-			<a href="#">Je relève le défi !</a>
 
+		<div data-target="modal1"  class="card-action modal_defis" id="1">
+			<a  href="#">Ikando'it !</a>
 		</div>
 	</div>
 </div>
-	
+<!-- Modal Trigger -->
+<!--   <button data-target="modal1" class="btn modal-trigger">Modal</button> -->
+
+
+
+<!-- Modal Trigger -->
+<!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal bottom-sheet">
+	<div class="modal-content">
+		{% if app.user %}
+
+		<h4>Liste de vos appareils</h4>
+		<p>Choisissez l'appareil avec lequel vous souhaitez réaliser le défis.</p>
+
+		{% if app.user.possessedDevices|length != 0 %}
+
+		<form action="#" id="form_defi">
+
+			{% for possessedDevice in app.user.possessedDevices %}
+
+
+			<input class="with-gap" name="object_form" type="radio" class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
+			<label for="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }} </label>
+
+			{% endfor %}
+		</form>
+
+		{% else %}
+		<p>Vous n'avez aucun objet pour le moment !</p>
+		{% endif %}
+		
+	</div>
+
+	<div class="modal-footer">
+		
+    <button disabled  id="form_defi_send" class="btn_send waves-effect waves-light btn modal-trigger"  value="{{ challenge.id }}">Relever le défi !</button>
+     {% else %}
+     <h4>Vous n'êtes pas connecté</h4>
+     <p>Veuillez vous connecter ou vous inscrire pour relever le défi !</p>
+     <div class="center-align">
+        <a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_security_login')}}">Se connecter</a>
+        <a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_registration_register')}}">S'inscrire</a>
+        </div>
+        {% endif %}
+        
+    </div>
+</div>
+
+

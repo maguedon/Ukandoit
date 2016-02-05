@@ -21,4 +21,17 @@ class DefaultController extends Controller
 		return $this->redirect($this->generateUrl('homepage'));
 
 	}
+
+	/**
+     * @Route("/{name}", name="user_other")
+     */
+	public function showOtherAction($name){
+		$userManager = $this->container->get('fos_user.user_manager');
+ 		$user = $userManager->findUserByUsername($name);
+
+		return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show_other.html.twig', array(
+            'user' => $user
+        ));
+
+	}
 }
