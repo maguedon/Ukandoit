@@ -36,6 +36,10 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 		$jawbone_up_24->setName("Jawbone UP 24");
 		$manager->persist($jawbone_up_24);
 
+		$googlefit = new DeviceType();
+		$googlefit->setName("Google Fitness");
+		$manager->persist($googlefit);
+
 		$level0 = new Level();
 		$level0->setNumLevel(0);
 		$level0->setNbPoints(0);

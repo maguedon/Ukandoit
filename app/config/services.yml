@@ -40,6 +40,12 @@ services:
         class: AppBundle\Services\Devices\Jawbone\Jawbone
         arguments: ['%app.jawbone.client_id%', '%app.jawbone.client_secret%', '%app.jawbone.scopes%', @router]
 
+    app.googlefit:
+            class: AppBundle\Services\Devices\GoogleFit\GoogleFit
+
+    app.googlefit:
+                class: google\apiclient\src\
+
     app.form.registration:
         class: UserBundle\Form\RegistrationFormType
         tags:
