@@ -1,5 +1,27 @@
 //Initialisation du parallax
 $(document).ready(function(){
+
+
+    EnableSubmit = function(val)
+    {
+        var sbmt =  document.getElementById("form_defi_send");
+        $(sbmt).removeAttr("disabled");
+    }        
+    $("#form_defi_send").on("click",function() {
+
+     var defi_id = $("#form_defi_send").attr("value");
+     var objet_id=$('input[name=object_form]:checked', '#form_defi').val();
+     var url = window.location.protocol + "//" + window.location.host + "/ukandoit/web/app_dev.php";  
+   // remplacer par window.location.protocol + "//" + window.location.host + "/" en prod)
+    location.href = url+'/defis/'+defi_id+'/'+objet_id+'/accepted';
+
+
+  /* $.post("challenges", {var_value: objet_id}, function(data){
+        alert("data sent and received: "+data);
+    });*/
+});
+
+
 	$('.parallax').parallax();
 
 	    // toastr options
@@ -29,11 +51,11 @@ $(document).ready(function(){
     //Activation dropdown menu
     $(".dropdown-button").dropdown();
 
-    $(".card-action").click(function() {
+   /* $(".card-action").click(function() {
         var id_defi = $(this).attr('id');
 
         toastr.success("Vous avez relevé le défi " +   id_defi );
-    });
+    });*/
     $('.card-action a').click(function(event){
         event.preventDefault();
     });

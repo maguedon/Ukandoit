@@ -10,7 +10,9 @@
 		<form action="{{ path('add_defis') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
 			<div class="container" id="">
 				<div class="row">
-					<div class="bande_rouge">Ajouter un défi</div>
+					<div class="bande_rouge">
+						<div class="col s12">Ajouter un défi</div>
+					</div>
 					<div class="card-panel">
 						<div class="input-field form-group col s12">
 							{{ form_widget(form.title, { 'attr': {'class': 'form-control' } }) }}

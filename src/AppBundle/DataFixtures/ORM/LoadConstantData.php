@@ -10,24 +10,26 @@ use AppBundle\Entity\User;
 use AppBundle\Entity\Level;
 use AppBundle\Entity\Activity;
 use AppBundle\Entity\Challenge;
+use AppBundle\Entity\Image;
+use Symfony\Component\HttpFoundation\File\File;
 
 class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 {
-	/**
+    /**
      * @var ContainerInterface
      */
-	private $container;
+    private $container;
 
     /**
      * {@inheritDoc}
      */
     public function setContainer(ContainerInterface $container = null)
     {
-    	$this->container = $container;
+        $this->container = $container;
     }
     public function load(ObjectManager $manager)
     {
-    	$withings_activite_pop = new DeviceType();
+        $withings_activite_pop = new DeviceType();
         $withings_activite_pop->setName("Withings Activité Pop");
         $manager->persist($withings_activite_pop);
 
@@ -77,8 +79,7 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 
         $encoder = $this->container
         ->get('security.encoder_factory')
-        ->getEncoder($admin)
-        ;
+        ->getEncoder($admin)        ;
         $admin->setPassword($encoder->encodePassword('admin', $admin->getSalt()));
 
         $admin->setEmail("contact.ukandoit@gmail.com");
@@ -86,39 +87,94 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $admin->setSuperAdmin(true);
         $manager->persist($admin);
 
-        $test = new User();
-        $test->setLevels($levels);
-        $test->setUsername("test");
-        $test->setNbPoints(234);
+        $jeremy = new User();
+        $jeremy->setLevels($levels);
+        $jeremy->setUsername("Jérémy");
+        $jeremy->setNbPoints(134);
 
         $encoder = $this->container
         ->get('security.encoder_factory')
-        ->getEncoder($test)
+        ->getEncoder($jeremy)
         ;
-        $test->setPassword($encoder->encodePassword('test', $test->getSalt()));
+        $jeremy->setPassword($encoder->encodePassword('Jérémy', $jeremy->getSalt()));
 
-        $test->setEmail("test.ukandoit@gmail.com");
-        $test->setEnabled(true);
-        $test->setSuperAdmin(true);
-        $manager->persist($test);
+        $jeremy->setEmail("Jérémy.ukandoit@gmail.com");
+        $jeremy->setEnabled(true);
+        $jeremy->setSuperAdmin(true);
+        $image = new Image();
+        $file = new File('web/images/avatars/Jeremy_Vincent.jpg');
+        $image->setImageFile($file);
+        $image->setImageName('Jeremy_Vincent.jpg');
+        $jeremy->setAvatar($image);
 
 
-        $coucou = new User();
-        $coucou->setLevels($levels);
-        $coucou->setUsername("coucou");
-        $coucou->setNbPoints(666);
+        $manager->persist($jeremy);
+
+
+        $juliette = new User();
+        $juliette->setLevels($levels);
+        $juliette->setUsername("Juliette");
+        $juliette->setNbPoints(234);
+
+        $encoder = $this->container
+        ->get('security.encoder_factory')
+        ->getEncoder($juliette)
+        ;
+        $juliette->setPassword($encoder->encodePassword('Juliette', $juliette->getSalt()));
+
+        $juliette->setEmail("Juliette.ukandoit@gmail.com");
+        $juliette->setEnabled(true);
+        $juliette->setSuperAdmin(true);
+        $image = new Image();
+        $file = new File('web/images/avatars/Juliette_Riviere.jpg');
+        $image->setImageFile($file);
+        $image->setImageName('Juliette_Riviere.jpg');
+        $juliette->setAvatar($image);
+
+        $manager->persist($juliette);
+
+
+        $mathilde = new User();
+        $mathilde->setLevels($levels);
+        $mathilde->setUsername("Mathilde");
+        $mathilde->setNbPoints(334);
 
 
         $encoder = $this->container
         ->get('security.encoder_factory')
-        ->getEncoder($coucou)
+        ->getEncoder($mathilde)
         ;
-        $coucou->setPassword($encoder->encodePassword('coucou', $coucou->getSalt()));
+        $mathilde->setPassword($encoder->encodePassword('Mathilde', $mathilde->getSalt()));
 
-        $coucou->setEmail("coucou.ukandoit@gmail.com");
-        $coucou->setEnabled(true);  
+        $mathilde->setEmail("Mathilde.ukandoit@gmail.com");
+        $mathilde->setEnabled(true);
+        $mathilde->setSuperAdmin(true);
+        $image = new Image();
+        $file = new File('web/images/avatars/Mathilde_Guedon.jpg');
+        $image->setImageFile($file);
+        $image->setImageName('Mathilde_Guedon.jpg');
+        $mathilde->setAvatar($image);
 
-        $manager->persist($coucou);
+        $manager->persist($mathilde);
+
+
+        $stephane = new User();
+        $stephane->setLevels($levels);
+        $stephane->setUsername("Stéphane");
+        $stephane->setNbPoints(400);
+
+        $encoder = $this->container
+        ->get('security.encoder_factory')
+        ->getEncoder($stephane)
+        ;
+        $stephane->setPassword($encoder->encodePassword('Stéphane', $stephane->getSalt()));
+
+        $stephane->setEmail("Stéphane.ukandoit@gmail.com");
+        $stephane->setEnabled(true);
+        $stephane->setSuperAdmin(true);
+        $manager->persist($stephane);
+
+
 
         $activity = new Activity();
         $activity->setName("course");
@@ -126,31 +182,42 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 
 
         $defis1 = new Challenge();
-        $defis1->setCreator($coucou);
+        $defis1->setEndDate(new \DateTime(2016-03-04));
+        $defis1->setCreator($mathilde);
         $defis1->setTitle("Objectif 10 kilomètres !");
         $defis1->setActivity($activity);
 
         $defis2 = new Challenge();
-        $defis2->setCreator($admin);
+        $defis2->setEndDate(new \DateTime(2016-04-05));
+        $defis2->setCreator($juliette);
         $defis2->setTitle("Objectif 20 kilomètres !");
         $defis2->setActivity($activity);
 
         $defis3 = new Challenge();
-        $defis3->setCreator($coucou);
+        $defis3->setEndDate(new \DateTime(2016-03-22));
+        $defis3->setCreator($jeremy);
         $defis3->setTitle("Objectif 30 kilomètres !");
         $defis3->setActivity($activity);
 
         $defis4 = new Challenge();
+        $defis4->setEndDate(new \DateTime(2016-05-19));
         $defis4->setCreator($admin);
         $defis4->setTitle("Objectif 40 kilomètres !");
         $defis4->setActivity($activity);
+
+        $defis5 = new Challenge();
+        $defis5->setEndDate(new \DateTime(2016-02-23));
+        $defis5->setCreator($stephane);
+        $defis5->setTitle("Objectif 50 kilomètres !");
+        $defis5->setActivity($activity);
 
         $manager->persist($defis1);
         $manager->persist($defis2);
         $manager->persist($defis3);
         $manager->persist($defis4);
+        $manager->persist($defis5);
 
 
         $manager->flush();
-	}
+    }
 }

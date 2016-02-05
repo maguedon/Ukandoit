@@ -10,6 +10,7 @@ use AppBundle\Form\NewPossessedDeviceType;
 use AppBundle\Form\NewChallengeType;
 use AppBundle\Entity\Challenge;
 use AppBundle\Entity\PossessedDevice;
+use AppBundle\Entity\User_Challenge;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -337,22 +338,26 @@ class DefaultController extends Controller
         $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge);
         $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($device);
 
-        $challenge->addChallenger($current_user);
-        $current_user->addChallengesAccepted($challenge);
+        $coucou = 'Vous avez relevé le défi';
+        $this->setFlash('message', 'Vous avez relevé le défi de '.$challenge->getCreator()->getUsername());
+
         // AJOUTER OBJECT !!!!
+        $user_challenge = new user_challenge();
+        $user_challenge->setDeviceUsed($possessedDevice);
+        $user_challenge->setChallenger($current_user);
+        $user_challenge->setChallenge($challenge);
 
 
         $em = $this->get('doctrine')->getManager();
-        $em->persist($challenge);
-        $em->persist($current_user);
+        $em->persist($user_challenge);
         //$em->persist($device);
         $em->flush();
-        return $this->redirectToRoute("defis");
+        return $this->redirectToRoute("challenges");
 
 
-        return $this->render('AppBundle:Default:challenges.html.twig', array(
+     /*   return $this->render('AppBundle:Default:challenges.html.twig', array(
             "challenge" => $challenge
-        ));
+        ));*/
     }
      protected function setFlash($action, $value)
     {
