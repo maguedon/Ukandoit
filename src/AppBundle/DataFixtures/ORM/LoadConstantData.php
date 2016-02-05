@@ -30,7 +30,7 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
     public function load(ObjectManager $manager)
     {
         $withings_activite_pop = new DeviceType();
-        $withings_activite_pop->setName("Withings ActivitÃƒÂ© Pop");
+        $withings_activite_pop->setName("Withings Activité Pop");
         $manager->persist($withings_activite_pop);
 
         $jawbone_up_24 = new DeviceType();
