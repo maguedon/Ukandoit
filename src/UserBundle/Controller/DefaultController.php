@@ -14,7 +14,11 @@ class DefaultController extends Controller
      * @Route("/delete", name="user_delete")
      */
 	public function deleteUserAction(){
-		$user = $this->container->get('security.context')->getToken()->getUser();
+		// Si on n'est pas connecté on redirige vers login
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
+        
 		$userManager = $this->container->get('fos_user.user_manager');
 		$userManager->deleteUser($user);
 		$this->get('session')->getFlashBag()->add('message', $user->getUsername() . ' : Votre compte a été supprimé');

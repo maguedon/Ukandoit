@@ -19,13 +19,12 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 class DefaultController extends Controller
 {
-
     /**
      * @Route("/", name="homepage")
      */
     public function indexAction(){
 
-  $em = $this->get('doctrine')->getManager();
+        $em = $this->get('doctrine')->getManager();
         $challengesService = $this->get('app.challenges');
         $lastChallenges = $challengesService->getLastChallenges();
         $bestChallenges = $challengesService->getBestChallenges();
@@ -41,7 +40,11 @@ class DefaultController extends Controller
     /**
      * @Route("/add_defis", name="add_defis")
      */
-      public function addDefisAction(Request $request){
+    public function addDefisAction(Request $request){
+        // Si on n'est pas connecté on redirige vers login
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
 
         $challenge = new Challenge();
 
@@ -63,12 +66,13 @@ class DefaultController extends Controller
         return $this->render("AppBundle:Default:add_defis.html.twig", array(
             'form' => $form->createView()
             ));
+
     }
 
     /**
      * @Route("/apropos", name="about")
      */
-      public function aboutAction(){
+    public function aboutAction(){
         return $this->render('AppBundle:Default:about.html.twig');
     }
 
@@ -90,14 +94,14 @@ class DefaultController extends Controller
 
         if ($form->isValid() && $_POST['g-recaptcha-response']!="") {
         // data is an array with "name", "email", and "message" keys
-        $data = $form->getData();
+            $data = $form->getData();
 
-        $message = \Swift_Message::newInstance()
-        ->setSubject($data['subject'] . " Mail envoyé depuis Ukando'it")
-        ->setFrom($data['email'])
-        ->setTo('contact.ukandoit@gmail.com')
-        ->setBody("Vous avez reçu un message de " .$data['name'] . " avec l'adresse : " . $data['email'] .  "\ncontenu de message : \n"  . $data['message']);
-        $this->get('mailer')->send($message);
+            $message = \Swift_Message::newInstance()
+            ->setSubject($data['subject'] . " Mail envoyé depuis Ukando'it")
+            ->setFrom($data['email'])
+            ->setTo('contact.ukandoit@gmail.com')
+            ->setBody("Vous avez reçu un message de " .$data['name'] . " avec l'adresse : " . $data['email'] .  "\ncontenu de message : \n"  . $data['message']);
+            $this->get('mailer')->send($message);
 
 
       //  $this->get('session')->setFlash('blogger-notice', 'Your contact enquiry was successfully sent. Thank you!');
@@ -128,6 +132,11 @@ class DefaultController extends Controller
      * @Route("/withings/token", name="withings_token")
      */
     public function getWithingsTokenAction(){
+        // Si on n'est pas connecté on redirige vers login
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
+
         $current_user = $this->container->get('security.context')->getToken()->getUser();
         $possessedDevice = $current_user->getLastPossessedDevice();
         $em = $this->get('doctrine')->getManager();
@@ -153,6 +162,11 @@ class DefaultController extends Controller
      * @Route("/objects", name="objects")
      */
     public function objectsAction(Request $request){
+        // Si on n'est pas connecté on redirige vers login
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
+
         $possessedDevice = new PossessedDevice();
         $form = $this->createForm(NewPossessedDeviceType::class, $possessedDevice);
 
@@ -179,9 +193,9 @@ class DefaultController extends Controller
                 return $this->redirect($url);
             }
             elseif ($possessedDevice->getDeviceType()->getName() == "Google Fitness"){
-                    $google = $this->get("app.googlefit");
-                    $url = $google->connection();
-                    return $this->redirect($url);
+                $google = $this->get("app.googlefit");
+                $url = $google->connection();
+                return $this->redirect($url);
             }
 
         }
@@ -194,6 +208,11 @@ class DefaultController extends Controller
      * @Route("/jawbone/token", name="jawbone_token")
      */
     public function getJawboneTokenAction(){
+        // Si on n'est pas connecté on redirige vers login
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
+
         $current_user = $this->container->get('security.context')->getToken()->getUser();
         $jawbone = $this->get("app.jawbone");
 
@@ -217,6 +236,11 @@ class DefaultController extends Controller
      * @Route("/google/token", name="google_token")
      */
     public function getGoogleTokenAction(){
+        // Si on n'est pas connecté on redirige vers login
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
+
         $current_user = $this->container->get('security.context')->getToken()->getUser();
         $possessedDevice = $current_user->getLastPossessedDevice();
         $em = $this->get('doctrine')->getManager();
@@ -242,6 +266,11 @@ class DefaultController extends Controller
      * @Route("/google/{id}/moves", name="google_moves")
      */
     public function googleMovesAction($id){
+        // Si on n'est pas connecté on redirige vers login
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
+
         $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);
         $google = $this->get("app.googlefit");
         $updated = $google->authenticate($possessedDevice);
@@ -255,12 +284,17 @@ class DefaultController extends Controller
 
         return $this->render('AppBundle:Default:withingsMoves.html.twig', array(
             'activities' => $json["body"]["activities"]
-        ));
+            ));
     }
     /**
      * @Route("/jawbone/{id}/moves", name="jawbone_moves")
      */
     public function jawboneMovesAction($id){
+        // Si on n'est pas connecté on redirige vers login
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
+
         $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);
 
         $jawbone = $this->get("app.jawbone");
@@ -281,6 +315,11 @@ class DefaultController extends Controller
      * @Route("/withings/{id}/moves", name="withings_moves")
      */
     public function withingsMovesAction($id){
+        // Si on n'est pas connecté on redirige vers login
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
+
         $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id);
 
         $withings = $this->get("app.withings");
@@ -290,7 +329,7 @@ class DefaultController extends Controller
        // $intra = $withings->getIntradayActivities($withings->getUserID() , "2016-02-01 8:00:00", "2016-02-01 18:00:00");
        // var_dump($intra);
 
-       return $this->render('AppBundle:Default:withingsMoves.html.twig', array(
+        return $this->render('AppBundle:Default:withingsMoves.html.twig', array(
             'activities' => $json["body"]["activities"]
             ));
     }
@@ -299,28 +338,28 @@ class DefaultController extends Controller
    /**
      * @Route("/defis", name="challenges")
      */
-    public function challengesAction(){
-        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findBy(
+   public function challengesAction(){
+    $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findBy(
                    array(),        // $where
                    array('creationDate' => 'DESC'),    // $orderBy
                    5,                        // $limit
                    0                          // $offset
-                 );
+                   );
 
-        $allChallenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
-        $nbAllChallenges = count($allChallenges);
+    $allChallenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
+    $nbAllChallenges = count($allChallenges);
 
-        $userManager = $this->container->get('fos_user.user_manager');
+    $userManager = $this->container->get('fos_user.user_manager');
 
-        foreach ($challenges as $value) {
-            $user = $userManager->findUserByUsername($value->getCreator());
-            $levelUser = $user->getLevel();
-        }
-        return $this->render('AppBundle:Default:challenges.html.twig', array(
-            "challenges" => $challenges,
-            "nbChallenges" => $nbAllChallenges
-        ));
+    foreach ($challenges as $value) {
+        $user = $userManager->findUserByUsername($value->getCreator());
+        $levelUser = $user->getLevel();
     }
+    return $this->render('AppBundle:Default:challenges.html.twig', array(
+        "challenges" => $challenges,
+        "nbChallenges" => $nbAllChallenges
+        ));
+}
 
     /**
      * @Route("/defisajaxdonttouch", name="defisAjax")
@@ -380,11 +419,11 @@ class DefaultController extends Controller
         return $this->redirectToRoute("challenges");
 
 
-     /*   return $this->render('AppBundle:Default:challenges.html.twig', array(
+         /*   return $this->render('AppBundle:Default:challenges.html.twig', array(
             "challenge" => $challenge
-        ));*/
+            ));*/
     }
-     protected function setFlash($action, $value)
+    protected function setFlash($action, $value)
     {
         $this->container->get('session')->getFlashBag()->set($action, $value);
     }
