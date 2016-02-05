@@ -51,8 +51,6 @@ class DefaultController extends Controller
         $form = $this->createForm(NewChallengeType::class, $challenge);
         $form->handleRequest($request);
 
-        $current_user = $this->container->get('security.context')->getToken()->getUser();
-
         if ($form->isSubmitted() && $form->isValid()) {
 
             $challenge->setCreator($current_user);
@@ -137,7 +135,6 @@ class DefaultController extends Controller
         if($current_user == "anon.")
             return $this->redirectToRoute('fos_user_security_login');
 
-        $current_user = $this->container->get('security.context')->getToken()->getUser();
         $possessedDevice = $current_user->getLastPossessedDevice();
         $em = $this->get('doctrine')->getManager();
 
@@ -169,8 +166,6 @@ class DefaultController extends Controller
 
         $possessedDevice = new PossessedDevice();
         $form = $this->createForm(NewPossessedDeviceType::class, $possessedDevice);
-
-        $current_user = $this->container->get('security.context')->getToken()->getUser();
 
         $form->handleRequest($request);
         $possessedDevice->setUser($current_user);
@@ -213,7 +208,6 @@ class DefaultController extends Controller
         if($current_user == "anon.")
             return $this->redirectToRoute('fos_user_security_login');
 
-        $current_user = $this->container->get('security.context')->getToken()->getUser();
         $jawbone = $this->get("app.jawbone");
 
         if ($jawbone->getToken()){
@@ -241,7 +235,6 @@ class DefaultController extends Controller
         if($current_user == "anon.")
             return $this->redirectToRoute('fos_user_security_login');
 
-        $current_user = $this->container->get('security.context')->getToken()->getUser();
         $possessedDevice = $current_user->getLastPossessedDevice();
         $em = $this->get('doctrine')->getManager();
 
