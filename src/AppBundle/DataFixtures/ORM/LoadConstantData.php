@@ -10,6 +10,8 @@ use AppBundle\Entity\User;
 use AppBundle\Entity\Level;
 use AppBundle\Entity\Activity;
 use AppBundle\Entity\Challenge;
+use AppBundle\Entity\Image;
+use Symfony\Component\HttpFoundation\File\File;
 
 class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 {
@@ -27,157 +29,159 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
     }
 
 	public function load(ObjectManager $manager)
-	{
-		$withings_activite_pop = new DeviceType();
-		$withings_activite_pop->setName("Withings Activité Pop");
-		$manager->persist($withings_activite_pop);
+    {
+        $withings_activite_pop = new DeviceType();
+        $withings_activite_pop->setName("Withings Activité Pop");
+        $manager->persist($withings_activite_pop);
 
-		$jawbone_up_24 = new DeviceType();
-		$jawbone_up_24->setName("Jawbone UP 24");
-		$manager->persist($jawbone_up_24);
+        $jawbone_up_24 = new DeviceType();
+        $jawbone_up_24->setName("Jawbone UP 24");
+        $manager->persist($jawbone_up_24);
 
-		$level0 = new Level();
-		$level0->setNumLevel(0);
-		$level0->setNbPoints(0);
+        $level0 = new Level();
+        $level0->setNumLevel(0);
+        $level0->setNbPoints(0);
 
-		$level1 = new Level();
-		$level1->setNumLevel(1);
-		$level1->setNbPoints(100);
+        $level1 = new Level();
+        $level1->setNumLevel(1);
+        $level1->setNbPoints(100);
 
-		$level2 = new Level();
-		$level2->setNumLevel(2);
-		$level2->setNbPoints(200);
+        $level2 = new Level();
+        $level2->setNumLevel(2);
+        $level2->setNbPoints(200);
 
-		$level3 = new Level();
-		$level3->setNumLevel(3);
-		$level3->setNbPoints(300);
+        $level3 = new Level();
+        $level3->setNumLevel(3);
+        $level3->setNbPoints(300);
 
-		$level4 = new Level();
-		$level4->setNumLevel(4);
-		$level4->setNbPoints(400);
+        $level4 = new Level();
+        $level4->setNumLevel(4);
+        $level4->setNbPoints(400);
 
-		$manager->persist($level0);
-		$manager->persist($level1);
-		$manager->persist($level2);
-		$manager->persist($level3);
-		$manager->persist($level4);
+        $manager->persist($level0);
+        $manager->persist($level1);
+        $manager->persist($level2);
+        $manager->persist($level3);
+        $manager->persist($level4);
 
-		$manager->flush();
+        $manager->flush();
 
-		$levels = $manager->getRepository('AppBundle:Level')->findAll();
-		$admin = new User();
-		$admin->setLevels($levels);
-		$admin->setUsername("admin");
-		$admin->setUsernameCanonical("admin");
-		$admin->setNbPoints(234);
+        $levels = $manager->getRepository('AppBundle:Level')->findAll();
 
-		$encoder = $this->container
-			->get('security.encoder_factory')
-			->getEncoder($admin)
-			;
-		$admin->setPassword($encoder->encodePassword('admin', $admin->getSalt()));
-		
-		$admin->setEmail("contact.ukandoit@gmail.com");
-		$admin->setEmailCanonical("contact.ukandoit@gmail.com");
-		$admin->setEnabled(true);
-		$admin->setSuperAdmin(true);
-		$manager->persist($admin);
+        $admin = new User();
+        $admin->setUsername("admin");
+        $admin->setNbPoints(234, $levels);
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($admin);
+        $admin->setPassword($encoder->encodePassword('admin', $admin->getSalt()));
+        $admin->setEmail("contact.ukandoit@gmail.com");
+        $admin->setEnabled(true);
+        $admin->setSuperAdmin(true);
+        $manager->persist($admin);
 
-		$test = new User();
-		$test->setLevels($levels);
-		$test->setUsername("test");
-		$test->setUsernameCanonical("test");
-		$test->setNbPoints(234);
+        $jeremy = new User();
+        $jeremy->setUsername("Jérémy");
+        $jeremy->setNbPoints(134, $levels);
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($jeremy);
+        $jeremy->setPassword($encoder->encodePassword('Jérémy', $jeremy->getSalt()));
+        $jeremy->setEmail("Jérémy.ukandoit@gmail.com");
+        $jeremy->setEnabled(true);
+        $jeremy->setSuperAdmin(true);
+        $image = new Image();
+        $file = new File('web/images/avatars/Jeremy_Vincent.jpg');
+        $image->setImageFile($file);
+        $image->setImageName('Jeremy_Vincent.jpg');
+        $jeremy->setAvatar($image);
 
-		$encoder = $this->container
-			->get('security.encoder_factory')
-			->getEncoder($test)
-			;
-		$test->setPassword($encoder->encodePassword('test', $test->getSalt()));
-		
-		$test->setEmail("test.ukandoit@gmail.com");
-		$test->setEmailCanonical("test.ukandoit@gmail.com");
-		$test->setEnabled(true);
-		$test->setSuperAdmin(true);
-		$manager->persist($test);
+        $manager->persist($jeremy);
 
-		$activity = new Activity();
-		$activity->setName("course");
-		$manager->persist($activity);
+        $juliette = new User();
+        $juliette->setUsername("Juliette");
+        $juliette->setNbPoints(234, $levels);
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($juliette);
+        $juliette->setPassword($encoder->encodePassword('Juliette', $juliette->getSalt()));
+        $juliette->setEmail("Juliette.ukandoit@gmail.com");
+        $juliette->setEnabled(true);
+        $juliette->setSuperAdmin(true);
+        $image = new Image();
+        $file = new File('web/images/avatars/Juliette_Riviere.jpg');
+        $image->setImageFile($file);
+        $image->setImageName('Juliette_Riviere.jpg');
+        $juliette->setAvatar($image);
 
-		$challenge = new Challenge();
-		$challenge->setTitle("challenge");
-		$challenge->setCreationDate(new \DateTime("2016-02-01"));
-		$challenge->setEndDate(new \DateTime("2016-02-10"));
-		$challenge->setCreator($test);
-		$challenge->setActivity($activity);
-		$manager->persist($challenge);
+        $manager->persist($juliette);
 
-		$challenge2 = new Challenge();
-		$challenge2->setTitle("challenge2");
-		$challenge2->setEndDate(new \DateTime("2016-02-15"));
-		$challenge2->setCreator($admin);
-		$challenge2->setActivity($activity);
-		$manager->persist($challenge2);
 
-		$challenge3 = new Challenge();
-		$challenge3->setTitle("challenge3");
-		$challenge3->setCreationDate(new \DateTime("2016-01-25"));
-		$challenge3->setEndDate(new \DateTime("2016-03-01"));
-		$challenge3->setCreator($test);
-		$challenge3->setActivity($activity);
-		$manager->persist($challenge3);
+        $mathilde = new User();
+        $mathilde->setUsername("Mathilde");
+        $mathilde->setNbPoints(334, $levels);
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($mathilde);
+        $mathilde->setPassword($encoder->encodePassword('Mathilde', $mathilde->getSalt()));
+        $mathilde->setEmail("Mathilde.ukandoit@gmail.com");
+        $mathilde->setEnabled(true);
+        $mathilde->setSuperAdmin(true);
+        $image = new Image();
+        $file = new File('web/images/avatars/Mathilde_Guedon.jpg');
+        $image->setImageFile($file);
+        $image->setImageName('Mathilde_Guedon.jpg');
+        $mathilde->setAvatar($image);
 
-		$challenge4 = new Challenge();
-		$challenge4->setTitle("challenge4");
-		$challenge4->setEndDate(new \DateTime("2016-02-14"));
-		$challenge4->setCreator($admin);
-		$challenge4->setActivity($activity);
-		$manager->persist($challenge4);
+        $manager->persist($mathilde);
 
-		$challenge5 = new Challenge();
-		$challenge5->setTitle("challenge5");
-		$challenge5->setEndDate(new \DateTime("2016-02-29"));
-		$challenge5->setCreator($admin);
-		$challenge5->setActivity($activity);
-		$manager->persist($challenge5);
 
-		$challenge6 = new Challenge();
-		$challenge6->setTitle("challenge6");
-		$challenge6->setEndDate(new \DateTime("2016-02-21"));
-		$challenge6->setCreator($admin);
-		$challenge6->setActivity($activity);
-		$manager->persist($challenge6);
+        $stephane = new User();
+        $stephane->setUsername("Stéphane");
+        $stephane->setNbPoints(400, $levels);
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($stephane);
+        $stephane->setPassword($encoder->encodePassword('Stéphane', $stephane->getSalt()));
+        $stephane->setEmail("Stéphane.ukandoit@gmail.com");
+        $stephane->setEnabled(true);
+        $stephane->setSuperAdmin(true);
 
-		$challenge7 = new Challenge();
-		$challenge7->setTitle("challenge7");
-		$challenge7->setCreationDate(new \DateTime("2016-02-04"));
-		$challenge7->setEndDate(new \DateTime("2016-03-15"));
-		$challenge7->setCreator($test);
-		$challenge7->setActivity($activity);
-		$manager->persist($challenge7);
+        $manager->persist($stephane);
 
-		$challenge8 = new Challenge();
-		$challenge8->setTitle("challenge8");
-		$challenge8->setEndDate(new \DateTime("2016-02-14"));
-		$challenge8->setCreator($admin);
-		$challenge8->setActivity($activity);
-		$manager->persist($challenge8);
 
-		$challenge9 = new Challenge();
-		$challenge9->setTitle("challenge9");
-		$challenge9->setEndDate(new \DateTime("2016-02-25"));
-		$challenge9->setCreator($admin);
-		$challenge9->setActivity($activity);
-		$manager->persist($challenge9);
+        $activity = new Activity();
+        $activity->setName("course");
+        $manager->persist($activity);
 
-		$challenge10 = new Challenge();
-		$challenge10->setTitle("challenge10");
-		$challenge10->setEndDate(new \DateTime("2016-02-27"));
-		$challenge10->setCreator($test);
-		$challenge10->setActivity($activity);
-		$manager->persist($challenge10);
 
-		$manager->flush();
-	}
+        $defis1 = new Challenge();
+        $defis1->setEndDate(new \DateTime(2016-03-04));
+        $defis1->setCreator($mathilde);
+        $defis1->setTitle("Objectif 10 kilomètres !");
+        $defis1->setActivity($activity);
+
+        $defis2 = new Challenge();
+        $defis2->setEndDate(new \DateTime(2016-04-05));
+        $defis2->setCreator($juliette);
+        $defis2->setTitle("Objectif 20 kilomètres !");
+        $defis2->setActivity($activity);
+
+        $defis3 = new Challenge();
+        $defis3->setEndDate(new \DateTime(2016-03-22));
+        $defis3->setCreator($jeremy);
+        $defis3->setTitle("Objectif 30 kilomètres !");
+        $defis3->setActivity($activity);
+
+        $defis4 = new Challenge();
+        $defis4->setEndDate(new \DateTime(2016-05-19));
+        $defis4->setCreator($admin);
+        $defis4->setTitle("Objectif 40 kilomètres !");
+        $defis4->setActivity($activity);
+
+        $defis5 = new Challenge();
+        $defis5->setEndDate(new \DateTime(2016-02-23));
+        $defis5->setCreator($stephane);
+        $defis5->setTitle("Objectif 50 kilomètres !");
+        $defis5->setActivity($activity);
+
+        $manager->persist($defis1);
+        $manager->persist($defis2);
+        $manager->persist($defis3);
+        $manager->persist($defis4);
+        $manager->persist($defis5);
+
+
+        $manager->flush();
+    }
 }

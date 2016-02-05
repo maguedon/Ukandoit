@@ -8,13 +8,13 @@
 #}
 
 {% block javascripts %}
-	{% if error %}
-	<script type="text/javascript">
-		$( document ).ready(function() {
-			toastr.error("Votre identifiant et votre mot de passe ne correspondent pas.");
-		});
-	</script>
-	{% endif %}
+{% if error %}
+<script type="text/javascript">
+$( document ).ready(function() {
+	toastr.error("Votre identifiant et votre mot de passe ne correspondent pas.");
+});
+</script>
+{% endif %}
 
 {% endblock %} 
 
@@ -82,13 +82,12 @@
 				</p>
 
 				#}
-				
-			</div>
 
 
-		</form>
+			</form>
+			<a class="waves-effect waves-teal btn-flat" href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a>
+		</div>
 	</div>
-
 
 </div>
 {% endblock fos_user_content %}

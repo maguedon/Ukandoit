@@ -1,0 +1,13 @@
+{% block subject %}
+{% autoescape false %}
+{{ 'Réinistialisation du mot de passe'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}, 'FOSUserBundle') }}
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+Bonjour,
+
+Vous avez demandé à réinitialiser votre mot de passe. Veuillez cliquer sur le lien suivant : 
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}

@@ -49,3 +49,7 @@ services:
         class: UserBundle\Form\ProfileFormType
         tags:
             - { name: form.type, alias: app_user_profile }
+
+    app.challenges:
+        class: AppBundle\Services\Challenges\Challenges
+        arguments: [ @doctrine.orm.entity_manager ]

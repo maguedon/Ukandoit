@@ -75,18 +75,28 @@ assetic:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
+    use_listener: false
     user_class: AppBundle\Entity\User
+    service:
+            mailer: fos_user.mailer.twig_swift
     registration:
         form:
             type: app_user_registration
         confirmation:
-            enabled: true
             from_email:
                 address:        contact.ukandoit@gmail.com
                 sender_name:    Ukando'it
+            enabled: true
+            template: email/confirmation_inscription.email.twig
     profile:
         form:
             type: app_user_profile
+    resetting:
+        email:
+            from_email:
+                address:        contact.ukandoit@gmail.com
+                sender_name:    Ukando'it
+
 
 vich_uploader:
     db_driver: orm # or mongodb or propel or phpcr
