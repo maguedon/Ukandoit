@@ -29,11 +29,15 @@
 					</div>
 				</div>
 			</div>
-			<p>Je vous défie de courir au moins 30km cette semaine !</p>
-			<p> <div class="rouge">Distance</div> minimum : 30km</p>
+			<p>{{ challenge.getTeaser() }}</p>
+			{% if challenge.kilometres != null %}
+				<p> <div class="rouge">Distance</div> min. : {{ challenge.kilometres }}km</p>
+			{% else %}
+				<p> <div class="rouge">Nombre de pas</div> min. : {{ challenge.nbSteps }}km</p>
+			{% endif %}
 			<p>	<div class="rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
-			<p>	<div class="rouge">Nombre de participants</div> : 1503 parts. </p>
-			<p>	<div class="rouge">Nombres de points </div> à gagner : 50 exp.</p>
+			<p>	<div class="rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
+			<p>	<div class="rouge">Nombres de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
 		</div>
 
 		<div data-target="modal1"  class="card-action modal_defis" id="1">

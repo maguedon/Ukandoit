@@ -49,10 +49,12 @@ class Challenge
      */
     private $creator;
 
-     /**
+    /**
+     * Challengers
+     *
      * @ORM\OneToMany(targetEntity="User_Challenge", mappedBy="challenge")
      */
-     private $userChallenges;
+    private $userChallenges;
 
     /**
      * @ORM\ManyToOne(targetEntity="Activity", inversedBy="challenges")
@@ -111,6 +113,8 @@ class Challenge
     public function __construct() {
         $this->challengers = new ArrayCollection();
         $this->creationDate = new \DateTime();
+        $this->kilometres = null;
+        $this->nbSteps = null;
     }
 
 
@@ -447,5 +451,36 @@ class Challenge
     public function getNbPointsThird()
     {
         return $this->nbPointsThird;
+    }
+
+    /**
+    * Phrase d'accroche des cards de défis
+    */
+    public function getTeaser(){
+        //Je vous défie de courir au moins 30km cette semaine !
+        $teaser = "Je vous défie de ";
+
+        if($this->activity == "Course"){
+            $teaser .= "courir au moins " . $this->kilometres . "km";
+        }
+        // Marche
+        else{
+            if ($this->kilometres != null){
+                $teaser .= "marcher au moins " . $this->kilometres . "km";
+            }
+            // NbPas != null
+            else{
+                $teaser .= "faire au moins " . $this->nbSteps . " pas";
+            }
+        }
+
+        $teaser .= " sur " . $this->time;
+
+        if($this->time == 1)
+            $teaser .= " journée !";
+        else
+            $teaser .= " jours !";
+
+        return $teaser;
     }
 }
