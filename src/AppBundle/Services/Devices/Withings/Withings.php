@@ -149,6 +149,11 @@ class Withings
     public function getActivities($userid, $startdate, $enddate = null)
     {
         return $this->withings->getUserGateway()->getActivities($userid, $startdate, $enddate);
+    }
+
+    public function getJsonActivities($userid, $startdate, $enddate = null)
+    {
+        return $this->withings->getUserGateway()->getActivities($userid, $startdate, $enddate);
 
     }
 
