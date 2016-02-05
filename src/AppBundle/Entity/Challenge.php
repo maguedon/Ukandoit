@@ -64,21 +64,22 @@ class Challenge
     /**
      * @var int
      *
-     * @ORM\Column(name="kilometres", type="integer")
+     * @ORM\Column(name="kilometres", type="integer", nullable=true)
      */
     private $kilometres;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nb_steps", type="integer")
+     * @ORM\Column(name="nb_steps", type="integer", nullable=true)
      */
     private $nbSteps;
 
     /**
-     * @var \Time
+     * En nombre de jours
+     * @var int
      *
-     * @ORM\Column(name="time", type="time")
+     * @ORM\Column(name="time", type="integer")
      */
     private $time;
 
