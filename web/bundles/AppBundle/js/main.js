@@ -5,7 +5,7 @@ $(document).ready(function(){
     {
         var sbmt =  document.getElementById("form_defi_send");
         $(sbmt).removeAttr("disabled");
-    }        
+    }
 
     $(".modal_defis").on("click",function() {
         var defi_id = $(this).attr("value");
@@ -23,10 +23,6 @@ $(document).ready(function(){
         });
 
     });
-
-    
-
-
 
     $('.parallax').parallax();
 
@@ -70,7 +66,7 @@ $('.card-action a').click(function(event){
     $('.modal_defis').leanModal();
 
     $(".home .best-challenges").hide();
-    
+
     if($(".home").has(".current-challenges")){
         $(".home .current-challenges").hide();
     }
@@ -146,6 +142,18 @@ $('.tw_logo').mouseenter(function(){
 $('.tw_logo').mouseleave(function(){
     $(this).removeClass('animated pulse infinite');
 });
+
+$('.round_tab').not(".round_tab.active").mouseenter(function(){
+    $(this).addClass('animated pulse infinite');
+});
+
+$('.round_tab').not(".round_tab.active").mouseleave(function(){
+    $(this).removeClass('animated pulse infinite');
+});
+
+
+
+
 
 /* French initialisation for the jQuery UI date picker plugin. */
 /* Written by Keith Wood (kbwood{at}iinet.com.au),

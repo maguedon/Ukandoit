@@ -8,10 +8,12 @@
 			color: @gris_fonce;
 			margin: auto;
 			&:hover, &.active {
-				border-radius: 110px;
-				width: 110px;
-				height: 110px;
 				color: @rouge_vif;
+			}
+			&.active {
+				width: 120px;
+				height: 120px;
+				border-radius: 120px;
 			}
 			.material_shadow();
 			.align-vertical();
@@ -19,7 +21,6 @@
 				margin: auto;
 			}
 		}
-
 		.bloc_defi {
 			background-color: @white;
 			height: 115px;
