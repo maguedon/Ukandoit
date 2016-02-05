@@ -321,6 +321,38 @@ class DefaultController extends Controller
             "nbChallenges" => $nbAllChallenges
         ));
     }
+     /**
+     * @Route("/mesdefis", name="mychallenges")
+     */
+    public function myChallengesAction(){
+   /*     $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findBy(
+                   array(),        // $where
+                   array('creationDate' => 'DESC'),    // $orderBy
+                   5,                        // $limit
+                   0                          // $offset
+                 );
+*/
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+
+        $challengesCreated = $current_user->getChallengesCreated();
+        $challengesAccepted = $current_user->getChallengesAccepted();
+       // $allChallenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
+      //  $nbAllChallenges = count($allChallenges);
+
+      //  $userManager = $this->container->get('fos_user.user_manager');
+/*
+        foreach ($challenges as $value) {
+            $user = $userManager->findUserByUsername($value->getCreator());
+            $levelUser = $user->getLevel();
+        }
+        */
+        return $this->render('AppBundle:Default:myChallenges.html.twig', array(
+            //"challenges" => $challenges,
+            "challenges" => $challengesCreated,
+            "challengesAccepted" => $challengesAccepted,
+            //"nbChallenges" => $nbAllChallenges
+        ));
+    }
 
     /**
      * @Route("/defisajaxdonttouch", name="defisAjax")

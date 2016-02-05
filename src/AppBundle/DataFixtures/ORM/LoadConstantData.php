@@ -97,7 +97,7 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $juliette->setNbPoints(234, $levels);
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($juliette);
         $juliette->setPassword($encoder->encodePassword('Juliette', $juliette->getSalt()));
-        $juliette->setEmail("Juliette.ukandoit@gmail.com");
+        $juliette->setEmail("juliette@riviere.im");
         $juliette->setEnabled(true);
         $juliette->setSuperAdmin(true);
         $image = new Image();
