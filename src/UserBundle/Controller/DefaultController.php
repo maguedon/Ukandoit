@@ -19,23 +19,26 @@ class DefaultController extends Controller
         if($current_user == "anon.")
             return $this->redirectToRoute('fos_user_security_login');
         
-		$userManager = $this->container->get('fos_user.user_manager');
-		$userManager->deleteUser($user);
-		$this->get('session')->getFlashBag()->add('message', $user->getUsername() . ' : Votre compte a été supprimé');
-		return $this->redirect($this->generateUrl('homepage'));
+        $userManager = $this->container->get('fos_user.user_manager');
+        $userManager->deleteUser($user);
+        $this->get('session')->getFlashBag()->add('message', $user->getUsername() . ' : Votre compte a été supprimé');
+        return $this->redirect($this->generateUrl('homepage'));
 
-	}
+    }
 
 
        /**
      * @Route("/user/challenges", name="my_challenges")
      */
-    public function myChallengesAction(){
-        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
-        return $this->render('UserBundle:Profile:my_challenges.html.twig', array(
-            "challenges" => $challenges
-            ));
-    }
+       public function myChallengesAction(){
+         $current_user = $this->container->get('security.context')->getToken()->getUser();        
+         $challengesCreated = $current_user->getChallengesCreated();
+         $challengesAccepted = $current_user->getChallengesAccepted();        
+         return $this->render('UserBundle:Profile:my_challenges.html.twig', array(
+           "challenges" => $challengesCreated,
+           "challengesAccepted" => $challengesAccepted,
+           ));
+     }
 
     /**
      * @Route("/user/objects", name="objects")
@@ -87,12 +90,12 @@ class DefaultController extends Controller
      */
 	public function showOtherAction($name){
 		$userManager = $this->container->get('fos_user.user_manager');
- 		$user = $userManager->findUserByUsername($name);
+       $user = $userManager->findUserByUsername($name);
 
-		return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show_other.html.twig', array(
-            'user' => $user
+       return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show_other.html.twig', array(
+        'user' => $user
         ));
 
-	}
+   }
 
 }
