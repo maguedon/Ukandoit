@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findBests(){
+		$query = $this->getEntityManager()->getRepository('AppBundle:User')
+		->createQueryBuilder('u')
+	    ->orderBy('u.nbPoints', 'DESC')
+	    ->getQuery();
+
+		$users = $query->getResult();
+
+		return $users;
+	}
 }

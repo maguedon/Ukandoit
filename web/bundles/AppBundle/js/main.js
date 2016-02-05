@@ -63,6 +63,19 @@ $(document).ready(function(){
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal_defis').leanModal();
           
+    $(".home .best-challenges").hide();
+    
+    if($(".home").has(".current-challenges")){
+        $(".home .current-challenges").hide();
+    }
+
+    $(".home .defis a.round_tab").click(function(){
+        $(".home .defis a.round_tab").removeClass("active");
+        $(this).addClass("active");
+        var challengeType = $(this).attr("name");
+        $(".home .defis .affichage-defis").hide();
+        $(".home .defis ." + challengeType).show();
+    });
 });
 
 //Remonte le underHeader si chargement en milieu de page

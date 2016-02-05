@@ -26,7 +26,8 @@
         "huitiemesens/oauth": "dev-master",
         "huitiemesens/withings": "dev-master",
         "swiftmailer/swiftmailer": "^5.4",
-        "vich/uploader-bundle": "^0.14.0"
+        "vich/uploader-bundle": "^0.14.0",
+        "google/apiclient": "^2.0.0@RC"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
@@ -54,7 +55,7 @@
     "config": {
         "bin-dir": "bin",
         "platform": {
-            "php": "5.3.9"
+            "php": "5.5.9"
         }
     },
     "extra": {

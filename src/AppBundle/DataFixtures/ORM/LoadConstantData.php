@@ -30,7 +30,7 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
     public function load(ObjectManager $manager)
     {
         $withings_activite_pop = new DeviceType();
-        $withings_activite_pop->setName("Withings Activité Pop");
+        $withings_activite_pop->setName("Withings ActivitÃ© Pop");
         $manager->persist($withings_activite_pop);
 
         $jawbone_up_24 = new DeviceType();
@@ -89,16 +89,16 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 
         $jeremy = new User();
         $jeremy->setLevels($levels);
-        $jeremy->setUsername("Jérémy");
+        $jeremy->setUsername("JÃ©rÃ©my");
         $jeremy->setNbPoints(134);
 
         $encoder = $this->container
         ->get('security.encoder_factory')
         ->getEncoder($jeremy)
         ;
-        $jeremy->setPassword($encoder->encodePassword('Jérémy', $jeremy->getSalt()));
+        $jeremy->setPassword($encoder->encodePassword('JÃ©rÃ©my', $jeremy->getSalt()));
 
-        $jeremy->setEmail("Jérémy.ukandoit@gmail.com");
+        $jeremy->setEmail("JÃ©rÃ©my.ukandoit@gmail.com");
         $jeremy->setEnabled(true);
         $jeremy->setSuperAdmin(true);
         $image = new Image();
@@ -160,16 +160,16 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
 
         $stephane = new User();
         $stephane->setLevels($levels);
-        $stephane->setUsername("Stéphane");
+        $stephane->setUsername("StÃ©phane");
         $stephane->setNbPoints(400);
 
         $encoder = $this->container
         ->get('security.encoder_factory')
         ->getEncoder($stephane)
         ;
-        $stephane->setPassword($encoder->encodePassword('Stéphane', $stephane->getSalt()));
+        $stephane->setPassword($encoder->encodePassword('StÃ©phane', $stephane->getSalt()));
 
-        $stephane->setEmail("Stéphane.ukandoit@gmail.com");
+        $stephane->setEmail("StÃ©phane.ukandoit@gmail.com");
         $stephane->setEnabled(true);
         $stephane->setSuperAdmin(true);
         $manager->persist($stephane);
@@ -184,31 +184,31 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $defis1 = new Challenge();
         $defis1->setEndDate(new \DateTime(2016-03-04));
         $defis1->setCreator($mathilde);
-        $defis1->setTitle("Objectif 10 kilomètres !");
+        $defis1->setTitle("Objectif 10 kilomÃ¨tres !");
         $defis1->setActivity($activity);
 
         $defis2 = new Challenge();
         $defis2->setEndDate(new \DateTime(2016-04-05));
         $defis2->setCreator($juliette);
-        $defis2->setTitle("Objectif 20 kilomètres !");
+        $defis2->setTitle("Objectif 20 kilomÃ¨tres !");
         $defis2->setActivity($activity);
 
         $defis3 = new Challenge();
         $defis3->setEndDate(new \DateTime(2016-03-22));
         $defis3->setCreator($jeremy);
-        $defis3->setTitle("Objectif 30 kilomètres !");
+        $defis3->setTitle("Objectif 30 kilomÃ¨tres !");
         $defis3->setActivity($activity);
 
         $defis4 = new Challenge();
         $defis4->setEndDate(new \DateTime(2016-05-19));
         $defis4->setCreator($admin);
-        $defis4->setTitle("Objectif 40 kilomètres !");
+        $defis4->setTitle("Objectif 40 kilomÃ¨tres !");
         $defis4->setActivity($activity);
 
         $defis5 = new Challenge();
         $defis5->setEndDate(new \DateTime(2016-02-23));
         $defis5->setCreator($stephane);
-        $defis5->setTitle("Objectif 50 kilomètres !");
+        $defis5->setTitle("Objectif 50 kilomÃ¨tres !");
         $defis5->setActivity($activity);
 
         $manager->persist($defis1);

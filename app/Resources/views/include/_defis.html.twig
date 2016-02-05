@@ -1,5 +1,3 @@
-{% for challenge in challenges %}
-
 <div class="col s12 m6 l4 defi ">
 	<div id="{{ challenge.id }}" class="card blue-grey white hoverable">
 		<div class="bande_rouge">
@@ -10,7 +8,9 @@
 				<div class="col s12 member_avatar">
 					<div class="badge_user">
 						<a data-tooltip="{{ challenge.creator }}" class="tooltipped" href="{{ path('user_other', {'name': challenge.creator }) }}">
+
 							{% if challenge.creator.avatar == null %}
+
 							{% image 'bundles/AppBundle/img/sans_avatar.jpg' %}
 							<img class="media-object dp circle" src="{{ asset_url }}"  alt="photo de profil de {{ challenge.creator }}">
 
@@ -52,33 +52,32 @@
 <!-- Modal Structure -->
 <div id="modal1" class="modal bottom-sheet">
 	<div class="modal-content">
-{% if app.user %}
+		{% if app.user %}
 
 		<h4>Liste de vos appareils</h4>
 		<p>Choisissez l'appareil avec lequel vous souhaitez réaliser le défis.</p>
 
 		{% if app.user.possessedDevices|length != 0 %}
 
-			 <form action="#" id="form_defi">
+		<form action="#" id="form_defi">
 
 			{% for possessedDevice in app.user.possessedDevices %}
 
 
-				<input class="with-gap" name="object_form" type="radio" class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
-				<label for="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }} </label>
+			<input class="with-gap" name="object_form" type="radio" class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
+			<label for="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }} </label>
 
-	        {% endfor %}
-	        </form>
+			{% endfor %}
+		</form>
 
-        {% else %}
-       	 <p>Vous n'avez aucun objet pour le moment !</p>
-        {% endif %}
-       
-    </div>
+		{% else %}
+		<p>Vous n'avez aucun objet pour le moment !</p>
+		{% endif %}
+		
+	</div>
 
-    <div class="modal-footer">
-    
-
+	<div class="modal-footer">
+		
     <button disabled  id="form_defi_send" class="btn_send waves-effect waves-light btn modal-trigger"  value="{{ challenge.id }}">Relever le défi !</button>
      {% else %}
      <h4>Vous n'êtes pas connecté</h4>
@@ -92,5 +91,4 @@
     </div>
 </div>
 
-{% endfor %}
 
