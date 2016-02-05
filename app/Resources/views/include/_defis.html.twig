@@ -36,7 +36,7 @@
 			<p>	<div class="rouge">Nombres de points </div> à gagner : 50 exp.</p>
 		</div>
 
-		<div data-target="modal1"  class="card-action modal_defis" id="1">
+		<div data-target="modal1"  class="card-action modal_defis" id="1" value="{{ challenge.id }}">
 			<a  href="#">Ikando'it !</a>
 		</div>
 	</div>
@@ -72,6 +72,9 @@
 
 		{% else %}
 		<p>Vous n'avez aucun objet pour le moment !</p>
+		<div class="center-align">
+			<a  class="waves-effect waves-light btn modal-trigger" href="{{ path('objects') }}">Ajouter un objet</a>
+		</div>
 		{% endif %}
 		
 	</div>

@@ -1,28 +1,34 @@
 //Initialisation du parallax
 $(document).ready(function(){
 
-
     EnableSubmit = function(val)
     {
         var sbmt =  document.getElementById("form_defi_send");
         $(sbmt).removeAttr("disabled");
     }        
-    $("#form_defi_send").on("click",function() {
 
-     var defi_id = $("#form_defi_send").attr("value");
-     var objet_id=$('input[name=object_form]:checked', '#form_defi').val();
-     var url = window.location.protocol + "//" + window.location.host + "/ukandoit/web/app_dev.php";  
-   // remplacer par window.location.protocol + "//" + window.location.host + "/" en prod)
-    location.href = url+'/defis/'+defi_id+'/'+objet_id+'/accepted';
+    $(".modal_defis").on("click",function() {
+        var defi_id = $(this).attr("value");
 
-
-  /* $.post("challenges", {var_value: objet_id}, function(data){
-        alert("data sent and received: "+data);
-    });*/
-});
+        $("#form_defi_send").on("click",function() {
+            var objet_id=$('input[name=object_form]:checked', '#form_defi').val();
+            var url = window.location.protocol + "//" + window.location.host + "/ukandoit/web/app_dev.php";  
+            // remplacer par window.location.protocol + "//" + window.location.host + "/" en prod)
+            location.href = url+'/defis/'+defi_id+'/'+objet_id+'/accepted';
 
 
-	$('.parallax').parallax();
+      /* $.post("challenges", {var_value: objet_id}, function(data){
+            alert("data sent and received: "+data);
+        });*/
+        });
+
+    });
+
+    
+
+
+
+    $('.parallax').parallax();
 
 	    // toastr options
 
@@ -56,13 +62,13 @@ $(document).ready(function(){
 
         toastr.success("Vous avez relevé le défi " +   id_defi );
     });*/
-    $('.card-action a').click(function(event){
-        event.preventDefault();
-    });
+$('.card-action a').click(function(event){
+    event.preventDefault();
+});
 
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal_defis').leanModal();
-          
+
     $(".home .best-challenges").hide();
     
     if($(".home").has(".current-challenges")){
@@ -145,8 +151,8 @@ $('.tw_logo').mouseleave(function(){
 /* Written by Keith Wood (kbwood{at}iinet.com.au),
               Stéphane Nahmani (sholby@sholby.net),
               Stéphane Raimbault <stephane.raimbault@gmail.com> */
-(function( factory ) {
-    if ( typeof define === "function" && define.amd ) {
+              (function( factory ) {
+                if ( typeof define === "function" && define.amd ) {
 
         // AMD. Register as an anonymous module.
         define([ "../jquery.ui.datepicker" ], factory );
@@ -162,9 +168,9 @@ $('.tw_logo').mouseleave(function(){
         nextText: 'Suivant',
         currentText: 'Aujourd\'hui',
         monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-            'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
         monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin',
-            'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+        'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
         dayNames: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
         dayNamesShort: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
         dayNamesMin: ['D','L','M','M','J','V','S'],
@@ -174,11 +180,11 @@ $('.tw_logo').mouseleave(function(){
         isRTL: false,
         showMonthAfterYear: false,
         yearSuffix: ''};
-    datepicker.setDefaults(datepicker.regional['fr']);
+        datepicker.setDefaults(datepicker.regional['fr']);
 
-    return datepicker.regional['fr'];
+        return datepicker.regional['fr'];
 
-}));
+    }));
 
 $("#new_challenge_endDate").datepicker({
     dateFormat: 'dd/mm/yy',
