@@ -319,6 +319,7 @@ class DefaultController extends Controller
             "nbChallenges" => $nbAllChallenges
         ));
     }
+   
 
     /**
      * @Route("/defisajaxdonttouch", name="defisAjax")
