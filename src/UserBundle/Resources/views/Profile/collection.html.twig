@@ -10,7 +10,7 @@
 	<div class="row">
 		<div class="collection profil_connection">
 			<a href="{{ path('fos_user_profile_show') }}" class="collection-item {% if app.request.attributes.get('_route') == "fos_user_profile_show" %}active{% endif %}">Tableau de bord</a>
-			<a href="#!" class="collection-item">Gérer mes défis</a>
+			<a href="{{ path('mychallenges') }}" class="collection-item">Gérer mes défis</a>
 			<a href="{{ path('fos_user_profile_edit') }}" class="collection-item {% if app.request.attributes.get('_route') == "fos_user_profile_edit" %}active{% endif %}">Mes informations</a>
 			<a href="#!" class="collection-item">Mes appareils</a>
 		</div>
