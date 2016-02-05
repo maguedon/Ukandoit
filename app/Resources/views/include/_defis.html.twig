@@ -1,6 +1,7 @@
 {% for challenge in challenges %}
+
 <div class="col s12 m6 l4 defi ">
-	<div class="card blue-grey white hoverable">
+	<div id="{{ challenge.id }}" class="card blue-grey white hoverable">
 		<div class="bande_rouge">
 			<h2 class="card-title">{{ challenge.title }}</h2>
 		</div>
@@ -27,7 +28,6 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 			<p>Je vous défie de courir au moins 30km cette semaine !</p>
 			<p> <div class="rouge">Distance</div> minimum : 30km</p>

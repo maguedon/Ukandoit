@@ -38,5 +38,67 @@
         });
     </script>
 {% endfor %}
+
+{% if app.request.attributes.get('_route') == "challenges" %}
+
+<script type="text/javascript">
+$(document).ready(function(){ // Quand le document est complètement chargé
+
+    var load = false; // aucun chargement de card n'est en cours
+
+    /* la fonction offset permet de récupérer la valeur X et Y d'un élément
+    dans une page. Ici on récupère la position du dernier div qui
+    a pour classe : ".card" */
+    var offset = $('.card:last').offset();
+
+    $(window).scroll(function(){ // On surveille l'évènement scroll
+
+        /* Si l'élément offset est en bas de scroll, si aucun chargement
+        n'est en cours, si le nombre de card affiché est supérieur
+        à 5 et si tout les commentaires ne sont pas affichés, alors on
+        lance la fonction. */
+        if((offset.top-$(window).height() <= $(window).scrollTop())
+        && load==false && ($('.card').size()>=5) &&
+        ($('.card').size()!={{ nbChallenges }})){
+
+            // la valeur passe à vrai, on va charger
+            load = true;
+
+            //On récupère l'id du dernier card affiché
+            var last_id = $('.card:last').attr('id');
+
+            //On affiche un loader
+            $('.loadmore').show();
+
+            var DATA = 'last=' + last_id;
+
+            //On lance la fonction ajax
+            $.ajax({
+                url: "{{ path('defisAjax')}}",
+                type: 'get',
+                data: DATA,
+
+                //Succès de la requête
+                success: function(data) {
+
+                    //On masque le loader
+                    $('.loadmore').fadeOut(500);
+                    /* On affiche le résultat après
+                    le dernier card */
+                    $('.defi:last').after(data);
+                    /* On actualise la valeur offset
+                    du dernier card */
+                    offset = $('.card:last').offset();
+                    //On remet la valeur à faux car c'est fini
+                    load = false;
+                }
+            });
+        }
+    });
+});
+
+</script>
+
+{% endif %}
 </body>
 </html>

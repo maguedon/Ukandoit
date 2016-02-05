@@ -10,4 +10,20 @@ namespace AppBundle\Repository;
  */
 class ChallengeRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findByLowerId($id)
+    {
+        $sql = "SELECT DISTINCT c.id, c.creator_id, c.activity_id, c.title, c.creationDate, c.endDate " .
+        		"FROM challenge c ".
+                "INNER JOIN user ON c.creator_id = user.id " .
+                "WHERE c.id < $id " .
+                "ORDER BY c.creationDate DESC " .
+                "LIMIT 5";
+        $stmt = $this->getEntityManager()
+        ->getConnection()
+        ->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+    }
+
 }

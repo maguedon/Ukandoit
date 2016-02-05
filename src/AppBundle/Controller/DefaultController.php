@@ -84,8 +84,6 @@ class DefaultController extends Controller
         // data is an array with "name", "email", and "message" keys
         $data = $form->getData();
 
-        
-
         $message = \Swift_Message::newInstance()
         ->setSubject($data['subject'] . " Mail envoyé depuis Ukando'it")
         ->setFrom($data['email'])
@@ -276,8 +274,16 @@ class DefaultController extends Controller
      * @Route("/defis", name="challenges")
      */
     public function challengesAction(){
-        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
-        
+        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findBy(
+                   array(),        // $where
+                   array('creationDate' => 'DESC'),    // $orderBy
+                   5,                        // $limit
+                   0                          // $offset
+                 );
+
+        $allChallenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
+        $nbAllChallenges = count($allChallenges);
+
         $userManager = $this->container->get('fos_user.user_manager');
 
         foreach ($challenges as $value) {
@@ -285,8 +291,42 @@ class DefaultController extends Controller
             $levelUser = $user->getLevel();
         }
         return $this->render('AppBundle:Default:challenges.html.twig', array(
-            "challenges" => $challenges
+            "challenges" => $challenges,
+            "nbChallenges" => $nbAllChallenges
         ));
+    }
+
+    /**
+     * @Route("/defisajaxdonttouch", name="defisAjax")
+     */
+    public function getAjaxChallengeAction()
+    {
+        $request = $this->container->get('request');
+
+        if($request->isXmlHttpRequest())
+        {
+            $lastID = $request->query->get('last');
+
+            $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findByLowerId($lastID);
+
+            //Version résultat SQL
+            $finalChallenges = array();
+            foreach($challenges as $challenge){
+                $current_challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge['id']);
+                array_push($finalChallenges, $current_challenge);
+            }
+
+            $userManager = $this->container->get('fos_user.user_manager');
+
+            foreach ($finalChallenges as $value) {
+                $user = $userManager->findUserByUsername($value->getCreator());
+                $levelUser = $user->getLevel();
+            }
+
+            return $this->render('AppBundle:Ajax:ajax_challenge.html.twig', array(
+                "challenges" => $finalChallenges
+                ));
+        }
     }
 
     /**
@@ -296,7 +336,6 @@ class DefaultController extends Controller
         $current_user = $this->container->get('security.context')->getToken()->getUser();
         $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge);
         $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($device);
-        
 
         $challenge->addChallenger($current_user);
         $current_user->addChallengesAccepted($challenge);
@@ -324,9 +363,6 @@ class DefaultController extends Controller
     {
         return $this->container->getParameter('fos_user.template.engine');
     }
-
-
-
 
 }
 
