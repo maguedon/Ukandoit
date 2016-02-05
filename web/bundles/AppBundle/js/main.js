@@ -151,6 +151,14 @@ $('.round_tab').not(".round_tab.active").mouseleave(function(){
     $(this).removeClass('animated pulse infinite');
 });
 
+$('#inscription-button').mouseenter(function(){
+    $(this).addClass('animated tada');
+});
+
+$('#inscription-button').mouseleave(function(){
+    $(this).removeClass('animated tada');
+});
+
 
 
 
