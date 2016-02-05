@@ -32,6 +32,7 @@ monolog:
         #    level:  info
 
 swiftmailer:
+    #delivery_address: contact.ukandoit@gmail.com
     transport: gmail
     username:  contact.ukandoit@gmail.com
     password:  ukandoitcontact

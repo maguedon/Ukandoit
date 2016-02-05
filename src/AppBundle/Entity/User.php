@@ -57,11 +57,6 @@ class User extends BaseUser
      */
     private $level;
 
-    /**
-     * @var collection 
-     */
-    private $levels;
-
      /**
      * @ORM\OneToMany(targetEntity="PossessedDevice", mappedBy="user")
      */
@@ -184,11 +179,11 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function setNbPoints($nbPoints)
+    public function setNbPoints($nbPoints, $levels)
     {
         $this->nbPoints = $nbPoints;
 
-        $this->setLevel();
+        $this->setLevel($levels);
 
         return $this;
     }
@@ -334,17 +329,11 @@ class User extends BaseUser
         return $this->possessedDevices[$nbPossessedDevices - 1];
     }
 
-    public function setLevel(){
-        foreach($this->levels as $level){
-            if($this->getNbPoints() == $level->getNbPoints()){
+    private function setLevel($levels){
+        foreach($levels as $level){
+            if($this->getNbPoints() >= $level->getNbPoints()){
                 $this->level = $level->getNumLevel();
-                break;
             }
-            if($this->getNbPoints() < $level->getNbPoints()){
-                $this->level  = $previousLevel->getNumLevel();
-                break;
-            }
-            $previousLevel = $level;
         }
     }
 
@@ -352,7 +341,19 @@ class User extends BaseUser
         return $this->level;
     }
 
-    public function setLevels($levels){
-        $this->levels = $levels;
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        $this->emailCanonical = $email;
+
+        return $this;
+    }
+
+    public function setUsername($username)
+    {
+        $this->username = $username;
+        $this->usernameCanonical = $username;
+
+        return $this;
     }
 }

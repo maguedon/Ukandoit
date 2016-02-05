@@ -7,10 +7,6 @@
 {% endif %}
 #}
 
-
-
-
-
 <section class="titre_page">
 	<div class="row">
 		<div class="bloc_rouge"></div>
@@ -19,8 +15,6 @@
 		</div>
 	</div>
 </section>
-
-
 
 <div class="container">
 	<div class="row">
@@ -75,15 +69,15 @@
 				</p>
 
 				#}
-				
-			</div>
 
 
-		</form>
+			</form>
+			<a class="waves-effect waves-teal btn-flat" href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a>
+		</div>
 	</div>
 
-
 </div>
+
 {% endblock fos_user_content %}
 
 {% endblock %}
@@ -96,5 +90,4 @@
 		});
 	</script>
 	{% endif %}
-
 {% endblock %} 

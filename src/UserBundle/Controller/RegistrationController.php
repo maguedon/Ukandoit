@@ -41,12 +41,13 @@ class RegistrationController extends BaseController
             if ($confirmationEnabled) {
                 $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
                 $route = 'fos_user_registration_check_email';
+                $this->setFlash('message', 'Un mail de confirmation vous a été envoyé !');
             } else {
                 $authUser = true;
                 $route = 'homepage';
+                $this->setFlash('message', 'Votre compte a été créé. Bienvenue !');
             }
 
-            $this->setFlash('message', 'Votre compte a été créé. Bienvenue !');
             $url = $this->container->get('router')->generate($route);
             $response = new RedirectResponse($url);
 
@@ -60,6 +61,22 @@ class RegistrationController extends BaseController
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
             'form' => $form->createView(),
         ));
+    }
+
+        /**
+     * Tell the user to check his email provider
+     */
+    public function checkEmailAction()
+    {
+        $email = $this->container->get('session')->get('fos_user_send_confirmation_email/email');
+        $this->container->get('session')->remove('fos_user_send_confirmation_email/email');
+        $user = $this->container->get('fos_user.user_manager')->findUserByEmail($email);
+
+        if (null === $user) {
+            throw new NotFoundHttpException(sprintf('The user with email "%s" does not exist', $email));
+        }
+
+        return new RedirectResponse($this->container->get('router')->generate("homepage"));
     }
 
     /**
