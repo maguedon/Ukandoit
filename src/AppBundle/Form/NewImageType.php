@@ -19,9 +19,7 @@ class NewImageType extends ImageType
         $builder
             ->remove('imageName')
             ->add('imageFile', 'file', array(
-                'label' => false,
-                'attr' => array(
-                    'class' => 'btn')
+                'label' => false
             ));
     }
 }

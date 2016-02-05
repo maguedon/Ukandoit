@@ -21,12 +21,15 @@
 
 				<div class="col s12 m6">
 					<div class="file-field input-field">
-						<div class="btn">
-							<span>File</span>
-							{{ form_widget(form.avatar, { 'attr': {'class': 'file-path validate' } }) }}
-							{{ form_errors(form.avatar) }}
-						</div>
-					</div>
+                        <div class="btn">
+                            <span>File</span>
+                            {{ form_widget(form.avatar, { 'attr': {'class': 'file-path validate' } }) }}
+                            {{ form_errors(form.avatar) }}
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
 				</div>
 
 				<div class="col s12">
