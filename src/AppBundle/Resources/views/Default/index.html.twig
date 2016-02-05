@@ -61,52 +61,64 @@
 		{% endif %}
 
 	</section>
-	<section class="classement center-align">
-		<div class="row">
-			<div class="col s4 secondrank">
-				{% if bestChallengers[1].avatar != null %}
-				{% set image = vich_uploader_asset(bestChallengers[1].avatar, 'imageFile') %}
-				<img class="media-object dp circle" src="{{ asset(image) }}">
-				{% else %}
-				<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
-				{% endif %}
 
-				<p>
-					{{ bestChallengers[1].username }} - Niv. {{ bestChallengers[1].level }}
-				</p>
-				<p>
-					{{ bestChallengers[1].nbPoints }} points
-				</p>
-			</div>
-			<div class="col s4 firstrank">
-				{% if bestChallengers[0].avatar != null %}
-				{% set image = vich_uploader_asset(bestChallengers[0].avatar, 'imageFile') %}
-				<img class="media-object dp circle" src="{{ asset(image) }}">
-				{% else %}
-				<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
-				{% endif %}
-				<p>
-					{{ bestChallengers[0].username }} - Niv. {{ bestChallengers[0].level }}
-				</p>
-				<p>
-					{{ bestChallengers[0].nbPoints }} points
-				</p>
-			</div>
-			<div class="col s4 thirdrank">
-				{% if bestChallengers[2].avatar != null %}
-				{% set image = vich_uploader_asset(bestChallengers[2].avatar, 'imageFile') %}
-				<img class="media-object dp circle" src="{{ asset(image) }}">
-				{% else %}
-				<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
-				{% endif %}
-				<p>
-					{{ bestChallengers[2].username }} - Niv. {{ bestChallengers[2].level }}
-				</p>
-				<p>
-					{{ bestChallengers[2].nbPoints }} points
-				</p>
+	<section class="titre_page">
+		<div class="row">
+			<div class="bloc_rouge"></div>
+			<div class="bloc_titre">
+				<h1>Le Top 3 ééé</h1>
 			</div>
 		</div>
+	</section>
+
+	<section class="classement center-align">
+		<div class="row">
+			<ul class="collection">
+				<li class="collection-item avatar">
+					{% if bestChallengers[0].avatar != null %}
+					{% set image = vich_uploader_asset(bestChallengers[0].avatar, 'imageFile') %}
+					<img class="media-object dp circle" src="{{ asset(image) }}">
+					{% else %}
+					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+					{% endif %}
+					<span class="title">1er</span>
+					<p>
+						{{ bestChallengers[0].username }} - Niv. {{ bestChallengers[0].level }}
+					</p>
+					<p>
+						{{ bestChallengers[0].nbPoints }} points
+					</p>
+				</li>
+				<li class="collection-item avatar">
+					{% if bestChallengers[1].avatar != null %}
+					{% set image = vich_uploader_asset(bestChallengers[1].avatar, 'imageFile') %}
+					<img class="media-object dp circle" src="{{ asset(image) }}">
+					{% else %}
+					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+					{% endif %}
+					<span class="title">2ème</span>
+					<p>
+						{{ bestChallengers[1].username }} - Niv. {{ bestChallengers[1].level }}
+					</p>
+					<p>
+						{{ bestChallengers[1].nbPoints }} points
+					</p>
+				</li>
+				<li class="collection-item avatar">
+					{% if bestChallengers[2].avatar != null %}
+					{% set image = vich_uploader_asset(bestChallengers[2].avatar, 'imageFile') %}
+					<img class="media-object dp circle" src="{{ asset(image) }}">
+					{% else %}
+					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+					{% endif %}
+					<span class="title">3ème</span>
+					<p>
+						{{ bestChallengers[2].username }} - Niv. {{ bestChallengers[2].level }}
+					</p>
+					<p>
+						{{ bestChallengers[2].nbPoints }} points
+					</p>
+			</ul>
 	</section>
 </div>
 {% endblock %}
