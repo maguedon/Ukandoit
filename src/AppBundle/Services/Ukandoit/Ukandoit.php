@@ -16,25 +16,43 @@ class Ukandoit
         $this->car = array("min" => 27.1, "max" => 150);
     }
 
-    public function getSpeed($array)
+    public function getDistanceForADay($day)
     {
-        $step = $array["step"]; // nb pas
-        $time = $array["time"]; // durée totale d'activité
-        $distance = $array["distance"]; //nb de metres réalisé
+        return $day['distance'];
     }
 
-    public function getSteps($array)
+    public function getStepsForADay($day)
     {
-        $step = $array["step"]; // nb pas
-        $time = $array["time"]; // durée totale d'activité
-        $distance = $array["distance"]; //nb de metres réalisé
+        return $day['steps'];
+
     }
 
-    public function getDistance($array)
+    public function getActiveTimeForADay($day)
     {
-        foreach ($array as $key => $value){
+        return $day['active_time'];
 
+    }
+
+    public function getDetailsForADay($day)
+    {
+        return $day['details'];
+
+    }
+
+
+    public function getDayForMaxMeters($days)
+    {
+        $MaxMeters = 0;
+        $Meters = 0;
+        $BestDay = null;
+        foreach ($days as $day) {
+            $Meters = getDistanceForADay($day);
+            if ($MaxMeters < $Meters) {
+                $MaxMeters = $Meters;
+                $BestDay = $day;
+            }
         }
-        $distance = $array["distance"]; //nb de metres réalisé
+
+        return $BestDay;
     }
 }
