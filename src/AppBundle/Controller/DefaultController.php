@@ -285,9 +285,11 @@ class DefaultController extends Controller
         $json = $withings->getActivities($withings->getUserID() , "2016-01-29", "2016-02-05"); //,"2016-01-25"
        // $intra = $withings->getIntradayActivities($withings->getUserID() , "2016-02-01 8:00:00", "2016-02-01 18:00:00");
        // var_dump($intra);
+        $standart = $withings->standardizeJSON($json);
 
         return $this->render('AppBundle:Default:withingsMoves.html.twig', array(
-            'activities' => $json["body"]["activities"]
+            'activities' => $json["body"]["activities"],
+            'standart' => $standart
             ));
     }
     // A deplacer dans le bundle user ?

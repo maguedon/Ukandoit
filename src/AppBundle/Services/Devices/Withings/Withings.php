@@ -146,15 +146,55 @@ class Withings
         $this->withings->setStorageAdapter($adapter);
     }
 
+    /**
+     * standardize Withings JSON to be used by Ukandoit service
+     */
+    function standardizeJSON($Withings_array){
+        $json = $Withings_array["body"]["activities"];
+        $days = array();
+        $totalDistance = 0;
+        $totalSteps = 0;
+        $totalActiveTime = 0;
+
+        foreach ($json as $day){
+            $totalDistance += $day['distance'];
+            $totalSteps += $day['steps'];
+            $time = $day['soft'] + $day['moderate'] + $day['intense'];
+            $totalActiveTime += $time;
+
+/*            $hours = array();
+            foreach($day['hourly_totals'] as $key => $value){
+                $title = str_split($key, 8);
+                $newtitle = $title[1];
+                $hours[$newtitle] = $value;
+            }
+            ksort($hours);*/
+
+            $days[$day['date']] = array(
+                "distance" => $day['distance'],
+                "steps" => $day['steps'],
+                "active_time" => $time,
+                "soft" => $day['soft'],
+                "moderate" => $day['moderate'],
+                "intense" => $day['intense']
+
+            );
+        }
+
+        $result = array(
+            "global" => array(
+                "distance" => $totalDistance,
+                "steps" => $totalSteps,
+                "active_time" => $totalActiveTime,
+                "days" => $days
+            )
+        );
+        return $result;
+    }
+
     public function getActivities($userid, $startdate, $enddate = null)
     {
         return $this->withings->getUserGateway()->getActivities($userid, $startdate, $enddate);
-    }
-
-    public function getJsonActivities($userid, $startdate, $enddate = null)
-    {
-        return $this->withings->getUserGateway()->getActivities($userid, $startdate, $enddate);
-
     }
 
     public function getIntradayActivities($userid, $startdate, $enddate)

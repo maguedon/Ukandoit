@@ -118,41 +118,47 @@ class Jawbone{
 	 * standardize Jawbone JSON to be used by Ukandoit service
 	 */
 	function standardizeJSON($Jawbone_array){
-		//$result = array();
-		//$json = json_encode($array);
-		//$result = json_decode($json);
-		if (count($Jawbone_array['items']) == 1){
-			$day = date("Y-m-d", strtotime($Jawbone_array['items'][0]['time_updated']));
+		$json = $Jawbone_array['items'];
+		$days = array();
+		$totalDistance = 0;
+		$totalSteps = 0;
+		$totalActiveTime = 0;
+
+		foreach ($json as $day){
+			$stringDay = str_split($day['date']);
+			//substr_replace($stringDay, '-', 4);
+			//substr_replace($stringDay, '-', 7);
+			$stringDay = $stringDay[0].$stringDay[1].$stringDay[2].$stringDay[3]."-".$stringDay[4].$stringDay[5]."-".$stringDay[6].$stringDay[7];
+			$data = $day['details'];
+			// date("Y-m-d", strtotime(date("Y-m-d", $data['time_updated'])))
+			$totalDistance += $data['distance'];
+			$totalSteps += $data['steps'];
+			$totalActiveTime += $data['active_time'];
 
 			$hours = array();
-			foreach($Jawbone_array['items'][0]['details']['hourly_totals'] as $hour){
-				$title = key($hour);
-				$title = date('Y-m-d', $title);
-				$jour=array();
+			foreach($data['hourly_totals'] as $key => $value){
+				$title = str_split($key, 8);
+				$newtitle = $title[1];
+				$hours[$newtitle] = $value;
 			}
+			ksort($hours);
 
-			$data = $Jawbone_array['items'][0]['details'];
-			$result = array(
-				"global" => array(
-					"distance" => $data['distance'],
-					"steps" => $data['steps'],
-					"active_time" => $data['active_time'],
-					"days" => array(
-						$day => array(
-							"distance" => $data['distance'],
-							"steps" => $data['steps'],
-							"active_time" => $data['active_time'],
-							"details" => $Jawbone_array['items'][0]['details']['hourly_totals']
-						)
-					)
+			$days[$stringDay] = array(
+				"distance" => $data['distance'],
+				"steps" => $data['steps'],
+				"active_time" => $data['active_time'],
+				"details" => $hours
+			);
+		}
+
+		$result = array(
+			"global" => array(
+				"distance" => $totalDistance,
+				"steps" => $totalSteps,
+				"active_time" => $totalActiveTime,
+				"days" => $days
 				)
 			);
-			//$result = $data;
-		}
-		else{
-			$result = $Jawbone_array;
-		}
-		//var_dump($result);
 		return $result;
 	}
 
