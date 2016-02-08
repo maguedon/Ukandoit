@@ -47,11 +47,18 @@ class DefaultController extends Controller
         $form = $this->createForm(NewChallengeType::class, $challenge);
         $form->handleRequest($request);
 
+        $form2 = $this->createForm(NewChallengeType::class, $challenge);
+        $form2->handleRequest($request);
+
         $current_user = $this->container->get('security.context')->getToken()->getUser();
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (($form->isSubmitted() && $form->isValid()) || ($form2->isSubmitted() && $form2->isValid())) {
 
             $challenge->setCreator($current_user);
+
+            $challenge->setNbPointsFirst(1);
+            $challenge->setNbPointsSecond(1);
+            $challenge->setNbPointsThird(1);
 
             // Enregistrement de l'objet
             $em = $this->get('doctrine')->getManager();
@@ -60,7 +67,8 @@ class DefaultController extends Controller
         }
 
         return $this->render("AppBundle:Default:add_defis.html.twig", array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'form2' => $form2->createView()
             ));
     }
 
@@ -319,7 +327,6 @@ class DefaultController extends Controller
             "nbChallenges" => $nbAllChallenges
         ));
     }
-   
 
     /**
      * @Route("/defisajaxdonttouch", name="defisAjax")
@@ -406,7 +413,8 @@ class DefaultController extends Controller
 
         if($request->isXmlHttpRequest())
         {
-            $data = "";
+            $current_user = $this->container->get('security.context')->getToken()->getUser();
+            $data['user'] = $current_user;
 
             return $this->render('AppBundle:Ajax:ajax_add_defis.html.twig', array(
                 "data" => $data

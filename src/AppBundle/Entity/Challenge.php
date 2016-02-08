@@ -60,6 +60,52 @@ class Challenge
      */
     private $activity;
 
+    /**
+    * @var int
+    *
+    * @ORM\Column(name="kilometres", type="integer")
+    */
+   private $kilometres;
+
+   /**
+    * @var int
+    *
+    * @ORM\Column(name="nb_steps", type="integer")
+    */
+   private $nbSteps;
+
+   /**
+    * En nombre de jours
+    * @var int
+    *
+    * @ORM\Column(name="time", type="integer")
+    */
+   private $time;
+
+   /**
+    * Nombre de points accordés au gagnant
+    * @var int
+    *
+    * @ORM\Column(name="nb_points_first", type="integer")
+    */
+   private $nbPointsFirst;
+
+   /**
+    * Nombre de points accordés au deuxième
+    * @var int
+    *
+    * @ORM\Column(name="nb_points_second", type="integer")
+    */
+   private $nbPointsSecond;
+
+   /**
+    * Nombre de points accordés au troisième
+    * @var int
+    *
+    * @ORM\Column(name="nb_points_third", type="integer")
+    */
+   private $nbPointsThird;
+
 
     public function __construct() {
         $this->challengers = new ArrayCollection();
@@ -262,5 +308,143 @@ class Challenge
     public function getUserChallenges()
     {
         return $this->userChallenges;
+    }
+
+    /**
+     * Set kilometres
+     *
+     * @param integer $kilometres
+     * @return Challenge
+     */
+    public function setKilometres($kilometres)
+    {
+        $this->kilometres = $kilometres;
+
+        return $this;
+    }
+
+    /**
+     * Get kilometres
+     *
+     * @return integer 
+     */
+    public function getKilometres()
+    {
+        return $this->kilometres;
+    }
+
+    /**
+     * Set nbSteps
+     *
+     * @param integer $nbSteps
+     * @return Challenge
+     */
+    public function setNbSteps($nbSteps)
+    {
+        $this->nbSteps = $nbSteps;
+
+        return $this;
+    }
+
+    /**
+     * Get nbSteps
+     *
+     * @return integer 
+     */
+    public function getNbSteps()
+    {
+        return $this->nbSteps;
+    }
+
+    /**
+     * Set time
+     *
+     * @param integer $time
+     * @return Challenge
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
+
+        return $this;
+    }
+
+    /**
+     * Get time
+     *
+     * @return integer 
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    /**
+     * Set nbPointsFirst
+     *
+     * @param integer $nbPointsFirst
+     * @return Challenge
+     */
+    public function setNbPointsFirst($nbPointsFirst)
+    {
+        $this->nbPointsFirst = $nbPointsFirst;
+
+        return $this;
+    }
+
+    /**
+     * Get nbPointsFirst
+     *
+     * @return integer 
+     */
+    public function getNbPointsFirst()
+    {
+        return $this->nbPointsFirst;
+    }
+
+    /**
+     * Set nbPointsSecond
+     *
+     * @param integer $nbPointsSecond
+     * @return Challenge
+     */
+    public function setNbPointsSecond($nbPointsSecond)
+    {
+        $this->nbPointsSecond = $nbPointsSecond;
+
+        return $this;
+    }
+
+    /**
+     * Get nbPointsSecond
+     *
+     * @return integer 
+     */
+    public function getNbPointsSecond()
+    {
+        return $this->nbPointsSecond;
+    }
+
+    /**
+     * Set nbPointsThird
+     *
+     * @param integer $nbPointsThird
+     * @return Challenge
+     */
+    public function setNbPointsThird($nbPointsThird)
+    {
+        $this->nbPointsThird = $nbPointsThird;
+
+        return $this;
+    }
+
+    /**
+     * Get nbPointsThird
+     *
+     * @return integer 
+     */
+    public function getNbPointsThird()
+    {
+        return $this->nbPointsThird;
     }
 }

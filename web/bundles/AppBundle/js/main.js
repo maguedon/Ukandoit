@@ -165,7 +165,7 @@ factory( jQuery.datepicker );
         datepicker.setDefaults(datepicker.regional['fr']);
         return datepicker.regional['fr'];
     }));
-$("#new_challenge_endDate").datepicker({
+$(".datepicker").datepicker({
     dateFormat: 'dd/mm/yy',
     firstDay:1
 }).attr("readonly","readonly");
