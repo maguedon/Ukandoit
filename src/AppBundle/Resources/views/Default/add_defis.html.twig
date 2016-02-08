@@ -10,7 +10,7 @@
 	<div class="row">
 		<ul id="tabs_add_defis" class="tabs">
 			<li class="tab col s3"><a class="active" href="#idoit">IDO'IT !</a></li>
-			<li class="tab col s3"><a href="#kanudoit">KANUDO'IT ?</a></li>
+			<li class="tab col s3"><a href="#kanudoit">KANWEDO'IT ?</a></li>
 		</ul>
 		<div id="idoit" class="col s12">
 			<form action="{{ path('add_defis') }}" {{ form_enctype(form) }} method="POST">
@@ -144,4 +144,18 @@
 		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
 	</div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+	$( document ).ready(function() {
+
+		{% if data.errors is defined %}
+			{% for error in data.errors %}
+	        	toastr.error("{{error}}");
+	    	{% endfor %}
+    	{% endif %}
+	});
+</script>
+
 {% endblock %}
