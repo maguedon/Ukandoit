@@ -93,13 +93,21 @@
 							{{ form_errors(form2.endDate) }}
 							<label for="endDate">Date de fin</label>
 						</div>
-						<div class="input-field form-group col s12 m6">
-							{{ form_widget(form2.nbSteps, { 'attr': {'class': 'form-control'} }) }}
+						<div class="input-field col s12">
+								<select id="select_pas_km">
+									<option value="" disabled selected>Choisir le type</option>
+									<option value="pas">Nombre de pas</option>
+									<option value="km">Nombre de kilometre</option>
+								</select>
+								<label>Avec quelle montre avez-vous fait cette performance ?</label>
+						</div>
+						<div id="inputSteps2" style="display: none;" class="input-field form-group col s12">
+							{{ form_widget(form2.nbSteps, { 'id': 'new_challenge_nbSteps2', 'attr': {'class': 'form-control'} }) }}
 							{{ form_errors(form2.nbSteps) }}
 							<label for="activity">Nombre de pas</label>
 						</div>
-						<div class="input-field form-group col s12 m6">
-							{{ form_widget(form2.kilometres, { 'attr': {'class': 'form-control'} }) }}
+						<div id="inputKm2" style="display: none;" class="input-field form-group col s12">
+							{{ form_widget(form2.kilometres, { 'id': 'new_challenge_kilometres2', 'attr': {'class': 'form-control'} }) }}
 							{{ form_errors(form2.kilometres) }}
 							<label for="activity">Nombre de kilomètres</label>
 						</div>

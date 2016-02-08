@@ -175,3 +175,16 @@ $(".datepicker").datepicker({
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-trigger').leanModal();
   });
+
+
+ //Ajout challenge Bloquer champ nbPas quand champ kilometre avec value et vice versa
+ $("#select_pas_km").change(function(){
+    if($(this).val() == "pas"){
+        $("#inputKm2").css("display", "none");
+        $("#inputSteps2").css("display", "block");
+    }
+    else{
+        $("#inputSteps2").css("display", "none");
+        $("#inputKm2").css("display", "block");
+    }
+ });
