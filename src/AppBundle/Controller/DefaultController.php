@@ -362,7 +362,6 @@ class DefaultController extends Controller
         $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge);
         $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($device);
 
-        $coucou = 'Vous avez relevé le défi';
         $this->setFlash('message', 'Vous avez relevé le défi de '.$challenge->getCreator()->getUsername());
 
         // AJOUTER OBJECT !!!!
@@ -382,6 +381,35 @@ class DefaultController extends Controller
          /*   return $this->render('AppBundle:Default:challenges.html.twig', array(
             "challenge" => $challenge
             ));*/
+    }
+
+    /**
+     * @Route("/defis/{challenge}/", name="showChallenge")
+     */
+    public function showCurrentChallenge($challenge){
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge);
+
+        $collection = $challenge->getUserChallenges();
+
+        //$ukandoit = $this->get("app.ukandoit");
+        //$ukandoit->getDataFromAPI($devise, $challenge);
+
+
+        $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find();
+        //$devise  = $current_user->get
+
+
+
+       // if ($challenge->)
+
+        /*   return $this->render('AppBundle:Default:challenges.html.twig', array(
+           "challenge" => $challenge
+           ));*/
+        return $this->render('AppBundle:Default:show_challenge.html.twig', array(
+            "user" => $current_user,
+            "collection" => $collection
+        ));
     }
 
 

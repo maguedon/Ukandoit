@@ -206,11 +206,24 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $defis5->setNbPointsSecond(40);
         $defis5->setNbPointsThird(30);
 
+        $defistest = new Challenge();
+        $defistest->setCreationDate(new \DateTime("2016-01-31"));
+        $defistest->setEndDate(new \DateTime("2016-02-08"));
+        $defistest->setCreator($jeremy);
+        $defistest->setTitle("Objectif 15 km");
+        $defistest->setActivity($activity);
+        $defistest->setTime(3);
+        $defistest->setKilometres(15000);
+        $defistest->setNbPointsFirst(50);
+        $defistest->setNbPointsSecond(40);
+        $defistest->setNbPointsThird(30);
+
         $manager->persist($defis1);
         $manager->persist($defis2);
         $manager->persist($defis3);
         $manager->persist($defis4);
         $manager->persist($defis5);
+        $manager->persist($defistest);
 
 
         $manager->flush();
