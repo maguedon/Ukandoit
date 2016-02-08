@@ -30,3 +30,7 @@ swiftmailer:
     transport: gmail
     username:  contact.ukandoit@gmail.com
     password:  ukandoitcontact
+
+assetic:
+    use_controller: true
+    bundles: ['AppBundle']
