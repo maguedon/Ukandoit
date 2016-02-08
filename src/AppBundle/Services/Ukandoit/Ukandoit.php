@@ -16,43 +16,33 @@ class Ukandoit
         $this->car = array("min" => 27.1, "max" => 150);
     }
 
-    public function getDistanceForADay($day)
+    public function getDistance($json)
     {
-        return $day['distance'];
+        return $json['distance'];
     }
 
-    public function getStepsForADay($day)
+    public function getSteps($json)
     {
-        return $day['steps'];
-
-    }
-
-    public function getActiveTimeForADay($day)
-    {
-        return $day['active_time'];
+        return $json['steps'];
 
     }
 
-    public function getDetailsForADay($day)
+    public function getActiveTime($json)
     {
-        return $day['details'];
+        return $json['active_time'];
 
     }
 
-
-    public function getDayForMaxMeters($days)
+    public function getDetails($json)
     {
-        $MaxMeters = 0;
-        $Meters = 0;
-        $BestDay = null;
-        foreach ($days as $day) {
-            $Meters = getDistanceForADay($day);
-            if ($MaxMeters < $Meters) {
-                $MaxMeters = $Meters;
-                $BestDay = $day;
-            }
+        return $json['details'];
+
+    }
+
+    public function getDataFromAPI($challenge_start, $challenge_end, $challenge_distance, $challenge_steps, $challenge_active_time, $challenge_delais){
+        foreach (){
+
         }
-
-        return $BestDay;
     }
+
 }
