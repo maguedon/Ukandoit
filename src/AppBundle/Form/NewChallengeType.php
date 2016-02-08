@@ -21,6 +21,9 @@ class NewChallengeType extends ChallengeType
             ->remove('creationDate', 'datetime')
             ->remove('creator')
             ->remove('challengers')
+            ->remove('nbPointsFirst')
+            ->remove('nbPointsSecond')
+            ->remove('nbPointsThird')
             ->add('endDate', 'date', array(
                 'widget' => 'single_text',
                 'input' => 'datetime',
@@ -28,7 +31,11 @@ class NewChallengeType extends ChallengeType
                 'attr' => array('class' => 'date')))
             ->add('activity', 'entity', array(
                 'class' => 'AppBundle:Activity',
-                'property' => 'name'));
+                'property' => 'name'))
+            ->add('nbSteps', 'integer', array(
+                'required' => false))
+            ->add('kilometres', 'integer', array(
+                'required' => false));
 
     }
 

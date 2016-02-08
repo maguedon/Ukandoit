@@ -18,12 +18,17 @@ class ChallengeType extends AbstractType
             ->add('title')
             ->add('creationDate', 'datetime')
             ->add('endDate', 'datetime')
+            ->add('kilometres')
+            ->add('nbSteps')
+            ->add('time')
+            ->add('nbPointsFirst')
+            ->add('nbPointsSecond')
+            ->add('nbPointsThird')
             ->add('creator')
-            ->add('challengers')
             ->add('activity')
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */

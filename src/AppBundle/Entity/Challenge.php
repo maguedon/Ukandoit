@@ -62,52 +62,51 @@ class Challenge
      */
     private $activity;
 
-
     /**
-     * @var int
-     *
-     * @ORM\Column(name="kilometres", type="integer", nullable=true)
-     */
-    private $kilometres;
+    * @var int
+    *
+    * @ORM\Column(name="kilometres", type="integer", nullable=true)
+    */
+   private $kilometres;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="nb_steps", type="integer", nullable=true)
-     */
-    private $nbSteps;
+   /**
+    * @var int
+    *
+    * @ORM\Column(name="nb_steps", type="integer", nullable=true)
+    */
+   private $nbSteps;
 
-    /**
-     * En nombre de jours
-     * @var int
-     *
-     * @ORM\Column(name="time", type="integer")
-     */
-    private $time;
+   /**
+    * En nombre de jours
+    * @var int
+    *
+    * @ORM\Column(name="time", type="integer")
+    */
+   private $time;
 
-    /**
-     * Nombre de points accordés au gagnant
-     * @var int
-     *
-     * @ORM\Column(name="nb_points_first", type="integer")
-     */
-    private $nbPointsFirst;
+   /**
+    * Nombre de points accordés au gagnant
+    * @var int
+    *
+    * @ORM\Column(name="nb_points_first", type="integer")
+    */
+   private $nbPointsFirst;
 
-    /**
-     * Nombre de points accordés au deuxième
-     * @var int
-     *
-     * @ORM\Column(name="nb_points_second", type="integer")
-     */
-    private $nbPointsSecond;
+   /**
+    * Nombre de points accordés au deuxième
+    * @var int
+    *
+    * @ORM\Column(name="nb_points_second", type="integer")
+    */
+   private $nbPointsSecond;
 
-    /**
-     * Nombre de points accordés au troisième
-     * @var int
-     *
-     * @ORM\Column(name="nb_points_third", type="integer")
-     */
-    private $nbPointsThird;
+   /**
+    * Nombre de points accordés au troisième
+    * @var int
+    *
+    * @ORM\Column(name="nb_points_third", type="integer")
+    */
+   private $nbPointsThird;
 
 
     public function __construct() {
@@ -364,7 +363,7 @@ class Challenge
     /**
      * Set time
      *
-     * @param \DateTime $time
+     * @param integer $time
      * @return Challenge
      */
     public function setTime($time)
@@ -377,7 +376,7 @@ class Challenge
     /**
      * Get time
      *
-     * @return \DateTime 
+     * @return integer 
      */
     public function getTime()
     {

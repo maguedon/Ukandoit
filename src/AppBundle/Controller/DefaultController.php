@@ -23,7 +23,6 @@ class DefaultController extends Controller
      * @Route("/", name="homepage")
      */
     public function indexAction(){
-
         $em = $this->get('doctrine')->getManager();
         $challengesService = $this->get('app.challenges');
         $lastChallenges = $challengesService->getLastChallenges();
@@ -46,23 +45,58 @@ class DefaultController extends Controller
         if($current_user == "anon.")
             return $this->redirectToRoute('fos_user_security_login');
 
+        $data = array();
+
         $challenge = new Challenge();
 
         $form = $this->createForm(NewChallengeType::class, $challenge);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $form2 = $this->createForm(NewChallengeType::class, $challenge);
+        $form2->handleRequest($request);
 
-            $challenge->setCreator($current_user);
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
 
-            // Enregistrement de l'objet
-            $em = $this->get('doctrine')->getManager();
-            $em->persist($challenge);
-            $em->flush();
+        if (($form->isSubmitted() && $form->isValid()) || ($form2->isSubmitted() && $form2->isValid())) {
+
+            $form_data_endDate = $form2->get("endDate")->getData();
+            $form_data_time = $form2->get("time")->getData();
+            $form_data_currentDate = $challenge->getCreationDate();
+
+            $avoid_error = $form_data_time ;
+            if($avoid_error < 0){
+                $avoid_error = 0;
+            }
+
+            $now_temp = clone $form_data_currentDate;
+            $form_data_endDate_limit = $form_data_currentDate->add(new \DateInterval('P'.$avoid_error.'D'));
+
+            if(($form_data_time <= 0) ||
+                ($form_data_endDate_limit->format('Y-m-d') > $form_data_endDate->format('Y-m-d')) ||
+                ($form_data_endDate->format('Y-m-d') < $now_temp->format('Y-m-d'))){
+
+                $data["errors"][] = "Erreur, vérifiez les dates renseignées";
+
+            }
+            else{
+
+                $challenge->setCreator($current_user);
+
+                $challenge->setNbPointsFirst(1);
+                $challenge->setNbPointsSecond(1);
+                $challenge->setNbPointsThird(1);
+
+                // Enregistrement de l'objet
+                $em = $this->get('doctrine')->getManager();
+                $em->persist($challenge);
+                $em->flush();
+            }
         }
 
         return $this->render("AppBundle:Default:add_defis.html.twig", array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'form2' => $form2->createView(),
+            'data' => $data
             ));
 
     }
@@ -112,7 +146,6 @@ class DefaultController extends Controller
                ));
 
         }
-
 
         return $this->render('AppBundle:Default:contact.html.twig', array(
            "form"=>$form->createView()
@@ -295,7 +328,7 @@ class DefaultController extends Controller
    public function challengesAction(){
     $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findBy(
                    array(),        // $where
-                   array('creationDate' => 'DESC'),    // $orderBy
+                   array('id' => 'DESC'),    // $orderBy
                    5,                        // $limit
                    0                          // $offset
                    );
@@ -417,5 +450,28 @@ class DefaultController extends Controller
         return $this->container->getParameter('fos_user.template.engine');
     }
 
-}
 
+
+// ------------ CONTROLLER AJAX CHARGEMENT INFOS CREATION DEFIS -------------- //
+
+    /**
+     * @Route("/adddefisajaxdonttouch", name="addDefisAjax")
+     */
+    public function getAjaxAddDefisAction()
+    {
+        $request = $this->container->get('request');
+
+        if($request->isXmlHttpRequest())
+        {
+            $current_user = $this->container->get('security.context')->getToken()->getUser();
+            $data['user'] = $current_user;
+
+            $montre = $request->query->get('montre');
+            $data['montre'] = $montre;
+
+            return $this->render('AppBundle:Ajax:ajax_add_defis.html.twig', array(
+                "data" => $data
+                ));
+        }
+    }
+}

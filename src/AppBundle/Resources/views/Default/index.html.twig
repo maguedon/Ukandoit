@@ -95,7 +95,16 @@
 					<p>
 						<i>{{ bestChallengers[i].nbPoints }} points</i>
 					</p>
-					<div class="secondary-content"><img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/icon_ukandoit.png')}}"/></div>
+					<div class="secondary-content">
+						{% if i == 0 %}
+						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/first.png')}}">
+						{% elseif i == 1%}
+						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/second.png')}}">
+						{% else %}
+						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/third.png')}}">
+						{% endif %}
+
+					</div>
 				</li>
 				{% endfor %}
 			</ul>
