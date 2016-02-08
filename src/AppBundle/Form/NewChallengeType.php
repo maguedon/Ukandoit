@@ -31,7 +31,11 @@ class NewChallengeType extends ChallengeType
                 'attr' => array('class' => 'date')))
             ->add('activity', 'entity', array(
                 'class' => 'AppBundle:Activity',
-                'property' => 'name'));
+                'property' => 'name'))
+            ->add('nbSteps', 'integer', array(
+                'required' => false))
+            ->add('kilometres', 'integer', array(
+                'required' => false));
 
     }
 
