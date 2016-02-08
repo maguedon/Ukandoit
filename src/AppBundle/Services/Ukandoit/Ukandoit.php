@@ -49,4 +49,36 @@ class Ukandoit
         }
     }
 
+    public function getRecord($value){
+        $moves = $this->get('app.jawbone')->getMoves();
+
+        $date_debut = new DateTime("2016-01-20");
+        $date_fin = new DateTime("2016-01-25");
+        $max = 0;
+        $dates = "";
+        $time = 2;
+
+        $nbDaysChallenge = $date_fin - $date_debut;
+
+        for($i=0; $i<$nbDaysChallenge-$time-1; $i++){
+            if($value = "distance")
+                $total = $date_debut->modify('+' . $i . 'day')->getKilometres();
+            else
+                $total = $date_debut->modify('+' . $i . 'day')->getSteps();
+
+            for($j=$i+1; $j<$time-1; $j++){
+                if($value = "distance")
+                    $total += $date_debut->modify('+' . $j . 'day')->getKilometres();
+                else
+                    $total = $date_debut->modify('+' . $j . 'day')->getSteps();
+            }
+            if($total > $max){
+                $max = $total;
+                $dates = $date_debut->modify('+' . $i . 'day')->format("d-m-Y") . " - " . $date_debut->modify('+' . $i + ($time-1) . 'day')->format("d-m-Y");
+            }
+        }
+
+        return array($max, $dates);
+    }
+
 }

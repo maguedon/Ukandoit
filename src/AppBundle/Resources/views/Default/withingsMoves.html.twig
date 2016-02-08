@@ -1,12 +1,6 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-	<pre>
-		{{ dump(activities) }}
-	</pre>
-	<pre>
-		{{ dump(standart) }}
-	</pre>
 <div class="container moves">
 	<div class="row titre_page">
 		<div class="bloc_rouge"></div>
@@ -21,21 +15,15 @@
 					<th>Date</th>
 					<th>Distance</th>
 					<th>Nombre de pas</th>
-					<th>Calories</th>
-					<th>Durée de faible activité</th>
-					<th>Durée d'activité modérée </th>
-					<th>Durée de forte activité</th>
+					<th>Durée d'activité</th>
 				</tr>
 
-				{% for act in activities %}
+				{% for key,act in activities.global.days %}
 						<tr>
-							<td>{{ act.date }}</td>
+							<td>{{ key }}</td>
 							<td>{{ act.distance }}</td>
 							<td>{{ act.steps }}</td>
-							<td>{{ act.calories }}</td>
-							<td>{{ act.soft }}</td>
-							<td>{{ act.moderate }}</td>
-							<td>{{ act.intense }}</td>
+							<td>{{ act.active_time }}</td>
 						</tr>
 				{% endfor %}
 			</table>

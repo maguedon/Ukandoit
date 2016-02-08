@@ -1,12 +1,6 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-	<pre>
-		{{ dump(json) }}
-	</pre>
-	<pre>
-		{{ dump(standart) }}
-	</pre>
 <div class="container moves">
 	<div class="row titre_page">
 		<div class="bloc_rouge"></div>
@@ -15,22 +9,20 @@
 		</div>
 	</div>
 	<section class="moves">
-		{% if hourly_totals|length != 0 %}
+		{% if json|length != 0 %}
 			<table>
 				<tr>
+					<th>Date</th>
 					<th>Distance</th>
 					<th>Temps d'activité</th>
-					<th>Calories</th>
-					<th>Temps d'inactivité</th>
 					<th>Nombre de pas</th>
 				</tr>
-				{% for hour in hourly_totals %}
+				{% for key, day in json.global.days %}
 					<tr>
-						<td>{{ hour.distance }}m</td>
-						<td>{{ hour.active_time }}s</td>
-						<td>{{ hour.calories }}</td>
-						<td>{{ hour.inactive_time }}s</td>
-						<td>{{ hour.steps }}</td>
+						<td>{{ key }}</td>
+						<td>{{ day.distance }}m</td>
+						<td>{{ day.active_time }}s</td>
+						<td>{{ day.steps }}</td>
 					</tr>
 				{% endfor %}
 			</table>

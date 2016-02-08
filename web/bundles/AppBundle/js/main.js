@@ -11,7 +11,7 @@ $(document).ready(function(){
 
      var defi_id = $("#form_defi_send").attr("value");
      var objet_id=$('input[name=object_form]:checked', '#form_defi').val();
-     var url = window.location.protocol + "//" + window.location.host + "/ukandoit/web/app_dev.php";  
+     var url = window.location.protocol + "//" + window.location.host + "/web/app_dev.php";  
    // remplacer par window.location.protocol + "//" + window.location.host + "/" en prod)
     location.href = url+'/defis/'+defi_id+'/'+objet_id+'/accepted';
 

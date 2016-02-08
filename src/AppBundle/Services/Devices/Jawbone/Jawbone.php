@@ -111,7 +111,7 @@ class Jawbone{
 
 		$response = file_get_contents($url, false, $context);
 		$activities = json_decode($response, true);
-		return $activities['data'];
+		return $this->standardizeJSON($activities['data']);
 	}
 
 	/**
@@ -200,6 +200,6 @@ class Jawbone{
 		$response = file_get_contents($url, false, $context);
 
 		$moves = json_decode($response, true);
-		return $moves['data'];
+		return $this->standardizeJSON($moves['data']);
 	}
 }

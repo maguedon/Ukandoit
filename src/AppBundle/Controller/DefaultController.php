@@ -253,16 +253,10 @@ class DefaultController extends Controller
         $jawbone = $this->get("app.jawbone");
         $json = $jawbone->getMoves($possessedDevice->getAccessTokenJawbone(), "2016-01-21 00:00:00", "2016-01-23 00:00:00");
 
-        if (count($json['items']) != 0)
-            $hourly_totals = $json['items'][0]['details']['hourly_totals'];
-        else
-            $hourly_totals = $json['items'];
-
-        $standart = $jawbone->standardizeJSON($json);
+      //  $standart = $jawbone->standardizeJSON($json);
 
         return $this->render('AppBundle:Default:jawboneMoves.html.twig', array(
-            'hourly_totals' => $hourly_totals,
-            'standart' => $standart,
+            //'standart' => $standart,
             'json' => $json
             ));
     }
@@ -286,11 +280,11 @@ class DefaultController extends Controller
 
        // $intra = $withings->getIntradayActivities($withings->getUserID() , "2016-02-01 8:00:00", "2016-02-01 18:00:00");
        // var_dump($intra);
-        $standart = $withings->standardizeJSON($json);
+       // $standart = $withings->standardizeJSON($json);
 
         return $this->render('AppBundle:Default:withingsMoves.html.twig', array(
-            'activities' => $json["body"]["activities"],
-            'standart' => $standart
+            'activities' => $json
+          //  'standart' => $standart
             ));
     }
     // A deplacer dans le bundle user ?
