@@ -333,7 +333,7 @@ class DefaultController extends Controller
     public function challengesAction(){
         $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findBy(
                    array(),        // $where
-                   array('creationDate' => 'DESC'),    // $orderBy
+                   array('id' => 'DESC'),    // $orderBy
                    5,                        // $limit
                    0                          // $offset
                  );
