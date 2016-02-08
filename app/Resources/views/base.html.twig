@@ -109,18 +109,26 @@ $(document).ready(function(){ // Quand le document est complètement chargé
 
 $(".modal-trigger-ajax").click(function(){
 
-    $.ajax({
-        url: "{{ path('addDefisAjax')}}",
-        type: 'get',
+    var DATA = "montre="+$("#select_montre").val();
 
-        //Succès de la requête
-        success: function(data) {
-            $('.modal-content').html(data);
-            $('#getDataChallenge').openModal();
-        }
-    });
+    if($("#select_montre").val() != null){
 
+         $.ajax({
+            url: "{{ path('addDefisAjax')}}",
+            type: 'get',
+            data: DATA,
 
+            //Succès de la requête
+            success: function(data) {
+                $('.modal-content').html(data);
+                $('#getDataChallenge').openModal();
+            }
+        });
+
+    }
+    else{
+        alert("Veuillez choisir une montre !");
+    }
 });
 
 </script>

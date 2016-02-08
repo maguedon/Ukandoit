@@ -416,6 +416,9 @@ class DefaultController extends Controller
             $current_user = $this->container->get('security.context')->getToken()->getUser();
             $data['user'] = $current_user;
 
+            $montre = $request->query->get('montre');
+            $data['montre'] = $montre;
+
             return $this->render('AppBundle:Ajax:ajax_add_defis.html.twig', array(
                 "data" => $data
                 ));

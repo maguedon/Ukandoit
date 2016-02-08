@@ -1,54 +1,63 @@
 {% extends "::base.html.twig" %}
 {% block body %}
-	<div class="container apropos">
-		<div class="row titre_page">
-			<div class="bloc_rouge"></div>
-			<div class="bloc_titre">
-				<h1>Lancer un défi</h1>
-			</div>
+<div class="container apropos">
+	<div class="row titre_page">
+		<div class="bloc_rouge"></div>
+		<div class="bloc_titre">
+			<h1>Lancer un défi</h1>
 		</div>
-		<div class="row">
-			<ul id="tabs_add_defis" class="tabs">
-				<li class="tab col s3"><a class="active" href="#idoit">IDO'IT !</a></li>
-				<li class="tab col s3"><a href="#kanudoit">KANUDO'IT ?</a></li>
-			</ul>
-			<div id="idoit" class="col s12">
-				<form action="{{ path('add_defis') }}" {{ form_enctype(form) }} method="POST">
-					<div class="row">
-						<div class="bande_rouge">
-							<div class="col s12">Ajouter un défi</div>
-						</div>
-						<div class="card-panel">
-							<div class="input-field form-group col s12">
+	</div>
+	<div class="row">
+		<ul id="tabs_add_defis" class="tabs">
+			<li class="tab col s3"><a class="active" href="#idoit">IDO'IT !</a></li>
+			<li class="tab col s3"><a href="#kanudoit">KANUDO'IT ?</a></li>
+		</ul>
+		<div id="idoit" class="col s12">
+			<form action="{{ path('add_defis') }}" {{ form_enctype(form) }} method="POST">
+				<div class="row">
+					<div class="bande_rouge">
+						<div class="col s12">Ajouter un défi <i>( Vous avez déjà fait la performance )</i></div>
+					</div>
+					<div class="card-panel">
+						<div class="form-group">
+							<div class="input-field col s12">
 								{{ form_widget(form.title, { 'attr': {'class': 'form-control' } }) }}
 								{{ form_errors(form.title) }}
 								<label for="title">Titre du défis</label>
 							</div>
-							<div class="input-field form-group col s12 m6">
+							<div class="input-field col s12 m6">
 								{{ form_widget(form.endDate, { 'id': 'new_challenge_endDate1', 'attr': {'class': 'form-control datepicker'} }) }}
 								{{ form_errors(form.endDate) }}
 								<label for="endDate">Date de fin</label>
 							</div>
-							<div class="input-field form-group col s12 m6">
+							<div class="input-field col s12 m6">
 								{{ form_widget(form.activity, { 'attr': {'class': 'form-control'} }) }}
 								{{ form_errors(form.activity) }}
 								<label for="activity">Activité correspondante</label>
 							</div>
-							<div class="input-field form-group col s12">
+							<div class="input-field col s12">
+								<select id="select_montre">
+									<option value="" disabled selected>Choisir la montre</option>
+									<option value="Withings">Withings</option>
+									<option value="Jawbone">Jawbone</option>
+								</select>
+								<label>Avec quelle montre avez-vous fait cette performance ?</label>
+							</div>
+							<div class="input-field col s12">
 								<a class="waves-effect waves-light btn modal-trigger-ajax" href="#getDataChallenge">Récupérer sa performance</a>
 							</div>
 							<div class="hide">
-								<div class="input-field form-group col s4">
+								<div class="input-field col s4">
 									{{ form_widget(form.nbSteps, { 'attr': {'class': 'form-control'} }) }}
 									{{ form_errors(form.nbSteps) }}
 									<label for="activity">Nombre de pas</label>
 								</div>
-								<div class="input-field form-group col s4">
+								<div class="input-field  col s4">
 									{{ form_widget(form.kilometres, { 'attr': {'class': 'form-control'} }) }}
 									{{ form_errors(form.kilometres) }}
 									<label for="activity">Nombre de kilomètres</label>
 								</div>
-								<div class="input-field form-group col s4">
+								<div class="input-field col s4">
 									{{ form_widget(form.time, { 'attr': {'class': 'form-control'} }) }}
 									{{ form_errors(form.time) }}
 									<label for="activity">En ? de jour</label>
@@ -63,67 +72,68 @@
 							</div>
 						</div>
 					</div>
-				</form>
-				{{ form_end(form, {'render_rest': false}) }}
-			</div>
-			<div id="kanudoit" class="col s12">
-				<form action="{{ path('add_defis') }}" {{ form_enctype(form2) }} method="POST">
-					<div class="row">
-						<div class="bande_rouge">
-							<div class="col s12">Ajouter un défi</div>
+				</div>
+			</form>
+			{{ form_end(form, {'render_rest': false}) }}
+		</div>
+		<div id="kanudoit" class="col s12">
+			<form action="{{ path('add_defis') }}" {{ form_enctype(form2) }} method="POST">
+				<div class="row">
+					<div class="bande_rouge">
+						<div class="col s12">Ajouter un défi <i>( Vous n'avez pas encore fait la performance )</i></div>
+					</div>
+					<div class="card-panel">
+						<div class="input-field form-group col s12">
+							{{ form_widget(form2.title, { 'attr': {'class': 'form-control' } }) }}
+							{{ form_errors(form2.title) }}
+							<label for="title">Titre du défis</label>
 						</div>
-						<div class="card-panel">
-							<div class="input-field form-group col s12">
-								{{ form_widget(form2.title, { 'attr': {'class': 'form-control' } }) }}
-								{{ form_errors(form2.title) }}
-								<label for="title">Titre du défis</label>
-							</div>
-							<div class="input-field form-group col s12">
-								{{ form_widget(form2.endDate, { 'id': 'new_challenge_endDate2', 'attr': {'class': 'form-control datepicker'} }) }}
-								{{ form_errors(form2.endDate) }}
-								<label for="endDate">Date de fin</label>
-							</div>
-							<div class="input-field form-group col s12 m6">
-								{{ form_widget(form2.nbSteps, { 'attr': {'class': 'form-control'} }) }}
-								{{ form_errors(form2.nbSteps) }}
-								<label for="activity">Nombre de pas</label>
-							</div>
-							<div class="input-field form-group col s12 m6">
-								{{ form_widget(form2.kilometres, { 'attr': {'class': 'form-control'} }) }}
-								{{ form_errors(form2.kilometres) }}
-								<label for="activity">Nombre de kilomètres</label>
-							</div>
-							<div class="input-field form-group col s12">
-								{{ form_widget(form2.time, { 'attr': {'class': 'form-control'} }) }}
-								{{ form_errors(form2.time) }}
-								<label for="activity">En ? de jour</label>
-							</div>
-							<div class="input-field form-group col s12">
-								{{ form_widget(form2.activity, { 'attr': {'class': 'form-control'} }) }}
-								{{ form_errors(form2.activity) }}
-								<label for="activity">Activité correspondante</label>
-							</div>
-							{{ form_rest(form2) }}
-							{{ form_errors(form2) }}
-							<div class="form-group">
-								<div class="btn_centre">
-									<input type="submit" value="Kanudo'it ?" class="btn btn-primary btn-block btn-lg" title="Defier!">
-								</div>
+						<div class="input-field form-group col s12">
+							{{ form_widget(form2.endDate, { 'id': 'new_challenge_endDate2', 'attr': {'class': 'form-control datepicker'} }) }}
+							{{ form_errors(form2.endDate) }}
+							<label for="endDate">Date de fin</label>
+						</div>
+						<div class="input-field form-group col s12 m6">
+							{{ form_widget(form2.nbSteps, { 'attr': {'class': 'form-control'} }) }}
+							{{ form_errors(form2.nbSteps) }}
+							<label for="activity">Nombre de pas</label>
+						</div>
+						<div class="input-field form-group col s12 m6">
+							{{ form_widget(form2.kilometres, { 'attr': {'class': 'form-control'} }) }}
+							{{ form_errors(form2.kilometres) }}
+							<label for="activity">Nombre de kilomètres</label>
+						</div>
+						<div class="input-field form-group col s12">
+							{{ form_widget(form2.time, { 'attr': {'class': 'form-control'} }) }}
+							{{ form_errors(form2.time) }}
+							<label for="activity">En ? de jour</label>
+						</div>
+						<div class="input-field form-group col s12">
+							{{ form_widget(form2.activity, { 'attr': {'class': 'form-control'} }) }}
+							{{ form_errors(form2.activity) }}
+							<label for="activity">Activité correspondante</label>
+						</div>
+						{{ form_rest(form2) }}
+						{{ form_errors(form2) }}
+						<div class="form-group">
+							<div class="btn_centre">
+								<input type="submit" value="Kanudo'it ?" class="btn btn-primary btn-block btn-lg" title="Defier!">
 							</div>
 						</div>
 					</div>
-				</form>
-				{{ form_end(form2, {'render_rest': false}) }}
-			</div>
+				</div>
+			</form>
+			{{ form_end(form2, {'render_rest': false}) }}
 		</div>
 	</div>
+</div>
 
-	<!-- Modal Structure -->
-	<div id="getDataChallenge" class="modal modal-fixed-footer">
-		<div class="modal-content">
-		</div>
-		<div class="modal-footer">
-			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
-		</div>
+<!-- Modal Structure -->
+<div id="getDataChallenge" class="modal modal-fixed-footer">
+	<div class="modal-content">
 	</div>
+	<div class="modal-footer">
+		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+	</div>
+</div>
 {% endblock %}
