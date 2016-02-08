@@ -34,8 +34,6 @@ class RegistrationController extends BaseController
         if ($process) {
             $user = $form->getData();
 
-            $levels = $this->container->get('doctrine')->getManager()->getRepository('AppBundle:Level')->findAll();
-            $user->setLevels($levels);
 
             $authUser = false;
             if ($confirmationEnabled) {

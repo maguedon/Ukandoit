@@ -13,22 +13,29 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
+     {% javascripts
+        'bundles/AppBundle/js/*'
+        'bundles/AppBundle/materialize/js/materialize.js'
+        %}
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <script src="{{ asset_url }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        
+        {% endjavascripts %}
+    {% block javascripts %}
+
+    {% endblock %}
+
+    {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false,'include_bootstrap': false} %}
+    
 </head>
 <body>
     {% include 'include/_header.html.twig' %}
     {% include 'include/_rond.html.twig' %}
     {% block body %}{% endblock %}
     {% include 'include/_footer.html.twig' %}
-        {% javascripts
-        'bundles/AppBundle/js/*'
-        'bundles/AppBundle/materialize/js/materialize.js'
-        %}
-        <script src='https://www.google.com/recaptcha/api.js'></script>
-        <script src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-    {% block javascripts %}
 
-    {% endblock %}
 {% for message in app.session.flashBag.get('message') %}
     <div data-id="{{ message }}" class="flashbag_message"> </div>
       <script type="text/javascript">

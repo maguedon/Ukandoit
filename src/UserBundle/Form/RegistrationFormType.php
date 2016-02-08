@@ -14,15 +14,16 @@ namespace UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Form\NewImageType;
+use AppBundle\Entity\Image;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder->add('firstname')
                 ->add('lastname')
                 ->add('avatar', NewImageType::class, array('required' => false))
-
                 ->add('username', null, array('label' => 'Pseudo', 'translation_domain' => 'FOSUserBundle'))
                 ->add('email', 'email', array('label' => 'Email', 'translation_domain' => 'FOSUserBundle'))
                 ->add('plainPassword', 'repeated', array(
