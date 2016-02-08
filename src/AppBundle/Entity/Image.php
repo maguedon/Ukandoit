@@ -44,13 +44,14 @@ class Image
 
     /**
      *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     * @param string $image
      *
      * @return Product
      */
-    public function setImageFile(File $image = null)
-    {
-        $this->imageFile = $image;
+    public function setImageFile($image )    {
+        $image_file = file_get_contents('http://localhost/ukandoit_ters/ukandoit/web/images/avatars/'.$image);
+        $this->imageFile = $image_file;
+        $this->imageName = $image;
 
         if ($image) {
             // It is required that at least one field changes if you are using doctrine
@@ -61,6 +62,22 @@ class Image
         return $this;
     }
 
+ /*
+  
+     * @param String|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+
+   public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }*/
     /**
      * @return File
      */
@@ -68,6 +85,7 @@ class Image
     {
         return $this->imageFile;
     }
+
 
     /**
      * @param string $imageName
@@ -121,4 +139,25 @@ class Image
     {
         return $this->updatedAt;
     }
+
+    public function getUploadRootDir()
+{
+    // absolute path to your directory where images must be saved
+    return __DIR__.'images/avatars'.$this->getUploadDir();
+}
+
+public function getUploadDir()
+{
+    return 'ukandoit_ters/ukandoit/web/images/avatars';
+}
+
+public function getAbsolutePath()
+{
+    return null === $this->image ? null : $this->getUploadRootDir().'/'.$this->image;
+}
+
+public function getWebPath()
+{
+    return null === $this->image ? null : '/'.$this->getUploadDir().'/'.$this->image;
+}
 }

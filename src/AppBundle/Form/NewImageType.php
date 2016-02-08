@@ -17,9 +17,33 @@ class NewImageType extends ImageType
         parent::buildForm($builder, $options);
 
         $builder
-            ->remove('imageName')
-            ->add('imageFile', 'file', array(
-                'label' => false
+        ->remove('imageName')
+        ->add('imageFile', 'comur_image', array(
+            'uploadConfig' => array(
+                        'uploadUrl' => 'images/avatars',       // required - see explanation below (you can also put just a dir path)
+                        'webDir' => 'ukandoit_ters/ukandoit/web/images/avatars',               // required - see explanation below (you can also put just a dir path)
+                        'fileExt' => '*.jpg;*.gif;*.png;*.jpeg',    //optional
+                         'showLibrary' => false,                      //optional
+            'saveOriginal' => false           //optional
+                        ),
+            'cropConfig' => array(
+                'minWidth' => 400,
+                'minHeight' => 400,
+                        'aspectRatio' => true,              //optional
+                        'cropRoute' => 'comur_api_crop',    //optional
+                        'forceResize' => false,             //optional
+                        'thumbs' => array(                  //optional
+                            array(
+                                'maxWidth' => 400,
+                                'maxHeight' => 400,
+                                'useAsFieldImage' => true  //optional
+                                )
+                            )
+                        )
             ));
-    }
+
 }
+}
+
+
+

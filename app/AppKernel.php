@@ -20,6 +20,9 @@ class AppKernel extends Kernel
             new UserBundle\UserBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new JMS\TranslationBundle\JMSTranslationBundle(),
+            new Comur\ImageBundle\ComurImageBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
