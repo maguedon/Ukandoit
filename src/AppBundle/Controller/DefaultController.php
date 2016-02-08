@@ -251,7 +251,7 @@ class DefaultController extends Controller
             return $this->redirectToRoute('objects'); //possessedDevice ID n'existe pas !
 
         $jawbone = $this->get("app.jawbone");
-        $json = $jawbone->getMoves($possessedDevice->getAccessTokenJawbone(), "2016-01-21 00:00:00");
+        $json = $jawbone->getMoves($possessedDevice->getAccessTokenJawbone(), "2016-01-21 00:00:00", "2016-01-23 00:00:00");
 
         if (count($json['items']) != 0)
             $hourly_totals = $json['items'][0]['details']['hourly_totals'];
@@ -282,7 +282,7 @@ class DefaultController extends Controller
         $withings = $this->get("app.withings");
         $withings->authenticate($possessedDevice);
 
-        $json = $withings->getActivities($withings->getUserID() , "2016-01-29", "2016-02-05"); //,"2016-01-25"
+        $json = $withings->getActivities($withings->getUserID() , "2015-10-31", "2015-11-07"); //,"2016-01-25"
        // $intra = $withings->getIntradayActivities($withings->getUserID() , "2016-02-01 8:00:00", "2016-02-01 18:00:00");
        // var_dump($intra);
         $standart = $withings->standardizeJSON($json);
