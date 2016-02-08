@@ -1,0 +1,39 @@
+<section class="objects">
+    <section> 
+        {% if app.user.possessedDevices|length != 0 %}
+            <ul class="collection">
+                {% for possessedDevice in app.user.possessedDevices %}
+                <li class="collection-item">
+                  <span class="title">{{ possessedDevice.deviceType }}</span>
+                  <a href="{{ path('objects_delete', {id: possessedDevice.id}) }}" class="secondary-content"><i class="material-icons">delete</i></a>
+                    {% if "Jawbone UP 24" == possessedDevice.deviceType %}
+                        <a href="{{ path('jawbone_moves', {id: possessedDevice.id}) }}" class="secondary-content">
+                    {% else %}
+                        <a href="{{ path('withings_moves', {id: possessedDevice.id}) }}" class="secondary-content">
+                    {% endif %}
+                    <i class="material-icons">visibility</i></a>
+                    
+                  </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Vous n'avez aucun objet pour le moment !</p>
+        {% endif %}
+    </section>
+    <section>
+        <div class="row">
+            {{ form_start(form) }}
+            {{ form_errors(form.deviceType) }}
+            <div class="col m3">
+                <h2>Ajouter un objet :</h2>
+            </div>
+            <div class="input-field col m3">
+               {{ form_widget(form.deviceType) }}
+           </div>
+           <div class="input-field col m4">
+               {{ form_widget(form.submit, {"attr": {"class": "waves-effect waves-light btn"}}) }}
+           </div>
+           {{ form_end(form) }}
+       </div>
+   </section>
+</section>

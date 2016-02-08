@@ -1,0 +1,22 @@
+<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">
+	<div class="row">
+		<div class="input-field form-group col offset-s4 s4">
+			{{ form_widget(form.new.first) }}
+			<label for="fos_user_resetting_form[new][first]" class="active">{{ 'Mot de passe'|trans({}, 'FOSUserBundle') }}</label>
+			{{ form_errors(form.new.first) }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="input-field form-group col offset-s4 s4">
+			{{ form_widget(form.new.second) }}
+			<label for="fos_user_resetting_form[new][second]" class="active">{{ 'Confirmation'|trans({}, 'FOSUserBundle') }}</label>
+			{{ form_errors(form.new.second) }}
+		</div>
+	</div>
+	{{ form_rest(form) }}
+	<div class="row">
+		<div class="col offset-s4 s4">
+			<input type="submit" class="btn btn-primary btn-block"  value="{{ 'Enregistrer'|trans({}, 'FOSUserBundle') }}" />
+		</div>
+	</div>
+</form>

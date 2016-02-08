@@ -1,0 +1,20 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+<div class="container error">
+    <div class="row titre_page">
+        <div class="bloc_rouge"></div>
+        <div class="bloc_titre">
+            <h1>{{ status_code }} {{ status_text }}</h1>
+        </div>
+    </div>
+    <section class="error_content">
+        <div class="row">
+            <p>Cette page n'existe pas.</p>
+            <a href="{{ path('homepage') }}" class="waves-effect waves-light btn">Retourner à l'accueil</a>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

@@ -88,7 +88,7 @@ fos_user:
                 address:        contact.ukandoit@gmail.com
                 sender_name:    Ukando'it
             enabled: true
-            template: email/confirmation_inscription.email.twig
+            template: email/confirmation.email.twig
     profile:
         form:
             type: app_user_profile
@@ -97,6 +97,7 @@ fos_user:
             from_email:
                 address:        contact.ukandoit@gmail.com
                 sender_name:    Ukando'it
+            template: email/password_resetting.email.twig
 
 
 vich_uploader:

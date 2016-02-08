@@ -2,6 +2,8 @@
 
 namespace AppBundle\Services\Devices\Jawbone;
 
+use Symfony\Component\Validator\Constraints\DateTime;
+
 class Jawbone{
 
 	private $client_id;
@@ -109,45 +111,61 @@ class Jawbone{
 
 		$response = file_get_contents($url, false, $context);
 		$activities = json_decode($response, true);
-		return $activities['data'];
+		return $this->standardizeJSON($activities['data']);
 	}
 
 	/**
-	 * Get moves
+	 * standardize Jawbone JSON to be used by Ukandoit service
 	 */
-	function getTotalMoves($access_token, $start_time, $end_time){
-		$url = "https://jawbone.com/nudge/api/v.1.0/users/@me/moves?";
+	function standardizeJSON($Jawbone_array){
+		$json = $Jawbone_array['items'];
+		$days = array();
+		$totalDistance = 0;
+		$totalSteps = 0;
+		$totalActiveTime = 0;
 
-		$opts = array(
-			'http'=>array(
-				'method'=>"GET",
-				'header'=>"Authorization: Bearer {$access_token}\r\n"
-			)
-		);
+		foreach ($json as $day){
+			$stringDay = str_split($day['date']);
+			//substr_replace($stringDay, '-', 4);
+			//substr_replace($stringDay, '-', 7);
+			$stringDay = $stringDay[0].$stringDay[1].$stringDay[2].$stringDay[3]."-".$stringDay[4].$stringDay[5]."-".$stringDay[6].$stringDay[7];
+			$data = $day['details'];
+			// date("Y-m-d", strtotime(date("Y-m-d", $data['time_updated'])))
+			$totalDistance += $data['distance'];
+			$totalSteps += $data['steps'];
+			$totalActiveTime += $data['active_time'];
 
-		$start_time = strtotime($start_time);
-		$end_time = strtotime($end_time);
+			$hours = array();
+			foreach($data['hourly_totals'] as $key => $value){
+				$title = str_split($key, 8);
+				$newtitle = $title[1];
+				$hours[$newtitle] = $value;
+			}
+			ksort($hours);
 
-		$param = array(
-			'start_time' => $start_time->getTimestamp(),
-			'end_time' => $end_time->getTimestamp()
-		);
+			$days[$stringDay] = array(
+				"distance" => $data['distance'],
+				"steps" => $data['steps'],
+				"active_time" => $data['active_time'],
+				"details" => $hours
+			);
+		}
 
-		$url = $url . http_build_query($param);
-
-		$context = stream_context_create($opts);
-
-		$response = file_get_contents($url, false, $context);
-
-		$moves = json_decode($response, true);
-
-		return $moves['data'];
+		$result = array(
+			"global" => array(
+				"distance" => $totalDistance,
+				"steps" => $totalSteps,
+				"active_time" => $totalActiveTime,
+				"days" => $days
+				)
+			);
+		return $result;
 	}
 
 	/**
 	* Get moves
 	*/
-	function getMoves($access_token){
+	function getMoves($access_token, $start_time, $end_time = null){
 		$url = "https://jawbone.com/nudge/api/v.1.0/users/@me/moves?";
 
 		$opts = array(
@@ -157,8 +175,19 @@ class Jawbone{
 				)
 			);
 
-		$start_time = new \DateTime("2016-01-23 00:00:00");
-		$end_time = new \DateTime("2016-01-23 23:59:59");
+		$start_time = new \DateTime($start_time);
+
+		if ($end_time == null){
+			$var = $start_time->format("Y-m-d H:i:s");
+			$end_time = new \DateTime($var);
+			$end_time->modify('+1 day');
+			$end_time = $end_time->format("Y-m-d H:i:s");
+			$end_time = new \DateTime($end_time);
+		}
+		else{
+			$end_time = new \DateTime($end_time);
+			$end_time->modify('+1 day');
+		}
 
 		$param = array(
 			'start_time' => $start_time->getTimestamp(),
@@ -166,12 +195,11 @@ class Jawbone{
 			);
 
 		$url = $url . http_build_query($param);
-
 		$context = stream_context_create($opts);
 
 		$response = file_get_contents($url, false, $context);
 
 		$moves = json_decode($response, true);
-		return $moves['data'];
+		return $this->standardizeJSON($moves['data']);
 	}
 }

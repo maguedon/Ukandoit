@@ -49,10 +49,12 @@ class Challenge
      */
     private $creator;
 
-     /**
+    /**
+     * Challengers
+     *
      * @ORM\OneToMany(targetEntity="User_Challenge", mappedBy="challenge")
      */
-     private $userChallenges;
+    private $userChallenges;
 
     /**
      * @ORM\ManyToOne(targetEntity="Activity", inversedBy="challenges")
@@ -61,9 +63,58 @@ class Challenge
     private $activity;
 
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="kilometres", type="integer", nullable=true)
+     */
+    private $kilometres;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nb_steps", type="integer", nullable=true)
+     */
+    private $nbSteps;
+
+    /**
+     * En nombre de jours
+     * @var int
+     *
+     * @ORM\Column(name="time", type="integer")
+     */
+    private $time;
+
+    /**
+     * Nombre de points accordés au gagnant
+     * @var int
+     *
+     * @ORM\Column(name="nb_points_first", type="integer")
+     */
+    private $nbPointsFirst;
+
+    /**
+     * Nombre de points accordés au deuxième
+     * @var int
+     *
+     * @ORM\Column(name="nb_points_second", type="integer")
+     */
+    private $nbPointsSecond;
+
+    /**
+     * Nombre de points accordés au troisième
+     * @var int
+     *
+     * @ORM\Column(name="nb_points_third", type="integer")
+     */
+    private $nbPointsThird;
+
+
     public function __construct() {
         $this->challengers = new ArrayCollection();
         $this->creationDate = new \DateTime();
+        $this->kilometres = null;
+        $this->nbSteps = null;
     }
 
 
@@ -262,5 +313,174 @@ class Challenge
     public function getUserChallenges()
     {
         return $this->userChallenges;
+    }
+
+    /**
+     * Set kilometres
+     *
+     * @param integer $kilometres
+     * @return Challenge
+     */
+    public function setKilometres($kilometres)
+    {
+        $this->kilometres = $kilometres;
+
+        return $this;
+    }
+
+    /**
+     * Get kilometres
+     *
+     * @return integer 
+     */
+    public function getKilometres()
+    {
+        return $this->kilometres;
+    }
+
+    /**
+     * Set nbSteps
+     *
+     * @param integer $nbSteps
+     * @return Challenge
+     */
+    public function setNbSteps($nbSteps)
+    {
+        $this->nbSteps = $nbSteps;
+
+        return $this;
+    }
+
+    /**
+     * Get nbSteps
+     *
+     * @return integer 
+     */
+    public function getNbSteps()
+    {
+        return $this->nbSteps;
+    }
+
+    /**
+     * Set time
+     *
+     * @param \DateTime $time
+     * @return Challenge
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
+
+        return $this;
+    }
+
+    /**
+     * Get time
+     *
+     * @return \DateTime 
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    /**
+     * Set nbPointsFirst
+     *
+     * @param integer $nbPointsFirst
+     * @return Challenge
+     */
+    public function setNbPointsFirst($nbPointsFirst)
+    {
+        $this->nbPointsFirst = $nbPointsFirst;
+
+        return $this;
+    }
+
+    /**
+     * Get nbPointsFirst
+     *
+     * @return integer 
+     */
+    public function getNbPointsFirst()
+    {
+        return $this->nbPointsFirst;
+    }
+
+    /**
+     * Set nbPointsSecond
+     *
+     * @param integer $nbPointsSecond
+     * @return Challenge
+     */
+    public function setNbPointsSecond($nbPointsSecond)
+    {
+        $this->nbPointsSecond = $nbPointsSecond;
+
+        return $this;
+    }
+
+    /**
+     * Get nbPointsSecond
+     *
+     * @return integer 
+     */
+    public function getNbPointsSecond()
+    {
+        return $this->nbPointsSecond;
+    }
+
+    /**
+     * Set nbPointsThird
+     *
+     * @param integer $nbPointsThird
+     * @return Challenge
+     */
+    public function setNbPointsThird($nbPointsThird)
+    {
+        $this->nbPointsThird = $nbPointsThird;
+
+        return $this;
+    }
+
+    /**
+     * Get nbPointsThird
+     *
+     * @return integer 
+     */
+    public function getNbPointsThird()
+    {
+        return $this->nbPointsThird;
+    }
+
+    /**
+    * Phrase d'accroche des cards de défis
+    */
+    public function getTeaser(){
+        //Je vous défie de courir au moins 30km cette semaine !
+        $teaser = "Je vous défie de ";
+
+        if($this->activity == "Course"){
+            $teaser .= "courir au moins " . $this->kilometres . "km";
+        }
+        // Marche
+        else{
+            if ($this->kilometres != null){
+                $teaser .= "marcher au moins " . $this->kilometres . "km";
+            }
+            // NbPas != null
+            else{
+                $teaser .= "faire au moins " . $this->nbSteps . " pas";
+            }
+        }
+
+        $teaser .= " sur " . $this->time;
+
+        if($this->time == 1)
+            $teaser .= " journée !";
+        else
+            $teaser .= " jours !";
+
+        return $teaser;
     }
 }

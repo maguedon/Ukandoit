@@ -18,6 +18,8 @@ class NewImageType extends ImageType
 
         $builder
             ->remove('imageName')
-            ->add('imageFile', 'file', array ('label' => false));
+            ->add('imageFile', 'file', array(
+                'label' => false
+            ));
     }
 }

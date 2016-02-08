@@ -30,13 +30,13 @@
 			</div>
 			<div class="col s4 m2 center-align">
 				{% if app.user %}
-				<a href="#" class="round_tab" name="current-challenges">
-					<i class="large material-icons">done</i>
-				</a>
+					<a href="#" class="round_tab" name="current-challenges">
+						<i class="large material-icons">done</i>
+					</a>
 				{% else %}
-				<a href="{{ path('fos_user_security_login') }}" class="round_tab" name="current-challenges">
-					<i class="large material-icons">done</i>
-				</a>
+					<a href="{{ path('fos_user_security_login') }}" class="round_tab" name="current-challenges">
+						<i class="large material-icons">done</i>
+					</a>
 
 				{% endif %}
 				<p>

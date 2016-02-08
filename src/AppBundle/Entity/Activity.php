@@ -107,4 +107,8 @@ class Activity
     {
         return $this->challenges;
     }
+
+    public function __toString(){
+        return $this->getName();
+    }
 }

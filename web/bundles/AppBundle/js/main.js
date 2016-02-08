@@ -8,7 +8,7 @@ $(document).ready(function(){
     }
 
     $(".modal_defis").on("click",function() {
-        var defi_id = $(this).attr("value");
+     var defi_id = $("#form_defi_send").attr("value");
 
         $("#form_defi_send").on("click",function() {
             var objet_id=$('input[name=object_form]:checked', '#form_defi').val();
