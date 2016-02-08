@@ -1,16 +1,21 @@
 <section class="objects">
     <section> 
         {% if app.user.possessedDevices|length != 0 %}
-            <div class="collection">
+            <ul class="collection">
                 {% for possessedDevice in app.user.possessedDevices %}
+                <li class="collection-item">
+                  <span class="title">{{ possessedDevice.deviceType }}</span>
+                  <a href="{{ path('objects_delete', {id: possessedDevice.id}) }}" class="secondary-content"><i class="material-icons">delete</i></a>
                     {% if "Jawbone UP 24" == possessedDevice.deviceType %}
-                        <a href="{{ path('jawbone_moves', {id: possessedDevice.id}) }}" class="collection-item">
+                        <a href="{{ path('jawbone_moves', {id: possessedDevice.id}) }}" class="secondary-content">
                     {% else %}
-                        <a href="{{ path('withings_moves', {id: possessedDevice.id}) }}" class="collection-item">
+                        <a href="{{ path('withings_moves', {id: possessedDevice.id}) }}" class="secondary-content">
                     {% endif %}
-                    {{ possessedDevice.deviceType }}</a>
+                    <i class="material-icons">visibility</i></a>
+                    
+                  </li>
                 {% endfor %}
-            </div>
+            </ul>
         {% else %}
             <p>Vous n'avez aucun objet pour le moment !</p>
         {% endif %}

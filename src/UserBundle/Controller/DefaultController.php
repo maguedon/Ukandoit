@@ -85,6 +85,20 @@ class DefaultController extends Controller
         
     }
 
+    /**
+     * @Route("/user/objects/delete/{id}", name="objects_delete")
+     */
+    public function deleteObjectAction($id){
+        $em = $this->get('doctrine')->getManager();
+        $object = $em->getRepository("AppBundle:PossessedDevice")->find($id);
+        $em->remove($object);
+        $em->flush();
+
+        $this->setFlash("message", "Objet supprimé !");
+
+        return $this->redirectToRoute('objects');
+    }
+
 	/**
      * @Route("/user/{name}", name="user_other")
      */
@@ -97,5 +111,14 @@ class DefaultController extends Controller
         ));
 
    }
+
+   /**
+     * @param string $action
+     * @param string $value
+     */
+    protected function setFlash($action, $value)
+    {
+        $this->container->get('session')->getFlashBag()->set($action, $value);
+    }
 
 }
