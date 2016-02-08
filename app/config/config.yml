@@ -97,6 +97,7 @@ fos_user:
             from_email:
                 address:        contact.ukandoit@gmail.com
                 sender_name:    Ukando'it
+            template: email/password_resetting.email.twig
 
 
 vich_uploader:
