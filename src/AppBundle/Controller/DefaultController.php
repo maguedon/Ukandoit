@@ -42,6 +42,8 @@ class DefaultController extends Controller
      */
       public function addDefisAction(Request $request){
 
+        $data = array();
+
         $challenge = new Challenge();
 
         $form = $this->createForm(NewChallengeType::class, $challenge);
@@ -54,21 +56,44 @@ class DefaultController extends Controller
 
         if (($form->isSubmitted() && $form->isValid()) || ($form2->isSubmitted() && $form2->isValid())) {
 
-            $challenge->setCreator($current_user);
+            $form_data_endDate = $form2->get("endDate")->getData();
+            $form_data_time = $form2->get("time")->getData();
+            $form_data_currentDate = $challenge->getCreationDate();
 
-            $challenge->setNbPointsFirst(1);
-            $challenge->setNbPointsSecond(1);
-            $challenge->setNbPointsThird(1);
+            $avoid_error = $form_data_time ;
+            if($avoid_error < 0){
+                $avoid_error = 0;
+            }
 
-            // Enregistrement de l'objet
-            $em = $this->get('doctrine')->getManager();
-            $em->persist($challenge);
-            $em->flush();
+            $now_temp = clone $form_data_currentDate;
+            $form_data_endDate_limit = $form_data_currentDate->add(new \DateInterval('P'.$avoid_error.'D'));
+
+            if(($form_data_time <= 0) ||
+                ($form_data_endDate_limit->format('Y-m-d') > $form_data_endDate->format('Y-m-d')) ||
+                ($form_data_endDate->format('Y-m-d') < $now_temp->format('Y-m-d'))){
+
+                $data["errors"][] = "Erreur, vérifiez les dates renseignées";
+
+            }
+            else{
+
+                $challenge->setCreator($current_user);
+
+                $challenge->setNbPointsFirst(1);
+                $challenge->setNbPointsSecond(1);
+                $challenge->setNbPointsThird(1);
+
+                // Enregistrement de l'objet
+                $em = $this->get('doctrine')->getManager();
+                $em->persist($challenge);
+                $em->flush();
+            }
         }
 
         return $this->render("AppBundle:Default:add_defis.html.twig", array(
             'form' => $form->createView(),
-            'form2' => $form2->createView()
+            'form2' => $form2->createView(),
+            'data' => $data
             ));
     }
 
@@ -308,7 +333,7 @@ class DefaultController extends Controller
     public function challengesAction(){
         $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findBy(
                    array(),        // $where
-                   array('creationDate' => 'DESC'),    // $orderBy
+                   array('id' => 'DESC'),    // $orderBy
                    5,                        // $limit
                    0                          // $offset
                  );
@@ -415,6 +440,9 @@ class DefaultController extends Controller
         {
             $current_user = $this->container->get('security.context')->getToken()->getUser();
             $data['user'] = $current_user;
+
+            $montre = $request->query->get('montre');
+            $data['montre'] = $montre;
 
             return $this->render('AppBundle:Ajax:ajax_add_defis.html.twig', array(
                 "data" => $data

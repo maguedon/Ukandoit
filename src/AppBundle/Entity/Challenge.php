@@ -63,14 +63,14 @@ class Challenge
     /**
     * @var int
     *
-    * @ORM\Column(name="kilometres", type="integer")
+    * @ORM\Column(name="kilometres", type="integer", nullable=true)
     */
    private $kilometres;
 
    /**
     * @var int
     *
-    * @ORM\Column(name="nb_steps", type="integer")
+    * @ORM\Column(name="nb_steps", type="integer", nullable=true)
     */
    private $nbSteps;
 
