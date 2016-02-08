@@ -186,6 +186,7 @@ class Jawbone{
 		}
 		else{
 			$end_time = new \DateTime($end_time);
+			$end_time->modify('+1 day');
 		}
 
 		$param = array(

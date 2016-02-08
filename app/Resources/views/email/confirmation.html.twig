@@ -1,0 +1,7 @@
+<p>Bonjour {{ user.username }} !</p>
+
+<p>Veuillez cliquer sur le lien suivant afin de valider votre inscription : <a href="http://localhost:443{{ path('fos_user_registration_confirm', {'token': user.confirmationToken}) }}">Test</a></p>
+
+<p>ou allez à l'url : http://localhost:443{{ path('fos_user_registration_confirm', {'token': user.confirmationToken}) }}</p>
+
+<p>Ukando'it</p>

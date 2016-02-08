@@ -39,7 +39,11 @@ class Ukandoit
 
     }
 
-    public function getDataFromAPI($challenge_start, $challenge_end, $challenge_distance, $challenge_steps, $challenge_active_time, $challenge_delais){
+    public function getDataFromAPI($devise, $challenge_start, $challenge_end, $challenge_distance, $challenge_steps, $challenge_active_time, $challenge_delais){
+
+        if ($devise->getDeviceType()->getName() == "Withings Activité Pop"){
+
+        }
         foreach (){
 
         }
