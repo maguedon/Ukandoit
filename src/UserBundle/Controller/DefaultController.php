@@ -27,7 +27,7 @@ class DefaultController extends Controller
     }
 
 
-       /**
+    /**
      * @Route("/user/challenges", name="my_challenges")
      */
        public function myChallengesAction(){
