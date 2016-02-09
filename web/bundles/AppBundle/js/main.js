@@ -122,8 +122,7 @@ $(".datepicker").datepicker({
 
 // -------------- Modal chargement data quand ajout defis --------------
 
-    $('.modal-trigger').leanModal();
-
+$('.modal-trigger').leanModal();
 
 // -------------- Ajout challenge Bloquer champ nbPas quand champ kilometre avec value et vice versa --------------
 $("#select_pas_km").change(function() {
@@ -137,7 +136,6 @@ $("#select_pas_km").change(function() {
 });
 
 // -------------- A defnir --------------
-
 
     EnableSubmit = function(val) {
         var sbmt = document.getElementById("form_defi_send");

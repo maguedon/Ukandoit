@@ -116,10 +116,12 @@ $(document).ready(function(){ // Quand le document est complètement chargé
 
     $(".modal-trigger-ajax").click(function(){
 
-        var DATA = "montre="+$("#select_montre").val();
+        var DATA = "montre=" + $("#select_montre").val() +
+                    "&dateDebPerf=" + $("#new_challenge_startPerf").val() +
+                    "&dateFinPerf=" + $("#new_challenge_endPerf").val() +
+                    "&pas_or_km=" + $("#select_pas_km_first").val();
 
         if($("#select_montre").val() != null){
-
            $.ajax({
             url: "{{ path('addDefisAjax')}}",
             type: 'get',
@@ -127,8 +129,8 @@ $(document).ready(function(){ // Quand le document est complètement chargé
 
             //Succès de la requête
             success: function(data) {
-                $('.modal-content').html(data);
-                $('#getDataChallenge').openModal();
+                $('.container.add_defis').after(data);
+                $('#hidden_content').removeClass("hide");
             }
         });
 

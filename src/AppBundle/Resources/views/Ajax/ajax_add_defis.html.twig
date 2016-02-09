@@ -1,1 +1,23 @@
-{{ dump(data) }}
+<script type="text/javascript">
+
+if("{{ data.pas_or_km }}" == "pas"){
+	$("#new_challenge_nbSteps").val({{ data.nbPas }});
+	$("#new_challenge_nbSteps").attr("placeholder", {{ data.nbPas }});
+
+	$("#new_challenge_kilometres").val(null);
+	$("#new_challenge_kilometres").attr("placeholder", "Pas concerné");
+}
+else if("{{ data.pas_or_km }}" == "km"){
+	$("#new_challenge_kilometres").val({{ data.nbKm }});
+	$("#new_challenge_kilometres").attr("placeholder", {{ data.nbKm }});
+
+	$("#new_challenge_nbSteps").val(null);
+	$("#new_challenge_nbSteps").attr("placeholder", "Pas concerné");
+}
+
+$("#new_challenge_time").val({{ data.time }});
+$("#new_challenge_time").attr("placeholder", {{ data.time }});
+
+Materialize.updateTextFields();
+
+</script>
