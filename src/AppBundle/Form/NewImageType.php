@@ -22,7 +22,7 @@ class NewImageType extends ImageType
             'label'=>false,
             'uploadConfig' => array(
                         'uploadUrl' => 'images/avatars',       // required - see explanation below (you can also put just a dir path)
-                        'webDir' => 'ukandoit/web/images/avatars',               // required - see explanation below (you can also put just a dir path)
+                        'webDir' => 'web/images/avatars',               // required - see explanation below (you can also put just a dir path)
                         'fileExt' => '*.jpg;*.gif;*.png;*.jpeg',    //optional
                          'showLibrary' => false,                      //optional
             'saveOriginal' => false           //optional

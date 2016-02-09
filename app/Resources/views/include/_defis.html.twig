@@ -1,8 +1,10 @@
 <div class="col s12 m6 l4 defi ">
 	<div id="{{ challenge.id }}" class="card blue-grey white hoverable">
-		<div class="bande_rouge">
-			<h2 class="card-title">{{ challenge.title }}</h2>
-		</div>
+		<a href="{{ path('showChallenge', {'challenge': challenge.id }) }}">
+			<div class="bande_rouge">
+				<h2 class="card-title">{{ challenge.title }}</h2>
+			</div>
+		</a>	
 		<div class="card-content">
 			<div class="row">
 				<div class="col s12 member_avatar">
@@ -31,13 +33,13 @@
 			</div>
 			<p>{{ challenge.getTeaser() }}</p>
 			{% if challenge.kilometres != null %}
-				<p> <div class="rouge">Distance</div> min. : {{ challenge.kilometres }}km</p>
+				<p> <div class="texte_rouge">Distance</div> min. : {{ challenge.kilometres }}km</p>
 			{% else %}
-				<p> <div class="rouge">Nombre de pas</div> min. : {{ challenge.nbSteps }}km</p>
+				<p> <div class="texte_rouge">Nombre de pas</div> min. : {{ challenge.nbSteps }}km</p>
 			{% endif %}
-			<p>	<div class="rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
-			<p>	<div class="rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
-			<p>	<div class="rouge">Nombres de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
+			<p>	<div class="texte_rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
+			<p>	<div class="texte_rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
+			<p>	<div class="texte_rouge">Nombres de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
 		</div>
 
 		<div data-target="modal1"  class="card-action modal_defis" id="1" value="{{ challenge.id }}">
