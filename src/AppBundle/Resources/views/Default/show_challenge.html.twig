@@ -21,19 +21,19 @@
 				{% for participant in participants %}
 				{% if classement < 3 %}
 				<li class="collection-item avatar">
-					{#% if bestChallengers[i].avatar != null %}
-					{% set image = vich_uploader_asset(bestChallengers[i].avatar, 'imageFile') %}
+					{% if participant.avatar != null %}
+					{% set image = vich_uploader_asset(participant.avatar, 'imageFile') %}
 					<img class="media-object dp circle" src="{{ asset(image) }}">
-					{#% else %#}
+					{% else %}
 					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
-					{#% endif %#}
+					{% endif %}
 					<p>
 						<b>{{ participant.username }}</b>
 					</p>
 					<p>
-						{#Niv. {{ participant.level }}
+						Niv. {{ participant.level }}
 					</p>
-					<p>#}
+					<p>
 						<i>{{ participant.performance }} {{ participant.mesure }}</i>
 					</p>
 					<div class="secondary-content">
@@ -55,7 +55,7 @@
 			</ul>
 		</div>
 	</section>
-
+{% if participants|length > 2 %}
 	<section class="petit_classement">
 		<div class="row">
 			<div id="highlight centered">
@@ -63,7 +63,7 @@
 					<table class="highlight centered">
 						<thead>
 							<tr>
-								<th data-field="id">Numéro</th>
+								<th data-field="id">Rang</th>
 								<th data-field="name">Nom</th>
 								<th data-field="price">Performance</th>
 							</tr>
@@ -89,6 +89,7 @@
 			</div>
 		</div>
 	</section>
+	{% endif %}
 	{% endif %}
 </div>
 {% endblock %}
