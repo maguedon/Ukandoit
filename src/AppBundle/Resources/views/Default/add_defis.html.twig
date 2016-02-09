@@ -38,8 +38,9 @@
 							<div class="input-field col s12">
 								<select id="select_montre">
 									<option value="" disabled selected>Choisir la montre</option>
-									<option value="Withings">Withings</option>
-									<option value="Jawbone">Jawbone</option>
+									{% for possessedDevice in app.user.possessedDevices %}
+					               		<option value="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }}</option>
+					                {% endfor %}
 								</select>
 								<label>Avec quelle montre avez-vous fait cette performance ?</label>
 							</div>
@@ -97,7 +98,7 @@
 								<select id="select_pas_km">
 									<option value="" disabled selected>Choisir le type</option>
 									<option value="pas">Nombre de pas</option>
-									<option value="km">Nombre de kilometre</option>
+									<option value="km">Nombre de kilomètres</option>
 								</select>
 								<label>C'est un défi en nombre de pas ou en kilomètres ?</label>
 						</div>
@@ -114,7 +115,7 @@
 						<div class="input-field form-group col s12">
 							{{ form_widget(form2.time, { 'attr': {'class': 'form-control'} }) }}
 							{{ form_errors(form2.time) }}
-							<label for="activity">En ? de jour</label>
+							<label for="activity">En combien de jour ?</label>
 						</div>
 						<div class="input-field form-group col s12">
 							{{ form_widget(form2.activity, { 'attr': {'class': 'form-control'} }) }}
