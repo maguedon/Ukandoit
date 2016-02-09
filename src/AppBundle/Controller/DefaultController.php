@@ -434,18 +434,18 @@ class DefaultController extends Controller
             $id_participant = $collection->getChallenger()->getId();
             $participant = $this->getDoctrine()->getRepository('AppBundle:User')->find($id_participant);
 
-            $devise_participant = $collection->getDeviceUsed();
-            $devise_participant = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($devise_participant->getId());
+            $device_participant = $collection->getDeviceUsed();
+            $device_participant = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($device_participant->getId());
 
-            if ($devise_participant->getDeviceType()->getName() == "Withings Activité Pop"){
+            if ($device_participant->getDeviceType()->getName() == "Withings Activité Pop"){
                 $withings = $this->get("app.withings");
-                $withings->authenticate($devise_participant);
+                $withings->authenticate($device_participant);
                 $json = $withings->getActivities($withings->getUserID() , $challenge_start->format("Y-m-d"), $challenge_end->format("Y-m-d"));
             }
 
-            if ($devise_participant->getDeviceType()->getName() == "Jawbone UP 24"){
+            if ($device_participant->getDeviceType()->getName() == "Jawbone UP 24"){
                 $jawbone = $this->get("app.jawbone");
-                $json = $jawbone->getMoves($devise_participant->getAccessTokenJawbone(), $challenge_start->format("Y-m-d"), $challenge_end->format("Y-m-d"));
+                $json = $jawbone->getMoves($device_participant->getAccessTokenJawbone(), $challenge_start->format("Y-m-d"), $challenge_end->format("Y-m-d"));
             }
 
             $ukandoit = $this->get("app.ukandoit");
@@ -458,7 +458,7 @@ class DefaultController extends Controller
             $data = array(
                 "userid" => $id_participant,
                 "username" => $participant->getUsername(),
-                "devise" => $devise_participant->getDeviceType()->getName(),
+                "device" => $device_participant->getDeviceType()->getName(),
                 "mesure" => $mesure
             );
 
