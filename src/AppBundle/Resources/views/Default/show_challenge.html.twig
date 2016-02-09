@@ -23,9 +23,9 @@
 				<li class="collection-item avatar">
 					{% if participant.avatar != null %}
 					{% set image = vich_uploader_asset(participant.avatar, 'imageFile') %}
-					<img class="media-object dp circle" src="{{ asset(image) }}">
+					<img class="media-object dp circle" src="{{ asset(image) }}" alt="Avatar de {{ participant.username }}">
 					{% else %}
-					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg" alt="Avatar de {{ participant.username }}">
 					{% endif %}
 					<p>
 						<b>{{ participant.username }}</b>
@@ -38,11 +38,11 @@
 					</p>
 					<div class="secondary-content">
 						{% if classement == 0 %}
-						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/first.png')}}">
+						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/first.png')}}" alt="Médaille gagant">
 						{% elseif classement == 1%}
-						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/second.png')}}">
+						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/second.png')}}" alt="Médaille second">
 						{% else %}
-						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/third.png')}}">
+						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/third.png')}}" alt="Médaille troisième">
 						{% endif %}
 
 					</div>

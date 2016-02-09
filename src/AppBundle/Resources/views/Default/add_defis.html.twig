@@ -9,8 +9,8 @@
 	</div>
 	<div class="row">
 		<ul id="tabs_add_defis" class="tabs">
-			<li class="tab col s3"><a class="active" href="#idoit">IDID'IT !</a></li>
-			<li class="tab col s3"><a href="#kanudoit">KANWEDO'IT ?</a></li>
+			<li class="tab col s3"><a class="active" href="#idoit" title="IDID'IT !">IDID'IT !</a></li>
+			<li class="tab col s3"><a href="#kanudoit" title="KANWEDO'IT ?">KANWEDO'IT ?</a></li>
 		</ul>
 		<div id="idoit" class="col s12">
 			<form action="{{ path('add_defis') }}" {{ form_enctype(form) }} method="POST">
@@ -61,7 +61,7 @@
 								<label for="endDate">Date de fin de votre performance</label>
 							</div>
 							<div class="input-field col s12">
-								<a class="waves-effect waves-light btn modal-trigger-ajax" href="#getDataChallenge">Récupérer sa performance</a>
+								<a class="waves-effect waves-light btn modal-trigger-ajax" href="#getDataChallenge" title="Récupérer mes performances">Récupérer sa performance</a>
 							</div>
 							<div id="hidden_content" class="hide">
 								<div class="input-field col s4">

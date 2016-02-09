@@ -1,5 +1,9 @@
 {% extends "::base.html.twig" %}
 
+{% block description %}
+<meta name="description" content="Inscrivez-vous à Ukando'it et défiez vos amis !" />
+{% endblock %}
+
 {% block body %}
 {% block fos_user_content %}
 {% include "UserBundle:Registration:register_content.html.twig" %}

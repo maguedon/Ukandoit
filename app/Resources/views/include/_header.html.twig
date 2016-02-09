@@ -20,7 +20,7 @@
 						<li class="tab col m1 avatar_menu">
 							{% if app.user.avatar != null %}
 								{% set image = vich_uploader_asset(app.user.avatar, 'imageFile') %}
-								<img data-position="bottom" data-delay="50" data-tooltip="{{ app.user.username }} - Niv.{{ app.user.level }}" class="tooltipped menu_logo dp circle" src="{{ asset(image) }}">
+								<img data-position="bottom" data-delay="50" data-tooltip="{{ app.user.username }} - Niv.{{ app.user.level }}" class="tooltipped menu_logo dp circle" src="{{ asset(image) }}" alt="photo de profil de {{ app.user.username }}">
 							{% else %}
 								<img data-position="bottom" data-delay="50" data-tooltip="{{ app.user.username }} - Niv.{{ app.user.level }}" class="tooltipped menu_logo dp circle" src="{{asset('bundles/AppBundle/img/sans_avatar.jpg')}}"  alt="photo de profil de {{ app.user.username }}">
 							{% endif %}
@@ -69,7 +69,7 @@
 		<div class="row">
 			<div class="col s6 left-align">
 				<div class="responsive-logo">
-					<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/logo_definitif.svg')}}"/>
+					<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/logo_definitif.svg')}}" alt="logo ukando'it"/>
 				</div>
 			</div>
 			<div class="col m6 s6 l6 right-align navicon">
@@ -82,19 +82,19 @@
 	</div>
 	<div class="underHeader">
 		<div class="logo">
-			<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/logo_definitif.svg')}}"/>
+			<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/logo_definitif.svg')}}" alt="logo ukando'it"/>
 		</div>
 	</div>
 </div>
 {% if app.request.attributes.get('_route') == "homepage" %}
 <div class="parallax-container large">
 <div class="parallax">
-		<img src="{{asset('bundles/AppBundle/img/accueil_running.jpg')}}"/>
+		<img src="{{asset('bundles/AppBundle/img/accueil_running.jpg')}}" alt="Accueil ukando'it"/>
 	</div>
 {% else %}
 <div class="parallax-container">
 <div class="parallax small">
-		<img src="{{asset('bundles/AppBundle/img/accueil_running.jpg')}}"/>
+		<img src="{{asset('bundles/AppBundle/img/accueil_running.jpg')}}" alt="Accueil ukando'it"/>
 	</div>
 {% endif %}
 	{% if app.request.attributes.get('_route') == "homepage" %}

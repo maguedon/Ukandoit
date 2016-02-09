@@ -20,7 +20,7 @@
 							{% else %}
 
 							{% set image = vich_uploader_asset(challenge.creator.avatar, 'imageFile') %}
-							<img class="media-object dp circle" src="{{ asset(image) }}">
+							<img class="media-object dp circle" src="{{ asset(image) }}" alt="photo de profil de {{ challenge.creator }}">
 
 							{% endif %}
 						</a>

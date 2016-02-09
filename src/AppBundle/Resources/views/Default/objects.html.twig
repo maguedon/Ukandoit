@@ -23,9 +23,9 @@
             <div class="collection">
                 {% for possessedDevice in app.user.possessedDevices %}
                     {% if "Jawbone UP 24" == possessedDevice.deviceType %}
-                        <a href="{{ path('jawbone_moves', {id: possessedDevice.id}) }}" class="collection-item">
+                        <a href="{{ path('jawbone_moves', {id: possessedDevice.id}) }}" class="collection-item" title="{{ possessedDevice.deviceType }}">
                     {% else %}
-                        <a href="{{ path('withings_moves', {id: possessedDevice.id}) }}" class="collection-item">
+                        <a href="{{ path('withings_moves', {id: possessedDevice.id}) }}" class="collection-item" title="{{ possessedDevice.deviceType }}">
                     {% endif %}
                     {{ possessedDevice.deviceType }}</a>
                 {% endfor %}

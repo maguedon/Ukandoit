@@ -6,7 +6,7 @@
 		<div class="col s12 m4">
 			{% if user.avatar != null %}
 			{% set image = vich_uploader_asset(user.avatar, 'imageFile') %}
-			<img class="dashboard_avatar" src="{{ asset(image) }}">
+			<img class="dashboard_avatar" src="{{ asset(image) }}" alt="photo de profil de {{ user.username }}">
 			{% else %}
 				<img class="dashboard_avatar" src="{{asset('bundles/AppBundle/img/sans_avatar.jpg')}}"  alt="photo de profil de {{ user.username }}">
 			{% endif %}

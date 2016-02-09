@@ -1,4 +1,9 @@
 {% extends "::base.html.twig" %}
+
+{% block description %}
+<meta name="description" content="Liste de tous les défis lancés" />
+{% endblock %}
+
 {% block body %}
 <div class="container home">
 	<section class="titre_page">
@@ -17,7 +22,7 @@
 		</div>
 	</section>
 	<div class="loadmore">
-		<img class="animated rotateIn infinite" src="{{asset('bundles/AppBundle/img/icon_ukandoit.png')}}"/>
+		<img class="animated rotateIn infinite" src="{{asset('bundles/AppBundle/img/icon_ukandoit.png')}}" alt="icone ukando'it"/>
 	</div>
 </div>
 
