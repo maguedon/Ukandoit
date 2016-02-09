@@ -417,6 +417,11 @@ class DefaultController extends Controller
         $current_user = $this->container->get('security.context')->getToken()->getUser();
         $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge);
 
+        if ( $challenge->getKilometres() !== null )
+            $mesure = "metres";
+        else
+            $mesure = "pas";
+
         $challenge_start = $challenge->getCreationDate();
         $challenge_end = $challenge->getEndDate();
 
@@ -427,7 +432,7 @@ class DefaultController extends Controller
 
         foreach ($participants as $collection){
             $id_participant = $collection->getChallenger()->getId();
-            $participant = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id_participant);
+            $participant = $this->getDoctrine()->getRepository('AppBundle:User')->find($id_participant);
 
             $devise_participant = $collection->getDeviceUsed();
             $devise_participant = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($devise_participant->getId());
@@ -451,16 +456,19 @@ class DefaultController extends Controller
 //            }
 
             $data = array(
-                "user_id" => $id_participant,
-                "user_firstname" => $participant->getFirstname(),
-                "user_lastname" => $participant->getLastname(),
-                "devise" => $devise_participant->getDeviceType()->getName()
+                "userid" => $id_participant,
+                "username" => $participant->getUsername(),
+                "devise" => $devise_participant->getDeviceType()->getName(),
+                "mesure" => $mesure
             );
 
-            $data['performance'] = $best_performance;
-            array_push($result, $data);
+            $data['performance'] = $best_performance["value"];
+
+            $result[$data['performance']] = $data;
+            //array_push($result, $data);
         }
 
+        krsort($result);
 
         return $this->render('AppBundle:Default:show_challenge.html.twig', array(
             "participants" => $result
