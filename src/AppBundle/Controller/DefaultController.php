@@ -434,6 +434,10 @@ class DefaultController extends Controller
             $id_participant = $collection->getChallenger()->getId();
             $participant = $this->getDoctrine()->getRepository('AppBundle:User')->find($id_participant);
 
+            $avatar_participant = $participant->getAvatar();
+            $level_participant = $participant->getLevel();
+
+
             $device_participant = $collection->getDeviceUsed();
             $device_participant = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($device_participant->getId());
 
@@ -458,6 +462,8 @@ class DefaultController extends Controller
             $data = array(
                 "userid" => $id_participant,
                 "username" => $participant->getUsername(),
+                "avatar" => $avatar_participant,
+                "level" => $level_participant,
                 "device" => $device_participant->getDeviceType()->getName(),
                 "mesure" => $mesure
             );
