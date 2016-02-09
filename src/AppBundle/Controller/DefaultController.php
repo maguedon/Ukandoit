@@ -492,8 +492,30 @@ class DefaultController extends Controller
             $current_user = $this->container->get('security.context')->getToken()->getUser();
             $data['user'] = $current_user;
 
-            $montre = $request->query->get('montre');
-            $data['montre'] = $montre;
+            $id_montre = $request->query->get('montre');
+
+            $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id_montre);
+
+            $namePossessedDevice = $possessedDevice->getDeviceType()->getName();
+            $data['montre']['name'] = $namePossessedDevice;
+
+            switch ($namePossessedDevice) {
+            case 'Withings Activité Pop':
+                $withings = $this->get('app.withings');
+                $withings->authenticate($possessedDevice);
+                $json = $withings->getActivities($withings->getUserID() , "2015-12-22", "2015-12-28");
+                $data['json'] = $json;
+                break;
+            case 'Jawbone UP 24':
+                $montre_service = $this->get('app.jawbone');
+                break;
+            case 'Googlefit':
+                $montre_service = $this->get('app.googlefit');
+                break;
+            default:
+                $data['json'] = "kk";
+                break;
+            }
 
             return $this->render('AppBundle:Ajax:ajax_add_defis.html.twig', array(
                 "data" => $data

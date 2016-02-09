@@ -150,6 +150,7 @@ class Withings
      * standardize Withings JSON to be used by Ukandoit service
      */
     function standardizeJSON($Withings_array){
+        $Withings_array = json_decode($Withings_array, true);
         $json = $Withings_array["body"]["activities"];
         $days = array();
         $totalDistance = 0;
@@ -198,7 +199,7 @@ class Withings
 
     public function getActivities($userid, $startdate, $enddate = null)
     {
-        return $this->standardizeJSON($this->withings->getUserGateway()->getActivities($userid, $startdate, $enddate));
+        return $this->standardizeJSON(json_encode($this->withings->getUserGateway()->getActivities($userid, $startdate, $enddate)));
     }
 
     public function getIntradayActivities($userid, $startdate, $enddate)
