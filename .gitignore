@@ -19,11 +19,12 @@ composer.lock
 web/bundles/framework/*
 web/bundles/framework
 web/bundles/images
-web/bundles/images
 /src/AppBundle/Entity/*.*~
 web/images/avatars/*
 web/bundles/comurimage/*
 web/bundles/fosjsrouting/*
-web/bundles/framework/*
 web/bundles/jmstranslation/*
-
+web/bundles/comurimage/
+web/bundles/fosjsrouting/
+web/bundles/jmstranslation/
+web/log.txt
