@@ -148,7 +148,7 @@ class Image
 
 public function getUploadDir()
 {
-    return 'ukandoit_ters/ukandoit/web/images/avatars';
+    return 'web/images/avatars';
 }
 
 public function getAbsolutePath()

@@ -21,10 +21,10 @@ web/bundles/framework
 web/bundles/images
 /src/AppBundle/Entity/*.*~
 web/images/avatars/*
-web/bundles/comurimage/*
-web/bundles/fosjsrouting/*
-web/bundles/jmstranslation/*
 web/bundles/comurimage/
+web/bundles/comurimage/*
 web/bundles/fosjsrouting/
+web/bundles/fosjsrouting/*
 web/bundles/jmstranslation/
+web/bundles/jmstranslation/*
 web/log.txt
