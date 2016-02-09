@@ -30,13 +30,6 @@ class PossessedDevice
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
-     */
-    private $name;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="access_token_jawbone", type="string", length=255, nullable=true)
      */
     private $accessTokenJawbone;
@@ -301,29 +294,6 @@ class PossessedDevice
     public function getCreationDate()
     {
         return $this->creationDate;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return PossessedDevice
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
