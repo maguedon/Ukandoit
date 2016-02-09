@@ -1,10 +1,90 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-    <pre>
-		{{ dump(user) }}
-	</pre>
-	<pre>
-		{{ dump(test) }}
-	</pre>
+
+<div class="container">
+
+	<section class="titre_page">
+		<div class="row">
+			<div class="bloc_rouge"></div>
+			<div class="bloc_titre">
+				<h1>Le Top 3</h1>
+			</div>
+		</div>
+	</section>
+	{% for participant in participants %}
+	    
+	{% endfor %}
+	<section class="classement center-align">
+		<div class="row">
+			<ul class="collection">
+				{% set classement = 0 %}
+
+				{% for {{ participant }} in 0..2 %}
+				<li class="collection-item avatar">
+					{#% if bestChallengers[i].avatar != null %#}
+					{#% set image = vich_uploader_asset(bestChallengers[i].avatar, 'imageFile') %#}
+					<img class="media-object dp circle" src="{#{ asset(image) }#}">
+					{#% else %#}
+					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
+					{#% endif %#}
+					<p>
+						<b>{#{ bestChallengers[i].username }#}</b>
+					</p>
+					<p>
+						Niv. {#{ bestChallengers[i].level }#}
+					</p>
+					<p>
+						<i>{#{ bestChallengers[i].nbPoints }#} points</i>
+					</p>
+					<div class="secondary-content">
+						{% if i == 0 %}
+						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/first.png')}}">
+						{% elseif i == 1%}
+						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/second.png')}}">
+						{% else %}
+						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/third.png')}}">
+						{% endif %}
+
+					</div>
+				</li>
+				{% set classement += 1 %}
+
+				{% endfor %}
+			</ul>
+		</div>
+	</section>
+
+	<section class="petit_classement">
+		<div class="row">
+			<div id="highlight centered">
+				<div class="col s12">
+					<table class="highlight centered">
+						<thead>
+							<tr>
+								<th data-field="id">Numéro</th>
+								<th data-field="name">Nom</th>
+								<th data-field="price">Performance</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for {{ participant }} in 2..27 %}
+							<tr>
+								<td>{{ classement }}</td>
+								<td>{{ participant.username }}</td>
+								<td>{{ participant.devices }}</td>
+								<td>{{ participant.performance }} {{ participant.mesure }}</td>
+							</tr>
+							{% set classement += 1 %}
+
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	{% endfor %}
+</div>
+
 {% endblock %}
