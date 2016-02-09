@@ -19,6 +19,7 @@ class NewImageType extends ImageType
         $builder
         ->remove('imageName')
         ->add('imageFile', 'comur_image', array(
+            'label'=>false,
             'uploadConfig' => array(
                         'uploadUrl' => 'images/avatars',       // required - see explanation below (you can also put just a dir path)
                         'webDir' => 'ukandoit/web/images/avatars',               // required - see explanation below (you can also put just a dir path)
