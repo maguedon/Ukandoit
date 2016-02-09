@@ -11,17 +11,12 @@
 /composer.phar
 app/SymfonyRequirements.php
 app/check.php
-web/config.php
-web/bundles/AppBundle/css/main.css
+web/config.phpcd web
 composer.lock
 .phpintel/
 /.idea/*
-web/bundles/framework/*
-web/bundles/framework
 web/bundles/images
 /src/AppBundle/Entity/*.*~
 web/images/avatars/*
-web/bundles/comurimage/*
-web/bundles/fosjsrouting/*
-web/bundles/jmstranslation/*
+web/bundles/*
 web/log.txt
