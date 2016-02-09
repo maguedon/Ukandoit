@@ -500,9 +500,24 @@ class DefaultController extends Controller
         if($request->isXmlHttpRequest())
         {
             $current_user = $this->container->get('security.context')->getToken()->getUser();
-            $data['user'] = $current_user;
 
             $id_montre = $request->query->get('montre');
+
+            $date_deb = explode('/', $request->query->get('dateDebPerf'));
+            $data['date_deb']  = $date_deb[2].'-'.$date_deb[1].'-'.$date_deb[0];
+
+            $date_fin = explode('/', $request->query->get('dateFinPerf'));
+            $data['date_fin'] = $date_fin[2].'-'.$date_fin[1].'-'.$date_fin[0];
+
+            $pas_or_km = $request->query->get('pas_or_km');
+            $data['pas_or_km'] = $pas_or_km;
+
+            //Calcule de time
+            $time1 = strtotime($data['date_deb']);
+
+            $time2 = strtotime($data['date_fin']);
+
+            $data['time'] = ($time2 - $time1)/(60*60*24);
 
             $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id_montre);
 
@@ -513,8 +528,9 @@ class DefaultController extends Controller
             case 'Withings Activité Pop':
                 $withings = $this->get('app.withings');
                 $withings->authenticate($possessedDevice);
-                $json = $withings->getActivities($withings->getUserID() , "2015-12-22", "2015-12-28");
-                $data['json'] = $json;
+                $json = $withings->getActivities($withings->getUserID() , $data['date_deb'], $data['date_fin']);
+                $data['nbPas'] = $json['global']['steps'];
+                $data['nbKm'] = $json['global']['distance'];
                 break;
             case 'Jawbone UP 24':
                 $montre_service = $this->get('app.jawbone');
