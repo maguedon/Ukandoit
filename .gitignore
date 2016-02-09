@@ -20,4 +20,5 @@ web/bundles/framework/*
 web/bundles/framework
 web/bundles/images
 /src/AppBundle/Entity/*.*~
+web/images/avatars/*
 
