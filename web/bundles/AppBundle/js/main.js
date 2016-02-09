@@ -155,10 +155,7 @@ $("#select_pas_km").change(function() {
             });*/
         });
     });
-    /* $(".card-action").click(function() {
-    var id_defi = $(this).attr('id');
-    toastr.success("Vous avez relevé le défi " +   id_defi );
-    });*/
+
     $('.card-action a').click(function(event) {
         event.preventDefault();
     });
