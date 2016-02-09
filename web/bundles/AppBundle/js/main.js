@@ -1,82 +1,85 @@
-// -------------- Initialisation du parallax --------------
-$('.parallax').parallax();
+$(document).ready(function() {
 
- // -------------- Permet d'afficher les balises select --------------
-$('select').material_select();
+    // -------------- Initialisation du parallax --------------
+    $('.parallax').parallax();
 
-// -------------- Activation dropdown menu --------------
-$(".dropdown-button").dropdown();
+     // -------------- Activation des balises select --------------
+    $('select').material_select();
 
-// -------------- Remonte le underHeader si chargement en milieu de page --------------
-$(window).load(function() {
-    if (document.body.scrollTop !== 0 || document.documentElement.scrollTop !== 0) {
-        $(".underHeader").slideUp('fast');
-    }
-});
+    // -------------- Activation dropdown menu --------------
+    $(".dropdown-button").dropdown();
 
-// -------------- Remonte le underHeader quand scroll --------------
-window.onscroll = function(e) {
-    if (window.innerWidth > 768) {
+    // -------------- Remonte le underHeader si chargement en milieu de page --------------
+    $(window).load(function() {
         if (document.body.scrollTop !== 0 || document.documentElement.scrollTop !== 0) {
             $(".underHeader").slideUp('fast');
-        } else {
-            $(".underHeader").slideDown();
         }
-    } else {
-        $(".underHeader").css("display", "none");
+    });
+
+    // -------------- Remonte le underHeader quand scroll --------------
+    window.onscroll = function(e) {
+        if (window.innerWidth > 768) {
+            if (document.body.scrollTop !== 0 || document.documentElement.scrollTop !== 0) {
+                $(".underHeader").slideUp('fast');
+            } else {
+                $(".underHeader").slideDown();
+            }
+        } else {
+            $(".underHeader").css("display", "none");
+        }
     }
-}
 
 /* -------------- OVERLAY MENU -------------- */
-$(document).ready(function() {});
-$(".nav-toggle").click(function() {
-    $(this).toggleClass("active");
-    $(".overlay-boxify").toggleClass("open");
-});
-$(".overlay ul li a").click(function() {
-    $(".nav-toggle").toggleClass("active");
-    $(".overlay-boxify").toggleClass("open");
-});
-$(".overlay").click(function() {
-    $(".nav-toggle").toggleClass("active");
-    $(".overlay-boxify").toggleClass("open");
-});
+
+    $(".nav-toggle").click(function() {
+        $(this).toggleClass("active");
+        $(".overlay-boxify").toggleClass("open");
+    });
+    $(".overlay ul li a").click(function() {
+        $(".nav-toggle").toggleClass("active");
+        $(".overlay-boxify").toggleClass("open");
+    });
+    $(".overlay").click(function() {
+        $(".nav-toggle").toggleClass("active");
+        $(".overlay-boxify").toggleClass("open");
+    });
+
 
 // -------------- ToolTipe Avatar dans menu et bouton deconnection --------------
-$(document).ready(function() {
+
     $('.tooltipped').tooltip({
         delay: 50
     });
-});
+
 
 // --------------Animation des bouton sociaux --------------
-$('.fb_logo').mouseenter(function() {
-    $(this).addClass('animated pulse infinite');
-});
-$('.fb_logo').mouseleave(function() {
-    $(this).removeClass('animated pulse infinite');
-});
-$('.tw_logo').mouseenter(function() {
-    $(this).addClass('animated pulse infinite');
-});
-$('.tw_logo').mouseleave(function() {
-    $(this).removeClass('animated pulse infinite');
-});
-$('.round_tab').not(".round_tab.active").mouseenter(function() {
-    $(this).addClass('animated pulse infinite');
-});
-$('.round_tab').not(".round_tab.active").mouseleave(function() {
-    $(this).removeClass('animated pulse infinite');
-});
-$('#inscription-button').mouseenter(function() {
-    $(this).addClass('animated tada');
-});
-$('#inscription-button').mouseleave(function() {
-    $(this).removeClass('animated tada');
-});
-$(document).ready(function() {
-    $('ul#tabs_add_defis').tabs();
-});
+    $('.fb_logo').mouseenter(function() {
+        $(this).addClass('animated pulse infinite');
+    });
+    $('.fb_logo').mouseleave(function() {
+        $(this).removeClass('animated pulse infinite');
+    });
+    $('.tw_logo').mouseenter(function() {
+        $(this).addClass('animated pulse infinite');
+    });
+    $('.tw_logo').mouseleave(function() {
+        $(this).removeClass('animated pulse infinite');
+    });
+    $('.round_tab').not(".round_tab.active").mouseenter(function() {
+        $(this).addClass('animated pulse infinite');
+    });
+    $('.round_tab').not(".round_tab.active").mouseleave(function() {
+        $(this).removeClass('animated pulse infinite');
+    });
+    $('#inscription-button').mouseenter(function() {
+        $(this).addClass('animated tada');
+    });
+    $('#inscription-button').mouseleave(function() {
+        $(this).removeClass('animated tada');
+    });
+    $(document).ready(function() {
+        $('ul#tabs_add_defis').tabs();
+    });
 
 /* -------------- French configuration pour les Datepicker -------------- */
 (function(factory) {
@@ -118,9 +121,9 @@ $(".datepicker").datepicker({
 }).attr("readonly", "readonly");
 
 // -------------- Modal chargement data quand ajout defis --------------
-$(document).ready(function() {
+
     $('.modal-trigger').leanModal();
-});
+
 
 // -------------- Ajout challenge Bloquer champ nbPas quand champ kilometre avec value et vice versa --------------
 $("#select_pas_km").change(function() {
@@ -135,7 +138,7 @@ $("#select_pas_km").change(function() {
 
 // -------------- A defnir --------------
 
-$(document).ready(function() {
+
     EnableSubmit = function(val) {
         var sbmt = document.getElementById("form_defi_send");
         $(sbmt).removeAttr("disabled");
@@ -172,7 +175,7 @@ $(document).ready(function() {
         $(".home .defis .affichage-defis").hide();
         $(".home .defis ." + challengeType).show();
     });
-});
+
 
 // --------------  toastr options -------------- //
 
@@ -195,3 +198,5 @@ toastr.options = {
     "hideMethod": "fadeOut"
 }
 */
+
+});
