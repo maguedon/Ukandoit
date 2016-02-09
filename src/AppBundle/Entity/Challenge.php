@@ -4,7 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Challenge
  *
@@ -26,6 +26,12 @@ class Challenge
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 30,
+     *      minMessage = "Vous devez écrire au minimum 5 caractères",
+     *      maxMessage = "Vous devez écrire au maximum 30 caractères"
+     * )
      */
     private $title;
 

@@ -29,7 +29,8 @@
         "vich/uploader-bundle": "^0.14.0",
         "google/apiclient": "^2.0.0@RC",
         "friendsofsymfony/jsrouting-bundle": "@stable",
-        "comur/image-bundle": "1.0.*@dev"
+        "comur/image-bundle": "1.0.*@dev",
+        "symfony/console": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
