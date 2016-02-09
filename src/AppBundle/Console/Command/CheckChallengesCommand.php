@@ -39,7 +39,7 @@ class CheckChallengesCommand extends ContainerAwareCommand
 
         //On regarde tous les challenges
         foreach($challenges as $challenge){
-            // Si le challenge vient de se terminer on envoie un mail
+            // Si le challenge vient de se terminer on envoie un mail aux participants
             if($challenge->getEndDate()->format('d-m-Y') == (new \DateTime())->modify("-1 day")->format('d-m-Y')){
                 foreach($challenge->getUserChallenges() as $user_challenge){
                     $recipient = $user_challenge->getChallenger()->getEmail();

@@ -1,5 +1,6 @@
 <p>Bonjour {{ username }},</p>
 
+{% if username != challenge.creator %}
 <p>Le défi suivant vient de se terminer.</p>
 
 <div>
@@ -12,7 +13,26 @@
 	Durée : {{ challenge.creationDate|date('d/m/Y') }} - {{ challenge.endDate|date('d/m/Y') }}</p>
 </div>
 
-<p>Afin d'afficher les résultats rapidement, merci de synchroniser vos données avec votre application avant le {{ date('now').modify("+2 day")|date('d/m/Y') }} ! Tout participant n'ayant pas synchonisé ses données à temps sera disqualifié !</p>
+<p>Afin d'afficher les résultats rapidement, merci de synchroniser vos données avec votre application avant le {{ date('now').modify("+1 day")|date('d/m/Y') }} ! Tout participant n'ayant pas synchonisé ses données à temps sera disqualifié !</p>
+
+{% else %}
+
+<p>Votre défi vient de se terminer :</p>
+
+<div>
+	<p>{{ challenge.title }}<br/>
+	{% if challenge.kilometres != null %}
+	Distance : {{ challenge.kilometres }}m<br/>
+	{% else %}
+	Nombre de pas : {{ challenge.nbSteps }}<br/>
+	{% endif %}
+	Durée : {{ challenge.creationDate|date('d/m/Y') }} - {{ challenge.endDate|date('d/m/Y') }}</p>
+</div>
+
+<p>Vous pourrez observer les résultats le {{ date('now').modify("+2 day")|date('d/m/Y') }}.</p>
+
+
+{% endif %}
 
 <p>Cordialement,</p>
 
