@@ -418,7 +418,7 @@ class DefaultController extends Controller
         $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge);
 
         if ( $challenge->getKilometres() !== null )
-            $mesure = "metres";
+            $mesure = "mètres";
         else
             $mesure = "pas";
 

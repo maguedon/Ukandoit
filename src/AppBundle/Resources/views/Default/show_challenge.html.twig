@@ -21,9 +21,9 @@
 				{% for participant in participants %}
 				{% if classement < 3 %}
 				<li class="collection-item avatar">
-					{#% if bestChallengers[i].avatar != null %#}
-					{#% set image = vich_uploader_asset(bestChallengers[i].avatar, 'imageFile') %#}
-					<img class="media-object dp circle" src="{#{ asset(image) }#}">
+					{#% if bestChallengers[i].avatar != null %}
+					{% set image = vich_uploader_asset(bestChallengers[i].avatar, 'imageFile') %}
+					<img class="media-object dp circle" src="{{ asset(image) }}">
 					{#% else %#}
 					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg">
 					{#% endif %#}
@@ -31,10 +31,10 @@
 						<b>{{ participant.username }}</b>
 					</p>
 					<p>
-						{#Niv. {{ participant.challenger.level }}
+						{#Niv. {{ participant.level }}
 					</p>
-					<p>
-						<i>{{ participant.challenger.nbPoints }} points</i>#}
+					<p>#}
+						<i>{{ participant.performance }} {{ participant.mesure }}</i>
 					</p>
 					<div class="secondary-content">
 						{% if classement == 0 %}
