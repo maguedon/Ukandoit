@@ -124,6 +124,10 @@ class Jawbone{
 		$totalSteps = 0;
 		$totalActiveTime = 0;
 
+		if (count($json) == 0){
+			return null;
+		}
+
 		foreach ($json as $day){
 			$stringDay = str_split($day['date']);
 			//substr_replace($stringDay, '-', 4);

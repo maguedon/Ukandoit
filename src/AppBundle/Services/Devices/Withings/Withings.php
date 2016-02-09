@@ -64,12 +64,12 @@ class Withings
 
     public function getConsumerKey()
     {
-        return $this->getConsumerKey();
+        return $this->consumer_key;
     }
 
     public function getConsumerSecret()
     {
-        return $this->consumer_secret();
+        return $this->consumer_secret;
     }
 
     public function getCallbackUrl()
@@ -155,6 +155,10 @@ class Withings
         $totalDistance = 0;
         $totalSteps = 0;
         $totalActiveTime = 0;
+
+        if (count($json) == 0){
+            return null;
+        }
 
         foreach ($json as $day){
             $totalDistance += $day['distance'];

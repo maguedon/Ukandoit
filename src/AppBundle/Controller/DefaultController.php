@@ -309,7 +309,7 @@ class DefaultController extends Controller
         $withings = $this->get("app.withings");
         $withings->authenticate($possessedDevice);
 
-        $json = $withings->getActivities($withings->getUserID() , "2015-10-31", "2015-11-07"); //,"2016-01-25"
+        $json = $withings->getActivities($withings->getUserID() , "2016-01-31", "2016-02-07"); //,"2016-01-25"
 
        // $intra = $withings->getIntradayActivities($withings->getUserID() , "2016-02-01 8:00:00", "2016-02-01 18:00:00");
        // var_dump($intra);
@@ -417,13 +417,39 @@ class DefaultController extends Controller
         $current_user = $this->container->get('security.context')->getToken()->getUser();
         $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge);
 
+        $challenge_start = $challenge->getCreationDate();
+        $challenge_end = $challenge->getEndDate();
+
         $collection = $challenge->getUserChallenges();
+        $id_devise = null;
 
-        //$ukandoit = $this->get("app.ukandoit");
-        //$ukandoit->getDataFromAPI($devise, $challenge);
+        foreach ($collection as $col){
+            //var_dump($col->getChallenger()->getId());
+            if ($col->getChallenger()->getId() == $current_user->getId()){
+                $id_devise = $col->getDeviceUsed()->getId();
+                //var_dump($id_devise);
+            }
+        }
+        $devise = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id_devise);
+
+        if ($devise->getDeviceType()->getName() == "Withings Activité Pop"){
+            $withings = $this->get("app.withings");
+            $withings->authenticate($devise);
+            $json = $withings->getActivities($withings->getUserID() , $challenge_start->format("Y-m-d"), $challenge_end->format("Y-m-d"));
+           // var_dump($json);
+        }
+
+        if ($devise->getDeviceType()->getName() == "Jawbone UP 24"){
+            $jawbone = $this->get("app.jawbone");
+            $json = $jawbone->getMoves($devise->getAccessTokenJawbone(), $challenge_start->format("Y-m-d"), $challenge_end->format("Y-m-d"));
+        }
+
+        $ukandoit = $this->get("app.ukandoit");
+        //$test = $ukandoit->getRecord($challenge, $json);
+        $test = $ukandoit->getDataFromAPI($challenge, $json);
 
 
-        $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find();
+      //  $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find();
         //$devise  = $current_user->get
 
 
@@ -434,8 +460,8 @@ class DefaultController extends Controller
            "challenge" => $challenge
            ));*/
         return $this->render('AppBundle:Default:show_challenge.html.twig', array(
-            "user" => $current_user,
-            "collection" => $collection
+            "user" => $json,
+            "test" => $test
         ));
     }
 

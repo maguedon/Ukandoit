@@ -39,6 +39,20 @@ class Ukandoit
 
     }
 
+    /* if ($i <= (sizeof($json['global']['days']) - $challenge_delais)){
+                    $tableau = array(
+                        "start" => $key,
+                        "value" => $param_value
+                    );
+                    array_push($content, $tableau);
+                }
+
+                if ($i >= $challenge_delais - 1){
+                    for($j = 1; $j < $challenge_delais - 1; $j++){
+                        $content[$i-$j]['value'] += $param_value;
+                    }
+                    $content[$i-($challenge_delais - 1)]['end'] = $key;
+                }*/
     /*
      * Retourne le tableau suivant : result = array(
      *                                  0 => array[
@@ -54,81 +68,50 @@ class Ukandoit
      *                                  ]
      */
 
-    public function getDataFromAPI($devise, $challenge){
-        $challenge_start = $challenge->getCreationDate();
-        $challenge_end = $challenge->getEndDate();
-        //$challenge_active_time = ;
+    public function getDataFromAPI($challenge, $json){
         $challenge_delais = $challenge->getTime();
-
-
-        if ($devise->getDeviceType()->getName() == "Withings Activité Pop"){
-            $withings = $this->get("app.withings");
-            $withings->authenticate($devise);
-            $json = $withings->getActivities($withings->getUserID() , $challenge_start, $challenge_end);
-            $json = $withings->standardizeJSON($json);
-        }
-
-        if ($devise->getDeviceType()->getName() == "Jawbone UP 24"){
-            $jawbone = $this->get("app.jawbone");
-            $json = $jawbone->getMoves($devise->getAccessTokenJawbone(), $challenge_start, $challenge_end);
-            $json = $jawbone->standardizeJSON($json);
-        }
-
-        $content = array();
-        for ( $i = 0; $i < (sizeof($json['days'])); $i ++){
-            $current_day = $json['days'][$i];
-            if ( $challenge->getKilometres() !== null )
-                $param_value = $this->getDistance($current_day['distance']);
-            else
-                $param_value = $this->getDistance($current_day['steps']);
-
-            if ($i <= (sizeof($json['days']) - $challenge_delais)){
-                $content[$i] = array(
-                    "start" => key($current_day),
-                    "value" => $param_value
-                );
-            }
-
-            if ($i >= $challenge_delais - 1){
-                for($j = 0; $j < $challenge_delais - 1; $j++){
-                    $content[$i-$j]['value'] += $param_value;
-                }
-                $content[$i-($challenge_delais - 1)]['end'] = key($current_day);
-            }
-        }
-        return $content;
-    }
-
-    public function getRecord($value){
-        $moves = $this->get('app.jawbone')->getMoves();
-
-        $date_debut = new DateTime("2016-01-20");
-        $date_fin = new DateTime("2016-01-25");
+        $i = 0;
         $max = 0;
-        $dates = "";
-        $time = 2;
 
-        $nbDaysChallenge = $date_fin - $date_debut;
+        foreach ($json['global']['days'] as $key => $current_day){
+            $next_day = new \DateTime($key);
+            $next_day->modify('+1 day');
 
-        for($i=0; $i<$nbDaysChallenge-$time-1; $i++){
-            if($value = "distance")
-                $total = $date_debut->modify('+' . $i . 'day')->getKilometres();
+            if ( $challenge->getKilometres() !== null )
+                $param_value = $this->getDistance($json['global']['days'][$key]);
             else
-                $total = $date_debut->modify('+' . $i . 'day')->getSteps();
+                $param_value = $this->getSteps($json['global']['days'][$key]);
 
-            for($j=$i+1; $j<$time-1; $j++){
-                if($value = "distance")
-                    $total += $date_debut->modify('+' . $j . 'day')->getKilometres();
-                else
-                    $total = $date_debut->modify('+' . $j . 'day')->getSteps();
+            if ($i <= sizeof($json['global']['days']) - $challenge_delais -1){
+                for($j=$i; $j<$i+$challenge_delais-1; $j++){
+                    if ( $challenge->getKilometres() !== null )
+                        $param_value += $this->getDistance($json['global']['days'][$next_day->format("Y-m-d")]);
+                    else
+                        $param_value += $this->getSteps($json['global']['days'][$next_day->format("Y-m-d")]);
+
+                    //var_dump($next_day->format("Y-m-d"), $param_value);
+
+                    $next_day->modify('+1 day');
+                }
             }
-            if($total > $max){
-                $max = $total;
-                $dates = $date_debut->modify('+' . $i . 'day')->format("d-m-Y") . " - " . $date_debut->modify('+' . $i + ($time-1) . 'day')->format("d-m-Y");
+
+            if($param_value > $max){
+                $max = $param_value;
+                $date_start = $key ;
+                $date_end = $next_day->modify('-1 day')->format("Y-m-d");
             }
+
+            $i ++;
         }
 
-        return array($max, $dates);
+        $result = array(
+            "start" => $date_start,
+            "end" => $date_end,
+            "value" => $max
+        );
+
+        return $result;
     }
+
 
 }
