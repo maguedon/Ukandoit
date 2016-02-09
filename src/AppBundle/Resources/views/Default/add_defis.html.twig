@@ -38,8 +38,9 @@
 							<div class="input-field col s12">
 								<select id="select_montre">
 									<option value="" disabled selected>Choisir la montre</option>
-									<option value="Withings">Withings</option>
-									<option value="Jawbone">Jawbone</option>
+									{% for possessedDevice in app.user.possessedDevices %}
+					               		<option value="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }}</option>
+					                {% endfor %}
 								</select>
 								<label>Avec quelle montre avez-vous fait cette performance ?</label>
 							</div>
