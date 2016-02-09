@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
-        <title>{% block title %}Ukando'it{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        {% stylesheets  filter='cssrewrite'
-        'bundles/AppBundle/materialize/css/materialize.min.css'
-        'bundles/AppBundle/css/*'
-        %}
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+    <title>{% block title %}Ukando'it{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    {% stylesheets  filter='cssrewrite'
+    'bundles/AppBundle/materialize/css/materialize.min.css'
+    'bundles/AppBundle/css/*'
+    %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
-     {% javascripts
-        'bundles/AppBundle/js/*'
-        'bundles/AppBundle/materialize/js/materialize.js'
-        %}
-        <script src='https://www.google.com/recaptcha/api.js'></script>
-        <script src="{{ asset_url }}"></script>
+    {% javascripts
+    'bundles/AppBundle/js/*'
+    'bundles/AppBundle/materialize/js/materialize.js'
+    %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="{{ asset_url }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-        
-        {% endjavascripts %}
+
+    {% endjavascripts %}
     {% block javascripts %}
 
     {% endblock %}
 
     {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false,'include_bootstrap': false} %}
-    
+
 </head>
 <body>
     {% include 'include/_header.html.twig' %}
@@ -36,21 +36,21 @@
     {% block body %}{% endblock %}
     {% include 'include/_footer.html.twig' %}
 
-{% for message in app.session.flashBag.get('message') %}
+    {% for message in app.session.flashBag.get('message') %}
     <div data-id="{{ message }}" class="flashbag_message"> </div>
-      <script type="text/javascript">
+    <script type="text/javascript">
         $( document ).ready(function() {
             var id = $('.flashbag_message').data('id');
             toastr.success(id);
         });
     </script>
-{% endfor %}
+    {% endfor %}
 
-{% if app.request.attributes.get('_route') == "challenges" %}
+    {% if app.request.attributes.get('_route') == "challenges" %}
 
-<!-- AJAX SCROLL INFINI -->
+    <!-- AJAX SCROLL INFINI -->
 
-<script type="text/javascript">
+    <script type="text/javascript">
 $(document).ready(function(){ // Quand le document est complètement chargé
 
     var load = false; // aucun chargement de card n'est en cours
@@ -67,11 +67,11 @@ $(document).ready(function(){ // Quand le document est complètement chargé
         à 5 et si tout les commentaires ne sont pas affichés, alors on
         lance la fonction. */
         if((offset.top-$(window).height() <= $(window).scrollTop())
-        && load==false && ($('.card').size()>=5) &&
-        ($('.card').size()<={{ nbChallenges }})){
+            && load==false && ($('.card').size()>=5) &&
+            ($('.card').size()<={{ nbChallenges }})){
 
             // la valeur passe à vrai, on va charger
-            load = true;
+        load = true;
 
             //On récupère l'id du dernier card affiché
             var last_id = $('.card:last').attr('id');
@@ -114,13 +114,13 @@ $(document).ready(function(){ // Quand le document est complètement chargé
 
 <script type="text/javascript">
 
-$(".modal-trigger-ajax").click(function(){
+    $(".modal-trigger-ajax").click(function(){
 
-    var DATA = "montre="+$("#select_montre").val();
+        var DATA = "montre="+$("#select_montre").val();
 
-    if($("#select_montre").val() != null){
+        if($("#select_montre").val() != null){
 
-         $.ajax({
+           $.ajax({
             url: "{{ path('addDefisAjax')}}",
             type: 'get',
             data: DATA,
@@ -132,8 +132,8 @@ $(".modal-trigger-ajax").click(function(){
             }
         });
 
-    }
-    else{
+       }
+       else{
         alert("Veuillez choisir une montre !");
     }
 });
