@@ -386,12 +386,20 @@ class DefaultController extends Controller
      */
     public function challengesAcceptedAction($challenge, $device){
         $current_user = $this->container->get('security.context')->getToken()->getUser();
+
+
+        foreach ($current_user->getChallengesAccepted() as $challenge_accepted){
+            if ($challenge_accepted->getChallenge()->getId() == $challenge){
+                $this->setFlash('message', 'Vous avez déjà relevé ce défi.'); // Couleur et icone à changer !
+                return $this->redirectToRoute("challenges");
+            }
+        }
+
         $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge);
         $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($device);
 
         $this->setFlash('message', 'Vous avez relevé le défi de '.$challenge->getCreator()->getUsername());
 
-        // AJOUTER OBJECT !!!!
         $user_challenge = new user_challenge();
         $user_challenge->setDeviceUsed($possessedDevice);
         $user_challenge->setChallenger($current_user);
@@ -402,7 +410,7 @@ class DefaultController extends Controller
         $em->persist($user_challenge);
         //$em->persist($device);
         $em->flush();
-        return $this->redirectToRoute("challenges");
+       // return $this->redirectToRoute("challenges");
 
 
          /*   return $this->render('AppBundle:Default:challenges.html.twig', array(
@@ -477,7 +485,8 @@ class DefaultController extends Controller
         krsort($result);
 
         return $this->render('AppBundle:Default:show_challenge.html.twig', array(
-            "participants" => $result
+            "participants" => $result,
+            "challenge" => $challenge
         ));
     }
 
