@@ -19,4 +19,5 @@ composer.lock
 web/bundles/framework/*
 web/bundles/framework
 /src/AppBundle/Entity/*.*~
+web/log.txt
 

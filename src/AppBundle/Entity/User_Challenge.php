@@ -35,7 +35,7 @@ class User_Challenge
 
     /**
      * @ORM\ManyToOne(targetEntity="PossessedDevice")
-     * @ORM\JoinColumn(name="possessedDevice_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="possessedDevice_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $deviceUsed;
 

@@ -28,7 +28,7 @@ class SecurityController extends BaseController
         if ($error) {
             // TODO: this is a potential security risk (see http://trac.symfony-project.org/ticket/9523)
             $error = $error->getMessage();
-        } else 
+        }
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
        // $this->setFlash('message', 'Bienvenue !');
