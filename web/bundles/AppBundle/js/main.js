@@ -82,58 +82,58 @@ $(document).ready(function() {
     });
 
 /* -------------- French configuration pour les Datepicker -------------- */
-(function(factory) {
-    if (typeof define === "function" && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(["../jquery.ui.datepicker"], factory);
-    } else {
-        // Browser globals
-        factory(jQuery.datepicker);
-    }
-}(function(datepicker) {
-    datepicker.regional['fr'] = {
-        closeText: 'Fermer',
-        prevText: 'Précédent',
-        nextText: 'Suivant',
-        currentText: 'Aujourd\'hui',
-        monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-            'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
-        ],
-        monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin',
-            'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'
-        ],
-        dayNames: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
-        dayNamesShort: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
-        dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-        weekHeader: 'Sem.',
+    (function(factory) {
+        if (typeof define === "function" && define.amd) {
+            // AMD. Register as an anonymous module.
+            define(["../jquery.ui.datepicker"], factory);
+        } else {
+            // Browser globals
+            factory(jQuery.datepicker);
+        }
+    }(function(datepicker) {
+        datepicker.regional['fr'] = {
+            closeText: 'Fermer',
+            prevText: 'Précédent',
+            nextText: 'Suivant',
+            currentText: 'Aujourd\'hui',
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+                'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+            ],
+            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin',
+                'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'
+            ],
+            dayNames: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
+            dayNamesShort: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            weekHeader: 'Sem.',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        datepicker.setDefaults(datepicker.regional['fr']);
+        return datepicker.regional['fr'];
+    }));
+    $(".datepicker").datepicker({
         dateFormat: 'dd/mm/yy',
-        firstDay: 1,
-        isRTL: false,
-        showMonthAfterYear: false,
-        yearSuffix: ''
-    };
-    datepicker.setDefaults(datepicker.regional['fr']);
-    return datepicker.regional['fr'];
-}));
-$(".datepicker").datepicker({
-    dateFormat: 'dd/mm/yy',
-    firstDay: 1
-}).attr("readonly", "readonly");
+        firstDay: 1
+    }).attr("readonly", "readonly");
 
 // -------------- Modal chargement data quand ajout defis --------------
 
 $('.modal-trigger').leanModal();
 
 // -------------- Ajout challenge Bloquer champ nbPas quand champ kilometre avec value et vice versa --------------
-$("#select_pas_km").change(function() {
-    if ($(this).val() == "pas") {
-        $("#inputKm2").css("display", "none");
-        $("#inputSteps2").css("display", "block");
-    } else {
-        $("#inputSteps2").css("display", "none");
-        $("#inputKm2").css("display", "block");
-    }
-});
+    $("#select_pas_km").change(function() {
+        if ($(this).val() == "pas") {
+            $("#inputKm2").css("display", "none");
+            $("#inputSteps2").css("display", "block");
+        } else {
+            $("#inputSteps2").css("display", "none");
+            $("#inputKm2").css("display", "block");
+        }
+    });
 
 // -------------- A defnir --------------
 
@@ -174,24 +174,29 @@ $("#select_pas_km").change(function() {
 
 // --------------  toastr options -------------- //
 
-/*
-toastr.options = {
-    "closeButton": true,
-    "debug": false,
-    "newestOnTop": false,
-    "progressBar": false,
-    "positionClass": "toast-top-center",
-    "preventDuplicates": false,
-    "onclick": null,
-    "showDuration": "1000",
-    "hideDuration": "1000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-}
-*/
+    /*
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "1000",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+    */
+
+// -------------- Confirmation suppression objet ----------- //
+    $(".objects a[name='delete']").click(function(){
+        return confirm('Etes-vous sûr de vouloir supprimer cet objet ?');
+    });
 
 });

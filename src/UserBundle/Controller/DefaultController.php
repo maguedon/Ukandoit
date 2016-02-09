@@ -30,15 +30,15 @@ class DefaultController extends Controller
     /**
      * @Route("/user/challenges", name="my_challenges")
      */
-       public function myChallengesAction(){
-         $current_user = $this->container->get('security.context')->getToken()->getUser();        
-         $challengesCreated = $current_user->getChallengesCreated();
-         $challengesAccepted = $current_user->getChallengesAccepted();        
-         return $this->render('UserBundle:Profile:my_challenges.html.twig', array(
-           "challenges" => $challengesCreated,
-           "challengesAccepted" => $challengesAccepted,
-           ));
-     }
+    public function myChallengesAction(){
+       $current_user = $this->container->get('security.context')->getToken()->getUser();        
+       $challengesCreated = $current_user->getChallengesCreated();
+       $challengesAccepted = $current_user->getChallengesAccepted();        
+       return $this->render('UserBundle:Profile:my_challenges.html.twig', array(
+         "challenges" => $challengesCreated,
+         "challengesAccepted" => $challengesAccepted,
+         ));
+   }
 
     /**
      * @Route("/user/objects", name="objects")
@@ -56,26 +56,40 @@ class DefaultController extends Controller
         $possessedDevice->setUser($current_user);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Enregistrement de l'objet
-            $em = $this->get('doctrine')->getManager();
-            $em->persist($possessedDevice);
-            $em->flush();
+            //On regarde si l'objet existe déjà
+            $already_exist = false;
+            foreach($current_user->getPossessedDevices() as $device){
+                if($device->getDeviceType() == $possessedDevice->getDeviceType()){
+                    $already_exist = true;
+                    break;
+                }
+            }
 
-            if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
-                $withings = $this->get("app.withings");
-                $withings->connection();
+            //S'il l'objet n'existe pas, on le crée
+            if(!$already_exist){
+            // Enregistrement de l'objet
+                $em = $this->get('doctrine')->getManager();
+                $em->persist($possessedDevice);
+                $em->flush();
+
+                if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
+                    $withings = $this->get("app.withings");
+                    $withings->connection();
                 //return $this->redirectToRoute('withings_token');
+                }
+                elseif ($possessedDevice->getDeviceType()->getName() == "Jawbone UP 24"){
+                    $jawbone = $this->get("app.jawbone");
+                    $url = $jawbone->connection();
+                    return $this->redirect($url);
+                }
+                elseif ($possessedDevice->getDeviceType()->getName() == "Google Fitness"){
+                    $google = $this->get("app.googlefit");
+                    $url = $google->connection();
+                    return $this->redirect($url);
+                }
             }
-            // Jawbone
-            elseif ($possessedDevice->getDeviceType()->getName() == "Jawbone UP 24"){
-                $jawbone = $this->get("app.jawbone");
-                $url = $jawbone->connection();
-                return $this->redirect($url);
-            }
-            elseif ($possessedDevice->getDeviceType()->getName() == "Google Fitness"){
-                $google = $this->get("app.googlefit");
-                $url = $google->connection();
-                return $this->redirect($url);
+            else{
+                $this->setFlash("message", "Vous avez déjà un objet " . $possessedDevice->getDeviceType()->getName());
             }
 
         }
@@ -103,22 +117,22 @@ class DefaultController extends Controller
      * @Route("/user/{name}", name="user_other")
      */
 	public function showOtherAction($name){
-	   $userManager = $this->container->get('fos_user.user_manager');
-       $user = $userManager->findUserByUsername($name);
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($name);
 
-       return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show_other.html.twig', array(
-        'user' => $user
-        ));
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show_other.html.twig', array(
+            'user' => $user
+            ));
 
-   }
+    }
 
    /**
      * @param string $action
      * @param string $value
      */
-    protected function setFlash($action, $value)
-    {
-        $this->container->get('session')->getFlashBag()->set($action, $value);
-    }
+   protected function setFlash($action, $value)
+   {
+    $this->container->get('session')->getFlashBag()->set($action, $value);
+}
 
 }

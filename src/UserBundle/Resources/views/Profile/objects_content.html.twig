@@ -5,14 +5,7 @@
                 {% for possessedDevice in app.user.possessedDevices %}
                 <li class="collection-item">
                   <span class="title">{{ possessedDevice.deviceType }}</span>
-                  <a href="{{ path('objects_delete', {id: possessedDevice.id}) }}" class="secondary-content"><i class="material-icons">delete</i></a>
-                    {% if "Jawbone UP 24" == possessedDevice.deviceType %}
-                        <a href="{{ path('jawbone_moves', {id: possessedDevice.id}) }}" class="secondary-content">
-                    {% else %}
-                        <a href="{{ path('withings_moves', {id: possessedDevice.id}) }}" class="secondary-content">
-                    {% endif %}
-                    <i class="material-icons">visibility</i></a>
-                    
+                  <a href="{{ path('objects_delete', {id: possessedDevice.id}) }}" class="secondary-content" name="delete"><i class="material-icons">delete</i></a>           
                   </li>
                 {% endfor %}
             </ul>
@@ -22,6 +15,9 @@
     </section>
     <section>
         <div class="row">
+          {% if app.user.possessedDevices|length >= 3 %}
+            Vous avez déjà un objet pour chaque marque. Veuillez supprimer l'objet de la marque que vous voulez changer.
+          {% else %}
             {{ form_start(form) }}
             {{ form_errors(form.deviceType) }}
             <div class="col m3">
@@ -34,6 +30,7 @@
                {{ form_widget(form.submit, {"attr": {"class": "waves-effect waves-light btn"}}) }}
            </div>
            {{ form_end(form) }}
+           {% endif %}
        </div>
    </section>
 </section>
