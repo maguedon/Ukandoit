@@ -417,51 +417,61 @@ class DefaultController extends Controller
         $current_user = $this->container->get('security.context')->getToken()->getUser();
         $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge);
 
+        if ( $challenge->getKilometres() !== null )
+            $mesure = "metres";
+        else
+            $mesure = "pas";
+
         $challenge_start = $challenge->getCreationDate();
         $challenge_end = $challenge->getEndDate();
 
-        $collection = $challenge->getUserChallenges();
-        $id_devise = null;
+        $participants = $challenge->getUserChallenges();
 
-        foreach ($collection as $col){
-            //var_dump($col->getChallenger()->getId());
-            if ($col->getChallenger()->getId() == $current_user->getId()){
-                $id_devise = $col->getDeviceUsed()->getId();
-                //var_dump($id_devise);
+        $result = array();
+        //$id_devise = null;
+
+        foreach ($participants as $collection){
+            $id_participant = $collection->getChallenger()->getId();
+            $participant = $this->getDoctrine()->getRepository('AppBundle:User')->find($id_participant);
+
+            $devise_participant = $collection->getDeviceUsed();
+            $devise_participant = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($devise_participant->getId());
+
+            if ($devise_participant->getDeviceType()->getName() == "Withings Activité Pop"){
+                $withings = $this->get("app.withings");
+                $withings->authenticate($devise_participant);
+                $json = $withings->getActivities($withings->getUserID() , $challenge_start->format("Y-m-d"), $challenge_end->format("Y-m-d"));
             }
+
+            if ($devise_participant->getDeviceType()->getName() == "Jawbone UP 24"){
+                $jawbone = $this->get("app.jawbone");
+                $json = $jawbone->getMoves($devise_participant->getAccessTokenJawbone(), $challenge_start->format("Y-m-d"), $challenge_end->format("Y-m-d"));
+            }
+
+            $ukandoit = $this->get("app.ukandoit");
+            $best_performance = $ukandoit->getDataFromAPI($challenge, $json);
+
+//            if ($collection->getChallenger()->getId() == $current_user->getId()){
+//                $id_devise = $collection->getDeviceUsed()->getId();
+//            }
+
+            $data = array(
+                "userid" => $id_participant,
+                "username" => $participant->getUsername(),
+                "devise" => $devise_participant->getDeviceType()->getName(),
+                "mesure" => $mesure
+            );
+
+            $data['performance'] = $best_performance["value"];
+
+            $result[$data['performance']] = $data;
+            //array_push($result, $data);
         }
-        $devise = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id_devise);
 
-        if ($devise->getDeviceType()->getName() == "Withings Activité Pop"){
-            $withings = $this->get("app.withings");
-            $withings->authenticate($devise);
-            $json = $withings->getActivities($withings->getUserID() , $challenge_start->format("Y-m-d"), $challenge_end->format("Y-m-d"));
-           // var_dump($json);
-        }
+        krsort($result);
 
-        if ($devise->getDeviceType()->getName() == "Jawbone UP 24"){
-            $jawbone = $this->get("app.jawbone");
-            $json = $jawbone->getMoves($devise->getAccessTokenJawbone(), $challenge_start->format("Y-m-d"), $challenge_end->format("Y-m-d"));
-        }
-
-        $ukandoit = $this->get("app.ukandoit");
-        //$test = $ukandoit->getRecord($challenge, $json);
-        $test = $ukandoit->getDataFromAPI($challenge, $json);
-
-
-      //  $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find();
-        //$devise  = $current_user->get
-
-
-
-       // if ($challenge->)
-
-        /*   return $this->render('AppBundle:Default:challenges.html.twig', array(
-           "challenge" => $challenge
-           ));*/
         return $this->render('AppBundle:Default:show_challenge.html.twig', array(
-            "user" => $json,
-            "test" => $test
+            "participants" => $result
         ));
     }
 
