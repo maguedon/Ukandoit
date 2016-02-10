@@ -16,7 +16,7 @@ class Jawbone{
 		$this->client_id      = $client_id;
 		$this->client_secret  = $client_secret;
 		//$this->redirect_uri   = (empty($_SERVER['HTTPS'])?'http':'https') . "://" . $_SERVER['HTTP_HOST'] . $router->generate('jawbone_token');
-		$this->redirect_uri   = "http://localhost:443" . $router->generate('jawbone_token');
+		$this->redirect_uri   = "https://www.ukandoit.fr/" . $router->generate('jawbone_token');
 
 		$this->scopes = $scopes;
 
