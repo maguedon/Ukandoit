@@ -529,7 +529,15 @@ class DefaultController extends Controller
 
             $time2 = strtotime($data['date_fin']);
 
-            $data['time'] = ($time2 - $time1)/(60*60*24);
+            if($time2 < $time1){
+                $data['error'] = true;
+            }
+            elseif($data['date_deb'] == $data['date_fin']){
+                $data['time'] = 1;
+            }
+            else{
+                $data['time'] = ($time2 - $time1)/(60*60*24);
+            }
 
             $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id_montre);
 
@@ -542,7 +550,7 @@ class DefaultController extends Controller
                 $withings->authenticate($possessedDevice);
                 $json = $withings->getActivities($withings->getUserID() , $data['date_deb'], $data['date_fin']);
                 $data['nbPas'] = $json['global']['steps'];
-                $data['nbKm'] = $json['global']['distance'];
+                $data['nbKm'] = round($json['global']['distance']/1000, 2);
                 break;
             case 'Jawbone UP 24':
                 $montre_service = $this->get('app.jawbone');
