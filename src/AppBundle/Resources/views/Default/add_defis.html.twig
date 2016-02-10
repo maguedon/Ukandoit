@@ -93,13 +93,13 @@
 								<label for="activity">En combien de jour</label>
 							</div>
 						</div>
-						{{ form_rest(formOne) }}
-						{{ form_errors(formOne) }}
 						<div class="form-group">
 							<div class="btn_centre">
 								{{ form_widget(formOne.submit, { 'id': "ToDisabledAddDefis", 'attr': {'class': 'form-control btn btn-primary btn-block btn-lg', 'disabled': 'disabled' } }) }}
 							</div>
 						</div>
+						{{ form_rest(formOne) }}
+						{{ form_errors(formOne) }}
 					</div>
 				</div>
 			</div>
@@ -160,13 +160,13 @@
 						{{ form_errors(formTwo.activity) }}
 						<label for="activity">Activité correspondante</label>
 					</div>
-					{{ form_rest(formTwo) }}
-					{{ form_errors(formTwo) }}
 					<div class="form-group">
 						<div class="btn_centre">
 							{{ form_widget(formTwo.submit, { 'attr': {'class': 'form-control btn btn-primary btn-block btn-lg' } }) }}
 						</div>
 					</div>
+					{{ form_rest(formTwo) }}
+					{{ form_errors(formTwo) }}
 				</div>
 			</div>
 		</form>
