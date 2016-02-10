@@ -2,6 +2,55 @@
 
 {% block body %}
 <div class="container un_defi">
+	<div class="row card-panel">
+		<div class="col s12 m6 center-align">
+			<h2 class="card-title"><div class="texte_rouge">Titre : {{ challenge.title }}</div></h2>
+
+			<div class="member_name">
+				<p>	<div class="texte_rouge">Proposé par</div> : {{ challenge.creator }} - Niv. {{ challenge.creator.level }}</p>
+			</div>
+			<p>	<div class="texte_rouge">Défi </div> : {{ challenge.getTeaser() }}</p>
+			{% if challenge.kilometres != null %}
+			<p> <div class="texte_rouge">Distance</div> min. : {{ challenge.kilometres }}km</p>
+			{% else %}
+			<p> <div class="texte_rouge">Nombre de pas</div> min. : {{ challenge.nbSteps }}km</p>
+			{% endif %}
+			<p>	<div class="texte_rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
+			<p>	<div class="texte_rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
+			<p>	<div class="texte_rouge">Nombres de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
+		</div>
+		<div class="col s12 m6 center-align">
+		
+			
+				{% set rang = null %}
+				{% set appareil = null %}
+				{% set performance = null %}
+				{% set mesure = null %}
+				{% set classement = 0 %}
+				{% for participant in participants %}
+					{% if app.user != null %}
+							{% if app.user.id == participant.userid %}
+								{% set rang = classement + 1 %}
+								{% set appareil = participant.device %}
+								{% set performance = participant.performance %}
+								{% set mesure = participant.mesure %}
+							{% endif %}
+							{% set classement = classement + 1 %}
+					{% endif %}
+				{% endfor %}
+			
+			{% if performance == null %}
+				<h2 class="card-title"><div class="texte_rouge">Vous ne participez pas au défi</div></h2>
+			{% else %}
+				<h2 class="card-title"><div class="texte_rouge">Mes données : </div></h2>
+				<p> <div class="texte_rouge">Nom </div> : {{ app.user.username }}</p>
+				<p> <div class="texte_rouge">Rang </div> : {{ rang }}</p>
+				<p> <div class="texte_rouge">Appareil </div> : {{ appareil }}</p>
+				<p> <div class="texte_rouge">Performance </div> : {{ performance }}</p>
+			{% endif %}
+
+		</div>
+	</div>
 	{% if participants|length == 0 %}
 	<p>Il n'y a pas de participants à ce défi.</p>
 	{% else %}
