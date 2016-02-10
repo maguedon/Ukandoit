@@ -410,12 +410,9 @@ class DefaultController extends Controller
         $em->persist($user_challenge);
         //$em->persist($device);
         $em->flush();
-       // return $this->redirectToRoute("challenges");
+        return $this->redirectToRoute("challenges");
 
 
-         /*   return $this->render('AppBundle:Default:challenges.html.twig', array(
-            "challenge" => $challenge
-            ));*/
     }
 
     /**
