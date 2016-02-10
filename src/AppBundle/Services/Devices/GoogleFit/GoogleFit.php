@@ -17,13 +17,13 @@ class GoogleFit
     {
         $this->consumer_key = "388262243880-84r5l52341g302ab23vqe8gu3hrivbt5.apps.googleusercontent.com";
         $this->consumer_secret = "OMtqK2OwTXuWvD_s2RBQ0UEU";
-        $this->callback_url = "http://localhost:443/web/app_dev.php/google/token";
+        $this->callback_url = "https://ukandoit.fr/google/token";
         $this->google = new \Google_Client();
         $this->google->setApplicationName("Ukando'it");
         $this->google->setClientId($this->consumer_key);
         $this->google->setClientSecret($this->consumer_secret);
         $this->google->addScope(Google_Service_Fitness::FITNESS_ACTIVITY_READ); //Google_Service_Drive::DRIVE_METADATA_READONLY
-        $this->google->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/web/app_dev.php/google/token');
+        $this->google->setRedirectUri('https://' . $_SERVER['HTTP_HOST'] . '/google/token');
     }
 
     public function connection(){

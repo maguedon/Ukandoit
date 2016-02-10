@@ -145,8 +145,7 @@ $('.modal-trigger').leanModal();
         var defi_id = $(this).attr("value");
         $("#form_defi_send").on("click", function() {
             var objet_id = $('input[name=object_form]:checked', '#form_defi').val();
-            var url = window.location.protocol + "//" + window.location.host + "/web/app_dev.php";
-            // remplacer par window.location.protocol + "//" + window.location.host + "/" en prod)
+            var url = window.location.protocol + "//" + window.location.host;
             location.href = url + '/defis/' + defi_id + '/' + objet_id + '/accepted';
             /* $.post("challenges", {var_value: objet_id}, function(data){
             alert("data sent and received: "+data);

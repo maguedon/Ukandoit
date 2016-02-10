@@ -29,7 +29,7 @@
 				{% endif %}
 				<p>	<div class="texte_rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
 				<p>	<div class="texte_rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
-				<p>	<div class="texte_rouge">Nombres de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
+				<p>	<div class="texte_rouge">Nombre de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
 			</div>
 		</div>
 
@@ -55,7 +55,7 @@
 					{% endif %}
 				{% endfor %}
 				{% if performance == null %}
-					<p>Vous ne participez pas au défi</p>
+					<p>Vous ne participez pas au défi.</p>
 				{% else %}
 					<p> <div class="texte_rouge">Nom </div> : {{ app.user.username }}</p>
 					<p> <div class="texte_rouge">Rang </div> : {{ rang }}</p>

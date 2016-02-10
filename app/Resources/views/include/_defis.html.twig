@@ -39,7 +39,7 @@
 			{% endif %}
 			<p>	<div class="texte_rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
 			<p>	<div class="texte_rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
-			<p>	<div class="texte_rouge">Nombres de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
+			<p>	<div class="texte_rouge">Nombre de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
 		</div>
 		{% set flagChallenge = 0 %}
 		{% if app.user != null and  app.user.challengesAccepted|length != 0 %}
@@ -55,7 +55,7 @@
 			</div>
 		{% else %}
 			<div class="card-action" id="2" value="{{ challenge.id }}">
-				<a>Défis accepté</a>
+				<a>Défi accepté</a>
 			</div>
 		{% endif %}
 	</div>
