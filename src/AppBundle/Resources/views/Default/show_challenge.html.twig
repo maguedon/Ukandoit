@@ -2,6 +2,14 @@
 
 {% block body %}
 <div class="container un_defi">
+	<section class="titre_page">
+		<div class="row">
+			<div class="bloc_rouge"></div>
+			<div class="bloc_titre">
+				<h1>Données</h1>
+			</div>
+		</div>
+	</section>
 	<div class="row card-panel">
 		<div class="col s12 m6 center-align">
 			<h2 class="card-title"><div class="texte_rouge">Titre : {{ challenge.title }}</div></h2>
@@ -11,7 +19,7 @@
 			</div>
 			<p>	<div class="texte_rouge">Défi </div> : {{ challenge.getTeaser() }}</p>
 			{% if challenge.kilometres != null %}
-			<p> <div class="texte_rouge">Distance</div> min. : {{ challenge.kilometres }}km</p>
+			<p> <div class="texte_rouge">Distance min. </div>: {{ challenge.kilometres }}km</p>
 			{% else %}
 			<p> <div class="texte_rouge">Nombre de pas</div> min. : {{ challenge.nbSteps }}km</p>
 			{% endif %}
@@ -38,15 +46,14 @@
 							{% set classement = classement + 1 %}
 					{% endif %}
 				{% endfor %}
-			
+			<h2 class="card-title"><div class="texte_rouge">Mes données : </div></h2>
 			{% if performance == null %}
-				<h2 class="card-title"><div class="texte_rouge">Vous ne participez pas au défi</div></h2>
+				<p>Vous ne participez pas au défi</p>
 			{% else %}
-				<h2 class="card-title"><div class="texte_rouge">Mes données : </div></h2>
 				<p> <div class="texte_rouge">Nom </div> : {{ app.user.username }}</p>
 				<p> <div class="texte_rouge">Rang </div> : {{ rang }}</p>
 				<p> <div class="texte_rouge">Appareil </div> : {{ appareil }}</p>
-				<p> <div class="texte_rouge">Performance </div> : {{ performance }}</p>
+				<p> <div class="texte_rouge">Performance </div> : {{ performance }} {{ mesure }}</p>
 			{% endif %}
 
 		</div>
