@@ -31,13 +31,7 @@ class DefaultController extends Controller
      * @Route("/user/challenges", name="my_challenges")
      */
     public function myChallengesAction(){
-       $current_user = $this->container->get('security.context')->getToken()->getUser();        
-       $challengesCreated = $current_user->getChallengesCreated();
-       $challengesAccepted = $current_user->getChallengesAccepted();        
-       return $this->render('UserBundle:Profile:my_challenges.html.twig', array(
-         "challenges" => $challengesCreated,
-         "challengesAccepted" => $challengesAccepted,
-         ));
+       return $this->render('UserBundle:Profile:my_challenges.html.twig');
    }
 
     /**

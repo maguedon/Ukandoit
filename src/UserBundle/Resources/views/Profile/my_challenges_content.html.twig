@@ -8,11 +8,12 @@
     </section>
     <section class="defis">
         <div class="row">
-            {% for challenge in challenges %}
+            {% for challenge in app.user.challengesCreated %}
                 {% include 'include/_defis.html.twig' with {'challenge': challenge} %}
             {% endfor %}
         </div>
-    </section>    <section class="titre_page">
+    </section>
+    <section class="titre_page">
         <div class="row">
             <div class="bloc_rouge"></div>
             <div class="bloc_titre">
@@ -22,7 +23,7 @@
     </section>
     <section class="defis">
         <div class="row">
-            {% for challenge in challengesAccepted %}
+            {% for challenge in app.user.challengesAccepted %}
                 {% include 'include/_defis.html.twig' with {'challenge': challenge.challenge} %}
             {% endfor %}
         </div>

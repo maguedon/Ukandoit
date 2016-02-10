@@ -77,29 +77,29 @@ class DefaultController extends Controller
 
                 $data["errors"][] = "Erreur, vérifiez les dates renseignées";
 
-            }
-            else{
+        }
+        else{
 
-                $challenge->setCreator($current_user);
+            $challenge->setCreator($current_user);
 
-                $challenge->setNbPointsFirst(1);
-                $challenge->setNbPointsSecond(1);
-                $challenge->setNbPointsThird(1);
+            $challenge->setNbPointsFirst(1);
+            $challenge->setNbPointsSecond(1);
+            $challenge->setNbPointsThird(1);
 
                 // Enregistrement de l'objet
-                $em = $this->get('doctrine')->getManager();
-                $em->persist($challenge);
-                $em->flush();
-            }
+            $em = $this->get('doctrine')->getManager();
+            $em->persist($challenge);
+            $em->flush();
         }
-
-        return $this->render("AppBundle:Default:add_defis.html.twig", array(
-            'form' => $form->createView(),
-            'form2' => $form2->createView(),
-            'data' => $data
-            ));
-
     }
+
+    return $this->render("AppBundle:Default:add_defis.html.twig", array(
+        'form' => $form->createView(),
+        'form2' => $form2->createView(),
+        'data' => $data
+        ));
+
+}
 
     /**
      * @Route("/apropos", name="about")
@@ -320,28 +320,23 @@ class DefaultController extends Controller
           //  'standart' => $standart
             ));
     }
-    // A deplacer dans le bundle user ?
 
-   /**
+    /**
      * @Route("/defis", name="challenges")
      */
-   public function challengesAction(){
-    $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findByEndDate();
+    public function challengesAction(){
 
-    $allChallenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
-    $nbAllChallenges = count($allChallenges);
+        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findByEndDate();
 
-    $userManager = $this->container->get('fos_user.user_manager');
+        $allChallenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
+        $nbAllChallenges = count($allChallenges);
 
-    foreach ($challenges as $value) {
-        $user = $userManager->findUserByUsername($value->getCreator());
-        $levelUser = $user->getLevel();
-    }
-    return $this->render('AppBundle:Default:challenges.html.twig', array(
-        "challenges" => $challenges,
-        "nbChallenges" => $nbAllChallenges
+        return $this->render('AppBundle:Default:challenges.html.twig', array(
+            "challenges" => $challenges,
+            "nbChallenges" => $nbAllChallenges,
         ));
-}
+
+    }
 
     /**
      * @Route("/defisajaxdonttouch", name="defisAjax")
@@ -414,7 +409,6 @@ class DefaultController extends Controller
      * @Route("/defis/{challenge}/", name="showChallenge")
      */
     public function showCurrentChallenge($challenge){
-        $current_user = $this->container->get('security.context')->getToken()->getUser();
         $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge);
 
         if ( $challenge->getKilometres() !== null )
@@ -428,7 +422,6 @@ class DefaultController extends Controller
         $participants = $challenge->getUserChallenges();
 
         $result = array();
-        //$id_devise = null;
 
         foreach ($participants as $collection){
             $id_participant = $collection->getChallenger()->getId();
@@ -455,10 +448,6 @@ class DefaultController extends Controller
             $ukandoit = $this->get("app.ukandoit");
             $best_performance = $ukandoit->getDataFromAPI($challenge, $json);
 
-//            if ($collection->getChallenger()->getId() == $current_user->getId()){
-//                $id_device = $collection->getDeviceUsed()->getId();
-//            }
-
             $data = array(
                 "userid" => $id_participant,
                 "username" => $participant->getUsername(),
@@ -466,12 +455,10 @@ class DefaultController extends Controller
                 "level" => $level_participant,
                 "device" => $device_participant->getDeviceType()->getName(),
                 "mesure" => $mesure
-            );
+                );
 
             $data['performance'] = $best_performance["value"];
-
             $result[$data['performance']] = $data;
-            //array_push($result, $data);
         }
 
         krsort($result);
@@ -479,7 +466,7 @@ class DefaultController extends Controller
         return $this->render('AppBundle:Default:show_challenge.html.twig', array(
             "participants" => $result,
             "challenge" => $challenge
-        ));
+            ));
     }
 
 
@@ -540,20 +527,20 @@ class DefaultController extends Controller
             $data['montre']['name'] = $namePossessedDevice;
 
             switch ($namePossessedDevice) {
-            case 'Withings Activité Pop':
+                case 'Withings Activité Pop':
                 $withings = $this->get('app.withings');
                 $withings->authenticate($possessedDevice);
                 $json = $withings->getActivities($withings->getUserID() , $data['date_deb'], $data['date_fin']);
                 $data['nbPas'] = $json['global']['steps'];
                 $data['nbKm'] = round($json['global']['distance']/1000, 2);
                 break;
-            case 'Jawbone UP 24':
+                case 'Jawbone UP 24':
                 $montre_service = $this->get('app.jawbone');
                 break;
-            case 'Googlefit':
+                case 'Googlefit':
                 $montre_service = $this->get('app.googlefit');
                 break;
-            default:
+                default:
                 $data['json'] = "kk";
                 break;
             }
