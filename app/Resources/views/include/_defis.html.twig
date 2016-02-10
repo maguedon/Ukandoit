@@ -41,10 +41,17 @@
 			<p>	<div class="texte_rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
 			<p>	<div class="texte_rouge">Nombres de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
 		</div>
-
-		<div data-target="modal1"  class="card-action modal_defis" id="1" value="{{ challenge.id }}">
-			<a  href="#">Ikando'it !</a>
-		</div>
+		{% for challengeAccepted in app.user.challengesAccepted %}
+			{% if challengeAccepted.challenge.id == challenge.id %}
+				<div class="card-action" id="2" value="{{ challenge.id }}">
+					<a>Défis accepté</a>
+				</div>
+			{% else %}
+				<div data-target="modal1"  class="card-action modal_defis" id="1" value="{{ challenge.id }}">
+					<a  href="#!">Ikando'it !</a>
+				</div>
+			{% endif %}
+		{% endfor %}
 	</div>
 </div>
 <!-- Modal Trigger -->

@@ -326,27 +326,20 @@ class DefaultController extends Controller
      * @Route("/defis", name="challenges")
      */
    public function challengesAction(){
-    $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findBy(
-                   array(),        // $where
-                   array('id' => 'DESC'),    // $orderBy
-                   5,                        // $limit
-                   0                          // $offset
-                   );
+        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findBy(
+                       array(),        // $where
+                       array('id' => 'DESC'),    // $orderBy
+                       5,                        // $limit
+                       0                          // $offset
+                       );
+        $allChallenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
+        $nbAllChallenges = count($allChallenges);
 
-    $allChallenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
-    $nbAllChallenges = count($allChallenges);
-
-    $userManager = $this->container->get('fos_user.user_manager');
-
-    foreach ($challenges as $value) {
-        $user = $userManager->findUserByUsername($value->getCreator());
-        $levelUser = $user->getLevel();
+        return $this->render('AppBundle:Default:challenges.html.twig', array(
+            "challenges" => $challenges,
+            "nbChallenges" => $nbAllChallenges,
+            ));
     }
-    return $this->render('AppBundle:Default:challenges.html.twig', array(
-        "challenges" => $challenges,
-        "nbChallenges" => $nbAllChallenges
-        ));
-}
 
     /**
      * @Route("/defisajaxdonttouch", name="defisAjax")
@@ -419,7 +412,6 @@ class DefaultController extends Controller
      * @Route("/defis/{challenge}/", name="showChallenge")
      */
     public function showCurrentChallenge($challenge){
-        $current_user = $this->container->get('security.context')->getToken()->getUser();
         $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge);
 
         if ( $challenge->getKilometres() !== null )
@@ -433,7 +425,6 @@ class DefaultController extends Controller
         $participants = $challenge->getUserChallenges();
 
         $result = array();
-        //$id_devise = null;
 
         foreach ($participants as $collection){
             $id_participant = $collection->getChallenger()->getId();
@@ -460,10 +451,6 @@ class DefaultController extends Controller
             $ukandoit = $this->get("app.ukandoit");
             $best_performance = $ukandoit->getDataFromAPI($challenge, $json);
 
-//            if ($collection->getChallenger()->getId() == $current_user->getId()){
-//                $id_device = $collection->getDeviceUsed()->getId();
-//            }
-
             $data = array(
                 "userid" => $id_participant,
                 "username" => $participant->getUsername(),
@@ -474,9 +461,7 @@ class DefaultController extends Controller
             );
 
             $data['performance'] = $best_performance["value"];
-
             $result[$data['performance']] = $data;
-            //array_push($result, $data);
         }
 
         krsort($result);
