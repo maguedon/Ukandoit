@@ -39,20 +39,6 @@ class Ukandoit
 
     }
 
-    /* if ($i <= (sizeof($json['global']['days']) - $challenge_delais)){
-                    $tableau = array(
-                        "start" => $key,
-                        "value" => $param_value
-                    );
-                    array_push($content, $tableau);
-                }
-
-                if ($i >= $challenge_delais - 1){
-                    for($j = 1; $j < $challenge_delais - 1; $j++){
-                        $content[$i-$j]['value'] += $param_value;
-                    }
-                    $content[$i-($challenge_delais - 1)]['end'] = $key;
-                }*/
     /*
      * Retourne le tableau suivant : result = array(
      *                                  0 => array[
@@ -79,7 +65,7 @@ class Ukandoit
                 $next_day = new \DateTime($key);
                 $next_day->modify('+1 day');
 
-                if ( $challenge->getKilometres() !== null )
+                if ( $challenge->getKilometres() !== null ||  $challenge->getKilometres() !== 0 )
                     $param_value = $this->getDistance($json['global']['days'][$key]);
                 else
                     $param_value = $this->getSteps($json['global']['days'][$key]);
