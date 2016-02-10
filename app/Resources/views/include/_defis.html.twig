@@ -4,113 +4,85 @@
 			<div class="bande_rouge">
 				<h2 class="card-title">{{ challenge.title }}</h2>
 			</div>
-		</a>	
+		</a>
 		<div class="card-content content-defis">
 			<div class="row">
 				<div class="col s12 member_avatar">
 					<div class="badge_user">
 						<a data-tooltip="{{ challenge.creator }}" class="tooltipped" href="{{ path('user_other', {'name': challenge.creator }) }}">
-
 							{% if challenge.creator.avatar == null %}
-
-							{% image 'bundles/AppBundle/img/sans_avatar.jpg' %}
-							<img class="media-object dp circle" src="{{ asset_url }}"  alt="photo de profil de {{ challenge.creator }}">
-
+								{% image 'bundles/AppBundle/img/sans_avatar.jpg' %}
+								<img class="media-object dp circle" src="{{ asset_url }}"  alt="photo de profil de {{ challenge.creator }}">
 							{% endimage %}
-							{% else %}
-
+						{% else %}
 							{% set image = vich_uploader_asset(challenge.creator.avatar, 'imageFile') %}
 							<img class="media-object dp circle" src="{{ asset(image) }}" alt="photo de profil de {{ challenge.creator }}">
-
-							{% endif %}
-						</a>
-						<div class="member_name">
-							<span>{{ challenge.creator }} - Niv. {{ challenge.creator.level }}</span>
-							<div class="under_text"></div>
-						</div>
+						{% endif %}
+					</a>
+					<div class="member_name">
+						<span>{{ challenge.creator }} - Niv. {{ challenge.creator.level }}</span>
+						<div class="under_text"></div>
 					</div>
 				</div>
 			</div>
-			<p>{{ challenge.getTeaser() }}</p>
-			{% if challenge.kilometres != null %}
-				<p> <div class="texte_rouge">Distance</div> min. : {{ challenge.kilometres }}km</p>
-			{% else %}
-				<p> <div class="texte_rouge">Nombre de pas</div> min. : {{ challenge.nbSteps }}km</p>
-			{% endif %}
-			<p>	<div class="texte_rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
-			<p>	<div class="texte_rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
-			<p>	<div class="texte_rouge">Nombres de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
 		</div>
-		{% set flagChallenge = 0 %}
-		{% if app.user != null and  app.user.challengesAccepted|length != 0 %}
-			{% for challengeAccepted in app.user.challengesAccepted %}
-				{% if challengeAccepted.challenge.id == challenge.id %}
-					{% set flagChallenge = 1 %}
-				{% endif %}
-			{% endfor %}
-		{% endif %}
-		{% if flagChallenge == 0 %}
-			<div data-target="modal1"  class="card-action modal_defis" id="1" value="{{ challenge.id }}">
-				<a  href="#!">Ikando'it !</a>
-			</div>
+		<p>{{ challenge.getTeaser() }}</p>
+		{% if challenge.kilometres != null %}
+			<p> <div class="texte_rouge">Distance</div> min. : {{ challenge.kilometres }}km</p>
 		{% else %}
-			<div class="card-action" id="2" value="{{ challenge.id }}">
-				<a>Défis accepté</a>
-			</div>
+			<p> <div class="texte_rouge">Nombre de pas</div> min. : {{ challenge.nbSteps }}km</p>
 		{% endif %}
+		<p>	<div class="texte_rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
+		<p>	<div class="texte_rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
+		<p>	<div class="texte_rouge">Nombres de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
 	</div>
+	{% set flagChallenge = 0 %}
+	{% if app.user != null and  app.user.challengesAccepted|length != 0 %}
+		{% for challengeAccepted in app.user.challengesAccepted %}
+			{% if challengeAccepted.challenge.id == challenge.id %}
+				{% set flagChallenge = 1 %}
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+	{% if flagChallenge == 0 %}
+		<div data-target="modal1"  class="card-action modal_defis" id="1" value="{{ challenge.id }}">
+			<a  href="#!">Ikando'it !</a>
+		</div>
+	{% else %}
+		<div class="card-action" id="2" value="{{ challenge.id }}">
+			<a>Défis accepté</a>
+		</div>
+	{% endif %}
 </div>
-<!-- Modal Trigger -->
-<!--   <button data-target="modal1" class="btn modal-trigger">Modal</button> -->
-
-
-
-<!-- Modal Trigger -->
-<!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
-
-<!-- Modal Structure -->
+</div>
 <div id="modal1" class="modal bottom-sheet">
-	<div class="modal-content">
-		{% if app.user %}
-
+<div class="modal-content">
+	{% if app.user %}
 		<h4>Liste de vos appareils</h4>
 		<p>Choisissez l'appareil avec lequel vous souhaitez réaliser le défi.</p>
-
 		{% if app.user.possessedDevices|length != 0 %}
-
-		<form action="#" id="form_defi">
-
-			{% for possessedDevice in app.user.possessedDevices %}
-
-
-			<input class="with-gap" name="object_form" type="radio" class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
-			<label for="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }} </label>
-
-			{% endfor %}
-		</form>
-
+			<form action="#" id="form_defi">
+				{% for possessedDevice in app.user.possessedDevices %}
+					<input class="with-gap" name="object_form" type="radio" class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
+					<label for="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }} </label>
+				{% endfor %}
+			</form>
 		{% else %}
-		<p>Vous n'avez aucun objet pour le moment !</p>
-		<div class="center-align">
-			<a  class="waves-effect waves-light btn modal-trigger" href="{{ path('objects') }}">Ajouter un objet</a>
-		</div>
+			<p>Vous n'avez aucun objet pour le moment !</p>
+			<div class="center-align">
+				<a  class="waves-effect waves-light btn modal-trigger" href="{{ path('objects') }}">Ajouter un objet</a>
+			</div>
 		{% endif %}
-		
 	</div>
-
 	<div class="modal-footer">
-		
-    <button disabled  id="form_defi_send" class="btn_send waves-effect waves-light btn modal-trigger"  value="{{ challenge.id }}">Relever le défi !</button>
-     {% else %}
-     <h4>Vous n'êtes pas connecté</h4>
-     <p>Veuillez vous connecter ou vous inscrire pour relever le défi !</p>
-     <div class="center-align">
-        <a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_security_login')}}">Se connecter</a>
-        <a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_registration_register')}}">S'inscrire</a>
-        </div>
-        {% endif %}
-        
-    </div>
+		<button disabled  id="form_defi_send" class="btn_send waves-effect waves-light btn modal-trigger"  value="{{ challenge.id }}">Relever le défi !</button>
+	{% else %}
+		<h4>Vous n'êtes pas connecté</h4>
+		<p>Veuillez vous connecter ou vous inscrire pour relever le défi !</p>
+		<div class="center-align">
+			<a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_security_login')}}">Se connecter</a>
+			<a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_registration_register')}}">S'inscrire</a>
+		</div>
+	{% endif %}
 </div>
-
-
+</div>
