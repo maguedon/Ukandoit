@@ -65,7 +65,7 @@ class DefaultController extends Controller
                 }
             }
 
-            //S'il l'objet n'existe pas, on le crée
+            //Si l'objet n'existe pas, on le crée
             if(!$already_exist){
             // Enregistrement de l'objet
                 $em = $this->get('doctrine')->getManager();
@@ -75,7 +75,7 @@ class DefaultController extends Controller
                 if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
                     $withings = $this->get("app.withings");
                     $withings->connection();
-                //return $this->redirectToRoute('withings_token');
+                    //return $this->redirectToRoute('withings_token');
                 }
                 elseif ($possessedDevice->getDeviceType()->getName() == "Jawbone UP 24"){
                     $jawbone = $this->get("app.jawbone");

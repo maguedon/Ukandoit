@@ -326,12 +326,7 @@ class DefaultController extends Controller
      * @Route("/defis", name="challenges")
      */
    public function challengesAction(){
-    $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findBy(
-                   array(),        // $where
-                   array('id' => 'DESC'),    // $orderBy
-                   5,                        // $limit
-                   0                          // $offset
-                   );
+    $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findByEndDate();
 
     $allChallenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
     $nbAllChallenges = count($allChallenges);
