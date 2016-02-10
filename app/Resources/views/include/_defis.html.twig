@@ -48,10 +48,6 @@
 					{% set flagChallenge = 1 %}
 				{% endif %}
 			{% endfor %}
-		{% else %}
-			<div data-target="modal1"  class="card-action modal_defis" id="1" value="{{ challenge.id }}">
-				<a  href="#!">Ikando'it !</a>
-			</div>
 		{% endif %}
 		{% if flagChallenge == 0 %}
 			<div data-target="modal1"  class="card-action modal_defis" id="1" value="{{ challenge.id }}">
