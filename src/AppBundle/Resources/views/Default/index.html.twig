@@ -20,30 +20,30 @@ l'objet connecté que l'on possède !" />
 	<section class="defis">
 		<div class="row">
 			<div class="col s4 m2 offset-s0 offset-m3 center-align">
-				<a href="#" class="round_tab active" name="last-challenges" title="Derniers défis">
+				<div href="#" class="round_tab active" name="last-challenges" title="Derniers défis">
 					<i class="large material-icons">query_builder</i>
-				</a>
+				</div>
 				<p>
 					Les derniers défis
 				</p>
 			</div>
 			<div class="col s4 m2 center-align">
-				<a href="#" class="round_tab" name="best-challenges" title="Défis populaires">
+				<div href="#" class="round_tab" name="best-challenges" title="Défis populaires">
 					<i class="large material-icons">star</i>
-				</a>
+				</div>
 				<p>
 					Les plus populaires
 				</p>
 			</div>
 			<div class="col s4 m2 center-align">
 				{% if app.user %}
-					<a href="#" class="round_tab" name="current-challenges" title="Mes défis">
+					<div class="round_tab" name="current-challenges" title="Mes défis">
 						<i class="large material-icons">done</i>
-					</a>
+					</div>
 				{% else %}
-					<a href="{{ path('fos_user_security_login') }}" class="round_tab" name="current-challenges"  title="Mes défis">
+					<div href="{{ path('fos_user_security_login') }}" class="round_tab" name="current-challenges"  title="Mes défis">
 						<i class="large material-icons">done</i>
-					</a>
+					</div>
 
 				{% endif %}
 				<p>

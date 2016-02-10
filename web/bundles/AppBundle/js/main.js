@@ -163,8 +163,8 @@ $('.modal-trigger').leanModal();
     if ($(".home").has(".current-challenges")) {
         $(".home .current-challenges").hide();
     }
-    $(".home .defis a.round_tab").click(function() {
-        $(".home .defis a.round_tab").removeClass("active");
+    $(".home .defis div.round_tab").click(function() {
+        $(".home .defis div.round_tab").removeClass("active");
         $(this).addClass("active");
         var challengeType = $(this).attr("name");
         $(".home .defis .affichage-defis").hide();
