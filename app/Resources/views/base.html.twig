@@ -117,12 +117,16 @@ $(document).ready(function(){ // Quand le document est complètement chargé
 
     $(".modal-trigger-ajax").click(function(){
 
-        var DATA = "montre=" + $("#select_montre").val() +
+        if($("#select_montre").val() != null &&
+           $("#new_challenge_startPerf").val() != null &&
+           $("#new_challenge_endPerf").val() != null &&
+           $("#select_pas_km_first").val() != null){
+
+            var DATA = "montre=" + $("#select_montre").val() +
                     "&dateDebPerf=" + $("#new_challenge_startPerf").val() +
                     "&dateFinPerf=" + $("#new_challenge_endPerf").val() +
                     "&pas_or_km=" + $("#select_pas_km_first").val();
 
-        if($("#select_montre").val() != null){
            $.ajax({
             url: "{{ path('addDefisAjax')}}",
             type: 'get',
@@ -131,13 +135,12 @@ $(document).ready(function(){ // Quand le document est complètement chargé
             //Succès de la requête
             success: function(data) {
                 $('.container.add_defis').after(data);
-                $('#hidden_content').removeClass("hide");
             }
         });
 
        }
        else{
-        alert("Veuillez choisir une montre !");
+        toastr.error("Veuillez compléter tous les champs !");
     }
 });
 

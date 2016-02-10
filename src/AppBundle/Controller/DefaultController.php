@@ -410,12 +410,9 @@ class DefaultController extends Controller
         $em->persist($user_challenge);
         //$em->persist($device);
         $em->flush();
-       // return $this->redirectToRoute("challenges");
+        return $this->redirectToRoute("challenges");
 
 
-         /*   return $this->render('AppBundle:Default:challenges.html.twig', array(
-            "challenge" => $challenge
-            ));*/
     }
 
     /**
@@ -556,6 +553,10 @@ class DefaultController extends Controller
             default:
                 $data['json'] = "kk";
                 break;
+            }
+
+            if($data['nbPas'] == null || $data['nbKm'] == null){
+                $data['error'] = true;
             }
 
             return $this->render('AppBundle:Ajax:ajax_add_defis.html.twig', array(
