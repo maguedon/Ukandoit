@@ -49,18 +49,64 @@ class DefaultController extends Controller
 
         $challenge = new Challenge();
 
-        $form = $this->createForm(NewChallengeType::class, $challenge);
-        $form->handleRequest($request);
+        // ------------ CREATION FORM 1 ------------ //
+        $formBuilderOne = $this->container
+        ->get('form.factory')
+        ->createNamedBuilder('formOne', 'form', NULL, array('validation_groups' => array()))
+        ->add('title', 'text')
+        ->add('endDate', 'date', array(
+            'widget' => 'single_text',
+            'input' => 'datetime',
+            'format' => 'dd/MM/yyyy',
+            'attr' => array('class' => 'date')))
+        ->add('activity', 'entity', array(
+            'class' => 'AppBundle:Activity',
+            'property' => 'name'))
+        ->add('nbSteps', 'integer', array(
+            'required' => false))
+        ->add('kilometres', 'number', array(
+            'required' => false))
+        ->add('time', 'integer')
+        ->add('submit', 'submit');
 
-        $form2 = $this->createForm(NewChallengeType::class, $challenge);
-        $form2->handleRequest($request);
+        $formOne = $formBuilderOne
+        ->getForm()
+        ->handleRequest($request);
 
-        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        // ------------ CREATION FORM 2 ------------ //
+        $formBuilderTwo = $this->container
+        ->get('form.factory')
+        ->createNamedBuilder('formTwo', 'form', NULL, array('validation_groups' => array()))
+        ->add('title', 'text')
+        ->add('endDate', 'date', array(
+            'widget' => 'single_text',
+            'input' => 'datetime',
+            'format' => 'dd/MM/yyyy',
+            'attr' => array('class' => 'date')))
+        ->add('activity', 'entity', array(
+            'class' => 'AppBundle:Activity',
+            'property' => 'name'))
+        ->add('nbSteps', 'integer', array(
+            'required' => false))
+        ->add('kilometres', 'number', array(
+            'required' => false))
+        ->add('time', 'integer')
+        ->add('submit', 'submit');
 
-        if (($form->isSubmitted() && $form->isValid()) || ($form2->isSubmitted() && $form2->isValid())) {
+        $formTwo = $formBuilderTwo
+        ->getForm()
+        ->handleRequest($request);
 
-            $form_data_endDate = $form2->get("endDate")->getData();
-            $form_data_time = $form2->get("time")->getData();
+        // ------------ FORM 1 VALIDATION------------ //
+        if ($formOne->isValid())
+        {
+            $form_data_title = $formOne->get("title")->getData();
+            $form_data_endDate = $formOne->get("endDate")->getData();
+            $form_data_time = $formOne->get("time")->getData();
+            $form_data_nbKm = $formOne->get("kilometres")->getData();
+            $form_data_nbSteps = $formOne->get("nbSteps")->getData();
+            $form_data_activity = $formOne->get("activity")->getData();
+            $form_data_possessedDevice = $_POST["possessedDeviceFormOne"];
             $form_data_currentDate = $challenge->getCreationDate();
 
             $avoid_error = $form_data_time ;
@@ -77,29 +123,98 @@ class DefaultController extends Controller
 
                 $data["errors"][] = "Erreur, vérifiez les dates renseignées";
 
+            }
+            else{
+                $challenge->setTitle($form_data_title);
+                $challenge->setEndDate($form_data_endDate);
+                $challenge->setCreator($current_user);
+                $challenge->setActivity($form_data_activity);
+                $challenge->setTime($form_data_time);
+                $challenge->setNbSteps($form_data_nbSteps);
+                $challenge->setKilometres($form_data_nbKm);
+
+                $challenge->setNbPointsFirst(1);
+                $challenge->setNbPointsSecond(1);
+                $challenge->setNbPointsThird(1);
+
+                $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($form_data_possessedDevice);
+
+                $user_challenge = new user_challenge();
+                $user_challenge->setDeviceUsed($possessedDevice);
+                $user_challenge->setChallenger($current_user);
+                $user_challenge->setChallenge($challenge);
+
+                        // Enregistrement de l'objet
+                $em = $this->get('doctrine')->getManager();
+                $em->persist($challenge);
+                $em->persist($user_challenge);
+                $em->flush();
+            }
         }
-        else{
 
-            $challenge->setCreator($current_user);
+        // ------------ FORM 2 VALIDATION ------------ //
+        if ($formTwo->isValid())
+        {
+            $form_data_title = $formTwo->get("title")->getData();
+            $form_data_endDate = $formTwo->get("endDate")->getData();
+            $form_data_time = $formTwo->get("time")->getData();
+            $form_data_nbKm = $formTwo->get("kilometres")->getData();
+            $form_data_nbSteps = $formTwo->get("nbSteps")->getData();
+            $form_data_activity = $formTwo->get("activity")->getData();
+            $form_data_possessedDevice = $_POST["possessedDeviceFormTwo"];
+            $form_data_currentDate = $challenge->getCreationDate();
 
-            $challenge->setNbPointsFirst(1);
-            $challenge->setNbPointsSecond(1);
-            $challenge->setNbPointsThird(1);
+            $avoid_error = $form_data_time ;
+            if($avoid_error < 0){
+                $avoid_error = 0;
+            }
 
-                // Enregistrement de l'objet
-            $em = $this->get('doctrine')->getManager();
-            $em->persist($challenge);
-            $em->flush();
+            $now_temp = clone $form_data_currentDate;
+            $form_data_endDate_limit = $form_data_currentDate->add(new \DateInterval('P'.$avoid_error.'D'));
+
+            if(($form_data_time <= 0) ||
+                ($form_data_endDate_limit->format('Y-m-d') > $form_data_endDate->format('Y-m-d')) ||
+                ($form_data_endDate->format('Y-m-d') < $now_temp->format('Y-m-d'))){
+
+                $data["errors"][] = "Erreur, vérifiez les dates renseignées";
+
+            }
+            else{
+                $challenge->setTitle($form_data_title);
+                $challenge->setEndDate($form_data_endDate);
+                $challenge->setCreator($current_user);
+                $challenge->setActivity($form_data_activity);
+                $challenge->setTime($form_data_time);
+                $challenge->setNbSteps($form_data_nbSteps);
+                $challenge->setKilometres($form_data_nbKm);
+
+                $challenge->setNbPointsFirst(1);
+                $challenge->setNbPointsSecond(1);
+                $challenge->setNbPointsThird(1);
+
+                $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($form_data_possessedDevice);
+
+                $user_challenge = new user_challenge();
+                $user_challenge->setDeviceUsed($possessedDevice);
+                $user_challenge->setChallenger($current_user);
+                $user_challenge->setChallenge($challenge);
+
+                            // Enregistrement de l'objet
+
+                $em = $this->get('doctrine')->getManager();
+                $em->persist($challenge);
+                $em->persist($user_challenge);
+                $em->flush();
+            }
         }
-    }
 
     return $this->render("AppBundle:Default:add_defis.html.twig", array(
-        'form' => $form->createView(),
-        'form2' => $form2->createView(),
+        'formOne' => $formOne->createView(),
+        'formTwo' => $formTwo->createView(),
         'data' => $data
         ));
-
 }
+
 
     /**
      * @Route("/apropos", name="about")
@@ -334,7 +449,8 @@ class DefaultController extends Controller
         return $this->render('AppBundle:Default:challenges.html.twig', array(
             "challenges" => $challenges,
             "nbChallenges" => $nbAllChallenges,
-        ));
+
+            ));
 
     }
 
