@@ -26,6 +26,13 @@ class RegistrationController extends BaseController
 {
     public function registerAction()
     {
+        // Si on est déjà connecté on redirige vers le profil
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user != "anon."){
+            $this->setFlash('message', 'Vous êtes déjà connecté !');
+            return new RedirectResponse($this->container->get('router')->generate("fos_user_profile_show"));
+        }
+
         $form = $this->container->get('fos_user.registration.form');
         $formHandler = $this->container->get('fos_user.registration.form.handler');
         $confirmationEnabled = $this->container->getParameter('fos_user.registration.confirmation.enabled');

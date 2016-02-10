@@ -20,8 +20,8 @@ class DefaultController extends Controller
             return $this->redirectToRoute('fos_user_security_login');
         
         $userManager = $this->container->get('fos_user.user_manager');
-        $userManager->deleteUser($user);
-        $this->get('session')->getFlashBag()->add('message', $user->getUsername() . ' : Votre compte a été supprimé');
+        $userManager->deleteUser($current_user);
+        $this->get('session')->getFlashBag()->add('message', $current_user->getUsername() . ' : Votre compte a été supprimé');
         return $this->redirect($this->generateUrl('homepage'));
 
     }

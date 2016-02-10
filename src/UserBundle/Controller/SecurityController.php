@@ -4,12 +4,20 @@ namespace UserBundle\Controller;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Security\Core\SecurityContext;
 use FOS\UserBundle\Controller\SecurityController as BaseController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 class SecurityController extends BaseController
 {
     public function loginAction()
     {
+        // Si on est déjà connecté on redirige vers le profil
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user != "anon."){
+            $this->setFlash('message', 'Vous êtes déjà connecté !');
+            return new RedirectResponse($this->container->get('router')->generate("fos_user_profile_show"));
+        }
+
         $request = $this->container->get('request');
         /* @var $request \Symfony\Component\HttpFoundation\Request */
         $session = $request->getSession();

@@ -58,23 +58,23 @@ class User extends BaseUser
     private $level;
 
      /**
-     * @ORM\OneToMany(targetEntity="PossessedDevice", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="PossessedDevice", mappedBy="user", cascade={"remove"})
      */
      private $possessedDevices;
 
     /**
-     * @ORM\OneToOne(targetEntity="Stats")
+     * @ORM\OneToOne(targetEntity="Stats", cascade={"remove"})
      * @ORM\JoinColumn(name="stats_id", referencedColumnName="id")
      */
     private $stats;
 
     /**
-     * @ORM\OneToMany(targetEntity="Challenge", mappedBy="creator")
+     * @ORM\OneToMany(targetEntity="Challenge", mappedBy="creator", cascade={"remove"})
      */
     private $challengesCreated;
 
     /**
-     * @ORM\OneToMany(targetEntity="User_Challenge", mappedBy="challenger")
+     * @ORM\OneToMany(targetEntity="User_Challenge", mappedBy="challenger", cascade={"remove"})
      */
     private $challengesAccepted;
 
