@@ -10,26 +10,34 @@
 			</div>
 		</div>
 	</section>
-	<div class="row card-panel">
-		<div class="col s12 m6 center-align">
-			<h2 class="card-title"><div class="texte_rouge">Titre : {{ challenge.title }}</div></h2>
-
-			<div class="member_name">
-				<p>	<div class="texte_rouge">Proposé par</div> : {{ challenge.creator }} - Niv. {{ challenge.creator.level }}</p>
+	<div class="row ">
+		<div class="defi col s12 m6">
+			<div class="bande_rouge">
+				<h2 class="card-title">{{ challenge.title }}</h2>
 			</div>
-			<p>	<div class="texte_rouge">Défi </div> : {{ challenge.getTeaser() }}</p>
-			{% if challenge.kilometres != null %}
-			<p> <div class="texte_rouge">Distance min. </div>: {{ challenge.kilometres }}km</p>
-			{% else %}
-			<p> <div class="texte_rouge">Nombre de pas</div> min. : {{ challenge.nbSteps }}km</p>
-			{% endif %}
-			<p>	<div class="texte_rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
-			<p>	<div class="texte_rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
-			<p>	<div class="texte_rouge">Nombres de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
+			<div class="card-panel">
+				<!-- <h2 class="card-title"><div class="texte_rouge">Titre : {{ challenge.title }}</div></h2> -->
+
+				<div class="member_name">
+					<p>	<div class="texte_rouge">Proposé par</div> : {{ challenge.creator }} - Niv. {{ challenge.creator.level }}</p>
+				</div>
+				<p>	<div class="texte_rouge">Défi </div> : {{ challenge.getTeaser() }}</p>
+				{% if challenge.kilometres != null %}
+				<p> <div class="texte_rouge">Distance min. </div>: {{ challenge.kilometres }}km</p>
+				{% else %}
+				<p> <div class="texte_rouge">Nombre de pas</div> min. : {{ challenge.nbSteps }}km</p>
+				{% endif %}
+				<p>	<div class="texte_rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
+				<p>	<div class="texte_rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
+				<p>	<div class="texte_rouge">Nombres de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
+			</div>
 		</div>
-		<div class="col s12 m6 center-align">
-		
-			
+
+		<div class="defi col s12 m6">
+			<div class="bande_rouge">
+				<h2 class="card-title">Mes données</h2>
+			</div>
+			<div class="card-panel">
 				{% set rang = null %}
 				{% set appareil = null %}
 				{% set performance = null %}
@@ -37,27 +45,29 @@
 				{% set classement = 0 %}
 				{% for participant in participants %}
 					{% if app.user != null %}
-							{% if app.user.id == participant.userid %}
-								{% set rang = classement + 1 %}
-								{% set appareil = participant.device %}
-								{% set performance = participant.performance %}
-								{% set mesure = participant.mesure %}
-							{% endif %}
-							{% set classement = classement + 1 %}
+						{% if app.user.id == participant.userid %}
+							{% set rang = classement + 1 %}
+							{% set appareil = participant.device %}
+							{% set performance = participant.performance %}
+							{% set mesure = participant.mesure %}
+						{% endif %}
+						{% set classement = classement + 1 %}
 					{% endif %}
 				{% endfor %}
-			<h2 class="card-title"><div class="texte_rouge">Mes données : </div></h2>
-			{% if performance == null %}
-				<p>Vous ne participez pas au défi</p>
-			{% else %}
-				<p> <div class="texte_rouge">Nom </div> : {{ app.user.username }}</p>
-				<p> <div class="texte_rouge">Rang </div> : {{ rang }}</p>
-				<p> <div class="texte_rouge">Appareil </div> : {{ appareil }}</p>
-				<p> <div class="texte_rouge">Performance </div> : {{ performance }} {{ mesure }}</p>
-			{% endif %}
-
+				{% if performance == null %}
+					<p>Vous ne participez pas au défi</p>
+				{% else %}
+					<p> <div class="texte_rouge">Nom </div> : {{ app.user.username }}</p>
+					<p> <div class="texte_rouge">Rang </div> : {{ rang }}</p>
+					<p> <div class="texte_rouge">Appareil </div> : {{ appareil }}</p>
+					<p> <div class="texte_rouge">Performance </div> : {{ performance }} {{ mesure }}</p>
+				{% endif %}
+			</div>
 		</div>
 	</div>
+
+
+
 	{% if participants|length == 0 %}
 	<p>Il n'y a pas de participants à ce défi.</p>
 	{% else %}
@@ -113,7 +123,7 @@
 			</ul>
 		</div>
 	</section>
-{% if participants|length > 2 %}
+	{% if participants|length > 2 %}
 	<section class="petit_classement">
 		<div class="row">
 			<div id="highlight responsive-table centered">
