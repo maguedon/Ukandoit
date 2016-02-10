@@ -32,13 +32,15 @@ class CheckChallengesCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $container = $this->getContainer();
-
-        // --------------- Vérification des challenges finis -----------------//
         $em = $container->get('doctrine')->getManager();
+
         $challenges = $em->getRepository('AppBundle:Challenge')->findAll();
 
         //On regarde tous les challenges
         foreach($challenges as $challenge){
+
+            // --------------- Vérification des challenges juste finis -----------------//
+
             // Si le challenge vient de se terminer on envoie un mail aux participants
             if($challenge->getEndDate()->format('d-m-Y') == (new \DateTime())->modify("-1 day")->format('d-m-Y')){
                 foreach($challenge->getUserChallenges() as $user_challenge){
@@ -47,10 +49,47 @@ class CheckChallengesCommand extends ContainerAwareCommand
                     $this->sendEmail($recipient, $username, $challenge);
                 }
             }
+
+            // --------------- Vérification des utilisateurs qui ont synchronisé leurs données --------------//
+
+            if($challenge->getEndDate()->modify("+2 day")->format('d-m-Y') == (new \DateTime())->modify("-1 day")->format('d-m-Y')){
+                foreach($challenge->getUserChallenges() as $user_challenge){
+                    $deviceUsed = $user_challenge->getDeviceUsed();
+
+                    switch($deviceUsed->getDeviceType()){
+
+                        case "Withings Activité Pop":
+                            $withings = $container->get('app.withings');
+                            $withings->authenticate($deviceUsed);
+
+                            $activities = $withings->getActivities($deviceUsed->getUserIdWithings(), $challenge->getCreationDate()->format('Y-m-d'), $challenge->getEndDate()->format('Y-m-d'));
+                            break;
+
+                        case "Jawbone UP 24":
+                            $jawbone = $container->get('app.jawbone');
+
+                            $activities = $jawbone->getMoves($deviceUsed->getAccessTokenJawbone(), $challenge->getCreationDate()->format('Y-m-d'), $challenge->getEndDate()->format('Y-m-d'));
+                            break;
+
+                        case "Googlefit":
+                            $activities = array();
+                            break;
+                            
+                        default:
+                            $output->writeln("default");
+                            $activities = array();
+                            break;
+                    }
+
+                    // S'il n'y a pas de données pour la période demandée, l'utilisateur est disqualifié
+                    if(count($activities) == 0){
+                        $user_challenge->setDisqualified(true);
+                        $em->flush();
+                    }
+                }
+            }
+
         }
-
-
-        $output->writeln("Check ok");
         return 1;
     }
 

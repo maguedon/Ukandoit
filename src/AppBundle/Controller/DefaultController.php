@@ -51,51 +51,51 @@ class DefaultController extends Controller
 
         // ------------ CREATION FORM 1 ------------ //
         $formBuilderOne = $this->container
-                ->get('form.factory')
-                ->createNamedBuilder('formOne', 'form', NULL, array('validation_groups' => array()))
-                ->add('title', 'text')
-                ->add('endDate', 'date', array(
-                    'widget' => 'single_text',
-                    'input' => 'datetime',
-                    'format' => 'dd/MM/yyyy',
-                    'attr' => array('class' => 'date')))
-                ->add('activity', 'entity', array(
-                    'class' => 'AppBundle:Activity',
-                    'property' => 'name'))
-                ->add('nbSteps', 'integer', array(
-                    'required' => false))
-                ->add('kilometres', 'number', array(
-                    'required' => false))
-                ->add('time', 'integer')
-                ->add('submit', 'submit');
+        ->get('form.factory')
+        ->createNamedBuilder('formOne', 'form', NULL, array('validation_groups' => array()))
+        ->add('title', 'text')
+        ->add('endDate', 'date', array(
+            'widget' => 'single_text',
+            'input' => 'datetime',
+            'format' => 'dd/MM/yyyy',
+            'attr' => array('class' => 'date')))
+        ->add('activity', 'entity', array(
+            'class' => 'AppBundle:Activity',
+            'property' => 'name'))
+        ->add('nbSteps', 'integer', array(
+            'required' => false))
+        ->add('kilometres', 'number', array(
+            'required' => false))
+        ->add('time', 'integer')
+        ->add('submit', 'submit');
 
         $formOne = $formBuilderOne
-                ->getForm()
-                ->handleRequest($request);
+        ->getForm()
+        ->handleRequest($request);
 
         // ------------ CREATION FORM 2 ------------ //
         $formBuilderTwo = $this->container
-                ->get('form.factory')
-                ->createNamedBuilder('formTwo', 'form', NULL, array('validation_groups' => array()))
-                ->add('title', 'text')
-                ->add('endDate', 'date', array(
-                    'widget' => 'single_text',
-                    'input' => 'datetime',
-                    'format' => 'dd/MM/yyyy',
-                    'attr' => array('class' => 'date')))
-                ->add('activity', 'entity', array(
-                    'class' => 'AppBundle:Activity',
-                    'property' => 'name'))
-                ->add('nbSteps', 'integer', array(
-                    'required' => false))
-                ->add('kilometres', 'number', array(
-                    'required' => false))
-                ->add('time', 'integer')
-                ->add('submit', 'submit');
+        ->get('form.factory')
+        ->createNamedBuilder('formTwo', 'form', NULL, array('validation_groups' => array()))
+        ->add('title', 'text')
+        ->add('endDate', 'date', array(
+            'widget' => 'single_text',
+            'input' => 'datetime',
+            'format' => 'dd/MM/yyyy',
+            'attr' => array('class' => 'date')))
+        ->add('activity', 'entity', array(
+            'class' => 'AppBundle:Activity',
+            'property' => 'name'))
+        ->add('nbSteps', 'integer', array(
+            'required' => false))
+        ->add('kilometres', 'number', array(
+            'required' => false))
+        ->add('time', 'integer')
+        ->add('submit', 'submit');
 
         $formTwo = $formBuilderTwo
-                ->getForm()
-                ->handleRequest($request);
+        ->getForm()
+        ->handleRequest($request);
 
         // ------------ FORM 1 VALIDATION------------ //
         if ($formOne->isValid())
@@ -125,7 +125,6 @@ class DefaultController extends Controller
 
             }
             else{
-
                 $challenge->setTitle($form_data_title);
                 $challenge->setEndDate($form_data_endDate);
                 $challenge->setCreator($current_user);
@@ -145,7 +144,7 @@ class DefaultController extends Controller
                 $user_challenge->setChallenger($current_user);
                 $user_challenge->setChallenge($challenge);
 
-                // Enregistrement de l'objet
+                        // Enregistrement de l'objet
                 $em = $this->get('doctrine')->getManager();
                 $em->persist($challenge);
                 $em->persist($user_challenge);
@@ -181,7 +180,6 @@ class DefaultController extends Controller
 
             }
             else{
-
                 $challenge->setTitle($form_data_title);
                 $challenge->setEndDate($form_data_endDate);
                 $challenge->setCreator($current_user);
@@ -201,7 +199,8 @@ class DefaultController extends Controller
                 $user_challenge->setChallenger($current_user);
                 $user_challenge->setChallenge($challenge);
 
-                // Enregistrement de l'objet
+                            // Enregistrement de l'objet
+
                 $em = $this->get('doctrine')->getManager();
                 $em->persist($challenge);
                 $em->persist($user_challenge);
@@ -209,12 +208,13 @@ class DefaultController extends Controller
             }
         }
 
-        return $this->render("AppBundle:Default:add_defis.html.twig", array(
-            'formOne' => $formOne->createView(),
-            'formTwo' => $formTwo->createView(),
-            'data' => $data
-            ));
-    }
+    return $this->render("AppBundle:Default:add_defis.html.twig", array(
+        'formOne' => $formOne->createView(),
+        'formTwo' => $formTwo->createView(),
+        'data' => $data
+        ));
+}
+
 
     /**
      * @Route("/apropos", name="about")
@@ -435,33 +435,24 @@ class DefaultController extends Controller
           //  'standart' => $standart
             ));
     }
-    // A deplacer dans le bundle user ?
 
-   /**
+    /**
      * @Route("/defis", name="challenges")
      */
     public function challengesAction(){
-    $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findBy(
-                   array(),        // $where
-                   array('id' => 'DESC'),    // $orderBy
-                   5,                        // $limit
-                   0                          // $offset
-                   );
 
-    $allChallenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
-    $nbAllChallenges = count($allChallenges);
+        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findByEndDate();
 
-    $userManager = $this->container->get('fos_user.user_manager');
+        $allChallenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
+        $nbAllChallenges = count($allChallenges);
 
-    foreach ($challenges as $value) {
-        $user = $userManager->findUserByUsername($value->getCreator());
-        $levelUser = $user->getLevel();
+        return $this->render('AppBundle:Default:challenges.html.twig', array(
+            "challenges" => $challenges,
+            "nbChallenges" => $nbAllChallenges,
+
+            ));
+
     }
-    return $this->render('AppBundle:Default:challenges.html.twig', array(
-        "challenges" => $challenges,
-        "nbChallenges" => $nbAllChallenges
-        ));
-}
 
     /**
      * @Route("/defisajaxdonttouch", name="defisAjax")
@@ -534,7 +525,6 @@ class DefaultController extends Controller
      * @Route("/defis/{challenge}/", name="showChallenge")
      */
     public function showCurrentChallenge($challenge){
-        $current_user = $this->container->get('security.context')->getToken()->getUser();
         $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge);
 
         if ( $challenge->getKilometres() !== null )
@@ -548,7 +538,6 @@ class DefaultController extends Controller
         $participants = $challenge->getUserChallenges();
 
         $result = array();
-        //$id_devise = null;
 
         foreach ($participants as $collection){
             $id_participant = $collection->getChallenger()->getId();
@@ -575,10 +564,6 @@ class DefaultController extends Controller
             $ukandoit = $this->get("app.ukandoit");
             $best_performance = $ukandoit->getDataFromAPI($challenge, $json);
 
-//            if ($collection->getChallenger()->getId() == $current_user->getId()){
-//                $id_device = $collection->getDeviceUsed()->getId();
-//            }
-
             $data = array(
                 "userid" => $id_participant,
                 "username" => $participant->getUsername(),
@@ -586,12 +571,10 @@ class DefaultController extends Controller
                 "level" => $level_participant,
                 "device" => $device_participant->getDeviceType()->getName(),
                 "mesure" => $mesure
-            );
+                );
 
             $data['performance'] = $best_performance["value"];
-
             $result[$data['performance']] = $data;
-            //array_push($result, $data);
         }
 
         krsort($result);
@@ -599,7 +582,7 @@ class DefaultController extends Controller
         return $this->render('AppBundle:Default:show_challenge.html.twig', array(
             "participants" => $result,
             "challenge" => $challenge
-        ));
+            ));
     }
 
 
@@ -660,20 +643,20 @@ class DefaultController extends Controller
             $data['montre']['name'] = $namePossessedDevice;
 
             switch ($namePossessedDevice) {
-            case 'Withings Activité Pop':
+                case 'Withings Activité Pop':
                 $withings = $this->get('app.withings');
                 $withings->authenticate($possessedDevice);
                 $json = $withings->getActivities($withings->getUserID() , $data['date_deb'], $data['date_fin']);
                 $data['nbPas'] = $json['global']['steps'];
                 $data['nbKm'] = round($json['global']['distance']/1000, 2);
                 break;
-            case 'Jawbone UP 24':
+                case 'Jawbone UP 24':
                 $montre_service = $this->get('app.jawbone');
                 break;
-            case 'Googlefit':
+                case 'Googlefit':
                 $montre_service = $this->get('app.googlefit');
                 break;
-            default:
+                default:
                 $data['json'] = "kk";
                 break;
             }

@@ -31,13 +31,7 @@ class DefaultController extends Controller
      * @Route("/user/challenges", name="my_challenges")
      */
     public function myChallengesAction(){
-       $current_user = $this->container->get('security.context')->getToken()->getUser();        
-       $challengesCreated = $current_user->getChallengesCreated();
-       $challengesAccepted = $current_user->getChallengesAccepted();        
-       return $this->render('UserBundle:Profile:my_challenges.html.twig', array(
-         "challenges" => $challengesCreated,
-         "challengesAccepted" => $challengesAccepted,
-         ));
+       return $this->render('UserBundle:Profile:my_challenges.html.twig');
    }
 
     /**
@@ -65,7 +59,7 @@ class DefaultController extends Controller
                 }
             }
 
-            //S'il l'objet n'existe pas, on le crée
+            //Si l'objet n'existe pas, on le crée
             if(!$already_exist){
             // Enregistrement de l'objet
                 $em = $this->get('doctrine')->getManager();
@@ -75,7 +69,7 @@ class DefaultController extends Controller
                 if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
                     $withings = $this->get("app.withings");
                     $withings->connection();
-                //return $this->redirectToRoute('withings_token');
+                    //return $this->redirectToRoute('withings_token');
                 }
                 elseif ($possessedDevice->getDeviceType()->getName() == "Jawbone UP 24"){
                     $jawbone = $this->get("app.jawbone");

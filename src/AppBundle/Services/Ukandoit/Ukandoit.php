@@ -73,45 +73,55 @@ class Ukandoit
         $i = 0;
         $max = 0;
 
-        foreach ($json['global']['days'] as $key => $current_day){
-            $next_day = new \DateTime($key);
-            $next_day->modify('+1 day');
+        // Si l'utilisateur a synchronisé ses données
+        if($json != null){
+            foreach($json['global']['days'] as $key => $current_day){
+                $next_day = new \DateTime($key);
+                $next_day->modify('+1 day');
 
-            if ( $challenge->getKilometres() !== null )
-                $param_value = $this->getDistance($json['global']['days'][$key]);
-            else
-                $param_value = $this->getSteps($json['global']['days'][$key]);
+                if ( $challenge->getKilometres() !== null )
+                    $param_value = $this->getDistance($json['global']['days'][$key]);
+                else
+                    $param_value = $this->getSteps($json['global']['days'][$key]);
 
-            if ($i <= sizeof($json['global']['days']) - $challenge_delais -1){
-                for($j=$i; $j<$i+$challenge_delais-1; $j++){
-                    if ( $challenge->getKilometres() !== null )
-                        $param_value += $this->getDistance($json['global']['days'][$next_day->format("Y-m-d")]);
-                    else
-                        $param_value += $this->getSteps($json['global']['days'][$next_day->format("Y-m-d")]);
+                if ($i <= sizeof($json['global']['days']) - $challenge_delais -1){
+                    for($j=$i; $j<$i+$challenge_delais-1; $j++){
+                        if ( $challenge->getKilometres() !== null )
+                            $param_value += $this->getDistance($json['global']['days'][$next_day->format("Y-m-d")]);
+                        else
+                            $param_value += $this->getSteps($json['global']['days'][$next_day->format("Y-m-d")]);
 
                     //var_dump($next_day->format("Y-m-d"), $param_value);
 
-                    $next_day->modify('+1 day');
+                        $next_day->modify('+1 day');
+                    }
                 }
+
+                if($param_value > $max){
+                    $max = $param_value;
+                    $date_start = $key ;
+                    $date_end = $next_day->modify('-1 day')->format("Y-m-d");
+                }
+
+                $i ++;
             }
 
-            if($param_value > $max){
-                $max = $param_value;
-                $date_start = $key ;
-                $date_end = $next_day->modify('-1 day')->format("Y-m-d");
-            }
-
-            $i ++;
+            $result = array(
+                "start" => $date_start,
+                "end" => $date_end,
+                "value" => $max
+                );
+        }
+        else{
+            $result = array(
+                "start" => $challenge->getCreationDate(),
+                "end" => $challenge->getEndDate(),
+                "value" => 0
+                );
         }
 
-        $result = array(
-            "start" => $date_start,
-            "end" => $date_end,
-            "value" => $max
-        );
 
         return $result;
     }
-
 
 }

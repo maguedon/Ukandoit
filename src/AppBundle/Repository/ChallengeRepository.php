@@ -45,4 +45,16 @@ class ChallengeRepository extends \Doctrine\ORM\EntityRepository {
 			return $result;
 		}
 
+		public function findByEndDate(){
+			$em = $this->getEntityManager();
+			$query = $em->createQuery(
+			    'SELECT c
+			    FROM AppBundle:Challenge c
+			    WHERE c.endDate >= :currenDate
+			    ORDER BY c.id DESC'
+			)->setParameter('currenDate', new \DateTime());
+
+			return $query->setMaxResults(5)->getResult();
+		}
+
 }
