@@ -21,31 +21,33 @@
 				{% for participant in participants %}
 				{% if classement < 3 %}
 				<li class="collection-item avatar">
-					{% if participant.avatar != null %}
-					{% set image = vich_uploader_asset(participant.avatar, 'imageFile') %}
-					<img class="media-object dp circle" src="{{ asset(image) }}" alt="Avatar de {{ participant.username }}">
-					{% else %}
-					<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg" alt="Avatar de {{ participant.username }}">
-					{% endif %}
-					<p>
-						<b>{{ participant.username }}</b>
-					</p>
-					<p>
-						Niv. {{ participant.level }}
-					</p>
-					<p>
-						<i>{{ participant.performance }} {{ participant.mesure }}</i>
-					</p>
-					<div class="secondary-content">
-						{% if classement == 0 %}
-						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/first.png')}}" alt="Médaille gagant">
-						{% elseif classement == 1%}
-						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/second.png')}}" alt="Médaille second">
+					<a href="{{ path('user_other', {'name': participant.username }) }}">
+						{% if participant.avatar != null %}
+						{% set image = vich_uploader_asset(participant.avatar, 'imageFile') %}
+						<img class="media-object dp circle" src="{{ asset(image) }}" alt="Avatar de {{ participant.username }}">
 						{% else %}
-						<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/third.png')}}" alt="Médaille troisième">
+						<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg" alt="Avatar de {{ participant.username }}">
 						{% endif %}
+						<p>
+							<b>{{ participant.username }}</b>
+						</p>
+						<p>
+							Niv. {{ participant.level }}
+						</p>
+						<p>
+							<i>{{ participant.performance }} {{ participant.mesure }}</i>
+						</p>
+						<div class="secondary-content">
+							{% if classement == 0 %}
+							<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/first.png')}}" alt="Médaille gagant">
+							{% elseif classement == 1%}
+							<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/second.png')}}" alt="Médaille second">
+							{% else %}
+							<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/third.png')}}" alt="Médaille troisième">
+							{% endif %}
 
-					</div>
+						</div>
+					</a>
 				</li>
 
 				{% set classement = classement + 1 %}
@@ -58,31 +60,29 @@
 {% if participants|length > 2 %}
 	<section class="petit_classement">
 		<div class="row">
-			<div id="highlight centered">
+			<div id="highlight responsive-table centered">
 				<div class="col s12">
-					<table class="highlight centered">
+					<table class="highlight responsive-table centered">
 						<thead>
 							<tr>
 								<th data-field="id">Rang</th>
 								<th data-field="name">Nom</th>
+								<th data-field="name">Appareil</th>
 								<th data-field="price">Performance</th>
 							</tr>
 						</thead>
 						<tbody>
 							{% for participant in participants %}
 							{% if classement > 2 and classement < 30 %}
-
-							<tr>
+							<tr class = "cursor" onclick="location.href='{{ path('user_other', {'name': participant.username }) }}'">
 								<td>{{ classement }}</td>
 								<td>{{ participant.username }}</td>
 								<td>{{ participant.device }}</td>
 								<td>{{ participant.performance }} {{ participant.mesure }}</td>
 							</tr>
 							{% set classement = classement + 1 %}
-
 							{% endif %}
 							{% endfor %}
-
 						</tbody>
 					</table>
 				</div>
