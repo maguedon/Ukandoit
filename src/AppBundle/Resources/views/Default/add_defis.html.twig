@@ -39,8 +39,8 @@
 								<select id="select_montre">
 									<option value="" disabled selected>Choisir la montre</option>
 									{% for possessedDevice in app.user.possessedDevices %}
-					               		<option value="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }}</option>
-					                {% endfor %}
+									<option value="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }}</option>
+									{% endfor %}
 								</select>
 								<label>Avec quelle montre avez-vous fait cette performance ?</label>
 							</div>
@@ -79,12 +79,14 @@
 									{{ form_errors(form.time) }}
 									<label for="activity">En ? de jour</label>
 								</div>
+								{{ form_rest(form) }}
+								{{ form_errors(form) }}
 							</div>
 							{{ form_rest(form) }}
 							{{ form_errors(form) }}
 							<div class="form-group">
 								<div class="btn_centre">
-									<input type="submit" value="Kanudo'it ?" class="btn btn-primary btn-block btn-lg" title="Defier!">
+									<input type="submit" value="Kanudo'it ?" disabled="true" id="ToDisabledAddDefis" class="btn btn-primary btn-block btn-lg" title="Defier!">
 								</div>
 							</div>
 						</div>
@@ -111,12 +113,12 @@
 							<label for="endDate">Date de fin</label>
 						</div>
 						<div class="input-field col s12">
-								<select id="select_pas_km">
-									<option value="" disabled selected>Choisir le type</option>
-									<option value="pas">Nombre de pas</option>
-									<option value="km">Nombre de kilomètres</option>
-								</select>
-								<label>C'est un défi en nombre de pas ou en kilomètres ?</label>
+							<select id="select_pas_km">
+								<option value="" disabled selected>Choisir le type</option>
+								<option value="pas">Nombre de pas</option>
+								<option value="km">Nombre de kilomètres</option>
+							</select>
+							<label>C'est un défi en nombre de pas ou en kilomètres ?</label>
 						</div>
 						<div id="inputSteps2" style="display: none;" class="input-field form-group col s12">
 							{{ form_widget(form2.nbSteps, { 'id': 'new_challenge_nbSteps2', 'attr': {'class': 'form-control'} }) }}
@@ -158,12 +160,11 @@
 {% block javascripts %}
 <script type="text/javascript">
 	$( document ).ready(function() {
-
 		{% if data.errors is defined %}
-			{% for error in data.errors %}
-	        	toastr.error("{{error}}");
-	    	{% endfor %}
-    	{% endif %}
+		{% for error in data.errors %}
+		toastr.error("{{error}}");
+		{% endfor %}
+		{% endif %}
 	});
 </script>
 

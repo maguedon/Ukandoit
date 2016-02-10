@@ -558,6 +558,10 @@ class DefaultController extends Controller
                 break;
             }
 
+            if($data['nbPas'] == null || $data['nbKm'] == null){
+                $data['error'] = true;
+            }
+
             return $this->render('AppBundle:Ajax:ajax_add_defis.html.twig', array(
                 "data" => $data
                 ));
