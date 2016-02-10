@@ -39,6 +39,17 @@ class User_Challenge
      */
     private $deviceUsed;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="disqualified", type="boolean")
+     */
+    private $disqualified;
+
+
+    public function __construct() {
+        $this->disqualified = false;
+    }
 
     /**
      * Get id
@@ -117,5 +128,30 @@ class User_Challenge
     public function getDeviceUsed()
     {
         return $this->deviceUsed;
+    }
+
+
+    /**
+     * Set disqualified
+     *
+     * @param boolean $disqualified
+     *
+     * @return User_Challenge
+     */
+    public function setDisqualified($disqualified)
+    {
+        $this->disqualified = $disqualified;
+
+        return $this;
+    }
+
+    /**
+     * Get disqualified
+     *
+     * @return boolean
+     */
+    public function getDisqualified()
+    {
+        return $this->disqualified;
     }
 }
