@@ -122,6 +122,8 @@ $(document).ready(function(){ // Quand le document est complètement chargé
            $("#new_challenge_endPerf").val() != null &&
            $("#select_pas_km_first").val() != null){
 
+            $(".preloader-wrapper.small").addClass('active');
+
             var DATA = "montre=" + $("#select_montre").val() +
                     "&dateDebPerf=" + $("#new_challenge_startPerf").val() +
                     "&dateFinPerf=" + $("#new_challenge_endPerf").val() +
@@ -135,6 +137,7 @@ $(document).ready(function(){ // Quand le document est complètement chargé
             //Succès de la requête
             success: function(data) {
                 $('.container.add_defis').after(data);
+                $(".preloader-wrapper.small").removeClass('active');
             }
         });
 
