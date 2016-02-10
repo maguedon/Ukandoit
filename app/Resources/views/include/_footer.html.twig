@@ -1,3 +1,35 @@
+<div id="modal1" class="modal bottom-sheet">
+	<div class="modal-content">
+		{% if app.user %}
+		<h4>Liste de vos appareils</h4>
+		<p>Choisissez l'appareil avec lequel vous souhaitez réaliser le défi.</p>
+		{% if app.user.possessedDevices|length != 0 %}
+		<form action="#" id="form_defi">
+			{% for possessedDevice in app.user.possessedDevices %}
+			<input class="with-gap" name="object_form" type="radio" class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
+			<label for="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }} </label>
+			{% endfor %}
+		</form>
+		{% else %}
+		<p>Vous n'avez aucun objet pour le moment !</p>
+		<div class="center-align">
+			<a  class="waves-effect waves-light btn modal-trigger" href="{{ path('objects') }}">Ajouter un objet</a>
+		</div>
+		{% endif %}
+	</div>
+	<div class="modal-footer">
+		<button disabled  id="form_defi_send" class="btn_send waves-effect waves-light btn modal-trigger"  value="{{ challenge.id }}">Relever le défi !</button>
+		{% else %}
+		<h4>Vous n'êtes pas connecté</h4>
+		<p>Veuillez vous connecter ou vous inscrire pour relever le défi !</p>
+		<div class="center-align">
+			<a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_security_login')}}">Se connecter</a>
+			<a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_registration_register')}}">S'inscrire</a>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
 <footer>
 	<div class="container">
 		<div class="row">
