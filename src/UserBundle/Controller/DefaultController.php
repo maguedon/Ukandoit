@@ -108,11 +108,11 @@ class DefaultController extends Controller
     }
 
 	/**
-     * @Route("/user/{name}", name="user_other")
+     * @Route("/user/{id}", name="user_other")
      */
-	public function showOtherAction($name){
-        $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->findUserByUsername($name);
+	public function showOtherAction($id){
+        $em = $this->get('doctrine')->getManager();
+        $user = $em->getRepository("AppBundle:User")->find($id);
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show_other.html.twig', array(
             'user' => $user

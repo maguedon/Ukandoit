@@ -9,7 +9,7 @@
 			<div class="row">
 				<div class="col s12 member_avatar">
 					<div class="badge_user">
-						<a data-tooltip="{{ challenge.creator }}" class="tooltipped" href="{{ path('user_other', {'name': challenge.creator }) }}">
+						<a data-tooltip="{{ challenge.creator }}" class="tooltipped" href="{{ path('user_other', {'id': challenge.creator.id }) }}">
 
 							{% if challenge.creator.avatar == null %}
 

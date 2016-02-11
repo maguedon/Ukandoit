@@ -84,7 +84,7 @@ l'objet connecté que l'on possède !" />
 			<ul class="collection">
 				{% for i in 0..2 %}
 				<li class="collection-item avatar">
-					<a href="{{ path('user_other', {'name': bestChallengers[i].username }) }}">
+					<a href="{{ path('user_other', {'id': bestChallengers[i].id }) }}">
 
 						{% if bestChallengers[i].avatar != null %}
 						{% set image = vich_uploader_asset(bestChallengers[i].avatar, 'imageFile') %}
