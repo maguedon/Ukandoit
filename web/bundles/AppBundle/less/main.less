@@ -110,7 +110,6 @@ body {
 	background-color: @rouge_vif;
 	color: @white;
 	.align-vertical();
-	
 }
 
 a .bandeau_rouge:hover {
@@ -124,6 +123,7 @@ a .bandeau_rouge:hover {
 .card-title {
 	margin: auto;
 	padding: 0 15px;
+	text-align: center;
 }
 
 .input-field {
@@ -223,11 +223,17 @@ a .bandeau_rouge:hover {
 		font-size: 1.3em !important;
 		font-variant: small-caps;
 	}
-	.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating),.card .card-action img {
+	.card .card-action {
+	 a:not(.btn):not(.btn-large):not(.btn-floating),.card .card-action img {
 		color: @rouge_vif;
 		text-align: center !important;
 		margin: auto !important;
 	}
+	i.check {
+		vertical-align: middle;
+	}
+}
+
 	.badge_user {
 		text-align: center;
 		display: block;

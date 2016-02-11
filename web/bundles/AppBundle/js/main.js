@@ -141,7 +141,10 @@ $('.modal-trigger').leanModal();
         var sbmt = document.getElementById("form_defi_send");
         $(sbmt).removeAttr("disabled");
     }
-    $(".modal_defis").on("click", function() {
+
+    var modalDefis = $(".modal_defis");
+
+    modalDefis.on("click", function() {
         var defi_id = $(this).attr("value");
         $("#form_defi_send").on("click", function() {
             var objet_id = $('input[name=object_form]:checked', '#form_defi').val();
