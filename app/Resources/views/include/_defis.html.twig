@@ -28,13 +28,13 @@
 			</div>
 			<p>{{ challenge.getTeaser() }}</p>
 			{% if challenge.kilometres != null %}
-			<p> <div class="texte_rouge">Distance</div> min. : {{ challenge.kilometres }}km</p>
+			<p> <div class="texte_rouge">Distance min. </div>: {{ challenge.kilometres }}km</p>
 			{% else %}
-			<p> <div class="texte_rouge">Nombre de pas</div> min. : {{ challenge.nbSteps }}km</p>
+			<p> <div class="texte_rouge">Nombre de pas min. </div>: {{ challenge.nbSteps }}km</p>
 			{% endif %}
 			<p>	<div class="texte_rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
 			<p>	<div class="texte_rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
-			<p>	<div class="texte_rouge">Nombres de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
+			<p>	<div class="texte_rouge">Nombres de points à gagner </div> : {{ challenge.nbPointsFirst }} exp.</p>
 		</div>
 		{% set flagChallenge = 0 %}
 		{% if app.user != null and  app.user.challengesAccepted|length != 0 %}
