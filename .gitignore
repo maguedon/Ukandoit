@@ -15,8 +15,8 @@ web/config.phpcd web
 composer.lock
 .phpintel/
 /.idea/*
-
+web/bundles/images
 /src/AppBundle/Entity/*.*~
 web/images/avatars/*
-
+web/bundles/*
 web/log.txt
