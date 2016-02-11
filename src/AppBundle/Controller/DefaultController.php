@@ -25,7 +25,7 @@ class DefaultController extends Controller
     public function indexAction(){
         $em = $this->get('doctrine')->getManager();
         $challengesService = $this->get('app.challenges');
-        $lastChallenges = $challengesService->getLastChallenges();
+        $lastChallenges = $em->getRepository('AppBundle:Challenge')->findByEndDate(9);
         $bestChallenges = $challengesService->getBestChallenges();
         $bestChallengers = $em->getRepository('AppBundle:User')->findBests();
         return $this->render('AppBundle:Default:index.html.twig', array(
@@ -441,7 +441,7 @@ class DefaultController extends Controller
      */
     public function challengesAction(){
 
-        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findByEndDate();
+        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findByEndDate(5);
 
         $allChallenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
         $nbAllChallenges = count($allChallenges);
