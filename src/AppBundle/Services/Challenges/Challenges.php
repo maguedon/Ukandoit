@@ -13,17 +13,6 @@ class Challenges
 		$this->em = $em;
 	}
 
-	//Récupération des 9 derniers défis
-	public function getLastChallenges(){
-		return $this->em->getRepository('AppBundle:Challenge')
-		->findBy(
-                   array(),								// $where
-                   array('creationDate' => 'DESC'),		// $orderBy
-                   9,									// $limit
-                   0									// $offset
-                   );
-	}
-
 	//Récupération des 9 défis les plus populaires
 	public function getBestChallenges(){
 		//Version résultat SQL
