@@ -100,8 +100,11 @@
    	if (bool == false) {
 	 $(this).leanModal();
 	      bool = true;
+	 
+	 $(this).trigger("click");
+	  e.stopImmediatePropagation();
 	  }
-        event.preventDefault();
+      event.preventDefault();
 
    });
  </script>
