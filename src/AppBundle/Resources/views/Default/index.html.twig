@@ -36,16 +36,13 @@ l'objet connecté que l'on possède !" />
 				</p>
 			</div>
 			<div class="col s4 m2 center-align">
-				{% if app.user %}
-					<div class="round_tab" name="current-challenges" title="Mes défis">
-						<i class="large material-icons">done</i>
-					</div>
+				{% if app.user != null and app.user != "anon." %}
+					<div class="round_tab" name="current-challenges">
 				{% else %}
-					<div href="{{ path('fos_user_security_login') }}" class="round_tab" name="current-challenges"  title="Mes défis">
-						<i class="large material-icons">done</i>
-					</div>
-
+					<div class="round_tab" name="redirect-login">
 				{% endif %}
+					<i class="large material-icons">done</i>
+				</div>
 				<p>
 					Les défis en cours
 				</p>
