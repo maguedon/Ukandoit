@@ -122,7 +122,7 @@ $(document).ready(function() {
 
 // -------------- Modal chargement data quand ajout defis --------------
 
-$('.modal-trigger').leanModal();
+//$('.modal-trigger').leanModal();
 
 // -------------- Ajout challenge Bloquer champ nbPas quand champ kilometre avec value et vice versa --------------
     $("#select_pas_km").change(function() {
@@ -145,6 +145,7 @@ $('.modal-trigger').leanModal();
     var modalDefis = $(".modal_defis");
 
     modalDefis.on("click", function() {
+        
         var defi_id = $(this).attr("value");
         $("#form_defi_send").on("click", function() {
             var objet_id = $('input[name=object_form]:checked', '#form_defi').val();
@@ -157,11 +158,12 @@ $('.modal-trigger').leanModal();
         });
     });
 
-    $('.card-action.modal_defis').click(function(event) {
+    $('.card-action.modal_defis a').click(function(event) {
         event.preventDefault();
     });
-    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal_defis').leanModal();
+
+
     $(".home .best-challenges .defi").hide();
     if ($(".home").has(".current-challenges")) {
         $(".home .current-challenges .defi").hide();

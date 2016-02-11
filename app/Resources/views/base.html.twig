@@ -82,7 +82,7 @@ $(document).ready(function(){ // Quand le document est complètement chargé
             ($('.card').size()<={{ nbChallenges }})){
 
             // la valeur passe à vrai, on va charger
-        load = true;
+            load = true;
 
             //On récupère l'id du dernier card affiché
             var last_id = $('.card:last').attr('id');
@@ -99,7 +99,7 @@ $(document).ready(function(){ // Quand le document est complètement chargé
                 data: DATA,
 
                 //Succès de la requête
-                success: function(data) {
+                success: function(data, responseHtml) {
 
                     //On masque le loader
                     $('.loadmore').fadeOut(500);
@@ -111,11 +111,7 @@ $(document).ready(function(){ // Quand le document est complètement chargé
                     offset = $('.card:last').offset();
                     //On remet la valeur à faux car c'est fini
                     load = false;
-
-                  // $( "div" ).remove( ".lean-overlay" );
-                   // $('.modal_defis').leanModal();
-                    var modalDefis = $(".modal_defis");
-                }
+                 }
             });
         }
     });
@@ -152,6 +148,7 @@ $(document).ready(function(){ // Quand le document est complètement chargé
             success: function(data) {
                 $('.container.add_defis').after(data);
                 $(".preloader-wrapper.small").removeClass('active');
+               // $(this).(".modal_defis").leanModal();
             }
         });
 
