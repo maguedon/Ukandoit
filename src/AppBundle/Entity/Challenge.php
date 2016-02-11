@@ -230,40 +230,6 @@ class Challenge
     }
 
     /**
-     * Add challenger
-     *
-     * @param \AppBundle\Entity\User $challenger
-     *
-     * @return Challenge
-     */
-    public function addChallenger(\AppBundle\Entity\User $challenger)
-    {
-        $this->challengers[] = $challenger;
-
-        return $this;
-    }
-
-    /**
-     * Remove challenger
-     *
-     * @param \AppBundle\Entity\User $challenger
-     */
-    public function removeChallenger(\AppBundle\Entity\User $challenger)
-    {
-        $this->challengers->removeElement($challenger);
-    }
-
-    /**
-     * Get challengers
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getChallengers()
-    {
-        return $this->challengers;
-    }
-
-    /**
      * Set activity
      *
      * @param \AppBundle\Entity\Activity $activity

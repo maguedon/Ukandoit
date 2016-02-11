@@ -157,7 +157,7 @@ $('.modal-trigger').leanModal();
         });
     });
 
-    $('.card-action a').click(function(event) {
+    $('.card-action.modal_defis').click(function(event) {
         event.preventDefault();
     });
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered

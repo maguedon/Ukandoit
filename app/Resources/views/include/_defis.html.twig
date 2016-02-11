@@ -49,13 +49,20 @@
 			<a  href="#!">Ikando'it !</a>
 		</div>
 		{% else %}
-		<div class="card-action" id="2" value="{{ challenge.id }}">
-			{% if app.user.id == challenge.creator.id and challenge.userChallenges|length <= 1 %}
-				<a id="2" href ="{{ path('delete_challenge', {'id': challenge.id}) }}">Supprimer <i class="material-icons check">delete</i></a>
-			{% else %}
-				<a id="2" href ="{{ path('surrender', {'id': challenge.id}) }}">Abandonner <i class="material-icons check">phonelink_erase</i></a>
-			{% endif %}
-		</div>
+
+
+
+			<div class="card-action">
+				{% if app.user.id == challenge.creator.id and challenge.userChallenges|length <= 1 %}
+					<a href ="{{ path('delete_challenge', {'id': challenge.id}) }}">Supprimer <i class="material-icons check">delete</i></a>
+				{% else %}
+					<a href ="{{ path('surrender', {'id': challenge.id}) }}">Abandonner <i class="material-icons check">phonelink_erase</i></a>
+				{% endif %}
+			</div>
+
+
+
+
 		{% endif %}
 	</div>
 </div>
