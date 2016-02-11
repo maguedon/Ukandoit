@@ -162,12 +162,20 @@ $('.modal-trigger').leanModal();
     if ($(".home").has(".current-challenges")) {
         $(".home .current-challenges").hide();
     }
-    $(".home .defis a.round_tab").click(function() {
-        $(".home .defis a.round_tab").removeClass("active");
-        $(this).addClass("active");
+
+    //Gestion de l'affichage des défis de l'accueil
+    $(".home .defis div.round_tab").click(function() {
         var challengeType = $(this).attr("name");
-        $(".home .defis .affichage-defis").hide();
-        $(".home .defis ." + challengeType).show();
+
+        if(challengeType == "redirect-login"){
+            location.href = window.location.protocol + "//" + window.location.host + "/login#login-page";
+        }else{
+            $(".home .defis div.round_tab").removeClass("active");
+            $(this).addClass("active");
+            $(".home .defis .affichage-defis").hide();
+            $(".home .defis ." + challengeType).show();
+        }
+
     });
 
 
