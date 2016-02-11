@@ -87,7 +87,7 @@
 				{% for participant in participants %}
 				{% if classement < 3 %}
 				<li class="collection-item avatar">
-					<a href="{{ path('user_other', {'id': participant.id }) }}">
+					<a href="{{ path('user_other', {'id': participant.userid }) }}">
 						{% if participant.avatar != null %}
 						{% set image = vich_uploader_asset(participant.avatar, 'imageFile') %}
 						<img class="media-object dp circle" src="{{ asset(image) }}" alt="Avatar de {{ participant.username }}">

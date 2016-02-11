@@ -82,7 +82,9 @@ class DefaultController extends Controller
         ->add('kilometres', 'number', array(
             'required' => false))
         ->add('time', 'integer')
-        ->add('submit', 'submit');
+        ->add('submit', 'submit', array(
+            'label' => 'Envoyer'
+        ));
 
         $formOne = $formBuilderOne
         ->getForm()
@@ -106,7 +108,9 @@ class DefaultController extends Controller
         ->add('kilometres', 'number', array(
             'required' => false))
         ->add('time', 'integer')
-        ->add('submit', 'submit');
+        ->add('submit', 'submit', array(
+                'label' => 'Envoyer'
+            ));
 
         $formTwo = $formBuilderTwo
         ->getForm()
