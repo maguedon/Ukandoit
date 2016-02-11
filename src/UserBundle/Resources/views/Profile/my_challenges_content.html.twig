@@ -8,9 +8,13 @@
 </section>
 <section class="defis">
     <div class="row">
+    {% if app.user.challengesCreated|length == 0 or app.user.challengesCreated|length == null  %}
+            Vous n'avez créé aucun défi.
+        {% else %}
         {% for challenge in app.user.challengesCreated[0:9] %}
             {% include 'include/_defis.html.twig' with {'challenge': challenge} %}
         {% endfor %}
+    {% endif %}
     </div>
 </section>
 
@@ -24,9 +28,13 @@
 </section>
 <section class="defis">
     <div class="row">
-        {% for challenge in challengesAccepted %}
-            {% include 'include/_defis.html.twig' with {'challenge': challenge} %}
-        {% endfor %}
+        {% if challengesAccepted|length == 0 or challengesAccepted|length == null  %}
+            Vous n'avez aucun défi en cours.
+        {% else %}
+            {% for challenge in challengesAccepted %}
+                {% include 'include/_defis.html.twig' with {'challenge': challenge} %}
+            {% endfor %}
+        {% endif %}
     </div>
 </section>
 
@@ -40,8 +48,12 @@
 </section>
 <section class="finished-challenges">
     <div class="row">
+    {% if finishedChallenges|length == 0 or finishedChallenges|length == null  %}
+            Vous n'avez fini aucun défi.
+        {% else %}
         {% for challenge in finishedChallenges %}
             {% include 'include/_defis.html.twig' with {'challenge': challenge} %}
         {% endfor %}
+    {% endif %}
     </div>
 </section>
