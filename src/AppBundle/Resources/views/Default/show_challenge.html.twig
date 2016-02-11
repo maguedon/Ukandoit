@@ -87,7 +87,7 @@
 				{% for participant in participants %}
 				{% if classement < 3 %}
 				<li class="collection-item avatar">
-					<a href="{{ path('user_other', {'name': participant.username }) }}">
+					<a href="{{ path('user_other', {'id': participant.id }) }}">
 						{% if participant.avatar != null %}
 						{% set image = vich_uploader_asset(participant.avatar, 'imageFile') %}
 						<img class="media-object dp circle" src="{{ asset(image) }}" alt="Avatar de {{ participant.username }}">
@@ -140,7 +140,7 @@
 						<tbody>
 							{% for participant in participants %}
 							{% if classement > 2 and classement < 30 %}
-							<tr class = "cursor" onclick="location.href='{{ path('user_other', {'name': participant.username }) }}'">
+							<tr class = "cursor" onclick="location.href='{{ path('user_other', {'id': participant.id }) }}'">
 								<td>{{ classement }}</td>
 								<td>{{ participant.username }}</td>
 								<td>{{ participant.device }}</td>

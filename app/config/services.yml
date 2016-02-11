@@ -65,3 +65,7 @@ services:
     app.challenges:
        class: AppBundle\Services\Challenges\Challenges
        arguments: [ @doctrine.orm.entity_manager ]
+
+    app.sitemap:
+        class: AppBundle\Services\Ukandoit\Sitemap
+        arguments: [@router, @doctrine.orm.entity_manager]

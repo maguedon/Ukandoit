@@ -19,6 +19,20 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 class DefaultController extends Controller
 {
+
+        /**
+     * Génère le sitemap du site.
+     *
+     * @Route("/sitemap.{_format}", name="sitemap", Requirements={"_format" = "xml"})
+     */
+    public function siteMapAction()
+    {
+        return $this->render(
+            'AppBundle:Default:sitemap.xml.twig',
+            array('urls' => $this->get('app.sitemap')->generer())
+        );
+    }
+    
     /**
      * @Route("/", name="homepage")
      */
