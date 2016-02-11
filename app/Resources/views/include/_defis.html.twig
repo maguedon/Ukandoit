@@ -28,9 +28,9 @@
 			</div>
 			<p>{{ challenge.getTeaser() }}</p>
 			{% if challenge.kilometres != null %}
-			<p> <div class="texte_rouge">Distance min. </div>: {{ challenge.kilometres }}km</p>
+			<p> <div class="texte_rouge">Distance min. </div>: {{ challenge.kilometres }} km</p>
 			{% else %}
-			<p> <div class="texte_rouge">Nombre de pas min. </div>: {{ challenge.nbSteps }}km</p>
+			<p> <div class="texte_rouge">Nombre de pas min. </div>: {{ challenge.nbSteps }} pas</p>
 			{% endif %}
 			<p>	<div class="texte_rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
 			<p>	<div class="texte_rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
