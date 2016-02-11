@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use AppBundle\Entity\DeviceType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -536,7 +537,49 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/defis/{challenge}/", name="showChallenge")
+     * @Route("/defi/surrender/{id}", name="surrender")
+     */
+    public function surrenderChallengeAction($id){
+        $em = $this->get('doctrine')->getManager();
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($id);
+        $user_challenge = $em->getRepository("AppBundle:User_Challenge")->findOneBy(array("challenge" =>$id, "challenger" => $current_user->getId()));
+
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
+
+        if($user_challenge !== null && $challenge->getCreator()->getId() !== $current_user->getId()){
+            $em->remove($user_challenge);
+            $em->flush();
+            //$referer = $this->getRequest()->headers->get('referer');
+            //return $this->redirectReferer();
+            return $this->redirectToRoute('challenges'); //redirriger à la page précédente !
+        }
+        else
+            return $this->redirectToRoute('challenges');
+    }
+
+    /**
+     * @Route("/defi/delete/{id}", name="delete_challenge")
+     */
+    public function deleteChallengeAction($id){
+        $em = $this->get('doctrine')->getManager();
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($id);
+        $user_challenge = $em->getRepository("AppBundle:User_Challenge")->findOneBy(array("challenge" =>$id, "challenger" => $current_user->getId()));
+
+        if($challenge->getCreator()->getId() == $current_user->getId() && count($challenge->getChallengers()) > 1){
+            $em->remove($user_challenge);
+            $em->remove($challenge);
+            $em->flush();
+            return $this->redirectToRoute('my_challenges');
+        }
+        else
+            return $this->redirectToRoute('my_challenges');
+    }
+
+    /**
+     * @Route("/defi/{challenge}/", name="showChallenge")
      */
     public function showCurrentChallenge($challenge){
         $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($challenge);
