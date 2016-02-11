@@ -105,9 +105,12 @@ class Ukandoit
                 "value" => 0
                 );
         }
-
-
         return $result;
     }
+
+    public function blabla($challenge, $json){
+
+    }
+
 
 }

@@ -572,7 +572,7 @@ class DefaultController extends Controller
         $challenge = $this->getDoctrine()->getRepository('AppBundle:Challenge')->find($id);
         $user_challenge = $em->getRepository("AppBundle:User_Challenge")->findOneBy(array("challenge" =>$id, "challenger" => $current_user->getId()));
 
-        if($challenge->getCreator()->getId() == $current_user->getId() && count($challenge->getUserChallenges()) > 1){
+        if($challenge->getCreator()->getId() == $current_user->getId() && count($challenge->getUserChallenges()) <= 1){
             $em->remove($user_challenge);
             $em->remove($challenge);
             $em->flush();
