@@ -162,9 +162,9 @@ $('.modal-trigger').leanModal();
     });
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal_defis').leanModal();
-    $(".home .best-challenges").hide();
+    $(".home .best-challenges .defi").hide();
     if ($(".home").has(".current-challenges")) {
-        $(".home .current-challenges").hide();
+        $(".home .current-challenges .defi").hide();
     }
 
     //Gestion de l'affichage des défis de l'accueil
@@ -176,8 +176,8 @@ $('.modal-trigger').leanModal();
         }else{
             $(".home .defis div.round_tab").removeClass("active");
             $(this).addClass("active");
-            $(".home .defis .affichage-defis").hide();
-            $(".home .defis ." + challengeType).show();
+            $(".home .defis .affichage-defis .defi").hide();
+            $(".home .defis ." + challengeType + " .defi").show();
         }
 
     });

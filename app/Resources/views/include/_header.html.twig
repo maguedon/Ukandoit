@@ -89,28 +89,33 @@
 {% if app.request.attributes.get('_route') == "homepage" %}
 <div class="parallax-container large">
 <div class="parallax accueil">
-		<img src="{{asset('bundles/AppBundle/img/accueil_running.jpg')}}" alt="Accueil ukando'it"/>
+		<img src="{{asset('bundles/AppBundle/img/wall-home.jpg')}}" alt="Accueil ukando'it"/>
 	</div>
 {% elseif app.request.attributes.get('_route') == "challenges" %}
 <div class="parallax-container">
 <div class="parallax small challenge">
-	<img src="{{asset('bundles/AppBundle/img/cour2.jpg')}}" alt="Accueil ukando'it"/>
+	<img src="{{asset('bundles/AppBundle/img/wall-challenges.jpg')}}" alt="Accueil ukando'it"/>
 </div>
 {% elseif app.request.attributes.get('_route') == "about" %}
 <div class="parallax-container">
 <div class="parallax small about">
-	<img src="{{asset('bundles/AppBundle/img/accueil.jpg')}}" alt="Accueil ukando'it"/>
+	<img src="{{asset('bundles/AppBundle/img/wall-about.jpg')}}" alt="Accueil ukando'it"/>
 </div>
 {% elseif app.request.attributes.get('_route') == "contact" %}
 <div class="parallax-container">
 <div class="parallax small contact">
-	<img src="{{asset('bundles/AppBundle/img/cour7.jpg')}}" alt="Accueil ukando'it"/>
+	<img src="{{asset('bundles/AppBundle/img/wall-contact.jpg')}}" alt="Accueil ukando'it"/>
 </div>
 {% elseif app.request.attributes.get('_route') == "fos_user_registration_register" %}
 <div class="parallax-container">
 <div class="parallax small register">
-	<img src="{{asset('bundles/AppBundle/img/cour6.jpg')}}" alt="Accueil ukando'it"/>
+	<img src="{{asset('bundles/AppBundle/img/wall-register.jpg')}}" alt="Accueil ukando'it"/>
 </div>
+{% else %}
+<div class="parallax-container">
+<div class="parallax small accueil">
+		<img src="{{asset('bundles/AppBundle/img/wall-home.jpg')}}" alt="Accueil ukando'it"/>
+	</div>
 {% endif %}
 	{% if app.request.attributes.get('_route') == "homepage" %}
 	<div class="blockHeader hoverable">
