@@ -31,7 +31,19 @@ class DefaultController extends Controller
      * @Route("/user/challenges", name="my_challenges")
      */
     public function myChallengesAction(){
-       return $this->render('UserBundle:Profile:my_challenges.html.twig');
+        // Si on n'est pas connecté on redirige vers login
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
+
+        $challengeService = $this->get('app.challenges');
+        $finishedChallenges = $challengeService->getFinishedChallenges($current_user);
+        $challengesAccepted = $challengeService->getNotFinishedChallenges($current_user);
+
+       return $this->render('UserBundle:Profile:my_challenges.html.twig', array(
+        'finishedChallenges' => $finishedChallenges,
+        'challengesAccepted' => $challengesAccepted
+        ));
    }
 
     /**
