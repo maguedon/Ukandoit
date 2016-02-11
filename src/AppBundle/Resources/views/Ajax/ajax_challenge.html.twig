@@ -95,11 +95,11 @@
 
  {% block javascripts %}
  <script>
- var bool = 0;
+ var bool = false;
    $('.modal_defis').on('click', function(event) { 
-   	if (bool == 0) {
+   	if (bool == false) {
 	 $(this).leanModal();
-	      bool = 1;
+	      bool = true;
 	  }
         event.preventDefault();
 
