@@ -229,8 +229,7 @@ class DefaultController extends Controller
                 $user_challenge->setChallenger($current_user);
                 $user_challenge->setChallenge($challenge);
 
-                            // Enregistrement de l'objet
-
+                // Enregistrement de l'objet
                 $em = $this->get('doctrine')->getManager();
                 $em->persist($challenge);
                 $em->persist($user_challenge);
