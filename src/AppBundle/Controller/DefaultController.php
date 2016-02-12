@@ -161,9 +161,7 @@ class DefaultController extends Controller
             $challenge->setNbSteps($form_data_nbSteps);
             $challenge->setKilometres($form_data_nbKm);
 
-            $challenge->setNbPointsFirst(1);
-            $challenge->setNbPointsSecond(1);
-            $challenge->setNbPointsThird(1);
+            $challenge->setNbPoints(50);
 
             $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($form_data_possessedDevice);
 
@@ -222,9 +220,7 @@ class DefaultController extends Controller
         $challenge->setNbSteps($form_data_nbSteps);
         $challenge->setKilometres($form_data_nbKm);
 
-        $challenge->setNbPointsFirst(1);
-        $challenge->setNbPointsSecond(1);
-        $challenge->setNbPointsThird(1);
+        $challenge->setNbPoints(50);
 
         $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($form_data_possessedDevice);
 
