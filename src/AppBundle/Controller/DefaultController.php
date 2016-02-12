@@ -68,7 +68,6 @@ class DefaultController extends Controller
         $formBuilderOne = $this->container
         ->get('form.factory')
         ->createNamedBuilder('formOne', 'form', NULL, array('validation_groups' => array()))
-        ->add('title', 'text')
         ->add('endDate', 'date', array(
             'widget' => 'single_text',
             'input' => 'datetime',
@@ -94,7 +93,6 @@ class DefaultController extends Controller
         $formBuilderTwo = $this->container
         ->get('form.factory')
         ->createNamedBuilder('formTwo', 'form', NULL, array('validation_groups' => array()))
-        ->add('title', 'text')
         ->add('endDate', 'date', array(
             'widget' => 'single_text',
             'input' => 'datetime',
@@ -119,7 +117,6 @@ class DefaultController extends Controller
         // ------------ FORM 1 VALIDATION------------ //
         if ($formOne->isValid())
         {
-            $form_data_title = $formOne->get("title")->getData();
             $form_data_endDate = $formOne->get("endDate")->getData();
             $form_data_time = $formOne->get("time")->getData();
             $form_data_nbKm = $formOne->get("kilometres")->getData();
@@ -127,6 +124,13 @@ class DefaultController extends Controller
             $form_data_activity = $formOne->get("activity")->getData();
             $form_data_possessedDevice = $_POST["possessedDeviceFormOne"];
             $form_data_currentDate = $challenge->getCreationDate();
+
+            if($form_data_nbKm != null && $form_data_nbKm != 0 && $form_data_nbKm != "0"){
+                $form_data_title = "Objectif ".$form_data_nbKm." km en ".$form_data_time. "jour(s)";
+            }
+            else if ($form_data_nbSteps != null && $form_data_nbSteps != 0 && $form_data_nbSteps != "0"){
+                $form_data_title = "Objectif ".$form_data_nbSteps." pas en ".$form_data_time. " jour(s)";
+            }
 
             $avoid_error = $form_data_time ;
             if($avoid_error < 0){
@@ -174,7 +178,7 @@ class DefaultController extends Controller
         // ------------ FORM 2 VALIDATION ------------ //
         if ($formTwo->isValid())
         {
-            $form_data_title = $formTwo->get("title")->getData();
+            $form_data_title = "Objectif ";
             $form_data_endDate = $formTwo->get("endDate")->getData();
             $form_data_time = $formTwo->get("time")->getData();
             $form_data_nbKm = $formTwo->get("kilometres")->getData();
@@ -182,6 +186,13 @@ class DefaultController extends Controller
             $form_data_activity = $formTwo->get("activity")->getData();
             $form_data_possessedDevice = $_POST["possessedDeviceFormTwo"];
             $form_data_currentDate = $challenge->getCreationDate();
+
+            if($form_data_nbKm != null && $form_data_nbKm != 0 && $form_data_nbKm != "0"){
+                $form_data_title = "Objectif ".$form_data_nbKm." km en ".$form_data_time. " jour(s)";
+            }
+            else if ($form_data_nbSteps != null && $form_data_nbSteps != 0 && $form_data_nbSteps != "0"){
+                $form_data_title = "Objectif ".$form_data_nbSteps." pas en ".$form_data_time. " jour(s)";
+            }
 
             $avoid_error = $form_data_time ;
             if($avoid_error < 0){
@@ -685,7 +696,6 @@ class DefaultController extends Controller
 
             //Calcule de time
             $time1 = strtotime($data['date_deb']);
-
             $time2 = strtotime($data['date_fin']);
 
             if($time2 < $time1){

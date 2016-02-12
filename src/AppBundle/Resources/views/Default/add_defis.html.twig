@@ -20,11 +20,6 @@
 						</div>
 						<div class="card-panel">
 							<div class="form-group">
-								<div class="input-field col s12">
-									{{ form_widget(formOne.title, { 'attr': {'class': 'form-control' } }) }}
-									{{ form_errors(formOne.title) }}
-									<label for="title">Titre du défis</label>
-								</div>
 								<div class="input-field col s12 m6">
 									{{ form_widget(formOne.endDate, { 'id': 'new_challenge_endDate1', 'attr': {'class': 'form-control datepicker'} }) }}
 									{{ form_errors(formOne.endDate) }}
@@ -36,7 +31,7 @@
 									<label for="activity">Activité correspondante</label>
 								</div>
 								<div class="input-field col s12">
-									<select name="possessedDeviceFormOne" id="select_montre">
+									<select name="possessedDeviceFormOne" id="select_montre" required>
 										<option value="" disabled selected>Choisir la montre</option>
 										{% for possessedDevice in app.user.possessedDevices %}
 											<option value="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }}</option>
@@ -114,17 +109,12 @@
 				</div>
 				<div class="card-panel">
 					<div class="input-field form-group col s12">
-						{{ form_widget(formTwo.title, { 'attr': {'class': 'form-control' } }) }}
-						{{ form_errors(formTwo.title) }}
-						<label for="title">Titre du défis</label>
-					</div>
-					<div class="input-field form-group col s12">
 						{{ form_widget(formTwo.endDate, { 'id': 'new_challenge_endDate2', 'attr': {'class': 'form-control datepicker'} }) }}
 						{{ form_errors(formTwo.endDate) }}
 						<label for="endDate">Date de fin</label>
 					</div>
 					<div class="input-field col s12">
-						<select name="possessedDeviceFormTwo" id="select_montre">
+						<select name="possessedDeviceFormTwo" id="select_montre" required>
 							<option value="" disabled selected>Choisir la montre</option>
 							{% for possessedDevice in app.user.possessedDevices %}
 								<option value="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }}</option>
