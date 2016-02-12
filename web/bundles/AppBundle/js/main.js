@@ -145,7 +145,6 @@ $(document).ready(function() {
     var modalDefis = $(".modal_defis");
 
     modalDefis.on("click", function() {
-        
         var defi_id = $(this).attr("value");
         $("#form_defi_send").on("click", function() {
             var objet_id = $('input[name=object_form]:checked', '#form_defi').val();
@@ -156,13 +155,24 @@ $(document).ready(function() {
             alert("data sent and received: "+data);
             });*/
         });
+
+        $('#modal1').openModal();
+        //$(".modal_defis").leanModal();
+
+        var leanOverlay = $(".lean-overlay");
+
+        leanOverlay.each(function() {
+            $(this).click(function(event) {
+                leanOverlay.each(function() {
+                    $(this).remove();
+                });
+            });
+        });
     });
 
     $('.card-action.modal_defis a').click(function(event) {
         event.preventDefault();
     });
-    $('.modal_defis').leanModal();
-
 
     $(".home .best-challenges .defi").hide();
     if ($(".home").has(".current-challenges")) {

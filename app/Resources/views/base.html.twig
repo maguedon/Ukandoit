@@ -27,8 +27,6 @@
     {% block javascripts %}
 
     {% endblock %}
-
-
 </head>
 <body>
     <script>
@@ -148,10 +146,8 @@ $(document).ready(function(){ // Quand le document est complètement chargé
             success: function(data) {
                 $('.container.add_defis').after(data);
                 $(".preloader-wrapper.small").removeClass('active');
-               // $(this).(".modal_defis").leanModal();
             }
         });
-
     }
     else{
         toastr.error("Veuillez compléter tous les champs !");
