@@ -67,12 +67,18 @@
 			<h4>Liste de vos appareils</h4>
 			<p>Choisissez l'appareil avec lequel vous souhaitez réaliser le défi.</p>
 			{% if app.user.possessedDevices|length != 0 %}
-				<form action="#" id="form_defi">
-					{% for possessedDevice in app.user.possessedDevices %}
+			<form action="#" id="form_defi">
+				{% set first = true %}
+				{% for possessedDevice in app.user.possessedDevices %}
+					{% if first == true %}
+						<input class="with-gap" name="object_form" type="radio" checked class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
+						{% set first = false %}
+					{% else %}
 						<input class="with-gap" name="object_form" type="radio" class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
-						<label for="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }} </label>
-					{% endfor %}
-				</form>
+					{% endif %}
+					<label for="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }} </label>
+				{% endfor %}
+			</form>
 			{% else %}
 				<p>Vous n'avez aucun objet pour le moment !</p>
 				<div class="center-align">

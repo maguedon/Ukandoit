@@ -74,10 +74,9 @@ class DefaultController extends Controller
             //Si l'objet n'existe pas, on le crée
             if(!$already_exist){
             // Enregistrement de l'objet
-                $em = $this->get('doctrine')->getManager();
+/*                $em = $this->get('doctrine')->getManager();
                 $em->persist($possessedDevice);
-                $em->flush();
-
+                $em->flush();*/
                 if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
                     $withings = $this->get("app.withings");
                     $withings->connection();
