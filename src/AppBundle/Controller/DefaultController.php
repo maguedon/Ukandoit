@@ -737,4 +737,33 @@ class DefaultController extends Controller
                 ));
         }
     }
+
+        /**
+     * @Route("/levels", name="levels")
+     */
+    public function generateLevels(){
+
+        $em = $this->get('doctrine')->getManager();
+
+        $level1 = new Level();
+        $level1->setNumLevel(1);
+        $level1->setNbPoints(100);
+
+      //  $em->persist($level1);
+        echo $level1;
+
+        for($i=2; $i<50; $i++){
+            $level = new Level();
+            $level->setNumLevel(1);
+            $level->setNbPoints(100);
+
+            echo $level;
+
+           // $em->persist($level);
+        }
+
+       // $em->flush();
+
+        return $this->redirectToRoute('homepage');
+    }
 }
