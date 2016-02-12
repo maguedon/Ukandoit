@@ -55,7 +55,7 @@ class DefaultController extends Controller
      * @Route("/add_defis", name="add_defis")
      */
     public function addDefisAction(Request $request){
-        // Si on n'est pas connecté on redirige vers login
+
         $current_user = $this->container->get('security.context')->getToken()->getUser();
         if($current_user == "anon.")
             return $this->redirectToRoute('fos_user_security_login');
@@ -229,8 +229,7 @@ class DefaultController extends Controller
                 $user_challenge->setChallenger($current_user);
                 $user_challenge->setChallenge($challenge);
 
-                            // Enregistrement de l'objet
-
+                // Enregistrement de l'objet
                 $em = $this->get('doctrine')->getManager();
                 $em->persist($challenge);
                 $em->persist($user_challenge);
@@ -270,7 +269,7 @@ class DefaultController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid() && $_POST['g-recaptcha-response']!="") {
-        // data is an array with "name", "email", and "message" keys
+
             $data = $form->getData();
 
             $message = \Swift_Message::newInstance()
@@ -280,21 +279,15 @@ class DefaultController extends Controller
             ->setBody("Vous avez reçu un message de " .$data['name'] . " avec l'adresse : " . $data['email'] .  "\ncontenu de message : \n"  . $data['message']);
             $this->get('mailer')->send($message);
 
+            $this->setFlash('message', 'Votre mail a bien été envoyé');
 
-      //  $this->get('session')->setFlash('blogger-notice', 'Your contact enquiry was successfully sent. Thank you!');
-            $this->setFlash('message', 'Votre mail a bien été envoyé.');
-        // Redirect - This is important to prevent users re-posting
-        // the form if they refresh the page
-
-            return $this->render('AppBundle:Default:contact.html.twig', array(
-               "form"=>$form->createView()
-               ));
+            return $this->redirectToRoute('homepage');
 
         }
 
         return $this->render('AppBundle:Default:contact.html.twig', array(
-           "form"=>$form->createView()
-           ));
+         "form"=>$form->createView()
+         ));
     }
 
     /**

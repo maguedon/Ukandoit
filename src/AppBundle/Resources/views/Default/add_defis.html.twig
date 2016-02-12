@@ -23,7 +23,7 @@
 								<div class="input-field col s12 m6">
 									{{ form_widget(formOne.endDate, { 'id': 'new_challenge_endDate1', 'attr': {'class': 'form-control datepicker'} }) }}
 									{{ form_errors(formOne.endDate) }}
-									<label for="endDate">Date de fin du défi</label>
+									<label for="new_challenge_endDate1">Date de fin du défi</label>
 								</div>
 								<div class="input-field col s12 m6">
 									{{ form_widget(formOne.activity, { 'attr': {'class': 'form-control'} }) }}
@@ -133,17 +133,17 @@
 					<div id="inputSteps2" style="display: none;" class="input-field form-group col s12">
 						{{ form_widget(formTwo.nbSteps, { 'id': 'new_challenge_nbSteps2', 'attr': {'class': 'form-control'} }) }}
 						{{ form_errors(formTwo.nbSteps) }}
-						<label for="activity">Nombre de pas</label>
+						<label for="new_challenge_nbSteps2">Nombre de pas</label>
 					</div>
 					<div id="inputKm2" style="display: none;" class="input-field form-group col s12">
 						{{ form_widget(formTwo.kilometres, { 'id': 'new_challenge_kilometres2', 'attr': {'class': 'form-control'} }) }}
 						{{ form_errors(formTwo.kilometres) }}
-						<label for="activity">Nombre de kilomètres</label>
+						<label for="new_challenge_kilometres2">Nombre de kilomètres</label>
 					</div>
 					<div class="input-field form-group col s12">
 						{{ form_widget(formTwo.time, { 'attr': {'class': 'form-control'} }) }}
 						{{ form_errors(formTwo.time) }}
-						<label for="activity">En combien de jour ?</label>
+						<label for="formTwo_time">En combien de jour ?</label>
 					</div>
 					<div class="input-field form-group col s12">
 						{{ form_widget(formTwo.activity, { 'attr': {'class': 'form-control'} }) }}

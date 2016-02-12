@@ -751,6 +751,7 @@ footer .col .logos_sociaux img {
 .home .defis .round_tab:hover,
 .home .defis .round_tab.active {
   color: #d82027;
+  cursor: pointer;
 }
 .home .defis .round_tab.active {
   width: 120px;
@@ -814,7 +815,8 @@ footer .col .logos_sociaux img {
   text-align: left;
 }
 .profil_connection {
-  max-width: 500px;
+  max-width: 800px;
+  margin: auto;
 }
 .dashboard_avatar {
   width: 225px;
@@ -1249,6 +1251,9 @@ a .bande_rouge:hover {
 .defi h2 {
   font-size: 1.3em !important;
   font-variant: small-caps;
+}
+.defi .card .card-action.modal_defis {
+  cursor: pointer;
 }
 .defi .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating),
 .defi .card .card-action .card .card-action img {
