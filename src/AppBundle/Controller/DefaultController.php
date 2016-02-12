@@ -33,7 +33,7 @@ class DefaultController extends Controller
             array('urls' => $this->get('app.sitemap')->generer())
         );
     }
-    
+
     /**
      * @Route("/", name="homepage")
      */
@@ -43,6 +43,7 @@ class DefaultController extends Controller
         $lastChallenges = $em->getRepository('AppBundle:Challenge')->findByEndDate(9);
         $bestChallenges = $challengesService->getBestChallenges();
         $bestChallengers = $em->getRepository('AppBundle:User')->findBests();
+        $this->setFlash('message', 'Votre mail a bien été envoyé et je test tout ca parce que voila voila');
         return $this->render('AppBundle:Default:index.html.twig', array(
             "url"=>"accueil",
             "lastChallenges" => $lastChallenges,
@@ -736,5 +737,34 @@ class DefaultController extends Controller
                 "data" => $data
                 ));
         }
+    }
+
+        /**
+     * @Route("/levels", name="levels")
+     */
+    public function generateLevels(){
+
+        $em = $this->get('doctrine')->getManager();
+
+        $level1 = new Level();
+        $level1->setNumLevel(1);
+        $level1->setNbPoints(100);
+
+      //  $em->persist($level1);
+        echo $level1;
+
+        for($i=2; $i<50; $i++){
+            $level = new Level();
+            $level->setNumLevel(1);
+            $level->setNbPoints(100);
+
+            echo $level;
+
+           // $em->persist($level);
+        }
+
+       // $em->flush();
+
+        return $this->redirectToRoute('homepage');
     }
 }

@@ -3,17 +3,17 @@ namespace AppBundle\Services\Ukandoit;
 
 class Ukandoit
 {
-    private $run;
-    private $walk;
-    private $bike;
-    private $car;
+    private $dailyPoints; // 1 pts pour 1000 pas [Activité hors-challenge]
+    private $metersPoints; // 1 pts pour 500 pas [Activité challenge]
+    private $stepsPoints; // 1 pts pour 278 pas [Activité challenge]
+    private $coeff; // Coefficient Points/Niveau
 
     function __construct()
     {
-        $this->walk = array("min" => 0, "max" => 6.5);
-        $this->run = array("min" => 6.6, "max" => 13);
-        $this->bike = array("min" => 13.1, "max" => 27);
-        $this->car = array("min" => 27.1, "max" => 150);
+        $this->dailyPoints = 1000;
+        $this->metersPoints = 278;
+        $this->stepsPoints = 500;
+        $this->coeff = 1.2;
     }
 
     public function getDistance($json)
@@ -108,9 +108,19 @@ class Ukandoit
         return $result;
     }
 
-    public function blabla($challenge, $json){
-
+    public function getDailyPoints($nbpas){
+        return ($nbpas/$this->dailyPoints);
     }
+
+    public function getGoalPoints($performance, $mesure){
+        if ($mesure == "pas"){
+            return ($performance/$this->stepsPoints);
+        }
+        elseif( $mesure == "km"){
+            return (($performance*1000)/$this->metersPoints);
+        }
+    }
+
 
 
 }
