@@ -460,7 +460,7 @@ class DefaultController extends Controller
      */
     public function challengesAction(){
 
-        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findByEndDate(5);
+        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findByEndDate(6);
 
         $allChallenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findAll();
         $nbAllChallenges = count($allChallenges);

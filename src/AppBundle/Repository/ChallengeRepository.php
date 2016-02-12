@@ -40,7 +40,7 @@ class ChallengeRepository extends \Doctrine\ORM\EntityRepository {
 		"INNER JOIN user ON c.creator_id = user.id " .
 		"WHERE c.id < $id " .
 		"ORDER BY c.id DESC " .
-		"LIMIT 5";
+		"LIMIT 6";
 		$stmt = $this->getEntityManager()
 		->getConnection()
 		->prepare($sql);
