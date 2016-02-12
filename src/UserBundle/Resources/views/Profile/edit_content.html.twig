@@ -5,37 +5,37 @@
 			<div class="bande_rouge col s12">Mes informations</div>
 
 			<div class="card-panel">
-<div class="row">
-				<div class="col s12 m6">
-					<div class="input-field form-group col s12">
-						{{ form_widget(form.firstname, { 'attr': {'class': 'form-control', 'placeholder': "Prénom"|trans } }) }}
-						{{ form_errors(form.firstname) }}
-					</div>
-					<div class="input-field form-group col s12">
-						{{ form_widget(form.lastname, { 'attr': {'class': 'form-control', 'placeholder': "Nom"|trans } }) }}
-						{{ form_errors(form.lastname) }}
-					</div>
+				<div class="row">
+					<div class="col s12 m6">
+						<div class="input-field form-group col s12">
+							{{ form_widget(form.firstname, { 'attr': {'class': 'form-control', 'placeholder': "Prénom"|trans } }) }}
+							{{ form_errors(form.firstname) }}
+						</div>
+						<div class="input-field form-group col s12">
+							{{ form_widget(form.lastname, { 'attr': {'class': 'form-control', 'placeholder': "Nom"|trans } }) }}
+							{{ form_errors(form.lastname) }}
+						</div>
 
-					<div class="input-field form-group col s12">
-						{{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'Email'|trans } }) }}
-						{{ form_errors(form.email) }}
-					</div>
-					<div class="input-field col s12">
-						<div class="form-group">
-							{{ form_widget(form.current_password, { 'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'|trans } }) }}
-							{{ form_errors(form.current_password) }}
+						<div class="input-field form-group col s12">
+							{{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'Email'|trans } }) }}
+							{{ form_errors(form.email) }}
+						</div>
+						<div class="input-field col s12">
+							<div class="form-group">
+								{{ form_widget(form.current_password, { 'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'|trans } }) }}
+								{{ form_errors(form.current_password) }}
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col s12 m6">
+					<div class="col s12 m6">
 
-						{{ form_widget(form.avatar, { 'attr': {'class': 'file-path validate' } }) }}
-						{{ form_errors(form.avatar) }}
+							{{ form_widget(form.avatar, { 'attr': {'class': 'file-path validate' } }) }}
+							{{ form_errors(form.avatar) }}
 
 
-				</div>
+					</div>
 				
-</div>
+				</div>
 
 				{{ form_rest(form) }}
 				<div class="form-group row">
