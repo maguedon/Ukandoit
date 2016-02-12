@@ -137,10 +137,10 @@ $(document).ready(function() {
 
 // -------------- A defnir --------------
 
-    EnableSubmit = function(val) {
+  /*  EnableSubmit = function(val) {
         var sbmt = document.getElementById("form_defi_send");
         $(sbmt).removeAttr("disabled");
-    }
+    }*/
 
     var modalDefis = $(".modal_defis");
 
@@ -197,25 +197,23 @@ $(document).ready(function() {
 
 // --------------  toastr options -------------- //
 
-    /*
-    toastr.options = {
-        "closeButton": true,
+    /*toastr.options = {
+        "closeButton": false,
         "debug": false,
         "newestOnTop": false,
         "progressBar": false,
         "positionClass": "toast-top-center",
         "preventDuplicates": false,
         "onclick": null,
-        "showDuration": "1000",
+        "showDuration": "10000000",
         "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
+        "timeOut": "500000",
+        "extendedTimeOut": "100000",
         "showEasing": "swing",
         "hideEasing": "linear",
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
-    }
-    */
+    }*/
 
 // -------------- Confirmation suppression objet ----------- //
     $(".objects a[name='delete']").click(function(){

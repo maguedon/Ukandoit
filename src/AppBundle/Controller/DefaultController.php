@@ -34,7 +34,7 @@ class DefaultController extends Controller
             array('urls' => $this->get('app.sitemap')->generer())
         );
     }
-    
+
     /**
      * @Route("/", name="homepage")
      */
