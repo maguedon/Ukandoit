@@ -152,7 +152,7 @@
   from {
     -webkit-transform-origin: center;
     transform-origin: center;
-    -webkit-transform: rotate3d(0, 0, 1, -200deg);
+    -webkit-transform: rotate3d(0, 0, 1, -199.99999999deg);
     transform: rotate3d(0, 0, 1, -200deg);
     opacity: 0;
   }
@@ -815,7 +815,8 @@ footer .col .logos_sociaux img {
   text-align: left;
 }
 .profil_connection {
-  max-width: 500px;
+  max-width: 800px;
+  margin: auto;
 }
 .dashboard_avatar {
   width: 225px;
