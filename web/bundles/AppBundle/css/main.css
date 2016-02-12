@@ -152,7 +152,7 @@
   from {
     -webkit-transform-origin: center;
     transform-origin: center;
-    -webkit-transform: rotate3d(0, 0, 1, -199.99999999deg);
+    -webkit-transform: rotate3d(0, 0, 1, -200deg);
     transform: rotate3d(0, 0, 1, -200deg);
     opacity: 0;
   }
@@ -1251,6 +1251,9 @@ a .bande_rouge:hover {
 .defi h2 {
   font-size: 1.3em !important;
   font-variant: small-caps;
+}
+.defi .card .card-action.modal_defis {
+  cursor: pointer;
 }
 .defi .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating),
 .defi .card .card-action .card .card-action img {
