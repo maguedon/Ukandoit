@@ -199,6 +199,16 @@ class User extends BaseUser
     }
 
     /**
+     * Add points
+     *
+     */
+
+    public function addPoints($points)
+    {
+        $this->nbPoints += $points;
+    }
+
+    /**
      * Add possessedDevice
      *
      * @param \AppBundle\Entity\PossessedDevice $possessedDevice

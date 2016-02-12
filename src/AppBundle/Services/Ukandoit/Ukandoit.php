@@ -121,6 +121,13 @@ class Ukandoit
         }
     }
 
+    public function getPointsFromRanking($position, $nbPlayers, $goalPoints, $winners){ //winner est un booléen indiquant si traite le classement des gagnants ou des perdants
+        if ($winners)
+            return ($goalPoints + $goalPoints*(($nbPlayers - $position)/$nbPlayers));
+        else
+            return ($goalPoints*(($nbPlayers - $position)/$nbPlayers));
+    }
+
 
 
 }

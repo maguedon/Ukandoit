@@ -53,8 +53,11 @@ class CheckChallengesCommand extends ContainerAwareCommand
             // --------------- Vérification des utilisateurs qui ont synchronisé leurs données --------------//
 
             if($challenge->getEndDate()->modify("+2 day")->format('d-m-Y') == (new \DateTime())->modify("-1 day")->format('d-m-Y')){
+                $classement = array();
                 foreach($challenge->getUserChallenges() as $user_challenge){
+                    $ukandoit = $this->get("app.ukandoit");
                     $deviceUsed = $user_challenge->getDeviceUsed();
+                    $objective = null;
 
                     switch($deviceUsed->getDeviceType()){
 
@@ -63,20 +66,63 @@ class CheckChallengesCommand extends ContainerAwareCommand
                             $withings->authenticate($deviceUsed);
 
                             $activities = $withings->getActivities($deviceUsed->getUserIdWithings(), $challenge->getCreationDate()->format('Y-m-d'), $challenge->getEndDate()->format('Y-m-d'));
+                            $performance = $ukandoit->getDataFromAPI($challenge, $activities);
+                            if ($challenge->getKilometres() == null || $challenge->getKilometres() == 0) {
+                                $objective = $challenge->getKilometres() * 1000;
+                                if ($performance >= ($challenge->getKilometres() * 1000))
+                                    $success = true;
+                                else
+                                    $success = false;
+                            }
+                            else{
+                                $objective = $challenge->getNbSteps();
+                                if ($performance >= $challenge->getNbSteps())
+                                    $success = true;
+                                else
+                                    $success = false;
+                            }
+
+
                             break;
 
                         case "Jawbone UP 24":
                             $jawbone = $container->get('app.jawbone');
 
                             $activities = $jawbone->getMoves($deviceUsed->getAccessTokenJawbone(), $challenge->getCreationDate()->format('Y-m-d'), $challenge->getEndDate()->format('Y-m-d'));
+                            $performance = $ukandoit->getDataFromAPI($challenge, $activities);
+                            if ($challenge->getKilometres() == null || $challenge->getKilometres() == 0) {
+                                if ($performance >= ($challenge->getKilometres() * 1000))
+                                    $success = true;
+                                else
+                                    $success = false;
+                            }
+                            else{
+                                if ($performance >= $challenge->getNbSteps())
+                                    $success = true;
+                                else
+                                    $success = false;
+                            }
                             break;
 
-                        case "Googlefit":
+                        case "Google Fitness":
                             $activities = array();
+                            //$performance = $ukandoit->getDataFromAPI($challenge, $activities);
+/*                            if ($challenge->getKilometres() == null || $challenge->getKilometres() == 0) {
+                                if ($performance >= ($challenge->getKilometres() * 1000))
+                                    $success = true;
+                                else
+                                    $success = false;
+                            }
+                            else{
+                                if ($performance >= $challenge->getNbSteps())
+                                    $success = true;
+                                else
+                                    $success = false;
+                            }*/
                             break;
                             
                         default:
-                            $output->writeln("default");
+                            $output->writeln("default"); //echo dans la console (printf)
                             $activities = array();
                             break;
                     }
@@ -86,7 +132,18 @@ class CheckChallengesCommand extends ContainerAwareCommand
                         $user_challenge->setDisqualified(true);
                         $em->flush();
                     }
+                    else{
+                        $classement[$performance] = array(
+                            "userid" => $user_challenge->getId(),
+                            "performance" => $performance,
+                            "successful" => $success
+                        );
+                    }
+
+
                 }
+                krsort($classement);
+                $this->getChallengePoints($classement, $objective, $ukandoit); //attribution des points !!
             }
 
         }
@@ -106,4 +163,46 @@ class CheckChallengesCommand extends ContainerAwareCommand
 
         $this->getContainer()->get('mailer')->send($message);
     }
+
+    protected function getChallengePoints($ranking, $goalPoints, $ukandoit){
+        $em = $this->get('doctrine')->getManager();
+        $gagnants = array();
+        $perdants = array();
+        foreach($ranking as $user){
+            if ($user["successful"])
+                array_push($gagnants, $user);
+            else
+                array_push($perdants, $user);
+        }
+
+
+        for($i = 0; $i < count($gagnants); $i++){
+            $nbGagnants = count($gagnants);
+            $winner_user = $this->getDoctrine()->getRepository('AppBundle:User')->find($gagnants[$i]["userid"]);
+            $pointsWon = $ukandoit->getPointsFromRanking($i+1, $nbGagnants, $goalPoints, true);
+
+            $winner_user->addPoints($pointsWon);
+
+            $winner_stats = $winner_user->getStats();
+            $winner_stats->addWin();
+            $winner_stats->addChallengePlayed();
+
+            $em->flush();
+        }
+
+        for($i = 0; $i < count($perdants); $i++){
+            $nbPerdants = count($perdants);
+            $loser_user = $this->getDoctrine()->getRepository('AppBundle:User')->find($perdants[$i]["userid"]);
+            $pointsWon = $ukandoit->getPointsFromRanking($i+1, $nbPerdants, $goalPoints, false);
+
+            $loser_user->addPoints($pointsWon);
+
+            $loser_stats = $loser_user->getStats();
+            $loser_stats->addChallengePlayed();
+
+            $em->flush();
+        }
+
+    }
+
 }

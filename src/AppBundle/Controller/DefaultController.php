@@ -366,18 +366,25 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
         if($current_user == "anon.")
             return $this->redirectToRoute('fos_user_security_login');
 
-        $possessedDevice = $current_user->getLastPossessedDevice();
         $em = $this->get('doctrine')->getManager();
+
+        $deviceType = $em->getRepository("AppBundle:DeviceType")->findOneBy(array(
+            "name" => "Google Fitness"
+        ));
+
+        $possessedDevice = new PossessedDevice();
+        $possessedDevice->setUser($current_user);
+        $possessedDevice->setDeviceType($deviceType);
 
         $google = $this->get("app.googlefit");
         $code = $google->getToken();
 
-        if ($code == false || $google->getAccessToken() == null || $google->getRefreshToken() == null){
-            $em->remove($possessedDevice);
-            $em->flush();
-            return $this->redirectToRoute('objects');
-        }
-        else{
+        if ($code !== false || $google->getAccessToken() !== null || $google->getRefreshToken() !== null){
+//            $em->remove($possessedDevice);
+//            $em->flush();
+//            return $this->redirectToRoute('objects');
+//        }
+//        else{
             $possessedDevice->setAccessTokenGoogle($google->getAccessToken());
             $possessedDevice->setRefreshTokenGoogle($google->getRefreshToken());
             $em->persist($possessedDevice);
