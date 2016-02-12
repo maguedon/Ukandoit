@@ -137,10 +137,10 @@ $(document).ready(function() {
 
 // -------------- A defnir --------------
 
-    EnableSubmit = function(val) {
+  /*  EnableSubmit = function(val) {
         var sbmt = document.getElementById("form_defi_send");
         $(sbmt).removeAttr("disabled");
-    }
+    }*/
 
     var modalDefis = $(".modal_defis");
 
