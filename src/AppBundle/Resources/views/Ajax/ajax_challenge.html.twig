@@ -95,17 +95,16 @@
 
  {% block javascripts %}
  <script>
- var bool = false;
-   $('.modal_defis').on('click', function(event) { 
-   	if (bool == false) {
-	 $(this).leanModal();
-	      bool = true;
-	 
-	 $(this).trigger("click");
-	  e.stopImmediatePropagation();
-	  }
-      event.preventDefault();
-
-   });
+ 	var bool = false;
+ 	$('.modal_defis').on('click', function(event) { 
+ 		console.log(bool);
+ 		if (bool == false) {
+ 			$(this).leanModal();
+ 			bool = true;
+ 			$(this).trigger("click");
+ 			e.stopImmediatePropagation();
+ 		}
+ 		event.preventDefault();
+ 	});
  </script>
 {% endblock %}
