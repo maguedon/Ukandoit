@@ -12,6 +12,7 @@ use AppBundle\Form\NewChallengeType;
 use AppBundle\Entity\Challenge;
 use AppBundle\Entity\PossessedDevice;
 use AppBundle\Entity\User_Challenge;
+use AppBundle\Entity\Level;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -738,31 +739,37 @@ class DefaultController extends Controller
         }
     }
 
-        /**
+    /**
+     * Génération des niveaux
+     * 
      * @Route("/levels", name="levels")
      */
     public function generateLevels(){
-
         $em = $this->get('doctrine')->getManager();
 
         $level1 = new Level();
         $level1->setNumLevel(1);
-        $level1->setNbPoints(100);
+        $level1->setNbPoints(10);
 
-      //  $em->persist($level1);
-        echo $level1;
+        $em->persist($level1);
 
-        for($i=2; $i<50; $i++){
+        $prevPoints = $level1->getNbPoints();
+        $prevLevel = $level1;
+
+        for($i=2; $i<=50; $i++){
+            $gain = ($prevPoints * 1.2);
+
             $level = new Level();
-            $level->setNumLevel(1);
-            $level->setNbPoints(100);
+            $level->setNumLevel($i);
+            $level->setNbPoints(intval($prevLevel->getNbPoints() + $gain));
 
-            echo $level;
+            $em->persist($level);
 
-           // $em->persist($level);
+            $prevPoints = $gain;
+            $prevLevel = $level;
         }
 
-       // $em->flush();
+        $em->flush();
 
         return $this->redirectToRoute('homepage');
     }

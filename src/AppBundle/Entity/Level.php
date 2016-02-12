@@ -93,4 +93,8 @@ class Level
     {
         return $this->nbPoints;
     }
+
+    public function __toString(){
+        return "level " . $this->numLevel . " : " . $this->nbPoints;
+    }
 }
