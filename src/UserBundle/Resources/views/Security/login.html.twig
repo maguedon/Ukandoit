@@ -45,7 +45,9 @@
 					<label for="remember_me">Se souvenir de moi</label>
 				</p>
 				<div class="form-group">
-					<div class="btn_centre">    	
+					<div class="btn_centre">    	{% if app.request.get('_route') != app.request.headers.get('referer') %}    
+							<input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}" />  	
+						{% endif %}
 						<button class="btn btn-primary btn-block btn-lg" type="submit" id="_submit" name="_submit">Se connecter</button>
 						<!-- btn waves-effect waves-light -->
 					</div>
