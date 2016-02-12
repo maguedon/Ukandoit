@@ -33,7 +33,7 @@ class DefaultController extends Controller
             array('urls' => $this->get('app.sitemap')->generer())
         );
     }
-    
+
     /**
      * @Route("/", name="homepage")
      */
@@ -43,6 +43,7 @@ class DefaultController extends Controller
         $lastChallenges = $em->getRepository('AppBundle:Challenge')->findByEndDate(9);
         $bestChallenges = $challengesService->getBestChallenges();
         $bestChallengers = $em->getRepository('AppBundle:User')->findBests();
+        $this->setFlash('message', 'Votre mail a bien été envoyé et je test tout ca parce que voila voila');
         return $this->render('AppBundle:Default:index.html.twig', array(
             "url"=>"accueil",
             "lastChallenges" => $lastChallenges,

@@ -1313,6 +1313,9 @@ a .bande_rouge:hover {
 #tabs_add_defis .indicator {
   display: none;
 }
+.toast {
+  word-break: normal;
+}
 /* Desktop */
 @media (min-width: 992px) {
   .map {
