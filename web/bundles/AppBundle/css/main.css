@@ -152,7 +152,7 @@
   from {
     -webkit-transform-origin: center;
     transform-origin: center;
-    -webkit-transform: rotate3d(0, 0, 1, -199.99999999deg);
+    -webkit-transform: rotate3d(0, 0, 1, -200deg);
     transform: rotate3d(0, 0, 1, -200deg);
     opacity: 0;
   }
@@ -684,7 +684,7 @@ span.caret {
 }
 .parallax.challenge img {
   left: 49.99%;
-  top: -217%;
+  top: -200%;
 }
 .parallax.about img {
   left: 49.99%;
@@ -937,7 +937,7 @@ Navigation
 }
 .nav-toggle.active span:after {
   top: 10px;
-  -webkit-transform: translateY(-10px) rotate(-44.99999999deg);
+  -webkit-transform: translateY(-10px) rotate(-45deg);
   -ms-transform: translateY(-10px) rotate(-45deg);
   transform: translateY(-10px) rotate(-45deg);
 }
@@ -1347,7 +1347,6 @@ a .bande_rouge:hover {
     font-size: 1.5em !important;
   }
 }
-/* Smartphone */
 @media (min-width: 600px) {
   .registation .image_edit_button {
     top: 59%;
@@ -1364,6 +1363,34 @@ a .bande_rouge:hover {
   #fos_user_registration_form_avatar_imageFile_imageFile_preview {
     width: 100% !important;
     height: auto !important;
+  }
+  .parallax {
+    left: -370px;
+    display: none;
+  }
+  .parallax img {
+    -webkit-transform: none !important;
+    -moz-transform: none !important;
+    -ms-transform: none !important;
+    -o-transform: none !important;
+    transform: none !important;
+    position: static !important;
+    display: none;
+  }
+  .parallax-container {
+    height: 0px !important;
+  }
+  .titre_page {
+    margin-top: 30px;
+  }
+  .stat_defis {
+    margin-bottom: 40px;
+  }
+  .inscription_date {
+    margin: 45px auto auto;
+  }
+  .titre_page .bloc_titre h1 {
+    font-size: 1.3em;
   }
 }
 /* Landscape phones and down */
