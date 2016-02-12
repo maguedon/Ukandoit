@@ -16,6 +16,7 @@ composer.lock
 .phpintel/
 /.idea/*
 web/bundles/images
+web/bundles/css
 /src/AppBundle/Entity/*.*~
 web/images/avatars/*
 web/bundles/comurimage
