@@ -722,13 +722,16 @@ class DefaultController extends Controller
                 $data['nbKm'] = round($json['global']['distance']/1000, 2);
                 break;
                 case 'Jawbone UP 24':
-                $montre_service = $this->get('app.jawbone');
+                $jawbone = $this->get('app.jawbone');
+                $json = $jawbone->getMoves($possessedDevice->getAccessTokenJawbone(), $data['date_deb'], $data['date_fin']);
+                $data['nbPas'] = $json['global']['steps'];
+                $data['nbKm'] = round($json['global']['distance']/1000, 2);
                 break;
                 case 'Googlefit':
                 $montre_service = $this->get('app.googlefit');
                 break;
                 default:
-                $data['json'] = "kk";
+                $data['json'] = null;
                 break;
             }
 
