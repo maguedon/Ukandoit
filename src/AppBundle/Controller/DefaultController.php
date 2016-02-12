@@ -752,6 +752,12 @@ class DefaultController extends Controller
     public function generateLevels(){
         $em = $this->get('doctrine')->getManager();
 
+        $level0 = new Level();
+        $level0->setNumLevel(0);
+        $level0->setNbPoints(0);
+
+        $em->persist($level0);
+
         $level1 = new Level();
         $level1->setNumLevel(1);
         $level1->setNbPoints(10);
