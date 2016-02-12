@@ -751,6 +751,7 @@ footer .col .logos_sociaux img {
 .home .defis .round_tab:hover,
 .home .defis .round_tab.active {
   color: #d82027;
+  cursor: pointer;
 }
 .home .defis .round_tab.active {
   width: 120px;
