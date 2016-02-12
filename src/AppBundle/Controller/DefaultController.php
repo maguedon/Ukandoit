@@ -61,6 +61,11 @@ class DefaultController extends Controller
         if($current_user == "anon.")
             return $this->redirectToRoute('fos_user_security_login');
 
+        if(count($current_user->getPossessedDevices()) == 0){
+            $this->setFlash("message", "vous n'avez pas d'objet");
+            return $this->redirectToRoute('objects');
+        }
+
         $data = array();
 
         $challenge = new Challenge();
