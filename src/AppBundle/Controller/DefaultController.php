@@ -27,13 +27,13 @@ class DefaultController extends Controller
      *
      * @Route("/sitemap.{_format}", name="sitemap", Requirements={"_format" = "xml"})
      */
-    public function siteMapAction()
-    {
-        return $this->render(
-            'AppBundle:Default:sitemap.xml.twig',
-            array('urls' => $this->get('app.sitemap')->generer())
-        );
-    }
+        public function siteMapAction()
+        {
+            return $this->render(
+                'AppBundle:Default:sitemap.xml.twig',
+                array('urls' => $this->get('app.sitemap')->generer())
+                );
+        }
 
     /**
      * @Route("/", name="homepage")
@@ -89,7 +89,7 @@ class DefaultController extends Controller
         ->add('time', 'integer')
         ->add('submit', 'submit', array(
             'label' => 'Envoyer'
-        ));
+            ));
 
         $formOne = $formBuilderOne
         ->getForm()
@@ -113,7 +113,7 @@ class DefaultController extends Controller
             'required' => false))
         ->add('time', 'integer')
         ->add('submit', 'submit', array(
-                'label' => 'Envoyer'
+            'label' => 'Envoyer'
             ));
 
         $formTwo = $formBuilderTwo
@@ -152,102 +152,100 @@ class DefaultController extends Controller
 
                 $data["errors"][] = "Erreur, vérifiez les dates renseignées";
 
-            }
-            else{
-                $challenge->setTitle($form_data_title);
-                $challenge->setEndDate($form_data_endDate);
-                $challenge->setCreator($current_user);
-                $challenge->setActivity($form_data_activity);
-                $challenge->setTime($form_data_time);
-                $challenge->setNbSteps($form_data_nbSteps);
-                $challenge->setKilometres($form_data_nbKm);
+        }
+        else{
+            $challenge->setEndDate($form_data_endDate);
+            $challenge->setCreator($current_user);
+            $challenge->setActivity($form_data_activity);
+            $challenge->setTime($form_data_time);
+            $challenge->setNbSteps($form_data_nbSteps);
+            $challenge->setKilometres($form_data_nbKm);
 
-                $challenge->setNbPointsFirst(1);
-                $challenge->setNbPointsSecond(1);
-                $challenge->setNbPointsThird(1);
+            $challenge->setNbPointsFirst(1);
+            $challenge->setNbPointsSecond(1);
+            $challenge->setNbPointsThird(1);
 
-                $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($form_data_possessedDevice);
+            $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($form_data_possessedDevice);
 
-                $user_challenge = new user_challenge();
-                $user_challenge->setDeviceUsed($possessedDevice);
-                $user_challenge->setChallenger($current_user);
-                $user_challenge->setChallenge($challenge);
+            $user_challenge = new user_challenge();
+            $user_challenge->setDeviceUsed($possessedDevice);
+            $user_challenge->setChallenger($current_user);
+            $user_challenge->setChallenge($challenge);
 
                         // Enregistrement de l'objet
-                $em = $this->get('doctrine')->getManager();
-                $em->persist($challenge);
-                $em->persist($user_challenge);
-                $em->flush();
-            }
+            $em = $this->get('doctrine')->getManager();
+            $em->persist($challenge);
+            $em->persist($user_challenge);
+            $em->flush();
         }
+    }
 
         // ------------ FORM 2 VALIDATION ------------ //
-        if ($formTwo->isValid())
-        {
-            $form_data_title = "Objectif ";
-            $form_data_endDate = $formTwo->get("endDate")->getData();
-            $form_data_time = $formTwo->get("time")->getData();
-            $form_data_nbKm = $formTwo->get("kilometres")->getData();
-            $form_data_nbSteps = $formTwo->get("nbSteps")->getData();
-            $form_data_activity = $formTwo->get("activity")->getData();
-            $form_data_possessedDevice = $_POST["possessedDeviceFormTwo"];
-            $form_data_currentDate = $challenge->getCreationDate();
+    if ($formTwo->isValid())
+    {
+        $form_data_title = "Objectif ";
+        $form_data_endDate = $formTwo->get("endDate")->getData();
+        $form_data_time = $formTwo->get("time")->getData();
+        $form_data_nbKm = $formTwo->get("kilometres")->getData();
+        $form_data_nbSteps = $formTwo->get("nbSteps")->getData();
+        $form_data_activity = $formTwo->get("activity")->getData();
+        $form_data_possessedDevice = $_POST["possessedDeviceFormTwo"];
+        $form_data_currentDate = $challenge->getCreationDate();
 
-            if($form_data_nbKm != null && $form_data_nbKm != 0 && $form_data_nbKm != "0"){
-                $form_data_title = "Objectif ".$form_data_nbKm." km en ".$form_data_time. " jour(s)";
-            }
-            else if ($form_data_nbSteps != null && $form_data_nbSteps != 0 && $form_data_nbSteps != "0"){
-                $form_data_title = "Objectif ".$form_data_nbSteps." pas en ".$form_data_time. " jour(s)";
-            }
-
-            $avoid_error = $form_data_time ;
-            if($avoid_error < 0){
-                $avoid_error = 0;
-            }
-
-            $now_temp = clone $form_data_currentDate;
-            $form_data_endDate_limit = $form_data_currentDate->add(new \DateInterval('P'.$avoid_error.'D'));
-
-            if(($form_data_time <= 0) ||
-                ($form_data_endDate_limit->format('Y-m-d') > $form_data_endDate->format('Y-m-d')) ||
-                ($form_data_endDate->format('Y-m-d') < $now_temp->format('Y-m-d'))){
-
-                $data["errors"][] = "Erreur, vérifiez les dates renseignées";
-
-            }
-            else{
-                $challenge->setTitle($form_data_title);
-                $challenge->setEndDate($form_data_endDate);
-                $challenge->setCreator($current_user);
-                $challenge->setActivity($form_data_activity);
-                $challenge->setTime($form_data_time);
-                $challenge->setNbSteps($form_data_nbSteps);
-                $challenge->setKilometres($form_data_nbKm);
-
-                $challenge->setNbPointsFirst(1);
-                $challenge->setNbPointsSecond(1);
-                $challenge->setNbPointsThird(1);
-
-                $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($form_data_possessedDevice);
-
-                $user_challenge = new user_challenge();
-                $user_challenge->setDeviceUsed($possessedDevice);
-                $user_challenge->setChallenger($current_user);
-                $user_challenge->setChallenge($challenge);
-
-                // Enregistrement de l'objet
-                $em = $this->get('doctrine')->getManager();
-                $em->persist($challenge);
-                $em->persist($user_challenge);
-                $em->flush();
-            }
+        if($form_data_nbKm != null && $form_data_nbKm != 0 && $form_data_nbKm != "0"){
+            $form_data_title = "Objectif ".$form_data_nbKm." km en ".$form_data_time. " jour(s)";
+        }
+        else if ($form_data_nbSteps != null && $form_data_nbSteps != 0 && $form_data_nbSteps != "0"){
+            $form_data_title = "Objectif ".$form_data_nbSteps." pas en ".$form_data_time. " jour(s)";
         }
 
-    return $this->render("AppBundle:Default:add_defis.html.twig", array(
-        'formOne' => $formOne->createView(),
-        'formTwo' => $formTwo->createView(),
-        'data' => $data
-        ));
+        $avoid_error = $form_data_time ;
+        if($avoid_error < 0){
+            $avoid_error = 0;
+        }
+
+        $now_temp = clone $form_data_currentDate;
+        $form_data_endDate_limit = $form_data_currentDate->add(new \DateInterval('P'.$avoid_error.'D'));
+
+        if(($form_data_time <= 0) ||
+            ($form_data_endDate_limit->format('Y-m-d') > $form_data_endDate->format('Y-m-d')) ||
+            ($form_data_endDate->format('Y-m-d') < $now_temp->format('Y-m-d'))){
+
+            $data["errors"][] = "Erreur, vérifiez les dates renseignées";
+
+    }
+    else{
+        $challenge->setEndDate($form_data_endDate);
+        $challenge->setCreator($current_user);
+        $challenge->setActivity($form_data_activity);
+        $challenge->setTime($form_data_time);
+        $challenge->setNbSteps($form_data_nbSteps);
+        $challenge->setKilometres($form_data_nbKm);
+
+        $challenge->setNbPointsFirst(1);
+        $challenge->setNbPointsSecond(1);
+        $challenge->setNbPointsThird(1);
+
+        $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($form_data_possessedDevice);
+
+        $user_challenge = new user_challenge();
+        $user_challenge->setDeviceUsed($possessedDevice);
+        $user_challenge->setChallenger($current_user);
+        $user_challenge->setChallenge($challenge);
+
+                // Enregistrement de l'objet
+        $em = $this->get('doctrine')->getManager();
+        $em->persist($challenge);
+        $em->persist($user_challenge);
+        $em->flush();
+    }
+}
+
+return $this->render("AppBundle:Default:add_defis.html.twig", array(
+    'formOne' => $formOne->createView(),
+    'formTwo' => $formTwo->createView(),
+    'data' => $data
+    ));
 }
 
 
@@ -312,20 +310,20 @@ class DefaultController extends Controller
         if($current_user == "anon.")
             return $this->redirectToRoute('fos_user_security_login');
 
-        $possessedDevice = $current_user->getLastPossessedDevice();
         $em = $this->get('doctrine')->getManager();
 
         $withings = $this->get("app.withings");
         $withings->getToken();
 
-        if ($withings->getAccessTokenKey() == null || $withings->getAccessTokenSecret() == null || $withings->getUserID() == null){
-            $em->remove($possessedDevice);
-            $em->flush();
-        }
-        else{
+        if ($withings->getAccessTokenKey() != null && $withings->getAccessTokenSecret() != null && $withings->getUserID() != null){
+            $deviceType = $em->getRepository("AppBundle:DeviceType")->findOneBy(array("name" => "Withings Activité Pop"));
+
+            $possessedDevice = new PossessedDevice();
             $possessedDevice->setAccessTokenKeyWithings($withings->getAccessTokenKey());
             $possessedDevice->setAccessTokenSecretWithings($withings->getAccessTokenSecret());
             $possessedDevice->setUserIdWithings($withings->getUserID());
+            $possessedDevice->setDeviceType($deviceType);
+            $possessedDevice->setUser($current_user);
             $em->persist($possessedDevice);
             $em->flush();
         }
@@ -346,15 +344,19 @@ class DefaultController extends Controller
         if ($jawbone->getToken()){
             $json = $jawbone->getToken();
 
-            $current_user->getLastPossessedDevice()->setAccessTokenJawbone($json["access_token"]);
             $em = $this->get('doctrine')->getManager();
+            $deviceType = $em->getRepository("AppBundle:DeviceType")->findOneBy(array("name" => "Jawbone UP 24"));
+
+            $possessedDevice = new PossessedDevice();
+            $possessedDevice->setAccessTokenJawbone($json["access_token"]);
+            $possessedDevice->setDeviceType($deviceType);
+            $possessedDevice->setUser($current_user);
+
+            $em->persist($possessedDevice);
             $em->flush();
+
             return $this->redirectToRoute("objects");
         }
-
-        $em = $this->get('doctrine')->getManager();
-        $em->remove($current_user->getLastPossessedDevice());
-        $em->flush();
 
         return $this->redirectToRoute("objects");
     }
