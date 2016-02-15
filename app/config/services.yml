@@ -8,23 +8,8 @@ parameters:
 
     app.jawbone.scopes: 
         - "basic_read"
-        - "extended_read"
-        - "location_read"
-        - "friends_read"
-        - "mood_read"
-        - "mood_write"
         - "move_read"
-        - "move_write"
-        - "sleep_read"
-        - "sleep_write"
-        - "meal_read"
-        - "meal_write"
-        - "weight_read"
-        - "weight_write"
-        - "cardiac_read"
-        - "cardiac_write"
-        - "generic_event_read"
-        - "generic_event_write"
+        #- "generic_event_read"
 
 services:
     fos_user.doctrine_registry:

@@ -663,11 +663,8 @@ class DefaultController extends Controller
 
             if ($participant->getId() == $challenge->getCreator()->getId()){
                 $user_challenge = $this->getDoctrine()->getRepository("AppBundle:User_Challenge")->findOneBy(array("challenge" =>$challenge->getId(), "challenger" => $participant->getId()));
-                // var_dump($user_challenge->getPerformance());
                 $best_performance["value"] = $user_challenge->getPerformance();
             }
-
-
 
             $data = array(
                 "userid" => $id_participant,
@@ -684,27 +681,27 @@ class DefaultController extends Controller
         }
 
 
+
         for($i=0; $i<count($result)-1; $i++){
             if($result[$i]['performance'] < $result[$i+1]['performance']){
-                $tmp = $result[$i]['performance'];
-                $result[$i]['performance'] = $result[$i+1]['performance'];
-                $result[$i+1]['performance'] = $tmp;
+                $tmp = $result[$i];
+                $result[$i] = $result[$i+1];
+                $result[$i+1] = $tmp;
             }
             for($j=$i; $j>0; $j--){
                 if($result[$j]['performance'] > $result[$j-1]['performance']){
-                    $tmp = $result[$j]['performance'];
-                    $result[$j]['performance'] = $result[$j-1]['performance'];
-                    $result[$j-1]['performance'] = $tmp;
+                    $tmp = $result[$j];
+                    $result[$j] = $result[$j-1];
+                    $result[$j-1] = $tmp;
                 }
             }
         }
 
-        //var_dump($result);
-
-        return $this->render('AppBundle:Default:show_challenge.html.twig', array(
+       return $this->render('AppBundle:Default:show_challenge.html.twig', array(
             "participants" => $result,
             "challenge" => $challenge,
         ));
+        
     }
 
 
