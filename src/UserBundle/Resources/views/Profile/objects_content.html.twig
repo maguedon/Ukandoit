@@ -5,7 +5,7 @@
                 {% for possessedDevice in app.user.possessedDevices %}
                 <li class="collection-item">
                   <span class="title">{{ possessedDevice.deviceType }}</span>
-                  <a href="{{ path('objects_delete', {id: possessedDevice.id}) }}" class="secondary-content" name="delete" title"Supprimer cet objet"><i class="material-icons">delete</i></a>
+                  <a href="{{ path('objects_delete', {id: possessedDevice.id}) }}" class="secondary-content" name="delete" title"Supprimer cet objet" onclick="return confirm('Nous vous garantissons que toutes les données liées à votre objet seront supprimées.')"><i class="material-icons">delete</i></a>
                   </li>
                 {% endfor %}
             </ul>
