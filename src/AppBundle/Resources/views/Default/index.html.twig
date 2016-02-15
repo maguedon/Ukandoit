@@ -91,8 +91,9 @@ l'objet connecté que l'on possède !" />
 						<img class="media-object dp circle" src="{{ asset(image) }}" alt="Avatar de {{ bestChallengers[i].username }}">
 						{% else %}
 						{% image 'bundles/AppBundle/img/sans_avatar.jpg' %}
-								<img class="media-object dp circle" src="{{ asset_url }}"  alt="photo de profil de {{ challenge.creator }}">
+								<img class="media-object dp circle" src="{{ asset_url }}"  alt="photo de profil de {{ bestChallengers[i].username }}">
 						{% endimage %}
+						{% endif %}
 						<p>
 							<b>{{ bestChallengers[i].username }}</b>
 						</p>

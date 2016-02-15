@@ -153,41 +153,41 @@ class DefaultController extends Controller
 
                 $data["errors"][] = "Erreur, vérifiez les dates renseignées";
 
+        }
+        else{
+            $challenge->setEndDate($form_data_endDate);
+            $challenge->setCreator($current_user);
+            $challenge->setActivity($form_data_activity);
+            $challenge->setTime($form_data_time);
+            $challenge->setNbSteps($form_data_nbSteps);
+            $challenge->setKilometres($form_data_nbKm);
+
+            if ($form_data_nbKm == 0 || $form_data_nbKm == null){
+                $performance = $form_data_nbSteps;
+                $nbPoints = $ukandoit->getGoalPoints($form_data_nbSteps, "pas");
+                $challenge->setNbPoints($nbPoints);
             }
             else{
-                $challenge->setEndDate($form_data_endDate);
-                $challenge->setCreator($current_user);
-                $challenge->setActivity($form_data_activity);
-                $challenge->setTime($form_data_time);
-                $challenge->setNbSteps($form_data_nbSteps);
-                $challenge->setKilometres($form_data_nbKm);
+                $performance = $form_data_nbKm;
+                $nbPoints = $ukandoit->getGoalPoints($form_data_nbKm, "km");
+                $challenge->setNbPoints($nbPoints);
+            }
 
-                if ($form_data_nbKm == 0 || $form_data_nbKm == null){
-                    $performance = $form_data_nbSteps;
-                    $nbPoints = $ukandoit->getGoalPoints($form_data_nbSteps, "pas");
-                    $challenge->setNbPoints($nbPoints);
-                }
-                else{
-                    $performance = $form_data_nbKm;
-                    $nbPoints = $ukandoit->getGoalPoints($form_data_nbKm, "km");
-                    $challenge->setNbPoints($nbPoints);
-                }
+            $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($form_data_possessedDevice);
 
-                $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($form_data_possessedDevice);
-
-                $user_challenge = new user_challenge();
-                $user_challenge->setDeviceUsed($possessedDevice);
-                $user_challenge->setChallenger($current_user);
-                $user_challenge->setChallenge($challenge);
-                $user_challenge->setPerformance($performance);
+            $user_challenge = new user_challenge();
+            $user_challenge->setDeviceUsed($possessedDevice);
+            $user_challenge->setChallenger($current_user);
+            $user_challenge->setChallenge($challenge);
+            $user_challenge->setPerformance($performance);
 
                             // Enregistrement de l'objet
-                $em = $this->get('doctrine')->getManager();
-                $em->persist($challenge);
-                $em->persist($user_challenge);
-                $em->flush();
+            $em = $this->get('doctrine')->getManager();
+            $em->persist($challenge);
+            $em->persist($user_challenge);
+            $em->flush();
                 //return $this->redirectToRoute('my_challenges');
-            }
+        }
     }
 
         // ------------ FORM 2 VALIDATION ------------ //
@@ -306,8 +306,8 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
         }
 
         return $this->render('AppBundle:Default:contact.html.twig', array(
-         "form"=>$form->createView()
-         ));
+           "form"=>$form->createView()
+           ));
     }
 
     /**
@@ -390,7 +390,7 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
 
         $deviceType = $em->getRepository("AppBundle:DeviceType")->findOneBy(array(
             "name" => "Google Fitness"
-        ));
+            ));
 
         $possessedDevice = new PossessedDevice();
         $possessedDevice->setUser($current_user);
@@ -663,7 +663,7 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
 
             if ($participant->getId() == $challenge->getCreator()->getId()){
                 $user_challenge = $this->getDoctrine()->getRepository("AppBundle:User_Challenge")->findOneBy(array("challenge" =>$challenge->getId(), "challenger" => $participant->getId()));
-                var_dump($user_challenge->getPerformance());
+               // var_dump($user_challenge->getPerformance());
                 $best_performance["value"] = $user_challenge->getPerformance();
             }
 
@@ -682,23 +682,29 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
             array_push($result, $data);
            // $result[$data['performance']] = $data;
         }
+
+
+        for($i=0; $i<count($result)-1; $i++){
+            if($result[$i]['performance'] < $result[$i+1]['performance']){
+                $tmp = $result[$i]['performance'];
+                $result[$i]['performance'] = $result[$i+1]['performance'];
+                $result[$i+1]['performance'] = $tmp;
+            }
+            for($j=$i; $j>0; $j--){
+                if($result[$j]['performance'] > $result[$j-1]['performance']){
+                    $tmp = $result[$j]['performance'];
+                    $result[$j]['performance'] = $result[$j-1]['performance'];
+                    $result[$j-1]['performance'] = $tmp;
+                }
+            }
+        }
+
         //var_dump($result);
-//        for($i = 0; $i < count($participants) -1; $i++){
-//            if ($result[$i]['performance'] < $result[$i+1]['performance'] && $result[$i+1]['performance'] !== null){
-//                $tampon = $result[$i+1]['performance'];
-//                $result[$i+1]['performance'] = $result[$i]['performance'];
-//                $result[$i]['performance'] = $tampon;
-//            }
-//        }
 
-        var_dump($result);
-       // krsort($result);
-      //  var_dump($result);
-
-//        return $this->render('AppBundle:Default:show_challenge.html.twig', array(
-//            "participants" => $result,
-//            "challenge" => $challenge,
-//            ));
+        return $this->render('AppBundle:Default:show_challenge.html.twig', array(
+            "participants" => $result,
+            "challenge" => $challenge,
+            ));
     }
 
 

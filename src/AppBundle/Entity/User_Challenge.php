@@ -56,6 +56,7 @@ class User_Challenge
 
     public function __construct() {
         $this->disqualified = false;
+        $this->performance = 0;
     }
 
     /**
