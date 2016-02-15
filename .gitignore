@@ -18,6 +18,7 @@ composer.lock
 web/bundles/images
 web/bundles/css
 /src/AppBundle/Entity/*.*~
+web/images/avatars
 web/images/avatars/*
 web/bundles/comurimage
 web/bundles/fosjsrouting

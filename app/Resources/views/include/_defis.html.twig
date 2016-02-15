@@ -34,7 +34,7 @@
 		{% endif %}
 		<p>	<div class="texte_rouge">Durée</div> : {{ challenge.creationDate|date("d/m/Y" )}} - {{ challenge.endDate|date("d/m/Y" )}}</p>
 		<p>	<div class="texte_rouge">Participants</div> : {{ challenge.userChallenges|length }} parts. </p>
-		<p>	<div class="texte_rouge">Récompense </div> : {{ challenge.nbPointsFirst }} exp.</p>
+		<p>	<div class="texte_rouge">Récompense </div> : {{ challenge.nbPoints }} exp.</p>
 	</div>
 	{% set flagChallenge = 0 %}
 	{% if app.user != null and  app.user.challengesAccepted|length != 0 %}

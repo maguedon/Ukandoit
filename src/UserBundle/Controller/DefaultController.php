@@ -125,8 +125,11 @@ class DefaultController extends Controller
         $em = $this->get('doctrine')->getManager();
         $user = $em->getRepository("AppBundle:User")->find($id);
 
+        $nextLevel = $em->getRepository('AppBundle:Level')->findOneBy(array('numLevel' => $user->getLevel() + 1));
+
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show_other.html.twig', array(
-            'user' => $user
+            'user' => $user,
+            'nextLevel' => $nextLevel
             ));
 
     }

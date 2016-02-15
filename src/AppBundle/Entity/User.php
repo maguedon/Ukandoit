@@ -63,7 +63,7 @@ class User extends BaseUser
      private $possessedDevices;
 
     /**
-     * @ORM\OneToOne(targetEntity="Stats", cascade={"remove"})
+     * @ORM\OneToOne(targetEntity="Stats", cascade={"remove", "persist"})
      * @ORM\JoinColumn(name="stats_id", referencedColumnName="id")
      */
     private $stats;
@@ -196,6 +196,16 @@ class User extends BaseUser
     public function getNbPoints()
     {
         return $this->nbPoints;
+    }
+
+    /**
+     * Add points
+     *
+     */
+
+    public function addPoints($points)
+    {
+        $this->nbPoints += $points;
     }
 
     /**

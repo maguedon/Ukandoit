@@ -23,19 +23,6 @@ class Challenge
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     * @Assert\Length(
-     *      min = 5,
-     *      max = 30,
-     *      minMessage = "Vous devez écrire au minimum 5 caractères",
-     *      maxMessage = "Vous devez écrire au maximum 30 caractères"
-     * )
-     */
-    private $title;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="creationDate", type="datetime")
@@ -94,25 +81,9 @@ class Challenge
     * Nombre de points accordés au gagnant
     * @var int
     *
-    * @ORM\Column(name="nb_points_first", type="integer")
+    * @ORM\Column(name="nb_points", type="integer")
     */
-   private $nbPointsFirst;
-
-   /**
-    * Nombre de points accordés au deuxième
-    * @var int
-    *
-    * @ORM\Column(name="nb_points_second", type="integer")
-    */
-   private $nbPointsSecond;
-
-   /**
-    * Nombre de points accordés au troisième
-    * @var int
-    *
-    * @ORM\Column(name="nb_points_third", type="integer")
-    */
-   private $nbPointsThird;
+   private $nbPoints;
 
 
     public function __construct() {
@@ -131,30 +102,6 @@ class Challenge
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     *
-     * @return Challenge
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
     }
 
     /**
@@ -355,74 +302,6 @@ class Challenge
         return $this->time;
     }
 
-    /**
-     * Set nbPointsFirst
-     *
-     * @param integer $nbPointsFirst
-     * @return Challenge
-     */
-    public function setNbPointsFirst($nbPointsFirst)
-    {
-        $this->nbPointsFirst = $nbPointsFirst;
-
-        return $this;
-    }
-
-    /**
-     * Get nbPointsFirst
-     *
-     * @return integer 
-     */
-    public function getNbPointsFirst()
-    {
-        return $this->nbPointsFirst;
-    }
-
-    /**
-     * Set nbPointsSecond
-     *
-     * @param integer $nbPointsSecond
-     * @return Challenge
-     */
-    public function setNbPointsSecond($nbPointsSecond)
-    {
-        $this->nbPointsSecond = $nbPointsSecond;
-
-        return $this;
-    }
-
-    /**
-     * Get nbPointsSecond
-     *
-     * @return integer 
-     */
-    public function getNbPointsSecond()
-    {
-        return $this->nbPointsSecond;
-    }
-
-    /**
-     * Set nbPointsThird
-     *
-     * @param integer $nbPointsThird
-     * @return Challenge
-     */
-    public function setNbPointsThird($nbPointsThird)
-    {
-        $this->nbPointsThird = $nbPointsThird;
-
-        return $this;
-    }
-
-    /**
-     * Get nbPointsThird
-     *
-     * @return integer 
-     */
-    public function getNbPointsThird()
-    {
-        return $this->nbPointsThird;
-    }
 
     /**
     * Phrase d'accroche des cards de défis
@@ -453,5 +332,40 @@ class Challenge
             $teaser .= " jours !";
 
         return $teaser;
+    }
+
+    /**
+     * Titre des cards de défis
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return "Objectif " . (($this->nbSteps != null) ? ($this->nbSteps . " pas") : ($this->kilometres . "km")) . " ! " ;
+    }
+
+
+    /**
+     * Set nbPoints
+     *
+     * @param integer $nbPoints
+     *
+     * @return Challenge
+     */
+    public function setNbPoints($nbPoints)
+    {
+        $this->nbPoints = $nbPoints;
+
+        return $this;
+    }
+
+    /**
+     * Get nbPoints
+     *
+     * @return integer
+     */
+    public function getNbPoints()
+    {
+        return $this->nbPoints;
     }
 }

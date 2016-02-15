@@ -21,6 +21,7 @@ use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Stats;
 
 class RegistrationController extends BaseController
 {
@@ -41,8 +42,6 @@ class RegistrationController extends BaseController
         if ($process) {
             $user = $form->getData();
 
-            $levels = $this->container->get('doctrine')->getManager()->getRepository('AppBundle:Level')->findAll();
-
             $authUser = false;
             if ($confirmationEnabled) {
                 $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
@@ -60,6 +59,15 @@ class RegistrationController extends BaseController
             if ($authUser) {
                 $this->authenticateUser($user, $response);
             }
+
+            $em = $this->container->get('doctrine')->getManager();
+            $stats = new Stats();
+            
+            $em->persist($stats);
+
+            $user->setStats($stats);
+
+            $em->flush();
 
             return $response;
         }
