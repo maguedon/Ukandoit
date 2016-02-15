@@ -22,18 +22,18 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class DefaultController extends Controller
 {
 
-        /**
+    /**
      * Génère le sitemap du site.
      *
      * @Route("/sitemap.{_format}", name="sitemap", Requirements={"_format" = "xml"})
      */
-        public function siteMapAction()
-        {
-            return $this->render(
-                'AppBundle:Default:sitemap.xml.twig',
-                array('urls' => $this->get('app.sitemap')->generer())
-                );
-        }
+    public function siteMapAction()
+    {
+        return $this->render(
+            'AppBundle:Default:sitemap.xml.twig',
+            array('urls' => $this->get('app.sitemap')->generer())
+        );
+    }
 
     /**
      * @Route("/", name="homepage")
@@ -49,7 +49,7 @@ class DefaultController extends Controller
             "lastChallenges" => $lastChallenges,
             "bestChallenges" => $bestChallenges,
             "bestChallengers" => $bestChallengers
-            ));
+        ));
     }
 
     /**
@@ -73,53 +73,53 @@ class DefaultController extends Controller
 
         // ------------ CREATION FORM 1 ------------ //
         $formBuilderOne = $this->container
-        ->get('form.factory')
-        ->createNamedBuilder('formOne', 'form', NULL, array('validation_groups' => array()))
-        ->add('endDate', 'date', array(
-            'widget' => 'single_text',
-            'input' => 'datetime',
-            'format' => 'dd/MM/yyyy',
-            'attr' => array('class' => 'date')))
-        ->add('activity', 'entity', array(
-            'class' => 'AppBundle:Activity',
-            'property' => 'name'))
-        ->add('nbSteps', 'integer', array(
-            'required' => false))
-        ->add('kilometres', 'number', array(
-            'required' => false))
-        ->add('time', 'integer')
-        ->add('submit', 'submit', array(
-            'label' => 'Envoyer'
+            ->get('form.factory')
+            ->createNamedBuilder('formOne', 'form', NULL, array('validation_groups' => array()))
+            ->add('endDate', 'date', array(
+                'widget' => 'single_text',
+                'input' => 'datetime',
+                'format' => 'dd/MM/yyyy',
+                'attr' => array('class' => 'date')))
+            ->add('activity', 'entity', array(
+                'class' => 'AppBundle:Activity',
+                'property' => 'name'))
+            ->add('nbSteps', 'integer', array(
+                'required' => false))
+            ->add('kilometres', 'number', array(
+                'required' => false))
+            ->add('time', 'integer')
+            ->add('submit', 'submit', array(
+                'label' => 'Envoyer'
             ));
 
         $formOne = $formBuilderOne
-        ->getForm()
-        ->handleRequest($request);
+            ->getForm()
+            ->handleRequest($request);
 
         // ------------ CREATION FORM 2 ------------ //
         $formBuilderTwo = $this->container
-        ->get('form.factory')
-        ->createNamedBuilder('formTwo', 'form', NULL, array('validation_groups' => array()))
-        ->add('endDate', 'date', array(
-            'widget' => 'single_text',
-            'input' => 'datetime',
-            'format' => 'dd/MM/yyyy',
-            'attr' => array('class' => 'date')))
-        ->add('activity', 'entity', array(
-            'class' => 'AppBundle:Activity',
-            'property' => 'name'))
-        ->add('nbSteps', 'integer', array(
-            'required' => false))
-        ->add('kilometres', 'number', array(
-            'required' => false))
-        ->add('time', 'integer')
-        ->add('submit', 'submit', array(
-            'label' => 'Envoyer'
+            ->get('form.factory')
+            ->createNamedBuilder('formTwo', 'form', NULL, array('validation_groups' => array()))
+            ->add('endDate', 'date', array(
+                'widget' => 'single_text',
+                'input' => 'datetime',
+                'format' => 'dd/MM/yyyy',
+                'attr' => array('class' => 'date')))
+            ->add('activity', 'entity', array(
+                'class' => 'AppBundle:Activity',
+                'property' => 'name'))
+            ->add('nbSteps', 'integer', array(
+                'required' => false))
+            ->add('kilometres', 'number', array(
+                'required' => false))
+            ->add('time', 'integer')
+            ->add('submit', 'submit', array(
+                'label' => 'Envoyer'
             ));
 
         $formTwo = $formBuilderTwo
-        ->getForm()
-        ->handleRequest($request);
+            ->getForm()
+            ->handleRequest($request);
 
         // ------------ FORM 1 VALIDATION------------ //
         if ($formOne->isValid())
@@ -153,116 +153,116 @@ class DefaultController extends Controller
 
                 $data["errors"][] = "Erreur, vérifiez les dates renseignées";
 
-        }
-        else{
-            $challenge->setEndDate($form_data_endDate);
-            $challenge->setCreator($current_user);
-            $challenge->setActivity($form_data_activity);
-            $challenge->setTime($form_data_time);
-            $challenge->setNbSteps($form_data_nbSteps);
-            $challenge->setKilometres($form_data_nbKm);
-
-            if ($form_data_nbKm == 0 || $form_data_nbKm == null){
-                $performance = $form_data_nbSteps;
-                $nbPoints = $ukandoit->getGoalPoints($form_data_nbSteps, "pas");
-                $challenge->setNbPoints($nbPoints);
             }
             else{
-                $performance = $form_data_nbKm;
-                $nbPoints = $ukandoit->getGoalPoints($form_data_nbKm, "km");
-                $challenge->setNbPoints($nbPoints);
-            }
+                $challenge->setEndDate($form_data_endDate);
+                $challenge->setCreator($current_user);
+                $challenge->setActivity($form_data_activity);
+                $challenge->setTime($form_data_time);
+                $challenge->setNbSteps($form_data_nbSteps);
+                $challenge->setKilometres($form_data_nbKm);
 
-            $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($form_data_possessedDevice);
+                if ($form_data_nbKm == 0 || $form_data_nbKm == null){
+                    $performance = $form_data_nbSteps;
+                    $nbPoints = $ukandoit->getGoalPoints($form_data_nbSteps, "pas");
+                    $challenge->setNbPoints($nbPoints);
+                }
+                else{
+                    $performance = $form_data_nbKm;
+                    $nbPoints = $ukandoit->getGoalPoints($form_data_nbKm, "km");
+                    $challenge->setNbPoints($nbPoints);
+                }
 
-            $user_challenge = new user_challenge();
-            $user_challenge->setDeviceUsed($possessedDevice);
-            $user_challenge->setChallenger($current_user);
-            $user_challenge->setChallenge($challenge);
-            $user_challenge->setPerformance($performance);
+                $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($form_data_possessedDevice);
 
-                            // Enregistrement de l'objet
-            $em = $this->get('doctrine')->getManager();
-            $em->persist($challenge);
-            $em->persist($user_challenge);
-            $em->flush();
-                //return $this->redirectToRoute('my_challenges');
-        }
-    }
-
-        // ------------ FORM 2 VALIDATION ------------ //
-    if ($formTwo->isValid())
-    {
-        $form_data_title = "Objectif ";
-        $form_data_endDate = $formTwo->get("endDate")->getData();
-        $form_data_time = $formTwo->get("time")->getData();
-        $form_data_nbKm = $formTwo->get("kilometres")->getData();
-        $form_data_nbSteps = $formTwo->get("nbSteps")->getData();
-        $form_data_activity = $formTwo->get("activity")->getData();
-        $form_data_possessedDevice = $_POST["possessedDeviceFormTwo"];
-        $form_data_currentDate = $challenge->getCreationDate();
-
-        if($form_data_nbKm != null && $form_data_nbKm != 0 && $form_data_nbKm != "0"){
-            $form_data_title = "Objectif ".$form_data_nbKm." km en ".$form_data_time. " jour(s)";
-        }
-        else if ($form_data_nbSteps != null && $form_data_nbSteps != 0 && $form_data_nbSteps != "0"){
-            $form_data_title = "Objectif ".$form_data_nbSteps." pas en ".$form_data_time. " jour(s)";
-        }
-
-        $avoid_error = $form_data_time ;
-        if($avoid_error < 0){
-            $avoid_error = 0;
-        }
-
-        $now_temp = clone $form_data_currentDate;
-        $form_data_endDate_limit = $form_data_currentDate->add(new \DateInterval('P'.$avoid_error.'D'));
-
-        if(($form_data_time <= 0) ||
-            ($form_data_endDate_limit->format('Y-m-d') > $form_data_endDate->format('Y-m-d')) ||
-            ($form_data_endDate->format('Y-m-d') < $now_temp->format('Y-m-d'))){
-
-            $data["errors"][] = "Erreur, vérifiez les dates renseignées";
-
-    }
-    else{
-        $challenge->setEndDate($form_data_endDate);
-        $challenge->setCreator($current_user);
-        $challenge->setActivity($form_data_activity);
-        $challenge->setTime($form_data_time);
-        $challenge->setNbSteps($form_data_nbSteps);
-        $challenge->setKilometres($form_data_nbKm);
-
-        if ($form_data_nbKm == 0 || $form_data_nbKm == null){
-            $nbPoints = $ukandoit->getGoalPoints($form_data_nbSteps, "pas");
-            $challenge->setNbPoints($nbPoints);
-        }
-        else{
-            $nbPoints = $ukandoit->getGoalPoints($form_data_nbKm, "km");
-            $challenge->setNbPoints($nbPoints);
-        }
-
-        $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($form_data_possessedDevice);
-
-        $user_challenge = new user_challenge();
-        $user_challenge->setDeviceUsed($possessedDevice);
-        $user_challenge->setChallenger($current_user);
-        $user_challenge->setChallenge($challenge);
+                $user_challenge = new user_challenge();
+                $user_challenge->setDeviceUsed($possessedDevice);
+                $user_challenge->setChallenger($current_user);
+                $user_challenge->setChallenge($challenge);
+                $user_challenge->setPerformance($performance);
 
                 // Enregistrement de l'objet
-        $em = $this->get('doctrine')->getManager();
-        $em->persist($challenge);
-        $em->persist($user_challenge);
-        $em->flush();
-        //return $this->redirectToRoute('my_challenges');
-    }
-}
+                $em = $this->get('doctrine')->getManager();
+                $em->persist($challenge);
+                $em->persist($user_challenge);
+                $em->flush();
+                //return $this->redirectToRoute('my_challenges');
+            }
+        }
 
-return $this->render("AppBundle:Default:add_defis.html.twig", array(
-    'formOne' => $formOne->createView(),
-    'formTwo' => $formTwo->createView(),
-    'data' => $data
-    ));
-}
+        // ------------ FORM 2 VALIDATION ------------ //
+        if ($formTwo->isValid())
+        {
+            $form_data_title = "Objectif ";
+            $form_data_endDate = $formTwo->get("endDate")->getData();
+            $form_data_time = $formTwo->get("time")->getData();
+            $form_data_nbKm = $formTwo->get("kilometres")->getData();
+            $form_data_nbSteps = $formTwo->get("nbSteps")->getData();
+            $form_data_activity = $formTwo->get("activity")->getData();
+            $form_data_possessedDevice = $_POST["possessedDeviceFormTwo"];
+            $form_data_currentDate = $challenge->getCreationDate();
+
+            if($form_data_nbKm != null && $form_data_nbKm != 0 && $form_data_nbKm != "0"){
+                $form_data_title = "Objectif ".$form_data_nbKm." km en ".$form_data_time. " jour(s)";
+            }
+            else if ($form_data_nbSteps != null && $form_data_nbSteps != 0 && $form_data_nbSteps != "0"){
+                $form_data_title = "Objectif ".$form_data_nbSteps." pas en ".$form_data_time. " jour(s)";
+            }
+
+            $avoid_error = $form_data_time ;
+            if($avoid_error < 0){
+                $avoid_error = 0;
+            }
+
+            $now_temp = clone $form_data_currentDate;
+            $form_data_endDate_limit = $form_data_currentDate->add(new \DateInterval('P'.$avoid_error.'D'));
+
+            if(($form_data_time <= 0) ||
+                ($form_data_endDate_limit->format('Y-m-d') > $form_data_endDate->format('Y-m-d')) ||
+                ($form_data_endDate->format('Y-m-d') < $now_temp->format('Y-m-d'))){
+
+                $data["errors"][] = "Erreur, vérifiez les dates renseignées";
+
+            }
+            else{
+                $challenge->setEndDate($form_data_endDate);
+                $challenge->setCreator($current_user);
+                $challenge->setActivity($form_data_activity);
+                $challenge->setTime($form_data_time);
+                $challenge->setNbSteps($form_data_nbSteps);
+                $challenge->setKilometres($form_data_nbKm);
+
+                if ($form_data_nbKm == 0 || $form_data_nbKm == null){
+                    $nbPoints = $ukandoit->getGoalPoints($form_data_nbSteps, "pas");
+                    $challenge->setNbPoints($nbPoints);
+                }
+                else{
+                    $nbPoints = $ukandoit->getGoalPoints($form_data_nbKm, "km");
+                    $challenge->setNbPoints($nbPoints);
+                }
+
+                $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($form_data_possessedDevice);
+
+                $user_challenge = new user_challenge();
+                $user_challenge->setDeviceUsed($possessedDevice);
+                $user_challenge->setChallenger($current_user);
+                $user_challenge->setChallenge($challenge);
+
+                // Enregistrement de l'objet
+                $em = $this->get('doctrine')->getManager();
+                $em->persist($challenge);
+                $em->persist($user_challenge);
+                $em->flush();
+                //return $this->redirectToRoute('my_challenges');
+            }
+        }
+
+        return $this->render("AppBundle:Default:add_defis.html.twig", array(
+            'formOne' => $formOne->createView(),
+            'formTwo' => $formTwo->createView(),
+            'data' => $data
+        ));
+    }
 
 
     /**
@@ -279,12 +279,12 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
 
         $form = $this->createFormBuilder()
 
-        ->add('name', TextType::class)
-        ->add('email', EmailType::class)
-        ->add('subject', TextType::class)
-        ->add('message', TextareaType::class)
-        ->add('send', SubmitType::class)
-        ->getForm();
+            ->add('name', TextType::class)
+            ->add('email', EmailType::class)
+            ->add('subject', TextType::class)
+            ->add('message', TextareaType::class)
+            ->add('send', SubmitType::class)
+            ->getForm();
 
         $form->handleRequest($request);
 
@@ -293,10 +293,10 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
             $data = $form->getData();
 
             $message = \Swift_Message::newInstance()
-            ->setSubject($data['subject'] . " Mail envoyé depuis Ukando'it")
-            ->setFrom($data['email'])
-            ->setTo('contact.ukandoit@gmail.com')
-            ->setBody("Vous avez reçu un message de " .$data['name'] . " avec l'adresse : " . $data['email'] .  "\ncontenu de message : \n"  . $data['message']);
+                ->setSubject($data['subject'] . " Mail envoyé depuis Ukando'it")
+                ->setFrom($data['email'])
+                ->setTo('contact.ukandoit@gmail.com')
+                ->setBody("Vous avez reçu un message de " .$data['name'] . " avec l'adresse : " . $data['email'] .  "\ncontenu de message : \n"  . $data['message']);
             $this->get('mailer')->send($message);
 
             $this->setFlash('message', 'Votre mail a bien été envoyé');
@@ -306,8 +306,8 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
         }
 
         return $this->render('AppBundle:Default:contact.html.twig', array(
-           "form"=>$form->createView()
-           ));
+            "form"=>$form->createView()
+        ));
     }
 
     /**
@@ -390,7 +390,7 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
 
         $deviceType = $em->getRepository("AppBundle:DeviceType")->findOneBy(array(
             "name" => "Google Fitness"
-            ));
+        ));
 
         $possessedDevice = new PossessedDevice();
         $possessedDevice->setUser($current_user);
@@ -437,7 +437,7 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
 
         return $this->render('AppBundle:Default:withingsMoves.html.twig', array(
             'activities' => $json["body"]["activities"]
-            ));
+        ));
     }
     /**
      * @Route("/jawbone/{id}/moves", name="jawbone_moves")
@@ -455,12 +455,12 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
         $jawbone = $this->get("app.jawbone");
         $json = $jawbone->getMoves($possessedDevice->getAccessTokenJawbone(), "2016-01-21 00:00:00", "2016-01-23 00:00:00");
 
-      //  $standart = $jawbone->standardizeJSON($json);
+        //  $standart = $jawbone->standardizeJSON($json);
 
         return $this->render('AppBundle:Default:jawboneMoves.html.twig', array(
             //'standart' => $standart,
             'json' => $json
-            ));
+        ));
     }
 
     /**
@@ -480,14 +480,14 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
 
         $json = $withings->getActivities($withings->getUserID() , "2016-01-31", "2016-02-07"); //,"2016-01-25"
 
-       // $intra = $withings->getIntradayActivities($withings->getUserID() , "2016-02-01 8:00:00", "2016-02-01 18:00:00");
-       // var_dump($intra);
-       // $standart = $withings->standardizeJSON($json);
+        // $intra = $withings->getIntradayActivities($withings->getUserID() , "2016-02-01 8:00:00", "2016-02-01 18:00:00");
+        // var_dump($intra);
+        // $standart = $withings->standardizeJSON($json);
 
         return $this->render('AppBundle:Default:withingsMoves.html.twig', array(
             'activities' => $json
-          //  'standart' => $standart
-            ));
+            //  'standart' => $standart
+        ));
     }
 
     /**
@@ -504,7 +504,7 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
             "challenges" => $challenges,
             "nbChallenges" => $nbAllChallenges,
 
-            ));
+        ));
 
     }
 
@@ -537,7 +537,7 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
 
             return $this->render('AppBundle:Ajax:ajax_challenge.html.twig', array(
                 "challenges" => $finalChallenges
-                ));
+            ));
         }
     }
 
@@ -663,7 +663,7 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
 
             if ($participant->getId() == $challenge->getCreator()->getId()){
                 $user_challenge = $this->getDoctrine()->getRepository("AppBundle:User_Challenge")->findOneBy(array("challenge" =>$challenge->getId(), "challenger" => $participant->getId()));
-               // var_dump($user_challenge->getPerformance());
+                // var_dump($user_challenge->getPerformance());
                 $best_performance["value"] = $user_challenge->getPerformance();
             }
 
@@ -676,11 +676,11 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
                 "level" => $level_participant,
                 "device" => $device_participant->getDeviceType()->getName(),
                 "mesure" => $mesure
-                );
+            );
 
             $data['performance'] = $best_performance["value"];
             array_push($result, $data);
-           // $result[$data['performance']] = $data;
+            // $result[$data['performance']] = $data;
         }
 
 
@@ -704,7 +704,7 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
         return $this->render('AppBundle:Default:show_challenge.html.twig', array(
             "participants" => $result,
             "challenge" => $challenge,
-            ));
+        ));
     }
 
 
@@ -765,24 +765,24 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
 
             switch ($namePossessedDevice) {
                 case 'Withings Activité Pop':
-                $withings = $this->get('app.withings');
-                $withings->authenticate($possessedDevice);
-                $json = $withings->getActivities($withings->getUserID() , $data['date_deb'], $data['date_fin']);
-                $data['nbPas'] = $json['global']['steps'];
-                $data['nbKm'] = round($json['global']['distance']/1000, 2);
-                break;
+                    $withings = $this->get('app.withings');
+                    $withings->authenticate($possessedDevice);
+                    $json = $withings->getActivities($withings->getUserID() , $data['date_deb'], $data['date_fin']);
+                    $data['nbPas'] = $json['global']['steps'];
+                    $data['nbKm'] = round($json['global']['distance']/1000, 2);
+                    break;
                 case 'Jawbone UP 24':
-                $jawbone = $this->get('app.jawbone');
-                $json = $jawbone->getMoves($possessedDevice->getAccessTokenJawbone(), $data['date_deb'], $data['date_fin']);
-                $data['nbPas'] = $json['global']['steps'];
-                $data['nbKm'] = round($json['global']['distance']/1000, 2);
-                break;
+                    $jawbone = $this->get('app.jawbone');
+                    $json = $jawbone->getMoves($possessedDevice->getAccessTokenJawbone(), $data['date_deb'], $data['date_fin']);
+                    $data['nbPas'] = $json['global']['steps'];
+                    $data['nbKm'] = round($json['global']['distance']/1000, 2);
+                    break;
                 case 'Googlefit':
-                $montre_service = $this->get('app.googlefit');
-                break;
+                    $montre_service = $this->get('app.googlefit');
+                    break;
                 default:
-                $data['json'] = null;
-                break;
+                    $data['json'] = null;
+                    break;
             }
 
             if($data['nbPas'] == null || $data['nbKm'] == null){
@@ -791,13 +791,13 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
 
             return $this->render('AppBundle:Ajax:ajax_add_defis.html.twig', array(
                 "data" => $data
-                ));
+            ));
         }
     }
 
     /**
      * Génération des niveaux
-     * 
+     *
      * @Route("/levels", name="levels")
      */
     public function generateLevels(){

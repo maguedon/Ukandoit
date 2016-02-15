@@ -33,6 +33,7 @@ class CheckChallengesCommand extends ContainerAwareCommand
     {
         $container = $this->getContainer();
         $em = $container->get('doctrine')->getManager();
+        $ukandoit = $container->get("app.ukandoit");
 
         $challenges = $em->getRepository('AppBundle:Challenge')->findAll();
 
@@ -55,7 +56,7 @@ class CheckChallengesCommand extends ContainerAwareCommand
             if($challenge->getEndDate()->modify("+2 day")->format('d-m-Y') == (new \DateTime())->modify("-1 day")->format('d-m-Y')){
                 $classement = array();
                 foreach($challenge->getUserChallenges() as $user_challenge){
-                    $ukandoit = $this->get("app.ukandoit");
+
                     $deviceUsed = $user_challenge->getDeviceUsed();
                     $objective = null;
 
@@ -133,17 +134,33 @@ class CheckChallengesCommand extends ContainerAwareCommand
                         $em->flush();
                     }
                     else{
-                        $classement[$performance] = array(
+                        $data = array(
                             "userid" => $user_challenge->getId(),
                             "performance" => $performance,
                             "successful" => $success
                         );
+                        array_push($classement,$data);
                     }
 
 
                 }
-                krsort($classement);
-                $this->getChallengePoints($classement, $objective, $ukandoit); //attribution des points !!
+
+                for($i=0; $i<count($classement)-1; $i++){
+                    if($classement[$i]['performance'] < $classement[$i+1]['performance']){
+                        $tmp = $classement[$i]['performance'];
+                        $classement[$i]['performance'] = $classement[$i+1]['performance'];
+                        $classement[$i+1]['performance'] = $tmp;
+                    }
+                    for($j=$i; $j>0; $j--){
+                        if($classement[$j]['performance'] > $classement[$j-1]['performance']){
+                            $tmp = $classement[$j]['performance'];
+                            $classement[$j]['performance'] = $classement[$j-1]['performance'];
+                            $classement[$j-1]['performance'] = $tmp;
+                        }
+                    }
+                }
+                //krsort($classement);
+                $this->getChallengePoints($classement, $objective, $ukandoit, $container); //attribution des points !!
             }
 
         }
@@ -164,8 +181,11 @@ class CheckChallengesCommand extends ContainerAwareCommand
         $this->getContainer()->get('mailer')->send($message);
     }
 
-    protected function getChallengePoints($ranking, $goalPoints, $ukandoit){
-        $em = $this->get('doctrine')->getManager();
+    protected function getChallengePoints($ranking, $goalPoints){
+        $container = $this->getContainer();
+        $em = $container->get('doctrine')->getManager();
+
+        $ukandoit = $container->get("app.ukandoit");
         $gagnants = array();
         $perdants = array();
         foreach($ranking as $user){
@@ -178,12 +198,14 @@ class CheckChallengesCommand extends ContainerAwareCommand
 
         for($i = 0; $i < count($gagnants); $i++){
             $nbGagnants = count($gagnants);
-            $winner_user = $this->getDoctrine()->getRepository('AppBundle:User')->find($gagnants[$i]["userid"]);
+            $winner_user = $em->getRepository('AppBundle:User')->find($gagnants[$i]["userid"]);
             $pointsWon = $ukandoit->getPointsFromRanking($i+1, $nbGagnants, $goalPoints, true);
 
             $winner_user->addPoints($pointsWon);
 
+            $winner_stats = $em->getRepository('AppBundle:Stats')->find($gagnants[$i]["userid"]);
             $winner_stats = $winner_user->getStats();
+
             $winner_stats->addWin();
             $winner_stats->addChallengePlayed();
 
@@ -192,7 +214,7 @@ class CheckChallengesCommand extends ContainerAwareCommand
 
         for($i = 0; $i < count($perdants); $i++){
             $nbPerdants = count($perdants);
-            $loser_user = $this->getDoctrine()->getRepository('AppBundle:User')->find($perdants[$i]["userid"]);
+            $loser_user = $em->getRepository('AppBundle:User')->find($perdants[$i]["userid"]);
             $pointsWon = $ukandoit->getPointsFromRanking($i+1, $nbPerdants, $goalPoints, false);
 
             $loser_user->addPoints($pointsWon);
