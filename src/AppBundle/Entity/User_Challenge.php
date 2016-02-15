@@ -46,6 +46,13 @@ class User_Challenge
      */
     private $disqualified;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="performance", type="integer")
+     */
+    private $performance;
+
 
     public function __construct() {
         $this->disqualified = false;
@@ -153,5 +160,29 @@ class User_Challenge
     public function getDisqualified()
     {
         return $this->disqualified;
+    }
+
+    /**
+     * Set performance
+     *
+     * @param integer $performance
+     *
+     * @return User_Challenge
+     */
+    public function setPerformance($performance)
+    {
+        $this->performance = $performance;
+
+        return $this;
+    }
+
+    /**
+     * Get performance
+     *
+     * @return integer
+     */
+    public function getPerformance()
+    {
+        return $this->performance;
     }
 }
