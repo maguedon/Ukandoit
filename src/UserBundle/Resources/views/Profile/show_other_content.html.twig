@@ -1,7 +1,7 @@
 <section class="content_profil">
 	<div class="row center-align">
 		<div class="col s12 m4">
-			<div class="stat_defis hoverable left-align">Défis gagnés : 12<br/>Défis perdus : 2</div>
+			<div class="stat_defis hoverable left-align">Défis gagnés : {{ user.stats.nbWin }}<br/>Défis perdus : {{ user.stats.nbPlayed - user.stats.nbWin }}</div>
 		</div>
 		<div class="col s12 m4">
 			{% if user.avatar != null %}
@@ -18,20 +18,20 @@
 			<h1>{{ user.username }}</h1>
 		</div>
 		<div class="col s1 show_level">
-			{{ user.level }}
+			Niveau {{ user.level }}
 		</div>
 		<div class="col s10">
 			{% set pourcent = user.nbPoints %}
-			{% set pourcent = (pourcent / 1000)*100 %}
+			{% set pourcent = (pourcent / nextLevel.nbPoints)*100 %}
 			<div class="xp_bar"><div class="xp_progress" style="width : {{ pourcent }}%;"></div></div>
 		</div>
 		<div class="col s1 show_level">
 			{% set level1 = user.level %}
 			{% set level1 = level1 + 1 %}
-			{{ level1 }}
+			Niveau {{ level1 }}
 		</div>
 		<div class="col s12 dashboard_pseudo">
-			{{ user.nbPoints }} / 1000 pts
+			{{ user.nbPoints }} / {{ nextLevel.nbPoints }} pts
 		</div>
 	</div>
 </div>

@@ -9,10 +9,10 @@
 		</div>
 		<div class="row">
 			<ul id="tabs_add_defis" class="tabs">
-				<li class="tab col s3"><a class="active" href="#idoit" title="IDID'IT !">IDID'IT !</a></li>
+				<li class="tab col s3"><a class="active" href="#ididit" title="IDID'IT !">IDID'IT !</a></li>
 				<li class="tab col s3"><a href="#kanudoit" title="KANWEDO'IT ?">KANWEDO'IT ?</a></li>
 			</ul>
-			<div id="idoit" class="col s12">
+			<div id="ididit" class="col s12">
 				<form action="{{ path('add_defis') }}" {{ form_enctype(formOne) }} method="POST">
 					<div class="row">
 						<div class="bande_rouge">
@@ -20,15 +20,10 @@
 						</div>
 						<div class="card-panel">
 							<div class="form-group">
-								<div class="input-field col s12">
-									{{ form_widget(formOne.title, { 'attr': {'class': 'form-control' } }) }}
-									{{ form_errors(formOne.title) }}
-									<label for="title">Titre du défis</label>
-								</div>
 								<div class="input-field col s12 m6">
 									{{ form_widget(formOne.endDate, { 'id': 'new_challenge_endDate1', 'attr': {'class': 'form-control datepicker'} }) }}
 									{{ form_errors(formOne.endDate) }}
-									<label for="endDate">Date de fin du défi</label>
+									<label for="new_challenge_endDate1">Date de fin du défi</label>
 								</div>
 								<div class="input-field col s12 m6">
 									{{ form_widget(formOne.activity, { 'attr': {'class': 'form-control'} }) }}
@@ -36,7 +31,7 @@
 									<label for="activity">Activité correspondante</label>
 								</div>
 								<div class="input-field col s12">
-									<select name="possessedDeviceFormOne" id="select_montre">
+									<select name="possessedDeviceFormOne" id="select_montre" required>
 										<option value="" disabled selected>Choisir la montre</option>
 										{% for possessedDevice in app.user.possessedDevices %}
 											<option value="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }}</option>
@@ -60,10 +55,10 @@
 									<input id="new_challenge_endPerf" class="form-control datepicker" type="text" required="required" readonly="readonly">
 									<label for="endDate">Date de fin de votre performance</label>
 								</div>
-								<div class="input-field col s12">
+								<div class="input-field col s12 center-align">
 									<a class="waves-effect waves-light btn modal-trigger-ajax" href="#getDataChallenge" title="Récupérer mes performances">Récupérer sa performance</a>
 								</div>
-								<div class="input-field col s12">
+								<div class="input-field col s12 center-align">
 									<div class="preloader-wrapper small">
 										<div class="spinner-layer spinner-red-only">
 											<div class="circle-clipper left">
@@ -114,17 +109,12 @@
 				</div>
 				<div class="card-panel">
 					<div class="input-field form-group col s12">
-						{{ form_widget(formTwo.title, { 'attr': {'class': 'form-control' } }) }}
-						{{ form_errors(formTwo.title) }}
-						<label for="title">Titre du défis</label>
-					</div>
-					<div class="input-field form-group col s12">
 						{{ form_widget(formTwo.endDate, { 'id': 'new_challenge_endDate2', 'attr': {'class': 'form-control datepicker'} }) }}
 						{{ form_errors(formTwo.endDate) }}
 						<label for="endDate">Date de fin</label>
 					</div>
 					<div class="input-field col s12">
-						<select name="possessedDeviceFormTwo" id="select_montre">
+						<select name="possessedDeviceFormTwo" id="select_montre" required>
 							<option value="" disabled selected>Choisir la montre</option>
 							{% for possessedDevice in app.user.possessedDevices %}
 								<option value="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }}</option>
@@ -143,17 +133,17 @@
 					<div id="inputSteps2" style="display: none;" class="input-field form-group col s12">
 						{{ form_widget(formTwo.nbSteps, { 'id': 'new_challenge_nbSteps2', 'attr': {'class': 'form-control'} }) }}
 						{{ form_errors(formTwo.nbSteps) }}
-						<label for="activity">Nombre de pas</label>
+						<label for="new_challenge_nbSteps2">Nombre de pas</label>
 					</div>
 					<div id="inputKm2" style="display: none;" class="input-field form-group col s12">
 						{{ form_widget(formTwo.kilometres, { 'id': 'new_challenge_kilometres2', 'attr': {'class': 'form-control'} }) }}
 						{{ form_errors(formTwo.kilometres) }}
-						<label for="activity">Nombre de kilomètres</label>
+						<label for="new_challenge_kilometres2">Nombre de kilomètres</label>
 					</div>
 					<div class="input-field form-group col s12">
 						{{ form_widget(formTwo.time, { 'attr': {'class': 'form-control'} }) }}
 						{{ form_errors(formTwo.time) }}
-						<label for="activity">En combien de jour ?</label>
+						<label for="formTwo_time">En combien de jour ?</label>
 					</div>
 					<div class="input-field form-group col s12">
 						{{ form_widget(formTwo.activity, { 'attr': {'class': 'form-control'} }) }}

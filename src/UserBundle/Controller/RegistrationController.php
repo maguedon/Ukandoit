@@ -21,6 +21,7 @@ use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Stats;
 
 class RegistrationController extends BaseController
 {
@@ -61,29 +62,38 @@ class RegistrationController extends BaseController
                 $this->authenticateUser($user, $response);
             }
 
+            $em = $this->container->get('doctrine')->getManager();
+            $stats = new Stats();
+            
+            $em->persist($stats);
+
+            $user->setStats($stats);
+
+            $em->flush();
+
             return $response;
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
             'form' => $form->createView(),
-        ));
+            ));
     }
 
         /**
      * Tell the user to check his email provider
      */
-    public function checkEmailAction()
-    {
-        $email = $this->container->get('session')->get('fos_user_send_confirmation_email/email');
-        $this->container->get('session')->remove('fos_user_send_confirmation_email/email');
-        $user = $this->container->get('fos_user.user_manager')->findUserByEmail($email);
+        public function checkEmailAction()
+        {
+            $email = $this->container->get('session')->get('fos_user_send_confirmation_email/email');
+            $this->container->get('session')->remove('fos_user_send_confirmation_email/email');
+            $user = $this->container->get('fos_user.user_manager')->findUserByEmail($email);
 
-        if (null === $user) {
-            throw new NotFoundHttpException(sprintf('The user with email "%s" does not exist', $email));
+            if (null === $user) {
+                throw new NotFoundHttpException(sprintf('The user with email "%s" does not exist', $email));
+            }
+
+            return new RedirectResponse($this->container->get('router')->generate("homepage"));
         }
-
-        return new RedirectResponse($this->container->get('router')->generate("homepage"));
-    }
 
     /**
      * @param string $action

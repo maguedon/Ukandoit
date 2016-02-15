@@ -110,10 +110,10 @@ body {
 	background-color: @rouge_vif;
 	color: @white;
 	.align-vertical();
-	&:hover {
-		background-color: @rouge_mat;
-	}
 	
+}
+a .bande_rouge:hover  {
+	background-color: @rouge_mat;
 }
 
 .bande_rouge  + .card-panel{margin-top: 0;}
@@ -123,6 +123,7 @@ body {
 .card-title {
 	margin: auto;
 	padding: 0 15px;
+	text-align: center;
 }
 
 .input-field {
@@ -222,11 +223,22 @@ body {
 		font-size: 1.3em !important;
 		font-variant: small-caps;
 	}
-	.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating),.card .card-action img {
+	.card .card-action {
+
+	&.modal_defis{
+		cursor: pointer;
+	}
+	 a:not(.btn):not(.btn-large):not(.btn-floating),.card .card-action img {
 		color: @rouge_vif;
 		text-align: center !important;
 		margin: auto !important;
 	}
+	i.check {
+		vertical-align: middle;
+		font-size: 1.3em;
+	}
+}
+
 	.badge_user {
 		text-align: center;
 		display: block;
@@ -248,6 +260,10 @@ body {
 	color: white !important;
 }
 
+.twitter-share-button {
+	margin-right: 15px;	
+}
+
 //Page error
 .error{
 	.error_content {
@@ -255,7 +271,6 @@ body {
 
 	}
 }
-
 
 //Contre modal crop
 #image_upload_modal .modal-dialog {
@@ -287,6 +302,20 @@ body {
 	&:hover {
 		cursor: pointer;
 	}
+}
+
+#tabs_add_defis {
+	.active {
+		color: @rouge_vif;
+		font-weight: 600;
+	}
+	.indicator {
+		display: none;
+	}
+}
+
+.toast {
+    word-break: normal;
 }
 // responsive
 @import "_responsive.less";

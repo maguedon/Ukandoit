@@ -16,7 +16,7 @@ class Withings
         $this->consumer_key = "31ec099bddfee6fb7b16d5bc502e8b5bcbbddf0de39346316427f8f25fd";
         $this->consumer_secret = "0d50d732c6655ee07d727ffbc336751d8b3b7c298e32167d945589692e5e9b16";
         //$this->callback_url = "http://localhost:8000/withings";
-        $this->callback_url = "https://www.ukandoit.fr/withings/token";
+        $this->callback_url = "https://ukandoit.fr/withings/token";
         $this->withings = new \Withings\ApiGatewayFactory;
         $this->access_token_key = $access_token_key;
         $this->access_token_secret = $access_token_secret;

@@ -21,15 +21,15 @@ class NewImageType extends ImageType
         ->add('imageFile', 'comur_image', array(
             'label'=>false,
             'uploadConfig' => array(
-                        'uploadUrl' => 'web/images/avatars',       // required - see explanation below (you can also put just a dir path)
+                        'uploadUrl' => 'images/avatars',       // required - see explanation below (you can also put just a dir path)
                         'webDir' => 'web/images/avatars',               // required - see explanation below (you can also put just a dir path)
                         'fileExt' => '*.jpg;*.gif;*.png;*.jpeg',    //optional
                          'showLibrary' => false,                      //optional
             'saveOriginal' => false           //optional
                         ),
             'cropConfig' => array(
-                'minWidth' => 400,
-                'minHeight' => 400,
+                'minWidth' => 200,
+                'minHeight' => 200,
                         'aspectRatio' => true,              //optional
                         'cropRoute' => 'comur_api_crop',    //optional
                         'forceResize' => false,             //optional

@@ -31,7 +31,7 @@
 
 				<div class="input-field form-group col s12">
 					<input type="text" class="validate" id="username" name="_username" value="{{ last_username }}" required="required" />
-					<label class="active" for="username">Login</label>
+					<label class="active" for="username">Pseudo</label>
 
 				</div>
 
@@ -45,7 +45,8 @@
 					<label for="remember_me">Se souvenir de moi</label>
 				</p>
 				<div class="form-group">
-					<div class="btn_centre">    	{% if app.request.get('_route') != app.request.headers.get('referer') %}    
+					<div class="btn_centre">    
+						{% if app.request.get('_route') != app.request.headers.get('referer') %}    
 							<input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}" />  	
 						{% endif %}
 						<button class="btn btn-primary btn-block btn-lg" type="submit" id="_submit" name="_submit">Se connecter</button>

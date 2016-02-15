@@ -49,8 +49,7 @@ class Image
      * @return Product
      */
     public function setImageFile($image )    {
-        $image_file = file_get_contents('web/images/avatars/'.$image);
-       // $image_file = file_get_contents('http://localhost:443/web/images/avatars/'.$image);
+        $image_file = file_get_contents('images/avatars/'.$image);
         $this->imageFile = $image_file;
         $this->imageName = $image;
 
@@ -144,12 +143,12 @@ class Image
     public function getUploadRootDir()
 {
     // absolute path to your directory where images must be saved
-    return __DIR__.'images/avatars'.$this->getUploadDir();
+    return __DIR__.'ukandoit.fr/web/images/avatars'.$this->getUploadDir();
 }
 
 public function getUploadDir()
 {
-    return 'web/images/avatars';
+    return 'ukandoit.fr/web/images/avatars';
 }
 
 public function getAbsolutePath()

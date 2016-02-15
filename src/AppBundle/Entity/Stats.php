@@ -42,6 +42,12 @@ class Stats
      */
     private $nbKmWalked;
 
+    public function __construct(){
+        $this->nbWin = 0;
+        $this->nbPlayed = 0;
+        $this->nbKmWalked = 0;
+    }
+
 
     /**
      * Get id
@@ -78,6 +84,13 @@ class Stats
     }
 
     /**
+     * Add one Win
+     */
+    public function addWin(){
+        $this->nbWin += 1;
+    }
+
+    /**
      * Set nbPlayed
      *
      * @param integer $nbPlayed
@@ -99,6 +112,13 @@ class Stats
     public function getNbPlayed()
     {
         return $this->nbPlayed;
+    }
+
+    /**
+     * Add one Challenge Played
+     */
+    public function addChallengePlayed(){
+        $this->nbPlayed += 1;
     }
 
     /**

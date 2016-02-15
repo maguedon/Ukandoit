@@ -25,11 +25,11 @@
 				{% if challenge.kilometres != null %}
 				<p> <div class="texte_rouge">Distance min. </div>: {{ challenge.kilometres }}km</p>
 				{% else %}
-				<p> <div class="texte_rouge">Nombre de pas</div> min. : {{ challenge.nbSteps }}km</p>
+				<p> <div class="texte_rouge">Nombre de pas</div> min. : {{ challenge.nbSteps }}pas</p>
 				{% endif %}
 				<p>	<div class="texte_rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
 				<p>	<div class="texte_rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
-				<p>	<div class="texte_rouge">Nombre de points </div> à gagner : {{ challenge.nbPointsFirst }} exp.</p>
+				<p>	<div class="texte_rouge">Nombres de points </div> à gagner : {{ challenge.nbPoints }} exp.</p>
 			</div>
 		</div>
 
@@ -55,15 +55,29 @@
 					{% endif %}
 				{% endfor %}
 				{% if performance == null %}
-					<p>Vous ne participez pas au défi.</p>
+					<p>Vous ne participez pas au défi</p>
 				{% else %}
 					<p> <div class="texte_rouge">Nom </div> : {{ app.user.username }}</p>
 					<p> <div class="texte_rouge">Rang </div> : {{ rang }}</p>
 					<p> <div class="texte_rouge">Appareil </div> : {{ appareil }}</p>
 					<p> <div class="texte_rouge">Performance </div> : {{ performance }} {{ mesure }}</p>
-				{% endif %}
-			</div>
-		</div>
+					<div class="row">	
+					<div class="col s12 valign-wrapper">
+							<a href="https://twitter.com/share" class="twitter-share-button" data-text="J'ai relevé le défi de {{ challenge.creator }} sur Ukandoit.fr ! Relèverez-vous le challenge ?" data-via="ukando_it" data-hashtags="ukandoit">Tweet</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+							<div class="fb-share-button" data-href="" data-layout="button"></div>
+							<div id="fb-root"></div>
+						</div></div>
+						<script>(function(d, s, id) {
+							var js, fjs = d.getElementsByTagName(s)[0];
+							if (d.getElementById(id)) return;
+							js = d.createElement(s); js.id = id;
+							js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.5&appId=974267379279143";
+							fjs.parentNode.insertBefore(js, fjs);
+						}(document, 'script', 'facebook-jssdk'));</script>
+						{% endif %}
+					</div>
+				</div>
 	</div>
 
 
@@ -87,12 +101,14 @@
 				{% for participant in participants %}
 				{% if classement < 3 %}
 				<li class="collection-item avatar">
-					<a href="{{ path('user_other', {'id': participant.id }) }}">
+					<a href="{{ path('user_other', {'id': participant.userid }) }}">
 						{% if participant.avatar != null %}
 						{% set image = vich_uploader_asset(participant.avatar, 'imageFile') %}
 						<img class="media-object dp circle" src="{{ asset(image) }}" alt="Avatar de {{ participant.username }}">
 						{% else %}
-						<img class="media-object dp circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg" alt="Avatar de {{ participant.username }}">
+						{% image 'bundles/AppBundle/img/sans_avatar.jpg' %}
+								<img class="media-object dp circle" src="{{ asset_url }}"  alt="photo de profil de {{ challenge.creator }}">
+						{% endimage %}
 						{% endif %}
 						<p>
 							<b>{{ participant.username }}</b>
@@ -123,7 +139,7 @@
 			</ul>
 		</div>
 	</section>
-	{% if participants|length > 2 %}
+	{% if participants|length > 3 %}
 	<section class="petit_classement">
 		<div class="row">
 			<div id="highlight responsive-table centered">
@@ -140,7 +156,7 @@
 						<tbody>
 							{% for participant in participants %}
 							{% if classement > 2 and classement < 30 %}
-							<tr class = "cursor" onclick="location.href='{{ path('user_other', {'id': participant.id }) }}'">
+							<tr class = "cursor" onclick="location.href='{{ path('user_other', {'id': participant.userid }) }}'">
 								<td>{{ classement }}</td>
 								<td>{{ participant.username }}</td>
 								<td>{{ participant.device }}</td>

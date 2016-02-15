@@ -47,7 +47,7 @@ class ChallengeRepository extends \Doctrine\ORM\EntityRepository {
 			return $result;
 		}
 
-		public function findByEndDate(){
+		public function findByEndDate($nbMax){
 			$em = $this->getEntityManager();
 			$query = $em->createQuery(
 			    'SELECT c
@@ -56,7 +56,7 @@ class ChallengeRepository extends \Doctrine\ORM\EntityRepository {
 			    ORDER BY c.id DESC'
 			)->setParameter('currenDate', new \DateTime());
 
-			return $query->setMaxResults(5)->getResult();
+			return $query->setMaxResults($nbMax)->getResult();
 		}
 
 }

@@ -122,7 +122,7 @@ $(document).ready(function() {
 
 // -------------- Modal chargement data quand ajout defis --------------
 
-$('.modal-trigger').leanModal();
+//$('.modal-trigger').leanModal();
 
 // -------------- Ajout challenge Bloquer champ nbPas quand champ kilometre avec value et vice versa --------------
     $("#select_pas_km").change(function() {
@@ -141,26 +141,42 @@ $('.modal-trigger').leanModal();
         var sbmt = document.getElementById("form_defi_send");
         $(sbmt).removeAttr("disabled");
     }
-    $(".modal_defis").on("click", function() {
+
+    var modalDefis = $(".modal_defis");
+
+    modalDefis.on("click", function() {
         var defi_id = $(this).attr("value");
         $("#form_defi_send").on("click", function() {
             var objet_id = $('input[name=object_form]:checked', '#form_defi').val();
             var url = window.location.protocol + "//" + window.location.host;
+            // remplacer par window.location.protocol + "//" + window.location.host + "/" en prod)
             location.href = url + '/defis/' + defi_id + '/' + objet_id + '/accepted';
             /* $.post("challenges", {var_value: objet_id}, function(data){
             alert("data sent and received: "+data);
             });*/
         });
+
+        $('#modal1').openModal();
+        //$(".modal_defis").leanModal();
+
+        var leanOverlay = $(".lean-overlay");
+
+        leanOverlay.each(function() {
+            $(this).click(function(event) {
+                leanOverlay.each(function() {
+                    $(this).remove();
+                });
+            });
+        });
     });
 
-    $('.card-action a').click(function(event) {
+    $('.card-action.modal_defis a').click(function(event) {
         event.preventDefault();
     });
-    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-    $('.modal_defis').leanModal();
-    $(".home .best-challenges").hide();
+
+    $(".home .best-challenges .defi").hide();
     if ($(".home").has(".current-challenges")) {
-        $(".home .current-challenges").hide();
+        $(".home .current-challenges .defi").hide();
     }
 
     //Gestion de l'affichage des défis de l'accueil
@@ -172,8 +188,8 @@ $('.modal-trigger').leanModal();
         }else{
             $(".home .defis div.round_tab").removeClass("active");
             $(this).addClass("active");
-            $(".home .defis .affichage-defis").hide();
-            $(".home .defis ." + challengeType).show();
+            $(".home .defis .affichage-defis .defi").hide();
+            $(".home .defis ." + challengeType + " .defi").show();
         }
 
     });

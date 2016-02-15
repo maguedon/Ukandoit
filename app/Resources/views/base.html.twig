@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+    <meta name="description" content="Les objets connectés se rencontrent pour des défis sportifs ! Défiez la communauté afin de progresser sur le podium de Ukando'it en remportant les challenges proposés par les utilisateurs." />
     {% block description %}{% endblock %}
     <title>{% block title %}Ukando'it{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
@@ -27,31 +28,39 @@
     {% block javascripts %}
 
     {% endblock %}
-
-    {% include 'include/_croppable_image_modal.html.twig' with {'include_jquery': false,'include_bootstrap': false} %}
-
 </head>
 <body>
-    {% include 'include/_header.html.twig' %}
-    {% include 'include/_rond.html.twig' %}
-    {% block body %}{% endblock %}
-    {% include 'include/_footer.html.twig' %}
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    {% for message in app.session.flashBag.get('message') %}
-    <div data-id="{{ message }}" class="flashbag_message"> </div>
-    <script type="text/javascript">
-        $( document ).ready(function() {
-            var id = $('.flashbag_message').data('id');
-            toastr.success(id);
-        });
-    </script>
-    {% endfor %}
+      ga('create', 'UA-72905668-1', 'auto');
+      ga('send', 'pageview');
 
-    {% if app.request.attributes.get('_route') == "challenges" %}
+  </script>
+  {% include 'include/_header.html.twig' %}
+  {% include 'include/_rond.html.twig' %}
+  {% block body %}{% endblock %}
+  {% include 'include/_footer.html.twig' %}
 
-    <!-- AJAX SCROLL INFINI -->
+  {% for message in app.session.flashBag.get('message') %}
+  <div data-id="{{ message }}" class="flashbag_message"> </div>
+  <script type="text/javascript">
+    $( document ).ready(function() {
+        var id = $('.flashbag_message').data('id');
+        toastr.success(id);
+    });
+</script>
+{% endfor %}
 
-    <script type="text/javascript">
+{% if app.request.attributes.get('_route') == "challenges" %}
+
+<!-- AJAX SCROLL INFINI -->
+
+<script type="text/javascript">
+
 $(document).ready(function(){ // Quand le document est complètement chargé
 
     var load = false; // aucun chargement de card n'est en cours
@@ -72,7 +81,7 @@ $(document).ready(function(){ // Quand le document est complètement chargé
             ($('.card').size()<={{ nbChallenges }})){
 
             // la valeur passe à vrai, on va charger
-        load = true;
+            load = true;
 
             //On récupère l'id du dernier card affiché
             var last_id = $('.card:last').attr('id');
@@ -89,7 +98,7 @@ $(document).ready(function(){ // Quand le document est complètement chargé
                 data: DATA,
 
                 //Succès de la requête
-                success: function(data) {
+                success: function(data, responseHtml) {
 
                     //On masque le loader
                     $('.loadmore').fadeOut(500);
@@ -101,7 +110,7 @@ $(document).ready(function(){ // Quand le document est complètement chargé
                     offset = $('.card:last').offset();
                     //On remet la valeur à faux car c'est fini
                     load = false;
-                }
+                 }
             });
         }
     });
@@ -118,18 +127,18 @@ $(document).ready(function(){ // Quand le document est complètement chargé
     $(".modal-trigger-ajax").click(function(){
 
         if($("#select_montre").val() != null &&
-           $("#new_challenge_startPerf").val() != null &&
-           $("#new_challenge_endPerf").val() != null &&
-           $("#select_pas_km_first").val() != null){
+         $("#new_challenge_startPerf").val() != null &&
+         $("#new_challenge_endPerf").val() != null &&
+         $("#select_pas_km_first").val() != null){
 
             $(".preloader-wrapper.small").addClass('active');
 
-            var DATA = "montre=" + $("#select_montre").val() +
-                    "&dateDebPerf=" + $("#new_challenge_startPerf").val() +
-                    "&dateFinPerf=" + $("#new_challenge_endPerf").val() +
-                    "&pas_or_km=" + $("#select_pas_km_first").val();
+        var DATA = "montre=" + $("#select_montre").val() +
+        "&dateDebPerf=" + $("#new_challenge_startPerf").val() +
+        "&dateFinPerf=" + $("#new_challenge_endPerf").val() +
+        "&pas_or_km=" + $("#select_pas_km_first").val();
 
-           $.ajax({
+        $.ajax({
             url: "{{ path('addDefisAjax')}}",
             type: 'get',
             data: DATA,
@@ -140,9 +149,8 @@ $(document).ready(function(){ // Quand le document est complètement chargé
                 $(".preloader-wrapper.small").removeClass('active');
             }
         });
-
-       }
-       else{
+    }
+    else{
         toastr.error("Veuillez compléter tous les champs !");
     }
 });

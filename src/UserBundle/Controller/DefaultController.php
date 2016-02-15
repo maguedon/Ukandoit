@@ -10,11 +10,11 @@ use AppBundle\Form\NewPossessedDeviceType;
 
 class DefaultController extends Controller
 {
-	/**
+    /**
      * @Route("/user/delete", name="user_delete")
      */
-	public function deleteUserAction(){
-		// Si on n'est pas connecté on redirige vers login
+    public function deleteUserAction(){
+        // Si on n'est pas connecté on redirige vers login
         $current_user = $this->container->get('security.context')->getToken()->getUser();
         if($current_user == "anon.")
             return $this->redirectToRoute('fos_user_security_login');
@@ -61,11 +61,6 @@ class DefaultController extends Controller
 
             //Si l'objet n'existe pas, on le crée
             if(!$already_exist){
-            // Enregistrement de l'objet
-                $em = $this->get('doctrine')->getManager();
-                $em->persist($possessedDevice);
-                $em->flush();
-
                 if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
                     $withings = $this->get("app.withings");
                     $withings->connection();
@@ -107,15 +102,19 @@ class DefaultController extends Controller
         return $this->redirectToRoute('objects');
     }
 
-	/**
+    /**
      * @Route("/user/{id}", name="user_other")
      */
-	public function showOtherAction($id){
+    public function showOtherAction($id){
         $em = $this->get('doctrine')->getManager();
         $user = $em->getRepository("AppBundle:User")->find($id);
 
+        $em = $this->container->get('doctrine')->getManager();
+        $nextLevel = $em->getRepository('AppBundle:Level')->findOneBy(array('numLevel' => $user->getLevel() + 1));
+
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show_other.html.twig', array(
-            'user' => $user
+            'user' => $user,
+            'nextLevel' => $nextLevel
             ));
 
     }

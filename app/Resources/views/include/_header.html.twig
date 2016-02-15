@@ -69,7 +69,7 @@
 		<div class="row">
 			<div class="col s6 left-align">
 				<div class="responsive-logo">
-					<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/logo_definitif.svg')}}" alt="logo ukando'it"/>
+					<a href="{{ path('homepage') }}"><img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/logo_definitif.svg')}}" alt="logo ukando'it"/></a>
 				</div>
 			</div>
 			<div class="col m6 s6 l6 right-align navicon">
@@ -82,19 +82,39 @@
 	</div>
 	<div class="underHeader">
 		<div class="logo">
-			<img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/logo_definitif.svg')}}" alt="logo ukando'it"/>
+			<a href="{{ path('homepage') }}"><img class="animated fadeIn" src="{{asset('bundles/AppBundle/img/logo_definitif.svg')}}" alt="logo ukando'it"/></a>
 		</div>
 	</div>
 </div>
 {% if app.request.attributes.get('_route') == "homepage" %}
 <div class="parallax-container large">
-<div class="parallax">
-		<img src="{{asset('bundles/AppBundle/img/accueil_running.jpg')}}" alt="Accueil ukando'it"/>
+<div class="parallax accueil">
+		<img src="{{asset('bundles/AppBundle/img/wall-home.jpg')}}" alt="Accueil ukando'it"/>
 	</div>
+{% elseif app.request.attributes.get('_route') == "challenges" %}
+<div class="parallax-container">
+<div class="parallax small challenge">
+	<img src="{{asset('bundles/AppBundle/img/wall-challenges.jpg')}}" alt="Accueil ukando'it"/>
+</div>
+{% elseif app.request.attributes.get('_route') == "about" %}
+<div class="parallax-container">
+<div class="parallax small about">
+	<img src="{{asset('bundles/AppBundle/img/wall-about.jpg')}}" alt="Accueil ukando'it"/>
+</div>
+{% elseif app.request.attributes.get('_route') == "contact" %}
+<div class="parallax-container">
+<div class="parallax small contact">
+	<img src="{{asset('bundles/AppBundle/img/wall-contact.jpg')}}" alt="Accueil ukando'it"/>
+</div>
+{% elseif app.request.attributes.get('_route') == "fos_user_registration_register" %}
+<div class="parallax-container">
+<div class="parallax small register">
+	<img src="{{asset('bundles/AppBundle/img/wall-register.jpg')}}" alt="Accueil ukando'it"/>
+</div>
 {% else %}
 <div class="parallax-container">
-<div class="parallax small">
-		<img src="{{asset('bundles/AppBundle/img/accueil_running.jpg')}}" alt="Accueil ukando'it"/>
+<div class="parallax small accueil">
+		<img src="{{asset('bundles/AppBundle/img/wall-home.jpg')}}" alt="Accueil ukando'it"/>
 	</div>
 {% endif %}
 	{% if app.request.attributes.get('_route') == "homepage" %}
@@ -137,8 +157,12 @@
 		</ul>
 		<ul class="no-materialize">
 			{% if app.user %}
+				<li><a href="{{ path('add_defis') }}"><i class="material-icons">games</i>Défier !</a></li>
+				<li><a href="{{ path('my_challenges') }}"><i class="material-icons">view_list</i>Mes Défis</a></li>
+				</ul>
+				<ul class="no-materialize">
 				<li><a href="{{ path('fos_user_profile_show') }}"><i class="material-icons">perm_identity</i>Mon profil</a></li>
-				<li><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons">input</i>Se Déconnecter</a></li>
+				<li><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons">input</i>Déconnection</a></li>
 			{% else %}
 				<li><a href="{{ path('fos_user_registration_register') }}"><i class="material-icons">web</i>S'inscrire</a></li>
 				<li><a href="{{ path('fos_user_security_login') }}"><i class="material-icons">open_in_new</i>Connexion</a></li>

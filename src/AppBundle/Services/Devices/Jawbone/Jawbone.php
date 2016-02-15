@@ -15,8 +15,7 @@ class Jawbone{
 	function __construct($client_id, $client_secret, $scopes, $router){
 		$this->client_id      = $client_id;
 		$this->client_secret  = $client_secret;
-		//$this->redirect_uri   = (empty($_SERVER['HTTPS'])?'http':'https') . "://" . $_SERVER['HTTP_HOST'] . $router->generate('jawbone_token');
-		$this->redirect_uri   = "https://www.ukandoit.fr/" . $router->generate('jawbone_token');
+		$this->redirect_uri   = "https://ukandoit.fr" . $router->generate('jawbone_token');
 
 		$this->scopes = $scopes;
 
