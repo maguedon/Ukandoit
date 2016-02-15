@@ -21,11 +21,11 @@ class CheckChallengesCommand extends ContainerAwareCommand
             'Who do you want to greet?'
             )
         ->addOption(
-         'yell',
-         null,
-         InputOption::VALUE_NONE,
-         'If set, the task will yell in uppercase letters'
-         )
+           'yell',
+           null,
+           InputOption::VALUE_NONE,
+           'If set, the task will yell in uppercase letters'
+           )
         ;
     }
 
@@ -53,73 +53,94 @@ class CheckChallengesCommand extends ContainerAwareCommand
             // --------------- Vérification des utilisateurs qui ont synchronisé leurs données --------------//
 
             if($challenge->getEndDate()->modify("+2 day")->format('d-m-Y') == (new \DateTime())->modify("-1 day")->format('d-m-Y')){
-
-                $objective = null;
-                $ukandoit = $container->get("app.ukandoit");
-
                 $classement = array();
-
                 foreach($challenge->getUserChallenges() as $user_challenge){
-
+                    $ukandoit = $this->get("app.ukandoit");
                     $deviceUsed = $user_challenge->getDeviceUsed();
+                    $objective = null;
 
                     switch($deviceUsed->getDeviceType()){
 
                         case "Withings Activité Pop":
-                            $output->writeln("withings");
                             $withings = $container->get('app.withings');
                             $withings->authenticate($deviceUsed);
 
                             $activities = $withings->getActivities($deviceUsed->getUserIdWithings(), $challenge->getCreationDate()->format('Y-m-d'), $challenge->getEndDate()->format('Y-m-d'));
+                            $performance = $ukandoit->getDataFromAPI($challenge, $activities);
+                            if ($challenge->getKilometres() == null || $challenge->getKilometres() == 0) {
+                                $objective = $challenge->getKilometres() * 1000;
+                                if ($performance >= ($challenge->getKilometres() * 1000))
+                                    $success = true;
+                                else
+                                    $success = false;
+                            }
+                            else{
+                                $objective = $challenge->getNbSteps();
+                                if ($performance >= $challenge->getNbSteps())
+                                    $success = true;
+                                else
+                                    $success = false;
+                            }
+
 
                             break;
 
                         case "Jawbone UP 24":
-                            $output->writeln("jawbone");
                             $jawbone = $container->get('app.jawbone');
 
                             $activities = $jawbone->getMoves($deviceUsed->getAccessTokenJawbone(), $challenge->getCreationDate()->format('Y-m-d'), $challenge->getEndDate()->format('Y-m-d'));
-
+                            $performance = $ukandoit->getDataFromAPI($challenge, $activities);
+                            if ($challenge->getKilometres() == null || $challenge->getKilometres() == 0) {
+                                if ($performance >= ($challenge->getKilometres() * 1000))
+                                    $success = true;
+                                else
+                                    $success = false;
+                            }
+                            else{
+                                if ($performance >= $challenge->getNbSteps())
+                                    $success = true;
+                                else
+                                    $success = false;
+                            }
                             break;
 
                         case "Google Fitness":
-                            $output->writeln("google");
                             $activities = array();
+                            //$performance = $ukandoit->getDataFromAPI($challenge, $activities);
+/*                            if ($challenge->getKilometres() == null || $challenge->getKilometres() == 0) {
+                                if ($performance >= ($challenge->getKilometres() * 1000))
+                                    $success = true;
+                                else
+                                    $success = false;
+                            }
+                            else{
+                                if ($performance >= $challenge->getNbSteps())
+                                    $success = true;
+                                else
+                                    $success = false;
+                            }*/
                             break;
-
+                            
                         default:
                             $output->writeln("default"); //echo dans la console (printf)
                             $activities = array();
                             break;
                     }
 
-                // S'il n'y a pas de données pour la période demandée, l'utilisateur est disqualifié
+                    // S'il n'y a pas de données pour la période demandée, l'utilisateur est disqualifié
                     if(count($activities) == 0){
                         $user_challenge->setDisqualified(true);
                         $em->flush();
                     }
                     else{
-                        $performance = $ukandoit->getDataFromAPI($challenge, $activities);
-
-                        if ($challenge->getKilometres() == null || $challenge->getKilometres() == 0) {
-                            if ($performance >= $challenge->getNbSteps())
-                                $success = true;
-                            else
-                                $success = false;
-                        }
-                        else{
-                            if ($performance >= ($challenge->getKilometres() * 1000))
-                                $success = true;
-                            else
-                                $success = false;
-                        }
-
                         $classement[$performance] = array(
                             "userid" => $user_challenge->getId(),
                             "performance" => $performance,
                             "successful" => $success
                         );
                     }
+
+
                 }
                 krsort($classement);
                 $this->getChallengePoints($classement, $objective, $ukandoit); //attribution des points !!
@@ -144,7 +165,7 @@ class CheckChallengesCommand extends ContainerAwareCommand
     }
 
     protected function getChallengePoints($ranking, $goalPoints, $ukandoit){
-        $em = $this->getContainer()->get('doctrine')->getManager();
+        $em = $this->get('doctrine')->getManager();
         $gagnants = array();
         $perdants = array();
         foreach($ranking as $user){
