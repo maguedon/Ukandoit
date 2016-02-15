@@ -203,9 +203,10 @@ class User extends BaseUser
      *
      */
 
-    public function addPoints($points)
+    public function addPoints($points, $levels)
     {
         $this->nbPoints += $points;
+        $this->setLevel($levels);
     }
 
     /**

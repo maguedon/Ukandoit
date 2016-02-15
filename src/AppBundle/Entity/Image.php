@@ -49,8 +49,8 @@ class Image
      * @return Product
      */
     public function setImageFile($image )    {
-        $image_file = file_get_contents('http://localhost/ukandoit/web/images/avatars/'.$image);
-       // $image_file = file_get_contents('http://localhost:443/web/images/avatars/'.$image);
+       // $image_file = file_get_contents('http://localhost/ukandoit/web/images/avatars/'.$image);
+        $image_file = file_get_contents('http://localhost:443/web/images/avatars/'.$image);
         $this->imageFile = $image_file;
         $this->imageName = $image;
 

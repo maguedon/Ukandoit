@@ -139,7 +139,7 @@
 			</ul>
 		</div>
 	</section>
-	{% if participants|length > 2 %}
+	{% if participants|length > 3 %}
 	<section class="petit_classement">
 		<div class="row">
 			<div id="highlight responsive-table centered">
@@ -156,7 +156,7 @@
 						<tbody>
 							{% for participant in participants %}
 							{% if classement > 2 and classement < 30 %}
-							<tr class = "cursor" onclick="location.href='{{ path('user_other', {'id': participant.id }) }}'">
+							<tr class = "cursor" onclick="location.href='{{ path('user_other', {'id': participant.userid }) }}'">
 								<td>{{ classement }}</td>
 								<td>{{ participant.username }}</td>
 								<td>{{ participant.device }}</td>

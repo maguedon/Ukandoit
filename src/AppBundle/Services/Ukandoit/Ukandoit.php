@@ -65,12 +65,12 @@ class Ukandoit
                 $next_day = new \DateTime($key);
                 $next_day->modify('+1 day');
 
-                if ( $challenge->getKilometres() !== null ||  $challenge->getKilometres() !== 0 )
+                if ( $challenge->getKilometres() !== null &&  $challenge->getKilometres() !== 0 )
                     $param_value = $this->getDistance($json['global']['days'][$key]);
                 else
                     $param_value = $this->getSteps($json['global']['days'][$key]);
 
-                if ($i <= sizeof($json['global']['days']) - $challenge_delais -1){
+                if ($i <= sizeof($json['global']['days']) - $challenge_delais){
                     for($j=$i; $j<$i+$challenge_delais-1; $j++){
                         if ( $challenge->getKilometres() !== null )
                             $param_value += $this->getDistance($json['global']['days'][$next_day->format("Y-m-d")]);
