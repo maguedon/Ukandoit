@@ -28,8 +28,8 @@ class NewImageType extends ImageType
             'saveOriginal' => false           //optional
                         ),
             'cropConfig' => array(
-                'minWidth' => 200,
-                'minHeight' => 200,
+                'minWidth' => 400,
+                'minHeight' => 400,
                         'aspectRatio' => true,              //optional
                         'cropRoute' => 'comur_api_crop',    //optional
                         'forceResize' => false,             //optional
