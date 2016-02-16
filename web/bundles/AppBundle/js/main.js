@@ -220,4 +220,10 @@ $(document).ready(function() {
         return confirm('Etes-vous sûr de vouloir supprimer cet objet ?');
     });
 
+// -------------- Pop-up ajout d'objet -------------- //
+    $("#new_possessed_device_submit").click(function(){
+        var object = $('.objects input.select-dropdown').val();
+        alert('Vous allez être redirigé vers le site de ' + object + ".");
+    });
+
 });

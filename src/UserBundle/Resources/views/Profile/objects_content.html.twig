@@ -1,4 +1,7 @@
 <section class="objects">
+      <div class="warm_message card-panel green accent-4 lighten-2">
+      <b>Nous faisons attention à vos données personnelles. L'ensemble de vos données resteront confidentielles et nous les utiliserons uniquement dans le cadre de Ukandoit.fr. Elles ne seront partagées ou envoyées à qui que ce soit.</b>
+    </div>
     <section>
         {% if app.user.possessedDevices|length != 0 %}
             <ul class="collection">
@@ -28,9 +31,6 @@
            </div>
            <div class="input-field col m2">
                {{ form_widget(form.submit, {"attr": {"class": "waves-effect waves-light btn"}}) }}
-           </div>
-           <div class="input-field col m4">
-               L'ensemble de vos données resteront <b>confidentielles</b> et nous les utiliserons <b>uniquement</b> dans le cadre de Ukandoit.fr .
            </div>
            {{ form_end(form) }}
            {% endif %}
