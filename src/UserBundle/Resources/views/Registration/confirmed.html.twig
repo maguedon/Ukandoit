@@ -1,14 +1,22 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-	{% block fos_user_content %}
-		<div class="container">
-			<div class="row">
-				<div class="col s12">
-					Vous êtes inscrit !		
-				</div>
-			</div>
+{% block fos_user_content %}
+<div class="container">
+	<div class="row">
+		<div class="col s12">
+			Vous êtes inscrit !		
 		</div>
-	{% endblock fos_user_content %}
+	</div>
+	<div class="row">
+		<div class="col s12 m5">
+			Vous pouvez ajouter un objet en cliquant 
+		</div>
+		<div class="col s12 m3 ">
+			<a href="{{ path('objects') }}" class="btn btn-primary btn-block btn-lg">ici</a>
+		</div>
+	</div>
+</div>
+{% endblock fos_user_content %}
 
 {% endblock %}
