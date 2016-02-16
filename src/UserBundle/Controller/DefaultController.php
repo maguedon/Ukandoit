@@ -31,7 +31,19 @@ class DefaultController extends Controller
      * @Route("/user/challenges", name="my_challenges")
      */
     public function myChallengesAction(){
-       return $this->render('UserBundle:Profile:my_challenges.html.twig');
+        // Si on n'est pas connecté on redirige vers login
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
+
+        $challengeService = $this->get('app.challenges');
+        $finishedChallenges = $challengeService->getFinishedChallenges($current_user);
+        $challengesAccepted = $challengeService->getNotFinishedChallenges($current_user);
+
+       return $this->render('UserBundle:Profile:my_challenges.html.twig', array(
+        'finishedChallenges' => $finishedChallenges,
+        'challengesAccepted' => $challengesAccepted
+        ));
    }
 
     /**
@@ -61,6 +73,11 @@ class DefaultController extends Controller
 
             //Si l'objet n'existe pas, on le crée
             if(!$already_exist){
+
+            // Enregistrement de l'objet
+/*                $em = $this->get('doctrine')->getManager();
+                $em->persist($possessedDevice);
+                $em->flush();*/
                 if($possessedDevice->getDeviceType()->getName() == "Withings Activité Pop"){
                     $withings = $this->get("app.withings");
                     $withings->connection();
@@ -102,14 +119,14 @@ class DefaultController extends Controller
         return $this->redirectToRoute('objects');
     }
 
-    /**
+
+
+	/**
      * @Route("/user/{id}", name="user_other")
      */
     public function showOtherAction($id){
         $em = $this->get('doctrine')->getManager();
         $user = $em->getRepository("AppBundle:User")->find($id);
-
-        $em = $this->container->get('doctrine')->getManager();
         $nextLevel = $em->getRepository('AppBundle:Level')->findOneBy(array('numLevel' => $user->getLevel() + 1));
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show_other.html.twig', array(

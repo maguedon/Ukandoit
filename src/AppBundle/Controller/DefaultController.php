@@ -186,8 +186,9 @@ class DefaultController extends Controller
                 $em->persist($challenge);
                 $em->persist($user_challenge);
                 $em->flush();
-                
+
                 return $this->redirectToRoute('my_challenges');
+
             }
         }
 
@@ -254,8 +255,10 @@ class DefaultController extends Controller
                 $em->persist($challenge);
                 $em->persist($user_challenge);
                 $em->flush();
+
                 
                 return $this->redirectToRoute('my_challenges');
+
             }
         }
 

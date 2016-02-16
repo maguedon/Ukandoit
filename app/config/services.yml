@@ -3,12 +3,11 @@
 parameters:
 
     # Constantes de configuration pour l'utilisation de l'API Jawbone
-    app.jawbone.client_id: 'NVXBLmwjIag'
-    app.jawbone.client_secret: '89cd42ffbe3f8df0306b31d9728219179d3cc4af'
+    app.jawbone.client_id: '7E2uPrNbR3I'
+    app.jawbone.client_secret: '8f662520d8d2619c7855691053571c24bc82f4c1'
 
     app.jawbone.scopes: 
         - "basic_read"
-        - "move_read"
 
 services:
     fos_user.doctrine_registry:

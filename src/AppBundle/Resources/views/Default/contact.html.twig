@@ -18,39 +18,39 @@
 	</div>
 	<div class="row">
 		<div class="col s12 l6">
+			<small>
+				* Les champs précisés d'une (*) sont obligatoires.
+			</small>
 			<div class="col s12">
 				{{ form_start(form, { 'attr': {'id': 'contact'} }) }}
 
 				<div class="input-field form-group col s12">
 					{{ form_widget(form.name) }}
-					<label class="active" for="username">Nom</label>
+					<label class="active" for="form_name">Nom *</label>
 
 				</div>
 				<div class="input-field form-group col s12">
 					{{ form_widget(form.email) }}
-					<label class="active" for="username">Email</label>
+					<label class="active" for="form_email">Email *</label>
 
 				</div>
 				<div class="input-field form-group col s12">
 					{{ form_widget(form.subject) }}
-					<label class="active" for="username">Sujet</label>
+					<label class="active" for="form_subject">Sujet *</label>
 
 				</div>
 				<div class="input-field form-group col s12">
 
 					{{ form_widget(form.message, { 'attr': {'class': 'materialize-textarea'} }) }}
 
-					<label for="textarea1">Contenu</label>
+					<label for="form_message">Contenu *</label>
 
 				</div>
 
 				<div class="form-group">
 					<div class="btn_centre">
 						<div class="col s12 g-recaptcha" data-sitekey="6LcJBBcTAAAAAKQIlh3sCogXUGMUb7D_yQEN63C-"></div>
-
 						<button class="btn btn-primary btn-block" type="submit" id="form_send" name="form[send]">Envoyer</button>
-
-
 						<!-- btn waves-effect waves-light -->
 					</div>
 				</div>

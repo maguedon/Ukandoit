@@ -1,30 +1,59 @@
 <section class="titre_page">
-        <div class="row">
-            <div class="bloc_rouge"></div>
-            <div class="bloc_titre">
-                <h1>Mes défis proposés</h1>
-            </div>
+    <div class="row">
+        <div class="bloc_rouge"></div>
+        <div class="bloc_titre">
+            <h1>Mes défis proposés</h1>
         </div>
-    </section>
-    <section class="defis">
-        <div class="row">
-            {% for challenge in app.user.challengesCreated %}
+    </div>
+</section>
+<section class="defis">
+    <div class="row">
+    {% if app.user.challengesCreated|length == 0 or app.user.challengesCreated|length == null  %}
+            Vous n'avez créé aucun défi.
+        {% else %}
+        {% for challenge in app.user.challengesCreated[0:9] %}
+            {% include 'include/_defis.html.twig' with {'challenge': challenge} %}
+        {% endfor %}
+    {% endif %}
+    </div>
+</section>
+
+<section class="titre_page">
+    <div class="row">
+        <div class="bloc_rouge"></div>
+        <div class="bloc_titre">
+            <h1>Mes défis relevés</h1>
+        </div>
+    </div>
+</section>
+<section class="defis">
+    <div class="row">
+        {% if challengesAccepted|length == 0 or challengesAccepted|length == null  %}
+            Vous n'avez aucun défi en cours.
+        {% else %}
+            {% for challenge in challengesAccepted %}
                 {% include 'include/_defis.html.twig' with {'challenge': challenge} %}
             {% endfor %}
+        {% endif %}
+    </div>
+</section>
+
+<section class="titre_page">
+    <div class="row">
+        <div class="bloc_rouge"></div>
+        <div class="bloc_titre">
+            <h1>Mes défis terminés</h1>
         </div>
-    </section>
-    <section class="titre_page">
-        <div class="row">
-            <div class="bloc_rouge"></div>
-            <div class="bloc_titre">
-                <h1>Mes défis relevés</h1>
-            </div>
-        </div>
-    </section>
-    <section class="defis">
-        <div class="row">
-            {% for challenge in app.user.challengesAccepted %}
-                {% include 'include/_defis.html.twig' with {'challenge': challenge.challenge} %}
-            {% endfor %}
-        </div>
-    </section>
+    </div>
+</section>
+<section class="finished-challenges">
+    <div class="row">
+    {% if finishedChallenges|length == 0 or finishedChallenges|length == null  %}
+            Vous n'avez fini aucun défi.
+        {% else %}
+        {% for challenge in finishedChallenges %}
+            {% include 'include/_defis.html.twig' with {'challenge': challenge} %}
+        {% endfor %}
+    {% endif %}
+    </div>
+</section>
