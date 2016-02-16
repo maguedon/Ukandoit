@@ -31,6 +31,7 @@ class CheckChallengesCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $output->writeln("Debut : " . (new \DateTime())->format("d-m-Y H:i:s"));
         $container = $this->getContainer();
         $em = $container->get('doctrine')->getManager();
         $ukandoit = $container->get("app.ukandoit");
@@ -141,6 +142,7 @@ class CheckChallengesCommand extends ContainerAwareCommand
             }
 
         }
+        $output->writeln("Fin : " . (new \DateTime())->format("d-m-Y H:i:s"));
         return 1;
     }
 
