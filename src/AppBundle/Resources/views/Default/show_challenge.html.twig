@@ -43,61 +43,47 @@
 				{% set performance = null %}
 				{% set mesure = null %}
 				{% set classement = 0 %}
+				{% set participe = false %}
 				{% for participant in participants %}
-				{% if app.user != null %}
-				{% if app.user.id == participant.userid %}
-				{% set rang = classement + 1 %}
-				{% set appareil = participant.device %}
-				{% set performance = participant.performance %}
-				{% set mesure = participant.mesure %}
-				{% endif %}
-				{% set classement = classement + 1 %}
-				{% endif %}
+					{% if app.user != null %}
+						{% if app.user.id == participant.userid %}
+							{% set rang = classement + 1 %}
+							{% set appareil = participant.device %}
+							{% set performance = participant.performance %}
+							{% set mesure = participant.mesure %}
+							{% set participe = true %}
+						{% endif %}
+						{% set classement = classement + 1 %}
+					{% endif %}
 				{% endfor %}
-				{% if performance == null %}
+				{% if participe == false %}
 				<p>Vous ne participez pas au défi</p>
-				{% else %}
-				<p> <div class="texte_rouge">Nom </div> : {{ app.user.username }}</p>
-				<p> <div class="texte_rouge">Rang </div> : {{ rang }}</p>
-				<p> <div class="texte_rouge">Appareil </div> : {{ appareil }}</p>
-				<p> <div class="texte_rouge">Performance </div> : {{ performance }} {{ mesure }}</p>
-				<div class="row">	
-					<div class="col s12 valign-wrapper">
-						<a href="https://twitter.com/share" class="twitter-share-button" data-text="J'ai relevé le défi de {{ challenge.creator }} sur Ukandoit.fr ! Relèverez-vous le challenge ?" data-via="ukando_it" data-hashtags="ukandoit">Tweet</a>
-						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-						<div class="fb-share-button" data-href="" data-layout="button"></div>
-						<div id="fb-root"></div>
-					</div></div>
-					<script>(function(d, s, id) {
-						var js, fjs = d.getElementsByTagName(s)[0];
-						if (d.getElementById(id)) return;
-						js = d.createElement(s); js.id = id;
-						js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.5&appId=945288328897037";
-						fjs.parentNode.insertBefore(js, fjs);
-					}(document, 'script', 'facebook-jssdk'));</script>
-					{% endif %}
-				</div>
-				{% set flagChallenge = 0 %}
-				{% if app.user != null and  app.user.challengesAccepted|length != 0 %}
-				{% for challengeAccepted in app.user.challengesAccepted %}
-				{% if challengeAccepted.challenge.id == challenge.id %}
-				{% set flagChallenge = 1 %}
-				{% endif %}
-				{% endfor %}
-				{% endif %}
-				{% if flagChallenge == 0 %}
 				<div data-target="modal1"  class="card-action modal_defis" id="1" value="{{ challenge.id }}">
-					<a  href="#!">Ikando'it !</a>
-				</div>
+				<a  href="#!" class="texte_rouge">Ikando'it !</a>
+				</div> 
 				{% else %}
-				<div class="card-action">
-					{% if app.user.id == challenge.creator.id and challenge.userChallenges|length <= 1 %}
-					<a href ="{{ path('delete_challenge', {'id': challenge.id}) }}">Supprimer <i class="material-icons check">delete</i></a>
-					{% else %}
-					<a href ="{{ path('surrender', {'id': challenge.id}) }}">Abandonner <i class="material-icons check">phonelink_erase</i></a>
+					<p> <div class="texte_rouge">Nom </div> : {{ app.user.username }}</p>
+					<p> <div class="texte_rouge">Rang </div> : {{ rang }}</p>
+					<p> <div class="texte_rouge">Appareil </div> : {{ appareil }}</p>
+					<p> <div class="texte_rouge">Performance </div> : {{ performance }} {{ mesure }}</p>
+					<div class="col s12 del_action">
+						{% if app.user.id == challenge.creator.id and challenge.userChallenges|length <= 1 %}
+						<a href ="{{ path('delete_challenge', {'id': challenge.id}) }}" class="texte_rouge">Supprimer <i class="material-icons check">delete</i></a>
+						{% else %}
+						<a href ="{{ path('surrender', {'id': challenge.id}) }}" class="texte_rouge">Abandonner <i class="material-icons check">phonelink_erase</i></a>
+						{% endif %}
+					</div>
+					<div class="row">	
+						<div class="col s12 valign-wrapper">
+							<a href="https://twitter.com/share" class="twitter-share-button" data-text="J'ai relevé le défi de {{ challenge.creator }} sur Ukandoit.fr ! Relèverez-vous le challenge ?" data-via="ukando_it" data-hashtags="ukandoit">Tweet</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+							<div class="fb-share-button" data-href="" data-layout="button"></div>
+							<div id="fb-root"></div>
+						</div>
+					</div>
+				
 					{% endif %}
 				</div>
-				{% endif %}
 			</div>
 		</div>
 
@@ -175,16 +161,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% for participant in participants %}
-							{% if classement > 2 and classement < 30 %}
-							<tr class = "cursor" onclick="location.href='{{ path('user_other', {'id': participant.userid }) }}'">
-								<td>{{ classement }}</td>
-								<td>{{ participant.username }}</td>
-								<td>{{ participant.device }}</td>
-								<td>{{ participant.performance }} {{ participant.mesure }}</td>
-							</tr>
-							{% set classement = classement + 1 %}
+							{% if participants|length > 30 %}
+								{% set size = 30 %}
+							{% else %}
+								{% set size = participants|length %}
 							{% endif %}
+
+							{% for i in classement..(size - 1) %}
+								<tr class = "cursor" onclick="location.href='{{ path('user_other', {'id': participants[i].userid }) }}'">
+									<td>{{ i + 1 }}</td>
+									<td>{{ participants[i].username }}</td>
+									<td>{{ participants[i].device }}</td>
+									<td>{{ participants[i].performance }} {{ participants[i].mesure }}</td>
+								</tr>
 							{% endfor %}
 						</tbody>
 					</table>
@@ -195,4 +184,42 @@
 	{% endif %}
 	{% endif %}
 </div>
+<div id="modal1" class="modal bottom-sheet">
+	<div class="modal-content">
+		{% if app.user %}
+		<h4>Liste de vos appareils</h4>
+		<p>Choisissez l'appareil avec lequel vous souhaitez réaliser le défi.</p>
+		{% if app.user.possessedDevices|length != 0 %}
+		<form action="#" id="form_defi">
+			{% set first = true %}
+			{% for possessedDevice in app.user.possessedDevices %}
+			{% if first == true %}
+			<input class="with-gap" name="object_form" type="radio" checked class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
+			{% set first = false %}
+			{% else %}
+			<input class="with-gap" name="object_form" type="radio" class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
+			{% endif %}
+			<label for="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }} </label>
+			{% endfor %}
+		</form>
+		{% else %}
+		<p>Vous n'avez aucun objet pour le moment !</p>
+		<div class="center-align">
+			<a  class="waves-effect waves-light btn modal-trigger" href="{{ path('objects') }}">Ajouter un objet</a>
+		</div>
+		{% endif %}
+	</div>
+	<div class="modal-footer">
+		<button  id="form_defi_send" class="btn_send waves-effect waves-light btn modal-trigger"  value="{{ challenge.id }}">Relever le défi !</button>
+		{% else %}
+		<h4>Vous n'êtes pas connecté</h4>
+		<p>Veuillez vous connecter ou vous inscrire pour relever le défi !</p>
+		<div class="center-align">
+			<a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_security_login')}}">Se connecter</a>
+			<a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_registration_register')}}">S'inscrire</a>
+		</div>
+		{% endif %}
+	</div>
+</div>
 {% endblock %}
+	

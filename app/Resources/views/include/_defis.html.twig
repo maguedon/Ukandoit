@@ -60,39 +60,39 @@
 </div>
 </div>
 <div id="modal1" class="modal bottom-sheet">
-<div class="modal-content">
-	{% if app.user %}
+	<div class="modal-content">
+		{% if app.user %}
 		<h4>Liste de vos appareils</h4>
 		<p>Choisissez l'appareil avec lequel vous souhaitez réaliser le défi.</p>
 		{% if app.user.possessedDevices|length != 0 %}
 		<form action="#" id="form_defi">
 			{% set first = true %}
 			{% for possessedDevice in app.user.possessedDevices %}
-				{% if first == true %}
-					<input class="with-gap" name="object_form" type="radio" checked class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
-					{% set first = false %}
-				{% else %}
-					<input class="with-gap" name="object_form" type="radio" class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
-				{% endif %}
-				<label for="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }} </label>
+			{% if first == true %}
+			<input class="with-gap" name="object_form" type="radio" checked class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
+			{% set first = false %}
+			{% else %}
+			<input class="with-gap" name="object_form" type="radio" class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
+			{% endif %}
+			<label for="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }} </label>
 			{% endfor %}
 		</form>
 		{% else %}
-			<p>Vous n'avez aucun objet pour le moment !</p>
-			<div class="center-align">
-				<a  class="waves-effect waves-light btn modal-trigger" href="{{ path('objects') }}">Ajouter un objet</a>
-			</div>
+		<p>Vous n'avez aucun objet pour le moment !</p>
+		<div class="center-align">
+			<a  class="waves-effect waves-light btn modal-trigger" href="{{ path('objects') }}">Ajouter un objet</a>
+		</div>
 		{% endif %}
 	</div>
 	<div class="modal-footer">
 		<button  id="form_defi_send" class="btn_send waves-effect waves-light btn modal-trigger"  value="{{ challenge.id }}">Relever le défi !</button>
-	{% else %}
+		{% else %}
 		<h4>Vous n'êtes pas connecté</h4>
 		<p>Veuillez vous connecter ou vous inscrire pour relever le défi !</p>
 		<div class="center-align">
 			<a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_security_login')}}">Se connecter</a>
 			<a  class="waves-effect waves-light btn modal-trigger" href="{{path('fos_user_registration_register')}}">S'inscrire</a>
 		</div>
-	{% endif %}
-</div>
+		{% endif %}
+	</div>
 </div>
