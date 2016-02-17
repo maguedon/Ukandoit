@@ -3,10 +3,10 @@
 		<div class="row">
 			<div class="col s12">
 				<ul class="tabs">
-					<li class="tab col m2"><a href="{{ path('homepage') }}">Accueil</a></li>
-					<li class="tab col m2"><a href="{{ path('challenges') }}">Les Défis</a></li>
-					<li class="tab col m2"><a href="{{ path('about') }}">À Propos</a></li>
-					<li class="tab col m2"><a href="{{ path('contact') }}">Contact</a></li>
+					<li class="tab col m2"><a {% if app.request.attributes.get('_route') == "homepage" %}class="active-menu"{% endif %} href="{{ path('homepage') }}">Accueil</a></li>
+					<li class="tab col m2"><a {% if app.request.attributes.get('_route') == "challenges" %}class="active-menu"{% endif %} href="{{ path('challenges') }}">Les Défis</a></li>
+					<li class="tab col m2"><a {% if app.request.attributes.get('_route') == "about" %}class="active-menu"{% endif %} href="{{ path('about') }}">À Propos</a></li>
+					<li class="tab col m2"><a {% if app.request.attributes.get('_route') == "contact" %}class="active-menu"{% endif %} href="{{ path('contact') }}">Contact</a></li>
 					<li class="tab col m1 disabled"><a href="#"></a></li>
 					{% if app.user %}
 						<ul id="dropdown1" class="dropdown-content">
@@ -31,39 +31,8 @@
 						</li>
 						<li class="tab col m1 logOutButton"><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Se déconnecter">input</i></a></li>
 					{% else %}
-						<li class="tab col m2"><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+						<li class="tab col m2"><a {% if app.request.attributes.get('_route') == "fos_user_registration_register" %}class="active-menu"{% endif %} href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
 						<li class="col m2 logInButton"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
-					{% endif %}
-					{% if app.request.attributes.get('_route') == "homepage" %}
-						{% if app.user %}
-							<div class="indicator-connected accueil"></div>
-						{% else %}
-							<div class="indicator accueil"></div>
-						{% endif %}
-					{% elseif app.request.attributes.get('_route') == "challenges" %}
-						{% if app.user %}
-							<div class="indicator-connected lesdefis"></div>
-						{% else %}
-							<div class="indicator lesdefis"></div>
-						{% endif %}
-					{% elseif app.request.attributes.get('_route') == "about" %}
-						{% if app.user %}
-							<div class="indicator-connected apropos"></div>
-						{% else %}
-							<div class="indicator apropos"></div>
-						{% endif %}
-					{% elseif app.request.attributes.get('_route') == "contact" %}
-						{% if app.user %}
-							<div class="indicator-connected contact"></div>
-						{% else %}
-							<div class="indicator contact"></div>
-						{% endif %}
-					{% elseif app.request.attributes.get('_route') == "fos_user_registration_register" %}
-						{% if app.user %}
-							<div class="indicator-connected sinscrire"></div>
-						{% else %}
-							<div class="indicator sinscrire"></div>
-						{% endif %}
 					{% endif %}
 				</ul>
 			</div>
