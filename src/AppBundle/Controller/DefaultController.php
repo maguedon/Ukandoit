@@ -132,6 +132,13 @@ class DefaultController extends Controller
             $form_data_possessedDevice = $_POST["possessedDeviceFormOne"];
             $form_data_currentDate = $challenge->getCreationDate();
 
+            if($form_data_nbKm != null && $form_data_nbKm != 0 && $form_data_nbKm != "0"){
+                $form_data_title = "Objectif ".$form_data_nbKm." km en ".$form_data_time. " jour(s)";
+            }
+            else if ($form_data_nbSteps != null && $form_data_nbSteps != 0 && $form_data_nbSteps != "0"){
+                $form_data_title = "Objectif ".$form_data_nbSteps." pas en ".$form_data_time. " jour(s)";
+            }
+
             $avoid_error = $form_data_time ;
             if($avoid_error < 0){
                 $avoid_error = 0;
@@ -196,6 +203,13 @@ class DefaultController extends Controller
         $form_data_activity = $formTwo->get("activity")->getData();
         $form_data_possessedDevice = $_POST["possessedDeviceFormTwo"];
         $form_data_currentDate = $challenge->getCreationDate();
+
+        if($form_data_nbKm != null && $form_data_nbKm != 0 && $form_data_nbKm != "0"){
+            $form_data_title = "Objectif ".$form_data_nbKm." km en ".$form_data_time. " jour(s)";
+        }
+        else if ($form_data_nbSteps != null && $form_data_nbSteps != 0 && $form_data_nbSteps != "0"){
+            $form_data_title = "Objectif ".$form_data_nbSteps." pas en ".$form_data_time. " jour(s)";
+        }
 
         $avoid_error = $form_data_time ;
         if($avoid_error < 0){
@@ -495,7 +509,6 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
             "nbChallenges" => $nbAllChallenges,
 
             ));
-
     }
 
     /**
@@ -653,7 +666,9 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
 
             if ($participant->getId() == $challenge->getCreator()->getId()){
                 $user_challenge = $this->getDoctrine()->getRepository("AppBundle:User_Challenge")->findOneBy(array("challenge" =>$challenge->getId(), "challenger" => $participant->getId()));
-                $best_performance["value"] = $user_challenge->getPerformance();
+                // Si c'est un défi créé à partir de performances déjà existantes
+                if($user_challenge->getPerformance() != 0)
+                    $best_performance["value"] = $user_challenge->getPerformance();
             }
 
             $data = array(
@@ -742,7 +757,7 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
                 $data['time'] = 1;
             }
             else{
-                $data['time'] = ($time2 - $time1)/(60*60*24)+1;
+                $data['time'] = ($time2 - $time1)/(60*60*24) + 1;
             }
 
             $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id_montre);

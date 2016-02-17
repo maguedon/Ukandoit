@@ -20,11 +20,14 @@
 						</div>
 						<div class="card-panel">
 							<div class="form-group">
-								<div class="input-field col s12 m6">
+								<div class="input-field col s12 m4">
 									{{ form_widget(formOne.endDate, { 'id': 'new_challenge_endDate1', 'attr': {'class': 'form-control datepicker'} }) }}
 									{{ form_errors(formOne.endDate) }}
 									<label for="new_challenge_endDate1">Date de fin du défi</label>
 								</div>
+								<div class="input-field col s12 m2">
+								<label>à 23h59</label>
+							</div>
 								<div class="input-field col s12 m6">
 									{{ form_widget(formOne.activity, { 'attr': {'class': 'form-control'} }) }}
 									{{ form_errors(formOne.activity) }}
