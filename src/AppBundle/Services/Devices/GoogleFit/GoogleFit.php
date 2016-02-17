@@ -9,7 +9,7 @@ class GoogleFit
     private $consumer_secret;
     private $callback_url;
     private $google;
-    private $service;
+    public $service; // A METTRE EN PRIVATE
     private $access_token;
     private $refresh_token;
 
@@ -19,11 +19,15 @@ class GoogleFit
         $this->consumer_secret = "OMtqK2OwTXuWvD_s2RBQ0UEU";
         $this->callback_url = "http://localhost:443/web/app_dev.php/google/token";
         $this->google = new \Google_Client();
+        $this->google->setAccessType('offline');
+        $this->google->setApprovalPrompt('force'); // génère le refresh token dans l'URL
         $this->google->setApplicationName("Ukando'it");
+        $this->google->setDeveloperKey("AIzaSyBACQrAapAYL7UTwufO59Z0QOczpptYyg0");
         $this->google->setClientId($this->consumer_key);
         $this->google->setClientSecret($this->consumer_secret);
         $this->google->addScope(Google_Service_Fitness::FITNESS_ACTIVITY_READ); //Google_Service_Drive::DRIVE_METADATA_READONLY
         $this->google->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/web/app_dev.php/google/token');
+        //$this->service = new Google_Service_Fitness($this->google);
     }
 
     public function connection(){
@@ -33,20 +37,27 @@ class GoogleFit
     }
 
     public function getToken(){
-        if (isset($_GET['error'])){
-            return false;
-        }
-        else{
+        if (isset($_GET['code'])){
             $this->google->authenticate($_GET['code']);
             $token = $this->google->getAccessToken();
+            $tokens_decoded = json_decode(json_encode($token), false);
+            $refreshToken = $tokens_decoded->refresh_token;
             $this->setAccessToken($token["access_token"]);
-            $this->setRefreshToken($token["refresh_token"]); // $this->google->getRefreshToken();
+            $this->setRefreshToken($refreshToken);
+        }
+        else{
+            return false;
         }
     }
 
     public function authenticate($possessedDevice){
         $this->google->setAccessToken($possessedDevice->getAccessTokenGoogle());
-        if ($this->google->isAccessTokenExpired()){
+        $this->service = new Google_Service_Fitness($this->google);
+       /* $idtoken = $this->google->verifyIdToken();
+        var_dump($idtoken);*/
+       // $code = $this->google->getOAuth2Service()->getCode();
+        //var_dump($code);
+      /*  if ($this->google->isAccessTokenExpired()){
             $this->google->refreshToken($possessedDevice->getRefreshTokenGoogle());
             $token = $this->google->getAccessToken();
             $this->setAccessToken($token["access_token"]);
@@ -55,7 +66,12 @@ class GoogleFit
             $possessedDevice->setRefreshTokenGoogle($this->getRefreshToken());
             return true;
         }
-        return false;
+        return false;*/
+    }
+
+    public function getActivities()//($userid, $startdate, $enddate = null)
+    {
+       return $this->service->users_dataSources->listUsersDataSources("me");
     }
 
     public function setConsumerKey($consumer_key)

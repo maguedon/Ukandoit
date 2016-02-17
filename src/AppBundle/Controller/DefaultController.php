@@ -44,6 +44,13 @@ class DefaultController extends Controller
         $lastChallenges = $em->getRepository('AppBundle:Challenge')->findByEndDate(9);
         $bestChallenges = $challengesService->getBestChallenges();
         $bestChallengers = $em->getRepository('AppBundle:User')->findBests();
+
+//        $user_perf = array();
+//        $current_user = $this->container->get('security.context')->getToken()->getUser();
+//        foreach($current_user->getChallengesAccepted() as $challenge){
+//            $user_perf[$challenge->getId()] =
+//        }
+
         return $this->render('AppBundle:Default:index.html.twig', array(
             "url"=>"accueil",
             "lastChallenges" => $lastChallenges,
@@ -399,12 +406,7 @@ class DefaultController extends Controller
         $google = $this->get("app.googlefit");
         $code = $google->getToken();
 
-        if ($code !== false || $google->getAccessToken() !== null || $google->getRefreshToken() !== null){
-//            $em->remove($possessedDevice);
-//            $em->flush();
-//            return $this->redirectToRoute('objects');
-//        }
-//        else{
+        if ($code !== false || $google->getAccessToken() !== null /*|| $google->getRefreshToken() !== null*/){
             $possessedDevice->setAccessTokenGoogle($google->getAccessToken());
             $possessedDevice->setRefreshTokenGoogle($google->getRefreshToken());
             $em->persist($possessedDevice);
@@ -427,16 +429,23 @@ class DefaultController extends Controller
 
         $google = $this->get("app.googlefit");
         $updated = $google->authenticate($possessedDevice);
-        if ($updated == true){
+     /*   if ($updated == true){
             $em = $this->get('doctrine')->getManager();
             $em->persist($possessedDevice);
             $em->flush();
-        }
+        }*/
+        //$list = $google->getActivities();
 
-        $json = $google->getActivities(/*USERID ,*/ "2016-02-01"); //,"2016-01-25"
+        $sources = $google->service->users_dataSources;
+        $sets = $google->service->users_dataSources_datasets;
+        $list = $sources->listUsersDataSources("me");
+        //$json = $google->getActivities(/*USERID ,*/ "2016-02-01"); //,"2016-01-25"
 
-        return $this->render('AppBundle:Default:withingsMoves.html.twig', array(
-            'activities' => $json["body"]["activities"]
+        return $this->render('AppBundle:Default:googleMoves.html.twig', array(
+            //'activities' => $json["body"]["activities"],
+           'sources' => $sources,
+            'sets' => $sets,
+           // 'list' => $list
         ));
     }
     /**

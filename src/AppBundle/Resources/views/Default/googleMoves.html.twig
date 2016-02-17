@@ -1,0 +1,37 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+    <pre>{{ dump(sources) }}</pre>
+    <pre>{{ dump(sets) }}</pre>
+
+    <div class="container moves">
+        <div class="row titre_page">
+            <div class="bloc_rouge"></div>
+            <div class="bloc_titre">
+                <h1>Déplacements</h1>
+            </div>
+        </div>
+       {# <section class="moves">
+            {% if activities|length != 0 %}
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Distance</th>
+                        <th>Nombre de pas</th>
+                        <th>Durée d'activité</th>
+                    </tr>
+
+                    {% for key,act in activities.global.days %}
+                        <tr>
+                            <td>{{ key }}</td>
+                            <td>{{ act.distance }}</td>
+                            <td>{{ act.steps }}</td>
+                            <td>{{ act.active_time }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>Vous n'avez pas d'activité ou d'objet enregistré !</p>
+            {% endif %}
+        </section>#}
+    </div>
+{% endblock %}
