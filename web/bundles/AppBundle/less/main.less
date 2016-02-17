@@ -326,8 +326,32 @@ a .bande_rouge:hover  {
 		border-right: 1px solid #888686;
 	}
 }
+
+// Btn Défis
+#form_defi_send {
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+.pick_share a {
+	margin-right: 20px !important;
+	margin-bottom: 20px;
+}
 .toast {
     word-break: normal;
 }
+
+// add défi
+input:disabled:not([type]) + label, input[readonly="readonly"]:not([type]) + label, input[type="text"]:disabled + label, input[type="text"][readonly="readonly"] + label, input[type="password"]:disabled + label, input[type="password"][readonly="readonly"] + label, input[type="email"]:disabled + label, input[type="email"][readonly="readonly"] + label, input[type="url"]:disabled + label, input[type="url"][readonly="readonly"] + label, input[type="time"]:disabled + label, input[type="time"][readonly="readonly"] + label, input[type="date"]:disabled + label, input[type="date"][readonly="readonly"] + label, input[type="datetime-local"]:disabled + label, input[type="datetime-local"][readonly="readonly"] + label, input[type="tel"]:disabled + label, input[type="tel"][readonly="readonly"] + label, input[type="number"]:disabled + label, input[type="number"][readonly="readonly"] + label, input[type="search"]:disabled + label, input[type="search"][readonly="readonly"] + label, textarea.materialize-textarea:disabled + label, textarea.materialize-textarea[readonly="readonly"] + label {
+    color: rgba(0, 0, 0, 1) !important;
+}
+
+#tabs_add_defis .tab:hover{
+	background : rgba(0, 0, 0, 0.1) !important;
+}
+
+.active-menu{
+	font-weight: bold;
+}
+
 // responsive
 @import "_responsive.less";

@@ -147,9 +147,19 @@ $(document).ready(function() {
 
     modalDefis.on("click", function() {
         var defi_id = $(this).attr("value");
+        var defi_creator = $(this).attr("creator");
+        var url = window.location.protocol + "//" + window.location.host;
+        var url_defi = url + '/defis/' + defi_id;
+        // generate share btn
+        $(".pick_share").append('<a href="https://twitter.com/share?hashtags=ukandoit&original_referer=https%3A%2F%2Fukandoit.fr%2Fdefi%2F67%2F&ref_src=twsrc%5Etfw&text=J%27ai%20relev%C3%A9%20le%20d%C3%A9fi%20de%20'+defi_creator+'%20sur%20Ukandoit.fr%20!%20Rel%C3%A8verez-vous%20le%20challenge%20%3F&tw_p=tweetbutton&url='+url_defi+'&via=ukando_it" class="btn_send waves-effect waves-light btn modal-trigger" target="_blank" data-text="J%27ai relevé le défi de {{ challenge.creator }} sur Ukandoit.fr ! Relèverez-vous le challenge ?" data-via="ukando_it" data-hashtags="ukandoit" >Participer et Twitter !</a>');
+
+        $(".pick_share").on("click", function() {
+                $("#form_defi_send").trigger("click");
+        });
+
         $("#form_defi_send").on("click", function() {
             var objet_id = $('input[name=object_form]:checked', '#form_defi').val();
-            var url = window.location.protocol + "//" + window.location.host;
+           // var url = window.location.protocol + "//" + window.location.host;
             // remplacer par window.location.protocol + "//" + window.location.host + "/" en prod)
             location.href = url + '/defis/' + defi_id + '/' + objet_id + '/accepted';
             /* $.post("challenges", {var_value: objet_id}, function(data){
