@@ -10,7 +10,7 @@
 		<div class="row">
 			<ul id="tabs_add_defis" class="tabs">
 				<li class="tab col s3"><a class="active" href="#ididit" title="IDID'IT !">IDID'IT !</a></li>
-				<li class="tab col s3"><a href="#kanudoit" title="KANWEDO'IT ?">KANWEDO'IT ?</a></li>
+				<li class="tab col s3" style="border-left: 1px solid rgba(0, 0, 0, 0.1)"><a href="#kanudoit" title="KANWEDO'IT ?">KANWEDO'IT ?</a></li>
 			</ul>
 			<div id="ididit" class="col s12">
 				<form action="{{ path('add_defis') }}" {{ form_enctype(formOne) }} method="POST">
@@ -37,7 +37,7 @@
 											<option value="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }}</option>
 										{% endfor %}
 									</select>
-									<label>Avec quelle montre ?</label>
+									<label for="select_montre">Avec quelle montre ?</label>
 								</div>
 								<div class="input-field col s12">
 									<select id="select_pas_km_first">
@@ -49,11 +49,11 @@
 								</div>
 								<div class="input-field col s12 m6">
 									<input id="new_challenge_startPerf" class="form-control datepicker" type="text" required="required" readonly="readonly">
-									<label for="endDate">Date de début de votre performance</label>
+									<label for="new_challenge_startPerf">Date de début de votre performance</label>
 								</div>
 								<div class="input-field col s12 m6">
 									<input id="new_challenge_endPerf" class="form-control datepicker" type="text" required="required" readonly="readonly">
-									<label for="endDate">Date de fin de votre performance</label>
+									<label for="new_challenge_endPerf">Date de fin de votre performance</label>
 								</div>
 								<div class="input-field col s12 center-align">
 									<a class="waves-effect waves-light btn modal-trigger-ajax" href="#getDataChallenge" title="Récupérer mes performances">Récupérer sa performance</a>
