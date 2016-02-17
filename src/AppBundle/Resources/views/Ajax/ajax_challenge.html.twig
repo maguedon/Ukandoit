@@ -46,7 +46,7 @@
 			{% endfor %}
 		{% endif %}
 		{% if flagChallenge == 0 %}
-			<div data-target="modal1"  class="card-action modal_defis" id="1" value="{{ challenge.id }}">
+			<div data-target="modal1"  class="card-action modal_defis" id="1" value="{{ challenge.id }}" creator="{{ challenge.creator }} ">
 				<a  href="#!">Ikando'it !</a>
 			</div>
 		{% else %}
@@ -88,6 +88,8 @@
 		</div>
 		<div class="modal-footer">
 			<button  id="form_defi_send" class="btn_send waves-effect waves-light btn modal-trigger"  value="{{ challenge.id }}">Relever le défi !</button>
+			<div class="pick_share"></div> {# append le twitt #}
+			
 		{% else %}
 			<h4>Vous n'êtes pas connecté</h4>
 			<p>Veuillez vous connecter ou vous inscrire pour relever le défi !</p>
@@ -102,17 +104,24 @@
 {% endfor %}
 <script type="text/javascript">
 	var modalDefis = $(".modal_defis");
-	modalDefis.on("click", function() {
-		var defi_id = $(this).attr("value");
-		$("#form_defi_send").on("click", function() {
-			var objet_id = $('input[name=object_form]:checked', '#form_defi').val();
-			var url = window.location.protocol + "//" + window.location.host + "/web/app_dev.php";
-		// remplacer par window.location.protocol + "//" + window.location.host + "/" en prod)
-		location.href = url + '/defis/' + defi_id + '/' + objet_id + '/accepted';
-		/* $.post("challenges", {var_value: objet_id}, function(data){
-		alert("data sent and received: "+data);
-		});*/
-	});
+	
+    modalDefis.on("click", function() {
+        var defi_id = $(this).attr("value");
+        var defi_creator = $(this).attr("creator");
+        var url = window.location.protocol + "//" + window.location.host;
+        var url_defi = url + '/defi/' + defi_id;
+        // generate share btn
+        $(".accept_share").remove();
+        $(".pick_share").append('<a href="https://twitter.com/share?hashtags=ukandoit&original_referer=https%3A%2F%2Fukandoit.fr%2Fdefi%2F67%2F&ref_src=twsrc%5Etfw&text=J%27ai%20relev%C3%A9%20le%20d%C3%A9fi%20de%20'+defi_creator+'%20sur%20Ukandoit.fr%20!%20Rel%C3%A8verez-vous%20le%20challenge%20%3F&tw_p=tweetbutton&url='+url_defi+'&via=ukando_it" class="accept_share btn_send waves-effect waves-light btn modal-trigger" target="_blank" data-text="J%27ai relevé le défi de {{ challenge.creator }} sur Ukandoit.fr ! Relèverez-vous le challenge ?" data-via="ukando_it" data-hashtags="ukandoit" >Participer et Twitter !</a>');
+
+        $(".pick_share").on("click", function() {
+                $("#form_defi_send").trigger("click");
+        });
+
+        $("#form_defi_send").on("click", function() {
+            var objet_id = $('input[name=object_form]:checked', '#form_defi').val();
+            location.href = url + '/defis/' + defi_id + '/' + objet_id + '/accepted';
+        });
 		$('#modal1').openModal();
 		var leanOverlay = $(".lean-overlay");
 		leanOverlay.slice(0, -1).remove();

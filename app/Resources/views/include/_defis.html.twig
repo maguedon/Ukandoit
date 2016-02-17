@@ -78,10 +78,10 @@
 			{% for possessedDevice in app.user.possessedDevices %}
 
 			{% if first == true %}
-			<input class="with-gap" name="object_form" type="radio" checked class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
+			<input class="with-gap" name="object_form" type="radio" checked class="test" value="{{ possessedDevice.id }}" id="{{ possessedDevice.id }}" />
 			{% set first = false %}
 			{% else %}
-			<input class="with-gap" name="object_form" type="radio" class="test" value="{{ possessedDevice.id }}" onClick="EnableSubmit(this)" id="{{ possessedDevice.id }}" />
+			<input class="with-gap" name="object_form" type="radio" class="test" value="{{ possessedDevice.id }}" id="{{ possessedDevice.id }}" />
 			{% endif %}
 			<label for="{{ possessedDevice.id }}">{{ possessedDevice.deviceType }} </label>
 
@@ -96,7 +96,7 @@
 	</div>
 	<div class="modal-footer">
 		<button  id="form_defi_send" class="btn_send waves-effect waves-light btn modal-trigger"  value="{{ challenge.id }}">Relever le défi !</button>
-		<div class="pick_share"></div>
+		<div class="pick_share"></div> {# append le twitt #}
 		{% else %}
 		<h4>Vous n'êtes pas connecté</h4>
 		<p>Veuillez vous connecter ou vous inscrire pour relever le défi !</p>
