@@ -60,7 +60,7 @@ class Challenge
     *
     * @ORM\Column(name="kilometres", type="integer", nullable=true)
     */
-   private $kilometres;
+    private $kilometres;
 
    /**
     * @var int
@@ -85,13 +85,20 @@ class Challenge
     */
    private $nbPoints;
 
+   /**
+    * @var string
+    *
+    * @ORM\Column(name="difficulty", type="string")
+    */
+   private $difficulty;
 
-    public function __construct() {
-        $this->challengers = new ArrayCollection();
-        $this->creationDate = new \DateTime();
-        $this->kilometres = null;
-        $this->nbSteps = null;
-    }
+
+   public function __construct() {
+    $this->challengers = new ArrayCollection();
+    $this->creationDate = new \DateTime();
+    $this->kilometres = null;
+    $this->nbSteps = null;
+}
 
 
     /**
@@ -367,5 +374,68 @@ class Challenge
     public function getNbPoints()
     {
         return $this->nbPoints;
+    }
+
+    /**
+     * Set difficulty
+     *
+     *
+     * @return Challenge
+     */
+    public function setDifficulty()
+    {
+        // < 8 000 pas -> facile // 6km
+        // entre 8 000 pas et 12 000 pas -> moyen  // 6km à 10km
+        // > 12 000 pas -> difficile // > 10km
+
+        if($this->getTime() == 1){
+            if($this->getKilometres() != null && $this->getKilometres() != 0)
+                $this->setDifficultyByKilometers($this->kilometres);
+            // En nombre de pas
+            else
+                $this->setDifficultyBySteps($this->steps);
+        }
+        // Si le challenge est sur plusieurs jours
+        else{
+            if($this->getKilometres() != null && $this->getKilometres() != 0){
+                $km_one_day = $this->kilometres / $this->time;
+                $this->setDifficultyByKilometers($km_one_day); 
+            }
+            // En nombre de pas
+            else{
+                $steps_one_day = $this->steps / $this->time;
+                $this->setDifficultyBySteps($steps_one_day);  
+            }
+        }
+
+        return $this;
+    }
+
+    public function setDifficultyByKilometers($km){
+        if ($km <= 6) 
+            $this->difficulty = "easy";
+        else if(6 < $km && $km <= 10)
+            $this->difficulty = "medium";
+        else
+            $this->difficulty = "hard";
+    }
+
+    public function setDifficultyBySteps($steps){
+        if ($steps <= 8000) 
+            $this->difficulty = "easy";
+        else if(8000 < $steps && $steps <= 12000)
+            $this->difficulty = "medium";
+        else
+            $this->difficulty = "hard";
+    }
+
+    /**
+     * Get difficulty
+     *
+     * @return string
+     */
+    public function getDifficulty()
+    {
+        return $this->difficulty;
     }
 }
