@@ -1,7 +1,13 @@
 <div class="col s12 m6 l4 defi ">
 	<div id="{{ challenge.id }}" class="card blue-grey white hoverable">
 		<a href="{{ path('showChallenge', {'challenge': challenge.id }) }}">
-			<div class="bande_rouge">
+			{% if challenge.difficulty == "easy" %}
+				<div class="bande_easy">
+			{% elseif challenge.difficulty == "medium" %}
+				<div class="bande_medium">
+			{% else %}
+				<div class="bande_hard">
+			{% endif %}
 				<h2 class="card-title">{{ challenge.title }}</h2>
 			</div>
 		</a>

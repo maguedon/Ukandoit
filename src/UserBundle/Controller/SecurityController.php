@@ -14,7 +14,6 @@ class SecurityController extends BaseController
         // Si on est déjà connecté on redirige vers le profil
         $current_user = $this->container->get('security.context')->getToken()->getUser();
         if($current_user != "anon." && $current_user != null){
-            $this->setFlash('message', 'Vous êtes déjà connecté !');
             return new RedirectResponse($this->container->get('router')->generate("fos_user_profile_show"));
         }
 
