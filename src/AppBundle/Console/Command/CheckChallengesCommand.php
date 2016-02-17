@@ -36,6 +36,49 @@ class CheckChallengesCommand extends ContainerAwareCommand
         $em = $container->get('doctrine')->getManager();
         $ukandoit = $container->get("app.ukandoit");
 
+        $levels = $em->getRepository('AppBundle:Level')->findAll();
+
+        $today = date("Y-m-d");
+        $current_day = new \DateTime($today);
+        $users =  $em->getRepository('AppBundle:User')->findAll();
+        foreach($users as $user){
+            $user_devises = $user->getPossessedDevices();
+
+            foreach($user_devises as $devise){
+                switch($devise->getDeviceType()){
+
+                    case "Withings Activité Pop":
+                        $withings = $container->get('app.withings');
+                        $withings->authenticate($devise);
+                        $activities = $withings->getActivities($devise->getUserIdWithings(), $current_day->format('Y-m-d'), $current_day->format('Y-m-d'));
+                        $dailySteps = $ukandoit->getSteps($activities["global"]);
+
+                        break;
+
+                    case "Jawbone UP 24":
+                        $jawbone = $container->get('app.jawbone');
+                        $activities = $jawbone->getMoves($devise->getAccessTokenJawbone(), $current_day->format('Y-m-d'), $current_day->format('Y-m-d'));
+                        $dailySteps = $ukandoit->getSteps($activities["global"]);
+
+                        break;
+
+                    case "Google Fitness":
+                        $activities = array();
+
+                        break;
+
+                    default:
+                        $activities = array();
+                        break;
+                }
+
+                $pointsWon = $ukandoit->getDailyPoints($dailySteps);
+                $user->addPoints($pointsWon, $levels);
+                $em->flush();
+            }
+
+        }
+
         $challenges = $em->getRepository('AppBundle:Challenge')->findAll();
 
         //On regarde tous les challenges

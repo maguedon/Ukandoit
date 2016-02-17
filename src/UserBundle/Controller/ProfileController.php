@@ -59,7 +59,10 @@ class ProfileController extends BaseController
 
         $process = $formHandler->process($current_user);
         if ($process) {
-            $this->setFlash('fos_user_success', 'profile.flash.updated');
+            $this->setFlash('message', 'Profil mis à jour.');
+
+            $em = $this->container->get('doctrine')->getManager();
+            $em->flush();
 
             return new RedirectResponse($this->getRedirectionUrl($current_user));
         }
