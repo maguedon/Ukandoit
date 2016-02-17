@@ -64,6 +64,15 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
             $level = new Level();
             $level->setNumLevel($i);
             $level->setNbPoints(intval($prevLevel->getNbPoints() + $gain));
+<<<<<<< HEAD
+
+            $manager->persist($level);
+
+            $prevPoints = $gain;
+            $prevLevel = $level;
+        }
+=======
+>>>>>>> master
 
             $manager->persist($level);
 
@@ -71,7 +80,13 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
             $prevLevel = $level;
         }
 
-        $manager->flush();
+        // -------------- Activities -------------- //
+
+        $activity = new Activity();
+        $activity->setName("marche");
+        $manager->persist($activity);
+
+        // -------------- Users -------------- //
 
         // -------------- Activities -------------- //
 
@@ -172,9 +187,74 @@ class LoadConstantData implements FixtureInterface, ContainerAwareInterface
         $image->setImageFile('Stephane_Bourdier.jpg');
         $image->setImageName('Stephane_Bourdier.jpg');
         $stephane->setAvatar($image);
+<<<<<<< HEAD
 
         $statsStephane = new Stats();
         $stephane->setStats($statsStephane);
+=======
+
+        $statsStephane = new Stats();
+        $stephane->setStats($statsStephane);
+
+        $manager->persist($stephane);
+
+        // -------------- Challenges -------------- //
+
+        $defi1 = new Challenge();
+        $defi1->setEndDate(new \DateTime("2016-02-15"));
+        $defi1->setCreator($mathilde);
+        $defi1->setActivity($activity);
+        $defi1->setTime(1);
+        $defi1->setKilometres(5);
+        $defi1->setNbPoints(20);
+
+        $defi2 = new Challenge();
+        $defi2->setEndDate(new \DateTime("2016-02-19"));
+        $defi2->setCreator($juliette);
+        $defi2->setActivity($activity);
+        $defi2->setTime(1);
+        $defi2->setNbSteps(15000);
+        $defi2->setNbPoints(30);
+
+        $defi3 = new Challenge();
+        $defi3->setEndDate(new \DateTime("2016-02-18"));
+        $defi3->setCreator($jeremy);
+        $defi3->setActivity($activity);
+        $defi3->setTime(5);
+        $defi3->setNbSteps(40000);
+        $defi3->setNbPoints(20);
+
+        $defi4 = new Challenge();
+        $defi4->setEndDate(new \DateTime("2016-02-26"));
+        $defi4->setCreator($admin);
+        $defi4->setActivity($activity);
+        $defi4->setTime(7);
+        $defi4->setKilometres(100);
+        $defi4->setNbPoints(60);
+
+        $defi5 = new Challenge();
+        $defi5->setEndDate(new \DateTime("2016-02-23"));
+        $defi5->setCreator($stephane);
+        $defi5->setActivity($activity);
+        $defi5->setTime(4);
+        $defi5->setKilometres(20);
+        $defi5->setNbPoints(50);
+
+        $defi6 = new Challenge();
+        $defi6->setEndDate(new \DateTime("2016-03-01"));
+        $defi6->setCreator($jeremy);
+        $defi6->setActivity($activity);
+        $defi6->setTime(3);
+        $defi6->setKilometres(17);
+        $defi6->setNbPoints(50);
+
+        $manager->persist($defi1);
+        $manager->persist($defi2);
+        $manager->persist($defi3);
+        $manager->persist($defi4);
+        $manager->persist($defi5);
+        $manager->persist($defi6);
+>>>>>>> master
 
         $manager->persist($stephane);
         

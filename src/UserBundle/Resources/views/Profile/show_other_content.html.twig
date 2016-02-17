@@ -2,6 +2,7 @@
 	<div class="row center-align">
 		<div class="col s12 m4">
 			<div class="stat_defis hoverable left-align">Défis gagnés : {{ user.stats.nbWin }}<br/>Défis perdus : {{ user.stats.nbPlayed - user.stats.nbWin }}</div>
+
 		</div>
 		<div class="col s12 m4">
 			{% if user.avatar != null %}
@@ -12,7 +13,7 @@
 			{% endif %}
 		</div>
 		<div class="col s12 m4">
-			<div class="inscription_date hoverable">Objets connectés activés : {{user.possessedDevices|length}}</div>
+			<div class="inscription_date">Objets connectés activés : {{user.possessedDevices|length}}</div>
 		</div>
 		<div class="col s12 dashboard_pseudo">
 			<h1>{{ user.username }}</h1>

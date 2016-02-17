@@ -13,17 +13,6 @@ class Challenges
 		$this->em = $em;
 	}
 
-	//Récupération des 9 derniers défis
-	public function getLastChallenges(){
-		return $this->em->getRepository('AppBundle:Challenge')
-		->findBy(
-                   array(),								// $where
-                   array('creationDate' => 'DESC'),		// $orderBy
-                   9,									// $limit
-                   0									// $offset
-                   );
-	}
-
 	//Récupération des 9 défis les plus populaires
 	public function getBestChallenges(){
 		//Version résultat SQL
@@ -38,5 +27,29 @@ class Challenges
 		}
 
 		return $finalBestsChallenges;
+	}
+
+	//Récupération des défis terminés d'un utilisateur
+	public function getFinishedChallenges($user){
+		$challenges = $user->getChallengesAccepted();
+		$finishedChallenges = array();
+
+		foreach($challenges as $challenge){
+			if($challenge->getChallenge()->getEndDate() < new \DateTime())
+				array_push($finishedChallenges, $challenge->getChallenge());
+		}
+		return $finishedChallenges;
+	}
+
+	//Récupération des défis non terminés d'un utilisateur
+	public function getNotFinishedChallenges($user){
+		$challenges = $user->getChallengesAccepted();
+		$notFinishedChallenges = array();
+
+		foreach($challenges as $challenge){
+			if($challenge->getChallenge()->getEndDate() >= new \DateTime())
+				array_push($notFinishedChallenges, $challenge->getChallenge());
+		}
+		return $notFinishedChallenges;
 	}
 }

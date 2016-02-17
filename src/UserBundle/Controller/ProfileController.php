@@ -43,7 +43,6 @@ class ProfileController extends BaseController
             'nextLevel' => $nextLevel
             ));
     }
-    
     /**
      * Edit the user
      */

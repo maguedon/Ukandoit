@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class CheckChallengesCommand extends ContainerAwareCommand
 {
@@ -35,6 +36,54 @@ class CheckChallengesCommand extends ContainerAwareCommand
         $container = $this->getContainer();
         $em = $container->get('doctrine')->getManager();
         $ukandoit = $container->get("app.ukandoit");
+<<<<<<< HEAD
+=======
+        $levels = $em->getRepository('AppBundle:Level')->findAll();
+
+        $today = date("Y-m-d");
+        $current_day = new DateTime($today);
+        $users =  $em->getRepository('AppBundle:User')->findAll();
+        foreach($users as $user){
+            $user_devises = $user->getPossessedDevices();
+
+            foreach($user_devises as $devise){
+                switch($devise->getDeviceType()){
+
+                    case "Withings Activité Pop":
+                        $withings = $container->get('app.withings');
+                        $withings->authenticate($devise);
+                        $activities = $withings->getActivities($devise->getUserIdWithings(), $current_day->format('Y-m-d'), $current_day->format('Y-m-d'));
+                        $dailySteps = $ukandoit->getSteps($activities["global"]);
+
+                        break;
+
+                    case "Jawbone UP 24":
+                        $jawbone = $container->get('app.jawbone');
+                        $activities = $jawbone->getMoves($devise->getAccessTokenJawbone(), $current_day->format('Y-m-d'), $current_day->format('Y-m-d'));
+                        $dailySteps = $ukandoit->getSteps($activities["global"]);
+
+                        break;
+
+                    case "Google Fitness":
+                        $activities = array();
+
+                        break;
+
+                    default:
+                        $activities = array();
+                        break;
+                }
+
+                $pointsWon = $ukandoit->getDailyPoints($dailySteps);
+                $user->addPoints($pointsWon, $levels);
+                $em->flush();
+            }
+
+        }
+
+
+
+>>>>>>> master
 
         $levels = $em->getRepository('AppBundle:Level')->findAll();
 
@@ -164,6 +213,7 @@ class CheckChallengesCommand extends ContainerAwareCommand
                     }
 
 
+<<<<<<< HEAD
                 }
 
                 for($i=0; $i<count($classement)-1; $i++){
@@ -180,6 +230,24 @@ class CheckChallengesCommand extends ContainerAwareCommand
                         }
                     }
                 }
+=======
+                }
+
+                for($i=0; $i<count($classement)-1; $i++){
+                    if($classement[$i]['performance'] < $classement[$i+1]['performance']){
+                        $tmp = $classement[$i];
+                        $classement[$i] = $classement[$i+1];
+                        $classement[$i+1] = $tmp;
+                    }
+                    for($j=$i; $j>0; $j--){
+                        if($classement[$j]['performance'] > $classement[$j-1]['performance']){
+                            $tmp = $classement[$j];
+                            $classement[$j] = $classement[$j-1];
+                            $classement[$j-1] = $tmp;
+                        }
+                    }
+                }
+>>>>>>> master
                 //krsort($classement);
                 $this->getChallengePoints($classement, $objective); //attribution des points !!
             }

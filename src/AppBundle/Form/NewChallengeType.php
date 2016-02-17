@@ -21,9 +21,7 @@ class NewChallengeType extends ChallengeType
             ->remove('creationDate', 'datetime')
             ->remove('creator')
             ->remove('challengers')
-            ->remove('nbPointsFirst')
-            ->remove('nbPointsSecond')
-            ->remove('nbPointsThird')
+            ->remove('nbPoints')
             ->add('endDate', 'date', array(
                 'widget' => 'single_text',
                 'input' => 'datetime',

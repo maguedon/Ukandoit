@@ -22,14 +22,14 @@ class NewImageType extends ImageType
             'label'=>false,
             'uploadConfig' => array(
                         'uploadUrl' => 'images/avatars',       // required - see explanation below (you can also put just a dir path)
-                        'webDir' => 'web/images/avatars',               // required - see explanation below (you can also put just a dir path)
+                        'webDir' => 'ukandoit/web/images/avatars',               // required - see explanation below (you can also put just a dir path)
                         'fileExt' => '*.jpg;*.gif;*.png;*.jpeg',    //optional
                          'showLibrary' => false,                      //optional
             'saveOriginal' => false           //optional
                         ),
             'cropConfig' => array(
-                'minWidth' => 200,
-                'minHeight' => 200,
+                'minWidth' => 400,
+                'minHeight' => 400,
                         'aspectRatio' => true,              //optional
                         'cropRoute' => 'comur_api_crop',    //optional
                         'forceResize' => false,             //optional
