@@ -1,0 +1,58 @@
+.progress_bar {
+
+	html{
+		height: 100%;
+	}
+
+	body{
+		min-height: 100%;
+		position: relative;
+		text-align: center;
+		padding-top: 100px;
+		color: red;
+		font-weight: 100;
+		letter-spacing: 1px;
+		line-height: 1;
+	}
+
+	a{
+		display: block;
+		margin-bottom: 1em;
+		color: red;
+		text-decoration: none;
+		&:last-of-type{
+			font-size: 0.9em;
+		}
+		&:hover{
+			text-decoration: underline;
+		}
+	}
+
+
+	.chart{
+		display: inline-block;
+		width: 95px;
+		height: 95px;
+		margin: 0 10px;
+		vertical-align: top;
+		position: relative;  
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		margin: auto;
+		.align-vertical();
+
+		span{
+			display: block;
+			font-weight: normal;
+			margin: auto;
+
+		}
+
+		canvas{
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	}
+}
