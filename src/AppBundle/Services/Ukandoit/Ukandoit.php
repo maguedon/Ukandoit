@@ -76,9 +76,7 @@ class Ukandoit
                             $param_value += $this->getDistance($json['global']['days'][$next_day->format("Y-m-d")]);
                         else
                             $param_value += $this->getSteps($json['global']['days'][$next_day->format("Y-m-d")]);
-
-                    //var_dump($next_day->format("Y-m-d"), $param_value);
-
+                        
                         $next_day->modify('+1 day');
                     }
                 }
