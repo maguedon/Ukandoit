@@ -12,6 +12,7 @@ class GoogleFit
     public $service; // A METTRE EN PRIVATE
     private $access_token;
     private $refresh_token;
+    private $expires_in;
 
     function __construct($consumer_key = null, $consumer_secret = null, $callback_url = null, $access_token_key = null, $access_token_secret = null, $user_id = null)
     {
@@ -44,6 +45,7 @@ class GoogleFit
             $refreshToken = $tokens_decoded->refresh_token;
             $this->setAccessToken($token["access_token"]);
             $this->setRefreshToken($refreshToken);
+            $this->setExpiresIn($token['expires_in']);
         }
         else{
             return false;
@@ -51,7 +53,8 @@ class GoogleFit
     }
 
     public function authenticate($possessedDevice){
-        $this->google->setAccessToken($possessedDevice->getAccessTokenGoogle());
+        $accessToken = array("access_token" => $possessedDevice->getAccessTokenGoogle(), "expires_in" => $possessedDevice->getGoogleTokenExpiration());
+        $this->google->setAccessToken($accessToken);
         $this->service = new Google_Service_Fitness($this->google);
        /* $idtoken = $this->google->verifyIdToken();
         var_dump($idtoken);*/
@@ -104,6 +107,10 @@ class GoogleFit
         $this->refresh_token = $refresh_token;
     }
 
+    public function setExpiresIn($expires_in){
+        $this->expires_in = $expires_in;
+    }
+
     public function getConsumerKey()
     {
         return $this->getConsumerKey();
@@ -132,6 +139,10 @@ class GoogleFit
     public function getRefreshToken()
     {
         return $this->refresh_token;
+    }
+
+    public function getExpiresIn(){
+        return $this->expires_in;
     }
 }
 

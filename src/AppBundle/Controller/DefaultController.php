@@ -405,10 +405,13 @@ class DefaultController extends Controller
 
         $google = $this->get("app.googlefit");
         $code = $google->getToken();
+        
+        $possessedDevice->setGoogleTokenExpiration($code['expires_in']);
 
         if ($code !== false || $google->getAccessToken() !== null /*|| $google->getRefreshToken() !== null*/){
             $possessedDevice->setAccessTokenGoogle($google->getAccessToken());
             $possessedDevice->setRefreshTokenGoogle($google->getRefreshToken());
+            $possessedDevice->setGoogleTokenExpiration($google->getExpiresIn());
             $em->persist($possessedDevice);
             $em->flush();
         }
@@ -428,6 +431,8 @@ class DefaultController extends Controller
             return $this->redirectToRoute('objects'); //possessedDevice ID n'existe pas !
 
         $google = $this->get("app.googlefit");
+    //    $code = $google->getToken();
+
         $updated = $google->authenticate($possessedDevice);
      /*   if ($updated == true){
             $em = $this->get('doctrine')->getManager();
@@ -445,7 +450,7 @@ class DefaultController extends Controller
             //'activities' => $json["body"]["activities"],
            'sources' => $sources,
             'sets' => $sets,
-           // 'list' => $list
+            'list' => $list
         ));
     }
     /**

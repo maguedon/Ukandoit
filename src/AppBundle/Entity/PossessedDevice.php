@@ -70,6 +70,13 @@ class PossessedDevice
     private $refreshTokenGoogle;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="google_token_expiration", type="integer", nullable=true)
+     */
+    private $googleTokenExpiration;
+
+    /**
      * @ORM\ManyToOne(targetEntity="DeviceType")
      * @ORM\JoinColumn(name="deviceType_id", referencedColumnName="id")
      */
@@ -340,5 +347,29 @@ class PossessedDevice
     public function getRefreshTokenGoogle()
     {
         return $this->refreshTokenGoogle;
+    }
+
+    /**
+     * Set googleTokenExpiration
+     *
+     * @param integer $googleTokenExpiration
+     *
+     * @return PossessedDevice
+     */
+    public function setGoogleTokenExpiration($googleTokenExpiration)
+    {
+        $this->googleTokenExpiration = $googleTokenExpiration;
+
+        return $this;
+    }
+
+    /**
+     * Get googleTokenExpiration
+     *
+     * @return integer
+     */
+    public function getGoogleTokenExpiration()
+    {
+        return $this->googleTokenExpiration;
     }
 }
