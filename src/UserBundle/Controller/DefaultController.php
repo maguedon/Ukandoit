@@ -26,6 +26,28 @@ class DefaultController extends Controller
 
     }
 
+    /**
+     * @Route("/user/reset", name="user_reset")
+     */
+    public function resetUser(){
+        // Si on n'est pas connecté on redirige vers login
+        $current_user = $this->container->get('security.context')->getToken()->getUser();
+        if($current_user == "anon.")
+            return $this->redirectToRoute('fos_user_security_login');
+
+        $em = $this->get('doctrine')->getManager();
+        
+        $possessedDevices = $current_user->getPossessedDevices();
+        foreach($possessedDevices as $possessedDevice){
+            $em->remove($possessedDevice);
+        }
+
+        $em->flush();
+
+        $this->setFlash("message", "Votre compte a été réinitialisé.");
+        return $this->redirect($this->generateUrl('fos_user_profile_show'));
+    }
+
 
     /**
      * @Route("/user/challenges", name="my_challenges")
@@ -73,7 +95,6 @@ class DefaultController extends Controller
 
             //Si l'objet n'existe pas, on le crée
             if(!$already_exist){
-
             // Enregistrement de l'objet
 /*                $em = $this->get('doctrine')->getManager();
                 $em->persist($possessedDevice);
@@ -119,14 +140,13 @@ class DefaultController extends Controller
         return $this->redirectToRoute('objects');
     }
 
-
-
-	/**
+    /**
      * @Route("/user/{id}", name="user_other")
      */
     public function showOtherAction($id){
         $em = $this->get('doctrine')->getManager();
         $user = $em->getRepository("AppBundle:User")->find($id);
+
         $nextLevel = $em->getRepository('AppBundle:Level')->findOneBy(array('numLevel' => $user->getLevel() + 1));
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show_other.html.twig', array(
