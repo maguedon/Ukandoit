@@ -393,7 +393,7 @@ class Challenge
                 $this->setDifficultyByKilometers($this->kilometres);
             // En nombre de pas
             else
-                $this->setDifficultyBySteps($this->steps);
+                $this->setDifficultyBySteps($this->nbSteps);
         }
         // Si le challenge est sur plusieurs jours
         else{
@@ -403,7 +403,7 @@ class Challenge
             }
             // En nombre de pas
             else{
-                $steps_one_day = $this->steps / $this->time;
+                $steps_one_day = $this->nbSteps / $this->time;
                 $this->setDifficultyBySteps($steps_one_day);  
             }
         }
