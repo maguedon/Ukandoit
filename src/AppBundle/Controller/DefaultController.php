@@ -756,7 +756,7 @@ return $this->render("AppBundle:Default:add_defis.html.twig", array(
                 $data['time'] = 1;
             }
             else{
-                $data['time'] = ($time2 - $time1)/(60*60*24);
+                $data['time'] = ($time2 - $time1)/(60*60*24)+1;
             }
 
             $possessedDevice = $this->getDoctrine()->getRepository('AppBundle:PossessedDevice')->find($id_montre);
