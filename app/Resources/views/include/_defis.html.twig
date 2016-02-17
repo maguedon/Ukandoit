@@ -95,17 +95,8 @@
 		{% endif %}
 	</div>
 	<div class="modal-footer">
-
-	<button  id="form_defi_send" class="btn_send waves-effect waves-light btn modal-trigger"  value="{{ challenge.id }}">Relever le défi !</button>
-
-	<div class="pick_share">
-		
-	</div>
-
-<!-- 	https://twitter.com/intent/tweet?hashtags=ukandoit&original_referer=https%3A%2F%2Fukandoit.fr%2Fdefi%2F67%2F&ref_src=twsrc%5Etfw&text=J%27ai%20relev%C3%A9%20le%20d%C3%A9fi%20de%20njournet%20sur%20Ukandoit.fr%20!%20Rel%C3%A8verez-vous%20le%20challenge%20%3F&tw_p=tweetbutton&url=https%3A%2F%2Fukandoit.fr%2Fdefi%2F67%2F&via=ukando_it -->
-<!-- 	<a href="https://twitter.com/share?hashtags=ukandoit&original_referer=https%3A%2F%2Fukandoit.fr%2Fdefi%2F67%2F&ref_src=twsrc%5Etfw&text=J%27ai%20relev%C3%A9%20le%20d%C3%A9fi%20de%20njournet%20sur%20Ukandoit.fr%20!%20Rel%C3%A8verez-vous%20le%20challenge%20%3F&tw_p=tweetbutton&url=https%3A%2F%2Fukandoit.fr%2Fdefi%2F{{ challenge.id }}%2F&via=ukando_it" class="btn_send waves-effect waves-light btn modal-trigger 	" data-text="J'ai relevé le défi de {{ challenge.creator }} sur Ukandoit.fr ! Relèverez-vous le challenge ?" data-via="ukando_it" data-hashtags="ukandoit">Participer et Twitter !</a>	 -->
-<!-- 		<a data-text="J'ai relevé le défi de {{ challenge.creator }} sur Ukandoit.fr ! Relèverez-vous le challenge ?" data-via="ukando_it" data-hashtags="ukandoit" value="{{ challenge.id }} " target="_blank"  class="btn_send waves-effect waves-light btn modal-trigger"  href="https://twitter.com/share" id="form_defi_send"  >Participer et Twitter !</a> -->
-
+		<button  id="form_defi_send" class="btn_send waves-effect waves-light btn modal-trigger"  value="{{ challenge.id }}">Relever le défi !</button>
+		<div class="pick_share"></div>
 		{% else %}
 		<h4>Vous n'êtes pas connecté</h4>
 		<p>Veuillez vous connecter ou vous inscrire pour relever le défi !</p>

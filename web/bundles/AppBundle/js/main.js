@@ -137,19 +137,13 @@ $(document).ready(function() {
 
 // -------------- A defnir --------------
 
-  /*  EnableSubmit = function(val) {
-        var sbmt = document.getElementById("form_defi_send");
-        $(sbmt).removeAttr("disabled");
-
-    }*/
-
-    var modalDefis = $(".modal_defis");
+ var modalDefis = $(".modal_defis");
 
     modalDefis.on("click", function() {
         var defi_id = $(this).attr("value");
         var defi_creator = $(this).attr("creator");
         var url = window.location.protocol + "//" + window.location.host;
-        var url_defi = url + '/defis/' + defi_id;
+        var url_defi = url + '/defi/' + defi_id;
         // generate share btn
         $(".pick_share").append('<a href="https://twitter.com/share?hashtags=ukandoit&original_referer=https%3A%2F%2Fukandoit.fr%2Fdefi%2F67%2F&ref_src=twsrc%5Etfw&text=J%27ai%20relev%C3%A9%20le%20d%C3%A9fi%20de%20'+defi_creator+'%20sur%20Ukandoit.fr%20!%20Rel%C3%A8verez-vous%20le%20challenge%20%3F&tw_p=tweetbutton&url='+url_defi+'&via=ukando_it" class="btn_send waves-effect waves-light btn modal-trigger" target="_blank" data-text="J%27ai relevé le défi de {{ challenge.creator }} sur Ukandoit.fr ! Relèverez-vous le challenge ?" data-via="ukando_it" data-hashtags="ukandoit" >Participer et Twitter !</a>');
 
@@ -159,16 +153,10 @@ $(document).ready(function() {
 
         $("#form_defi_send").on("click", function() {
             var objet_id = $('input[name=object_form]:checked', '#form_defi').val();
-           // var url = window.location.protocol + "//" + window.location.host;
-            // remplacer par window.location.protocol + "//" + window.location.host + "/" en prod)
             location.href = url + '/defis/' + defi_id + '/' + objet_id + '/accepted';
-            /* $.post("challenges", {var_value: objet_id}, function(data){
-            alert("data sent and received: "+data);
-            });*/
         });
 
         $('#modal1').openModal();
-        //$(".modal_defis").leanModal();
 
         var leanOverlay = $(".lean-overlay");
 
@@ -195,9 +183,7 @@ $(document).ready(function() {
         var challengeType = $(this).attr("name");
 
         if(challengeType == "redirect-login"){
-
             location.href = window.location.protocol + "//" + window.location.host + "/login#login-page";
-
         }else{
             $(".home .defis div.round_tab").removeClass("active");
             $(this).addClass("active");
@@ -210,23 +196,25 @@ $(document).ready(function() {
 
 // --------------  toastr options -------------- //
 
-    /*toastr.options = {
-        "closeButton": false,
+    /*
+    toastr.options = {
+        "closeButton": true,
         "debug": false,
         "newestOnTop": false,
         "progressBar": false,
         "positionClass": "toast-top-center",
         "preventDuplicates": false,
         "onclick": null,
-        "showDuration": "10000000",
+        "showDuration": "1000",
         "hideDuration": "1000",
-        "timeOut": "500000",
-        "extendedTimeOut": "100000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
         "showEasing": "swing",
         "hideEasing": "linear",
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
-    }*/
+    }
+    */
 
 // -------------- Confirmation suppression objet ----------- //
     $(".objects a[name='delete']").click(function(){
