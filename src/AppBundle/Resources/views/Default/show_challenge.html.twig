@@ -45,16 +45,16 @@
 						{% set classement = 0 %}
 						{% set participe = false %}
 						{% for participant in participants %}
-						{% if app.user != null %}
-						{% if app.user.id == participant.userid %}
-						{% set rang = classement + 1 %}
-						{% set appareil = participant.device %}
-						{% set performance = participant.performance %}
-						{% set mesure = participant.mesure %}
-						{% set participe = true %}
-						{% endif %}
-						{% set classement = classement + 1 %}
-						{% endif %}
+							{% if app.user != null %}
+								{% if app.user.id == participant.userid %}
+									{% set rang = classement + 1 %}
+									{% set appareil = participant.device %}
+									{% set performance = participant.performance %}
+									{% set mesure = participant.mesure %}
+									{% set participe = true %}
+								{% endif %}
+								{% set classement = classement + 1 %}
+							{% endif %}
 						{% endfor %}
 						{% if participe == false %}
 						<p>Vous ne participez pas au défi</p>
