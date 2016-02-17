@@ -132,13 +132,6 @@ class DefaultController extends Controller
             $form_data_possessedDevice = $_POST["possessedDeviceFormOne"];
             $form_data_currentDate = $challenge->getCreationDate();
 
-            if($form_data_nbKm != null && $form_data_nbKm != 0 && $form_data_nbKm != "0"){
-                $form_data_title = "Objectif ".$form_data_nbKm." km en ".$form_data_time. " jour(s)";
-            }
-            else if ($form_data_nbSteps != null && $form_data_nbSteps != 0 && $form_data_nbSteps != "0"){
-                $form_data_title = "Objectif ".$form_data_nbSteps." pas en ".$form_data_time. " jour(s)";
-            }
-
             $avoid_error = $form_data_time ;
             if($avoid_error < 0){
                 $avoid_error = 0;
@@ -203,13 +196,6 @@ class DefaultController extends Controller
         $form_data_activity = $formTwo->get("activity")->getData();
         $form_data_possessedDevice = $_POST["possessedDeviceFormTwo"];
         $form_data_currentDate = $challenge->getCreationDate();
-
-        if($form_data_nbKm != null && $form_data_nbKm != 0 && $form_data_nbKm != "0"){
-            $form_data_title = "Objectif ".$form_data_nbKm." km en ".$form_data_time. " jour(s)";
-        }
-        else if ($form_data_nbSteps != null && $form_data_nbSteps != 0 && $form_data_nbSteps != "0"){
-            $form_data_title = "Objectif ".$form_data_nbSteps." pas en ".$form_data_time. " jour(s)";
-        }
 
         $avoid_error = $form_data_time ;
         if($avoid_error < 0){

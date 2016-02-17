@@ -32,7 +32,7 @@ class ChallengeRepository extends \Doctrine\ORM\EntityRepository {
 
 		public function findByLowerId($id)
 		{
-			$sql = "SELECT DISTINCT c.id, c.creator_id, c.activity_id, c.title, c.creationDate, c.endDate " .
+			$sql = "SELECT DISTINCT c.id, c.creator_id, c.activity_id, c.creationDate, c.endDate " .
 			"FROM challenge c ".
 			"INNER JOIN user ON c.creator_id = user.id " .
 			"WHERE c.id < $id " .
