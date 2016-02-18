@@ -80,9 +80,6 @@ class DefaultController extends Controller
             'input' => 'datetime',
             'format' => 'dd/MM/yyyy',
             'attr' => array('class' => 'date')))
-        ->add('activity', 'entity', array(
-            'class' => 'AppBundle:Activity',
-            'property' => 'name'))
         ->add('nbSteps', 'integer', array(
             'required' => false))
         ->add('kilometres', 'number', array(
@@ -105,9 +102,6 @@ class DefaultController extends Controller
             'input' => 'datetime',
             'format' => 'dd/MM/yyyy',
             'attr' => array('class' => 'date')))
-        ->add('activity', 'entity', array(
-            'class' => 'AppBundle:Activity',
-            'property' => 'name'))
         ->add('nbSteps', 'integer', array(
             'required' => false))
         ->add('kilometres', 'number', array(
@@ -128,7 +122,7 @@ class DefaultController extends Controller
             $form_data_time = $formOne->get("time")->getData();
             $form_data_nbKm = $formOne->get("kilometres")->getData();
             $form_data_nbSteps = $formOne->get("nbSteps")->getData();
-            $form_data_activity = $formOne->get("activity")->getData();
+            $form_data_activity = $this->getDoctrine()->getRepository('AppBundle:Activity')->find(3);
             $form_data_possessedDevice = $_POST["possessedDeviceFormOne"];
             $form_data_currentDate = $challenge->getCreationDate();
 
@@ -200,7 +194,7 @@ class DefaultController extends Controller
         $form_data_time = $formTwo->get("time")->getData();
         $form_data_nbKm = $formTwo->get("kilometres")->getData();
         $form_data_nbSteps = $formTwo->get("nbSteps")->getData();
-        $form_data_activity = $formTwo->get("activity")->getData();
+        $form_data_activity = $this->getDoctrine()->getRepository('AppBundle:Activity')->find(3);
         $form_data_possessedDevice = $_POST["possessedDeviceFormTwo"];
         $form_data_currentDate = $challenge->getCreationDate();
 

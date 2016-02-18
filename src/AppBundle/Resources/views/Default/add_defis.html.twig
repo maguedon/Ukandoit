@@ -29,8 +29,11 @@
 								<label>à 23h59</label>
 							</div>
 								<div class="input-field col s12 m6">
-									{{ form_widget(formOne.activity, { 'attr': {'class': 'form-control'} }) }}
-									{{ form_errors(formOne.activity) }}
+									<select name="activity-choice" required>
+										<option value="marche" selected>Marche</option>
+										<option disabled value="">Course (A venir)</option>
+										<option disabled value="">Nage (A venir)</option>
+									</select>
 									<label for="activity">Activité correspondante</label>
 								</div>
 								<div class="input-field col s12">
@@ -149,8 +152,11 @@
 						<label for="formTwo_time">En combien de jour ?</label>
 					</div>
 					<div class="input-field form-group col s12">
-						{{ form_widget(formTwo.activity, { 'attr': {'class': 'form-control'} }) }}
-						{{ form_errors(formTwo.activity) }}
+						<select name="activity-choice" required>
+							<option value="marche" selected>Marche</option>
+							<option disabled value="">Course (A venir)</option>
+							<option disabled value="">Nage (A venir)</option>
+						</select>
 						<label for="activity">Activité correspondante</label>
 					</div>
 					<div class="form-group">
