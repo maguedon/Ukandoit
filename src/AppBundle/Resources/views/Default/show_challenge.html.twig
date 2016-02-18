@@ -10,8 +10,25 @@
 			</div>
 		</div>
 	</section>
+	{% set rang = null %}
+	{% set appareil = null %}
+	{% set performance = null %}
+	{% set mesure = null %}
+	{% set classement = 0 %}
+	{% set participe = false %}
+	{% for participant in participants %}
+		{% if app.user != null %}
+			{% if app.user.id == participant.userid %}
+				{% set rang = classement + 1 %}
+				{% set appareil = participant.device %}
+				{% set performance = participant.performance %}
+				{% set mesure = participant.mesure %}
+				{% set participe = true %}
+			{% endif %}
+			{% set classement = classement + 1 %}
+		{% endif %}
+	{% endfor %}
 	
-
 	<div class="row ">
 		<div class="defi col s12 ">
 			<div class="bande_rouge">
@@ -31,63 +48,84 @@
 						{% if challenge.kilometres != null %}
 						<p> <div class="texte_rouge">Distance min. </div>: {{ challenge.kilometres }}km</p>
 						{% else %}
-						<p> <div class="texte_rouge">Nombre de pas</div> min. : {{ challenge.nbSteps }}pas</p>
+						<p> <div class="texte_rouge">Nombre de pas</div> min. : {{ challenge.nbSteps }} pas</p>
 						{% endif %}
 						<p>	<div class="texte_rouge">Durée</div> : Du {{ challenge.creationDate|date("d M. Y" )}} au {{ challenge.endDate|date("d M. Y" )}}</p>
 						<p>	<div class="texte_rouge">Nombre de participants</div> : {{ challenge.userChallenges|length }} parts. </p>
 						<p>	<div class="texte_rouge">Nombres de points </div> à gagner : {{ challenge.nbPoints }} exp.</p>
-					</div>
-					<div class="col s12 m6 ">
-						{% set rang = null %}
-						{% set appareil = null %}
-						{% set performance = null %}
-						{% set mesure = null %}
-						{% set classement = 0 %}
-						{% set participe = false %}
-						{% for participant in participants %}
-							{% if app.user != null %}
-								{% if app.user.id == participant.userid %}
-									{% set rang = classement + 1 %}
-									{% set appareil = participant.device %}
-									{% set performance = participant.performance %}
-									{% set mesure = participant.mesure %}
-									{% set participe = true %}
-								{% endif %}
-								{% set classement = classement + 1 %}
-							{% endif %}
-						{% endfor %}
-						{% if participe == false %}
-						<p>Vous ne participez pas au défi</p>
-						<div data-target="modal1"  class="card-action modal_defis" id="1" value="{{ challenge.id }}">
-							<a  href="#!" class="texte_rouge">Ikando'it !</a>
-						</div>
-						{% else %}
-						<p> <div class="texte_rouge">Nom </div> : {{ app.user.username }}</p>
-						<p> <div class="texte_rouge">Rang </div> : {{ rang }}</p>
-						<p> <div class="texte_rouge">Appareil </div> : {{ appareil }}</p>
-						<p> <div class="texte_rouge">Performance </div> : {{ performance }} {{ mesure }}</p>
-						<div class="col s12 del_action">
-							{% if app.user.id == challenge.creator.id and challenge.userChallenges|length <= 1 %}
-							<a href ="{{ path('delete_challenge', {'id': challenge.id}) }}" class="texte_rouge">Supprimer <i class="material-icons check">delete</i></a>
-							{% else %}
-							<a href ="{{ path('surrender', {'id': challenge.id}) }}" class="texte_rouge">Abandonner <i class="material-icons check">phonelink_erase</i></a>
-							{% endif %}
-						</div>
+						{% if participe == true %}
+
 						<div class="row">
 							<div class="col s12 valign-wrapper">
 								<a href="https://twitter.com/share" class="twitter-share-button" data-text="J'ai relevé le défi de {{ challenge.creator }} sur Ukandoit.fr ! Relèverez-vous le challenge ?" data-via="ukando_it" data-hashtags="ukandoit">Tweet</a>
-					
+								
 								<div class="fb-share-button" data-href="" data-layout="button"></div>
 								<div id="fb-root"></div>
 							</div>
 						</div>
 						{% endif %}
+
 					</div>
+					<div class="col s12 m6 ">
+						
+						{% if participe == false %}
+						<p>Vous ne participez pas au défi</p>
+						{% else %}
+						<p> <div class="texte_rouge">Nom </div> : {{ app.user.username }}</p>
+						<p> <div class="texte_rouge">Rang </div> : {{ rang }}</p>
+						<p> <div class="texte_rouge">Appareil </div> : {{ appareil }}</p>
+						<p> <div class="texte_rouge">Performance </div> : {{ performance }} {{ mesure }}</p>
+				
+
+						<div class="row">
+							{% if challenge.kilometres != null %}
+							{% set pourcent = performance %}
+							{% set pourcent = (pourcent / challenge.kilometres)*100 %}
+							{% else %}
+							{% set pourcent = performance %}
+							{% set pourcent = (pourcent / challenge.nbSteps)*100 %}
+							{% endif %}
+							{% if pourcent > 100 %}
+							{% set pourcent = 100 %}
+							{% endif %}
+
+							<div class="progress_bar">
+								<div class="chart" data-percent="{{pourcent|number_format}}"><span>{{pourcent|number_format}} %</span></div>
+							</div>
+
+						</div>
+
+
+						{% endif %}
+					</div>
+					<div class="col s12 del_action">
+						{% if participe == false %}
+						<div data-target="modal1"  class="card-action modal_defis" id="1" value="{{ challenge.id }}"  creator="{{ challenge.creator }} ">
+						<div class="center-align">	
+							<a  href="#!" class="waves-effect waves-light btn modal-trigger">Ikando'it !</a>
+						</div>
+						</div>
+						{% else %}
+						{% if app.user.id == challenge.creator.id and challenge.userChallenges|length <= 1 %}
+						<div class="center-align">	
+							<a href ="{{ path('delete_challenge', {'id': challenge.id}) }}" class="waves-effect waves-light btn"><span>Supprimer</span><i class="material-icons check">delete</i></a>
+						</div> 
+						{% else %}
+						<div class="center-align">	
+
+							<a href ="{{ path('surrender', {'id': challenge.id}) }}" class="waves-effect waves-light btn"><span>Abandonner</span> <i class="material-icons check">phonelink_erase</i></a>
+						</div> 
+
+						{% endif %}
+						{% endif %}
+					</div>
+
 				</div>
 			</div>
 		</div>
 
 	</div>
+
 
 
 	{% if participants|length == 0 %}
@@ -185,6 +223,8 @@
 	{% endif %}
 	{% endif %}
 </div>
+
+
 <div id="modal1" class="modal bottom-sheet">
 	<div class="modal-content">
 		{% if app.user %}
@@ -212,6 +252,7 @@
 	</div>
 	<div class="modal-footer">
 		<button  id="form_defi_send" class="btn_send waves-effect waves-light btn modal-trigger"  value="{{ challenge.id }}">Relever le défi !</button>
+		<div class="pick_share"></div> {# append le twitt #}
 		{% else %}
 		<h4>Vous n'êtes pas connecté</h4>
 		<p>Veuillez vous connecter ou vous inscrire pour relever le défi !</p>
