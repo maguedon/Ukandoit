@@ -153,7 +153,7 @@ class Jawbone{
 				"steps" => $data['steps'],
 				"active_time" => $data['active_time'],
 				"details" => $hours
-			);
+				);
 		}
 
 		$result = array(
@@ -200,11 +200,24 @@ class Jawbone{
 			);
 
 		$url = $url . http_build_query($param);
-		$context = stream_context_create($opts);
+		// $context = stream_context_create($opts);
 
-		$response = file_get_contents($url, false, $context);
+		// $response = file_get_contents($url, false, $context);
 
-		$moves = json_decode($response, true);
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_HEADER, false);
+		curl_setopt($curl,CURLOPT_HTTPHEADER,array(
+				'method'=>"GET",
+				'header'=>"Authorization: Bearer {$access_token}\r\n"
+				));
+		$data = curl_exec($curl);
+		curl_close($curl);
+
+
+		$moves = json_decode($data, true);
+		//$moves = json_decode($response, true);
 		return $this->standardizeJSON($moves['data']);
 	}
 }

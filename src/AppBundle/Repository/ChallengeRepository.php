@@ -48,12 +48,13 @@ class ChallengeRepository extends \Doctrine\ORM\EntityRepository {
 
 		public function findByEndDate($nbMax){
 			$em = $this->getEntityManager();
+			$current_date = date("Y-m-d") . "00:00:00";
 			$query = $em->createQuery(
 			    'SELECT c
 			    FROM AppBundle:Challenge c
 			    WHERE c.endDate >= :currenDate
 			    ORDER BY c.id DESC'
-			)->setParameter('currenDate', new \DateTime());
+			)->setParameter('currenDate', new \DateTime($current_date));
 
 			return $query->setMaxResults($nbMax)->getResult();
 		}

@@ -40,10 +40,10 @@ class CheckChallengesCommand extends ContainerAwareCommand
 
         $today = date("Y-m-d");
         $current_day = new \DateTime($today);
+        $current_day->modify("-1 day");
         $users =  $em->getRepository('AppBundle:User')->findAll();
         foreach($users as $user){
             $user_devises = $user->getPossessedDevices();
-
             foreach($user_devises as $devise){
                 switch($devise->getDeviceType()){
 
@@ -59,7 +59,6 @@ class CheckChallengesCommand extends ContainerAwareCommand
                         $jawbone = $container->get('app.jawbone');
                         $activities = $jawbone->getMoves($devise->getAccessTokenJawbone(), $current_day->format('Y-m-d'), $current_day->format('Y-m-d'));
                         $dailySteps = $ukandoit->getSteps($activities["global"]);
-
                         break;
 
                     case "Google Fitness":
