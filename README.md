@@ -6,7 +6,7 @@ Défiez la communauté afin de progresser sur le podium de Ukando'it en remporta
 
 # Description
 
-Ukando'it est un projet étudiant DAWIN de l'IUT de de Bordeaux.
+Ukando'it est un projet étudiant DAWIN de l'IUT de Bordeaux.
 Ce projet est réalisé avec Symfony. 
 Nous traîtons les API de Jawbone et Withings
 
