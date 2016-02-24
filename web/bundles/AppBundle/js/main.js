@@ -1,5 +1,12 @@
 $(document).ready(function() {
 
+    // -------------- Blocage des inscriptions --------------
+
+    $("#fos_user_registration_form input[type=submit]").click(function(event){
+        event.preventDefault();
+        event.stopPropagation();
+    });
+
     // -------------- Initialisation du parallax --------------
     $('.parallax').parallax();
 

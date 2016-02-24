@@ -9,6 +9,16 @@
 
 </section>
 
+<section class="mode-demo">
+    <div class="row">
+        <div class="col offset-m2 m8">
+            <div class="warm_message card-panel green accent-4 lighten-2">
+                Les inscriptions sont désactivées ! Le site ne permet plus le traitement des données de nouveaux utiliateurs puisque la période de projets étudiants est terminée. Cependant, il reste visible en tant que démonstration.
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
 
@@ -21,13 +31,13 @@
             </div>
 
             <div class="card-panel">
-            <div class="row">
-                <div class="col s12">
+                <div class="row">
+                    <div class="col s12">
                         <small>
-                * Les champs précisés d'une (*) sont obligatoires.
-            </small>
+                            * Les champs précisés d'une (*) sont obligatoires.
+                        </small>
+                    </div>
                 </div>
-            </div>
                 <div class="input-field form-group col s12 m6">
                     {{ form_widget(form.firstname, { 'attr': {'class': 'form-control' } }) }}
                     <label for="last_name">Prénom</label>
@@ -92,12 +102,12 @@
                 </div>#}
 
                 <div class="col s12">
-                  
-                            {{ form_widget(form.avatar) }}
 
-                            {{ form_errors(form.avatar) }}
-                        </div>
-                       
+                    {{ form_widget(form.avatar) }}
+
+                    {{ form_errors(form.avatar) }}
+                </div>
+
 
 
                 {{ form_rest(form) }}
@@ -105,7 +115,7 @@
                     <div class="btn_centre">
                         <div class="col s12 g-recaptcha" data-sitekey="6LcJBBcTAAAAAKQIlh3sCogXUGMUb7D_yQEN63C-"></div>
 
-                        <input type="submit" value="{{ 'Inscription' |trans({}, 'FOSUserBundle') }} "class="btn btn-primary btn-block btn-lg" tabindex="7" title="s'inscrire">
+                        <input type="submit" value="{{ 'Inscription' |trans({}, 'FOSUserBundle') }} "class="btn btn-primary btn-block btn-lg disabled" tabindex="7" title="s'inscrire">
                     </div>
                 </div>
 
